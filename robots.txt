@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /*?q=
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://parkingnetherlands.com/sitemap.xml
+
+# AI/LLM crawlers — see llms.txt for content guidance
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /

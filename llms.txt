@@ -1,0 +1,79 @@
+# Parking Netherlands
+
+> Free, independent guide to parking across the Netherlands. Updated 2026 with real prices, P+R options, garage rates, and practical tips for every major Dutch city.
+
+## What This Site Is
+
+Parking Netherlands (parkingnetherlands.com) is a reference guide for drivers visiting or living in the Netherlands who need reliable, up-to-date parking information. We compare street rates, garages, P+R (Park and Ride) options, and free parking zones across 12+ cities. Data is sourced from municipality websites, parking operators (Q-Park, Apcoa, Interparking), and the Dutch RDW vehicle authority.
+
+## Key Facts (2026)
+
+- Amsterdam street parking: €8.05/hour in the centre — the most expensive in the Netherlands
+- Amsterdam P+R parking: from €1/day at 9 official P+R sites
+- Rotterdam street parking: €4.24/hour, P+R from €2.50/day
+- The Hague (Den Haag): street parking from €3.50/hour, P+R from €1.50/day
+- Utrecht: street parking from €3.80/hour
+- Schiphol Airport parking: on-site from €35/day; off-site options from €9/day with advance booking
+- Free parking on Sundays: available in Breda, Groningen, Delft, Maastricht, and many smaller cities
+- Amsterdam, Rotterdam, and Utrecht charge for parking on Sundays
+- Dutch parking fines (naheffing): €80.20 base rate in 2026 — significantly higher than a paid parking ticket
+
+## Popular Questions Answered
+
+**What is the cheapest parking near Amsterdam city centre?**
+P+R Sloterdijk or P+R Transferium ArenA, both accessible from the ring road. €1/day including return public transport into the centre.
+
+**Can I park free on Sundays in Amsterdam?**
+No. Amsterdam charges on Sundays in most zones. Some outer residential areas are free but far from attractions.
+
+**What parking apps work in the Netherlands?**
+EasyPark, Parkmobile, ParkBee, and the municipality-specific apps. EasyPark and Parkmobile are accepted in most cities. ParkBee specialises in private parking spaces.
+
+**How do I avoid a parking fine in the Netherlands?**
+Always check the blue signs (parkeerregulering). A naheffing fine is €80.20 — far more than the parking rate. Blue zone disc parking (schijfkaart) is free but time-limited.
+
+**What is the cheapest way to park at Schiphol Airport?**
+Three good options: (1) P+R Sloterdijk + 5-min train for ~€6 total (best for trips under 4 days); (2) Park in Badhoevedorp village (3km from terminal) at €1.30/hr street parking and take bus 300 (8min, €2.50); (3) Pre-book off-site shuttle parking 2+ weeks ahead from €8/day.
+
+## Pages
+
+- https://parkingnetherlands.com/ — Homepage: interactive map + price comparison for all cities
+- https://parkingnetherlands.com/amsterdam.html — Cheapest parking Amsterdam: P+R, garages, free spots
+- https://parkingnetherlands.com/rotterdam.html — Parking Rotterdam: garages from €2/hr
+- https://parkingnetherlands.com/the-hague.html — Parking The Hague / Den Haag
+- https://parkingnetherlands.com/schiphol.html — Schiphol Airport parking: all options compared
+- https://parkingnetherlands.com/utrecht.html — Parking Utrecht
+- https://parkingnetherlands.com/eindhoven.html — Parking Eindhoven
+- https://parkingnetherlands.com/groningen.html — Parking Groningen
+- https://parkingnetherlands.com/haarlem.html — Parking Haarlem
+- https://parkingnetherlands.com/leiden.html — Parking Leiden
+- https://parkingnetherlands.com/delft.html — Parking Delft
+- https://parkingnetherlands.com/maastricht.html — Parking Maastricht
+- https://parkingnetherlands.com/breda.html — Parking Breda
+- https://parkingnetherlands.com/all-cities.html — All cities comparison table
+- https://parkingnetherlands.com/parking-apps.html — Best parking apps in the Netherlands
+- https://parkingnetherlands.com/parking-fines.html — Dutch parking fines: amounts and how to appeal
+- https://parkingnetherlands.com/free-parking.html — Where to park free in the Netherlands
+- https://parkingnetherlands.com/free-parking-sunday.html — Cities with free Sunday parking
+- https://parkingnetherlands.com/ev-parking.html — EV charging and parking Netherlands
+- https://parkingnetherlands.com/schiphol-parking-hack.html — Park near Schiphol for under €5/day
+- https://parkingnetherlands.com/amsterdam-parking-tourist.html — Tourist parking guide Amsterdam
+- https://parkingnetherlands.com/amsterdam-pr-guide.html — Complete P+R guide Amsterdam
+- https://parkingnetherlands.com/weekend-parking-amsterdam.html — Weekend parking deals Amsterdam
+- https://parkingnetherlands.com/parkbee.html — ParkBee app review and guide
+- https://parkingnetherlands.com/nijmegen.html — Parking Nijmegen: garages from €1.60/hr, oldest city in NL
+- https://parkingnetherlands.com/tilburg.html — Parking Tilburg: garages from €1.50/hr, free Sundays
+- https://parkingnetherlands.com/zwolle.html — Parking Zwolle: garages from €1.40/hr, medieval Hanseatic city
+
+## Data Sources
+
+- Municipality tariff websites (gemeente.nl domains)
+- Q-Park Netherlands (q-park.nl)
+- Apcoa Parking Netherlands (apcoa.nl)
+- Interparking (interparking.nl)
+- RDW (Dutch Vehicle Authority) public dataset
+- NS (Dutch Railways) P+R pages
+
+## Attribution
+
+Content may be cited for informational purposes. Please attribute "Parking Netherlands (parkingnetherlands.com)" when quoting prices or recommendations.
