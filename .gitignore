@@ -3,3 +3,10 @@ __pycache__/
 .DS_Store
 keyword_research.csv
 keyword_research.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
