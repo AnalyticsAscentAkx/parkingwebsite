@@ -257,3 +257,52 @@ td{padding:14px 20px;border-bottom:1px solid var(--g1)}tr:last-child td{border-b
 @media(max-width:480px){
   .qbl{font-size:10px}
 }
+
+/* SHARE SECTION */
+.share-section{max-width:1240px;margin:0 auto;padding:36px 28px;text-align:center;background:var(--wm);border-top:1px solid rgba(0,0,0,.04);border-bottom:1px solid rgba(0,0,0,.04)}
+.share-section h3{font-family:var(--fd);font-size:24px;color:var(--nv);margin-bottom:8px;font-weight:400}
+.share-section p{color:var(--g5);font-size:14px;margin-bottom:20px}
+.share-section .share-row{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.share-section a{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:#fff;color:var(--g7);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--g2);transition:transform .18s ease,border-color .18s ease,color .18s ease}
+.share-section a:hover{transform:translateY(-2px);border-color:var(--or);color:var(--or)}
+
+/* SCROLL REVEAL ANIMATIONS */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal-l.in{opacity:1;transform:translateX(0)}
+  .reveal-r{opacity:0;transform:translateX(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal-r.in{opacity:1;transform:translateX(0)}
+  .reveal-scale{opacity:0;transform:scale(.94);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal-scale.in{opacity:1;transform:scale(1)}
+  .sec, .pk, .tc2, .hs, .qb, .fi{transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s cubic-bezier(.16,1,.3,1)}
+  .pk:hover, .tc2:hover, .hs:hover{transform:translateY(-4px)}
+}
+
+/* APPLE-STYLE HOVER LIFT */
+.lift{transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1)}
+.lift:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(10,22,40,.10)}
+
+/* GRADIENT TEXT SHIMMER */
+.shimmer{background:linear-gradient(110deg,var(--nv) 30%,var(--or) 50%,var(--nv) 70%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shim 4s linear infinite}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* SUBTLE FLOAT FOR HERO ICONS */
+@media (prefers-reduced-motion: no-preference){
+  .float{animation:flt 6s ease-in-out infinite}
+  @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+}
+
+/* COUNT-UP HELPER (used with JS) */
+.counter{display:inline-block;font-variant-numeric:tabular-nums}
+
+/* SMOOTH MAP CONTAINER */
+.map-container{width:100%;height:560px;border-radius:14px;overflow:hidden;border:1px solid var(--g2);box-shadow:0 6px 30px rgba(10,22,40,.06)}
+.map-legend{display:flex;gap:14px;flex-wrap:wrap;padding:14px 18px;background:#fff;border-radius:12px;margin:14px 0;border:1px solid var(--g2);font-size:13px}
+.map-legend .ml{display:inline-flex;align-items:center;gap:7px;color:var(--g6)}
+.map-legend .dot{width:10px;height:10px;border-radius:50%}
+.map-legend .dot.fr{background:var(--gn)}
+.map-legend .dot.pr{background:var(--tl)}
+.map-legend .dot.gr{background:var(--or)}
+.map-legend .dot.bz{background:var(--pr)}

@@ -435,3 +435,74 @@ function getNav(active){
     ];
     return links.map(l=>`<li><a href="${l.href}"${l.id===active?' class="act"':''}>${l.text}</a></li>`).join('');
 }
+
+/* Scroll reveal — animate elements as they enter viewport */
+(function(){
+  if (typeof IntersectionObserver === 'undefined') return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const els = document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-scale');
+  if (!els.length){
+    // auto-tag major content blocks if author didn't add classes
+    document.querySelectorAll('.sec h2, .sec h3, .sec p, .pk, .tc2, .hs, .qb, .fi, .pg, .prose > *').forEach((el, i)=>{
+      el.classList.add('reveal');
+      el.style.transitionDelay = Math.min(i % 6, 5) * 60 + 'ms';
+    });
+  }
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {rootMargin: '0px 0px -8% 0px', threshold: 0.04});
+
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-scale').forEach(el=>io.observe(el));
+})();
+
+/* Number count-up — finds .counter[data-to=N] and animates */
+(function(){
+  if (typeof IntersectionObserver === 'undefined') return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = document.querySelectorAll('.counter[data-to]');
+  if (!els.length) return;
+
+  const animate = (el)=>{
+    const to = parseFloat(el.dataset.to);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const dur = parseInt(el.dataset.dur || '1400', 10);
+    const start = performance.now();
+    function step(now){
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const val = (to * eased).toFixed(decimals);
+      el.textContent = prefix + val + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if (e.isIntersecting){ animate(e.target); io.unobserve(e.target); } });
+  }, {threshold: 0.3});
+  els.forEach(el=>io.observe(el));
+})();
+
+/* Magnetic hover on .lift cards — gentle tilt towards cursor */
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+  document.querySelectorAll('.lift').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-6px) rotateX(${-y*3}deg) rotateY(${x*3}deg)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.transform=''; });
+  });
+})();

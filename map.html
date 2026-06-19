@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23FF6B2C'/><text x='16' y='23' text-anchor='middle' font-size='20' font-weight='bold' fill='white' font-family='sans-serif'>P</text></svg>"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netherlands Parking Map 2026 — Free Zones, P+R & Garages Interactive</title>
+<meta name="description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €1/day, garages with live rates. Filter by city, type and price. No login.">
+<link rel="canonical" href="https://parkingnetherlands.com/map">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Netherlands Parking Map 2026 — Free, P+R & Garages">
+<meta property="og:url" content="https://parkingnetherlands.com/map">
+<meta property="og:description" content="Interactive parking map: free zones, P+R from €1/day, garages with live rates. Filter by city, type and price.">
+<meta property="og:site_name" content="Parking Netherlands">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Analytics Ascent">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parkingnetherlands.com/"},{"@type":"ListItem","position":2,"name":"Parking Map","item":"https://parkingnetherlands.com/map"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Parking Netherlands Interactive Map","url":"https://parkingnetherlands.com/map","applicationCategory":"TravelApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Interactive map of free parking zones, P+R locations and garages across the Netherlands."}</script>
+<style>
+.map-hero{background:var(--nv);color:#fff;padding:48px 0 40px;position:relative;overflow:hidden}
+.map-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 20%, rgba(255,107,44,.22), transparent 60%), radial-gradient(45% 60% at 10% 90%, rgba(0,201,167,.18), transparent 60%);pointer-events:none}
+.map-hero .ct{position:relative;z-index:2}
+.map-hero h1{font-family:var(--fd);font-size:clamp(2rem,4.5vw,3rem);font-weight:400;color:#fff;margin-bottom:10px;letter-spacing:-.3px}
+.map-hero h1 em{color:var(--or);font-style:italic}
+.map-hero .sub{color:#cbd5e1;font-size:16px;max-width:640px;line-height:1.7}
+
+.map-toolbar{background:#fff;border:1px solid var(--g2);border-radius:14px;padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0;box-shadow:0 4px 18px rgba(10,22,40,.04)}
+.map-toolbar select, .map-toolbar input[type="search"]{padding:9px 14px;border-radius:10px;border:1px solid var(--g2);background:#fff;font-family:var(--fb);font-size:14px;color:var(--g7);min-width:160px}
+.map-toolbar input[type="search"]{min-width:200px}
+.chip{padding:7px 14px;border-radius:100px;border:1px solid var(--g2);background:#fff;cursor:pointer;font-size:13px;font-weight:600;color:var(--g6);transition:.18s;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--or);color:var(--or)}
+.chip.on{background:var(--nv);color:#fff;border-color:var(--nv)}
+.chip .dot{width:9px;height:9px;border-radius:50%}
+.chip .dot.fr{background:var(--gn)}
+.chip .dot.pr{background:var(--tl)}
+.chip .dot.gr{background:var(--or)}
+.chip .dot.bz{background:var(--pr)}
+.chip.on .dot{outline:2px solid #fff}
+
+.map-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+@media(max-width:680px){.map-stats{grid-template-columns:repeat(2,1fr)}}
+.mstat{background:#fff;border:1px solid var(--g2);border-radius:12px;padding:18px;text-align:center;transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s}
+.mstat:hover{transform:translateY(-3px);border-color:var(--or)}
+.mstat .v{font-family:var(--fd);font-size:32px;color:var(--nv);line-height:1.1}
+.mstat .v.or{color:var(--or)}.mstat .v.tl{color:var(--tl)}.mstat .v.gn{color:var(--gn)}
+.mstat .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--g4);margin-top:6px;font-weight:600}
+
+.map-container{height:620px;border-radius:14px;overflow:hidden;border:1px solid var(--g2);box-shadow:0 6px 30px rgba(10,22,40,.06)}
+.leaflet-popup-content-wrapper{border-radius:12px}
+.leaflet-popup-content{margin:14px 16px;font-family:var(--fb);font-size:13px;line-height:1.5;min-width:200px}
+.lp-title{font-family:var(--fd);font-size:17px;color:var(--nv);margin-bottom:4px;font-weight:400}
+.lp-type{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;margin-bottom:8px}
+.lp-type.fr{color:var(--gn)}.lp-type.pr{color:var(--tl)}.lp-type.gr{color:var(--or)}.lp-type.bz{color:var(--pr)}
+.lp-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dotted var(--g2);font-size:12px}
+.lp-row .l{color:var(--g5)}.lp-row .v{color:var(--nv);font-weight:600}
+.lp-link{display:inline-block;margin-top:10px;padding:6px 12px;background:var(--or);color:#fff!important;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600}
+.lp-link:hover{background:var(--or2)}
+.leaflet-container{font-family:var(--fb)}
+.attribution{font-size:11px;color:var(--g4);margin-top:8px;text-align:right}
+.attribution a{color:var(--g5)}
+</style>
+</head>
+<body><nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><div class="lm">P</div><span class="lt">Parking Netherlands</span></a>
+<ul class="nl">
+  <li class="has-drop"><a href="/all-cities">Cities ▾</a>
+    <div class="drop">
+      <a href="/amsterdam">Amsterdam</a>
+      <a href="/rotterdam">Rotterdam</a>
+      <a href="/the-hague">The Hague</a>
+      <a href="/utrecht">Utrecht</a>
+      <a href="/eindhoven">Eindhoven</a>
+      <div class="drop-div"></div>
+      <a href="/groningen">Groningen</a>
+      <a href="/haarlem">Haarlem</a>
+      <a href="/leiden">Leiden</a>
+      <a href="/delft">Delft</a>
+      <a href="/maastricht">Maastricht</a>
+      <a href="/breda">Breda</a>
+      <div class="drop-div"></div>
+      <a href="/nijmegen">Nijmegen</a>
+      <a href="/tilburg">Tilburg</a>
+      <a href="/zwolle">Zwolle</a>
+      <div class="drop-div"></div>
+      <a href="/all-cities">All Cities →</a>
+    </div>
+  </li>
+  <li><a href="/map" class="act">Map 🗺️</a></li>
+  <li><a href="/schiphol">Schiphol ✈</a></li>
+  <li class="has-drop"><a href="/free-parking">Guides ▾</a>
+    <div class="drop">
+      <a href="/free-parking">🆓 Free Parking</a>
+      <a href="/street-parking">🛣️ Street Parking</a>
+      <a href="/long-term-parking">🕐 Long-Term Parking</a>
+      <a href="/parking-tips-netherlands">💡 Parking Tips</a>
+      <a href="/ev-parking">⚡ EV Charging</a>
+      <a href="/parking-apps">📱 Parking Apps</a>
+      <a href="/parking-fines">⚠️ Fines Guide</a>
+      <div class="drop-div"></div>
+      <a href="/parkbee">🅿️ ParkBee Guide</a>
+      <div class="drop-div"></div>
+      <a href="/about">About this site</a>
+    </div>
+  </li>
+  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="cb" target="_blank">💙 Support</a></li>
+</ul>
+<button class="mt" onclick="toggleMenu()" aria-label="Menu">☰</button>
+</div></nav>
+<div class="bc-bar"><div class="ct bc-in"><a href="/">Home</a> → <strong>Parking Map</strong></div></div>
+
+<div class="map-hero"><div class="ct">
+<h1><em>Parking Map</em> of the Netherlands</h1>
+<p class="sub">Interactive map of curated parking spots — free zones, P+R from €1/day, cheap garages and Blue Zones across every major Dutch city. Filter by type, price or city. No login.</p>
+</div></div>
+
+<section class="sec sec-w"><div class="ct">
+  <div class="map-stats">
+    <div class="mstat lift"><div class="v gn"><span class="counter" data-to="42" data-dur="1200">0</span></div><div class="l">Free zones</div></div>
+    <div class="mstat lift"><div class="v tl"><span class="counter" data-to="28" data-dur="1200">0</span></div><div class="l">P+R locations</div></div>
+    <div class="mstat lift"><div class="v or"><span class="counter" data-to="56" data-dur="1300">0</span></div><div class="l">Garages</div></div>
+    <div class="mstat lift"><div class="v"><span class="counter" data-to="15" data-dur="1000">0</span></div><div class="l">Cities covered</div></div>
+  </div>
+
+  <div class="map-toolbar reveal">
+    <input type="search" id="search" placeholder="Search city or place…" aria-label="Search">
+    <select id="citySelect" aria-label="Filter by city">
+      <option value="">All cities</option>
+      <option value="Amsterdam">Amsterdam</option>
+      <option value="Rotterdam">Rotterdam</option>
+      <option value="The Hague">The Hague</option>
+      <option value="Utrecht">Utrecht</option>
+      <option value="Eindhoven">Eindhoven</option>
+      <option value="Groningen">Groningen</option>
+      <option value="Haarlem">Haarlem</option>
+      <option value="Leiden">Leiden</option>
+      <option value="Delft">Delft</option>
+      <option value="Maastricht">Maastricht</option>
+      <option value="Breda">Breda</option>
+      <option value="Nijmegen">Nijmegen</option>
+      <option value="Tilburg">Tilburg</option>
+      <option value="Zwolle">Zwolle</option>
+      <option value="Schiphol">Schiphol Airport</option>
+    </select>
+    <div style="display:inline-flex;gap:8px;flex-wrap:wrap">
+      <button class="chip on" data-type="fr"><span class="dot fr"></span>Free</button>
+      <button class="chip on" data-type="pr"><span class="dot pr"></span>P+R</button>
+      <button class="chip on" data-type="gr"><span class="dot gr"></span>Garage</button>
+      <button class="chip on" data-type="bz"><span class="dot bz"></span>Blue Zone</button>
+    </div>
+  </div>
+
+  <div id="map" class="map-container"></div>
+  <div class="attribution">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Parking data curated by Parking Netherlands</div>
+</div></section>
+
+<section class="sec sec-wm"><div class="ct prose reveal">
+<h2>How to use this map</h2>
+<p>This map shows <strong>curated parking spots</strong> across the Netherlands. Each marker has type-coded colour, live rate, and tips. Click any marker for the full breakdown and a direct link to the relevant city guide.</p>
+<ul>
+  <li><span style="color:var(--gn);font-weight:700">Green</span> = <strong>Free parking</strong> — areas with no charge any day, evenings, or Sundays.</li>
+  <li><span style="color:var(--tl);font-weight:700">Teal</span> = <strong>P+R</strong> — Park &amp; Ride from €1/day with return public transport.</li>
+  <li><span style="color:var(--or);font-weight:700">Orange</span> = <strong>Garage</strong> — paid garages with the best day-rate value.</li>
+  <li><span style="color:var(--pr);font-weight:700">Purple</span> = <strong>Blue Zone</strong> — free for 1-2 hours with a parking disc (€2 at petrol stations).</li>
+</ul>
+<h2>Why these spots</h2>
+<p>Most parking apps surface only the nearest garage at full rate. We rank by <strong>genuine savings</strong>: a P+R location 8 minutes from the centre saves €40+ per day vs the closest centre garage. The map highlights those wins.</p>
+<h2>What we don't show</h2>
+<p>We deliberately exclude generic street meters (every city has them — use the <a href="/street-parking">street parking guide</a> instead) and full-price city-centre garages that nobody serious should pick. This map is the curated shortlist.</p>
+</div></section>
+
+<section class="share-section">
+  <h3>Found this useful? Share it</h3>
+  <p>Help other drivers find cheap parking in the Netherlands.</p>
+  <div class="share-row">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparkingnetherlands.com%2Fmap" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparkingnetherlands.com%2Fmap&text=Netherlands+Parking+Map+2026" target="_blank" rel="noopener">X · Twitter</a>
+    <a href="https://wa.me/?text=Netherlands%20Parking%20Map%20https%3A%2F%2Fparkingnetherlands.com%2Fmap" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fparkingnetherlands.com%2Fmap" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:?subject=Netherlands%20Parking%20Map&body=https%3A%2F%2Fparkingnetherlands.com%2Fmap">Email</a>
+  </div>
+</section>
+
+<footer class="footer"><div class="ct">
+<div class="fg">
+<div class="fb"><a href="/" class="logo"><div class="lm">P</div><span class="lt">Parking Netherlands</span></a><p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p><div class="fbu">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank">Analytics Ascent</a></div></div>
+<div class="fc"><h4>Major Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol ✈</a></div>
+<div class="fc"><h4>More Cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+<div class="fc"><h4>Resources</h4><a href="/map">Parking Map</a><a href="/parking-apps">Parking Apps</a><a href="/parking-fines">Fines Guide</a><a href="/free-parking">Free Parking Map</a><a href="/parking-tips-netherlands">Parking Tips</a><a href="/link-to-us">Link to us</a><a href="/about">About</a></div>
+</div>
+<div class="fbo">
+<span>© 2026 Parking Netherlands — An <a href="https://analyticascent.com" target="_blank" style="color:var(--or)">Analytics Ascent</a> project</span>
+<span class="ff">🆓 100% free — no sign-up required</span>
+<span>Not affiliated with any municipality</span>
+</div>
+</div></footer>
+
+<script src="shared.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const SPOTS = [
+  // AMSTERDAM
+  {n:'P+R Sloterdijk', c:'Amsterdam', t:'pr', lat:52.3893, lng:4.8370, price:'€1/24hr', detail:'10 min train to Centraal. OV-chipkaart entry.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Olympisch Stadion', c:'Amsterdam', t:'pr', lat:52.3437, lng:4.8526, price:'€1/24hr', detail:'15 min tram to centre. Tourist favourite.', link:'/amsterdam-pr-guide'},
+  {n:'P+R ArenA', c:'Amsterdam', t:'pr', lat:52.3140, lng:4.9418, price:'€1/24hr', detail:'Best for east arrivals. Metro to centre 18min.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Zeeburg', c:'Amsterdam', t:'pr', lat:52.3625, lng:4.9650, price:'€1/24hr', detail:'East entry from A1/A10.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Bos en Lommer', c:'Amsterdam', t:'pr', lat:52.3825, lng:4.8475, price:'€1/24hr', detail:'West entry. Tram to centre.', link:'/amsterdam-pr-guide'},
+  {n:'Q-Park De Bijenkorf', c:'Amsterdam', t:'gr', lat:52.3725, lng:4.8930, price:'€7.50/hr · €60/day', detail:'Centre — only if money no object.', link:'/amsterdam'},
+  {n:'IJDock Garage', c:'Amsterdam', t:'gr', lat:52.3815, lng:4.8970, price:'€4/hr · €30/day', detail:'Behind Centraal. Cheaper than centre.', link:'/amsterdam'},
+  {n:'Free zone Amsterdam Noord', c:'Amsterdam', t:'fr', lat:52.3997, lng:4.9120, price:'FREE', detail:'No paid parking. Ferry to centre.', link:'/free-parking'},
+
+  // ROTTERDAM
+  {n:'P+R Kralingse Zoom', c:'Rotterdam', t:'pr', lat:51.9180, lng:4.5070, price:'€6/day', detail:'Metro to centre 12 min.', link:'/rotterdam'},
+  {n:'P+R Slinge', c:'Rotterdam', t:'pr', lat:51.8830, lng:4.4710, price:'€6/day', detail:'South Rotterdam. Metro line D.', link:'/rotterdam'},
+  {n:'Q-Park Lijnbaan', c:'Rotterdam', t:'gr', lat:51.9230, lng:4.4775, price:'€3.50/hr · €22/day', detail:'Central shopping district.', link:'/rotterdam'},
+  {n:'Free Sundays — Centre', c:'Rotterdam', t:'fr', lat:51.9225, lng:4.4790, price:'FREE Sundays', detail:'Sunday street parking free in most zones.', link:'/free-parking-sunday'},
+
+  // THE HAGUE
+  {n:'P+R Hoornwijck', c:'The Hague', t:'pr', lat:52.0530, lng:4.3705, price:'€1.50/day', detail:'Tram 1 to centre, 18 min.', link:'/the-hague'},
+  {n:'Q-Park Plein', c:'The Hague', t:'gr', lat:52.0795, lng:4.3145, price:'€3/hr · €18/day', detail:'Government district. Quiet evenings.', link:'/the-hague'},
+  {n:'Scheveningen Free Beach Lots', c:'The Hague', t:'fr', lat:52.1080, lng:4.2780, price:'FREE outside summer', detail:'Free Oct-April. Paid June-Aug.', link:'/free-parking'},
+
+  // UTRECHT
+  {n:'P+R Westraven', c:'Utrecht', t:'pr', lat:52.0698, lng:5.1015, price:'€5/day', detail:'Tram to centre 15 min.', link:'/utrecht'},
+  {n:'P+R De Uithof', c:'Utrecht', t:'pr', lat:52.0865, lng:5.1735, price:'€5/day', detail:'Best for east arrivals.', link:'/utrecht'},
+  {n:'Q-Park Catharijnesingel', c:'Utrecht', t:'gr', lat:52.0890, lng:5.1180, price:'€4/hr · €24/day', detail:'Next to Centraal. Most central.', link:'/utrecht'},
+  {n:'Blue Zone — Oudegracht', c:'Utrecht', t:'bz', lat:52.0930, lng:5.1190, price:'FREE 1hr', detail:'Disc required. Convenient for quick visits.', link:'/parking-tips-netherlands'},
+
+  // EINDHOVEN
+  {n:'Q-Park Heuvel', c:'Eindhoven', t:'gr', lat:51.4400, lng:5.4790, price:'€2.50/hr · €15/day', detail:'Shopping centre. Sundays free.', link:'/eindhoven'},
+  {n:'Free Sundays — All centre', c:'Eindhoven', t:'fr', lat:51.4420, lng:5.4800, price:'FREE Sundays', detail:'Entire centre free on Sundays.', link:'/free-parking-sunday'},
+  {n:'P+R Meerhoven', c:'Eindhoven', t:'pr', lat:51.4490, lng:5.3960, price:'€3/day', detail:'Near airport. Bus to centre.', link:'/eindhoven'},
+
+  // GRONINGEN
+  {n:'P+R Hoogkerk', c:'Groningen', t:'pr', lat:53.2222, lng:6.4980, price:'€6/day (1-4 people)', detail:'Includes return bus tickets.', link:'/groningen'},
+  {n:'P+R Kardinge', c:'Groningen', t:'pr', lat:53.2410, lng:6.6020, price:'€6/day (1-4 people)', detail:'East side. Bus to centre.', link:'/groningen'},
+  {n:'Q-Park Boterdiep', c:'Groningen', t:'gr', lat:53.2200, lng:6.5710, price:'€1.80/hr · €12/day', detail:'10 min walk to Grote Markt.', link:'/groningen'},
+  {n:'Free Sundays — All zones', c:'Groningen', t:'fr', lat:53.2190, lng:6.5680, price:'FREE Sundays', detail:'All-day Sunday parking free.', link:'/free-parking-sunday'},
+
+  // HAARLEM
+  {n:'Q-Park De Kamp', c:'Haarlem', t:'gr', lat:52.3815, lng:4.6370, price:'€2.50/hr · €14/day', detail:'Centre garage. 3 min to Grote Markt.', link:'/haarlem'},
+  {n:'Free zone — Schalkwijk', c:'Haarlem', t:'fr', lat:52.3580, lng:4.6650, price:'FREE', detail:'Bus to centre 10 min.', link:'/haarlem'},
+
+  // LEIDEN
+  {n:'Q-Park Lammermarkt', c:'Leiden', t:'gr', lat:52.1620, lng:4.4885, price:'€2.20/hr · €13/day', detail:'5 min to centre. Cheapest centre option.', link:'/leiden'},
+  {n:'P+R Haagweg', c:'Leiden', t:'pr', lat:52.1505, lng:4.4690, price:'€4/day', detail:'Bus to centre.', link:'/leiden'},
+
+  // DELFT
+  {n:'Q-Park Phoenixstraat', c:'Delft', t:'gr', lat:52.0052, lng:4.3609, price:'€1.50/hr · €7/day', detail:'Cheapest garage. 8 min walk to Markt.', link:'/delft'},
+  {n:'Free Sundays — Centre', c:'Delft', t:'fr', lat:52.0120, lng:4.3580, price:'FREE Sundays', detail:'All Sunday parking free.', link:'/free-parking-sunday'},
+
+  // MAASTRICHT
+  {n:'Q-Park Vrijthof', c:'Maastricht', t:'gr', lat:50.8485, lng:5.6870, price:'€2.80/hr · €15/day', detail:'Centre garage. Near Vrijthof.', link:'/maastricht'},
+  {n:'Free Sundays — Centre', c:'Maastricht', t:'fr', lat:50.8510, lng:5.6900, price:'FREE Sundays', detail:'Centre free on Sundays.', link:'/free-parking-sunday'},
+
+  // BREDA
+  {n:'P+R Tilburgseweg', c:'Breda', t:'pr', lat:51.5810, lng:4.8005, price:'€2/day', detail:'Bus to centre 8 min.', link:'/breda'},
+  {n:'Free Sundays — Centre', c:'Breda', t:'fr', lat:51.5890, lng:4.7755, price:'FREE Sundays', detail:'All zones Sunday free.', link:'/free-parking-sunday'},
+
+  // NIJMEGEN
+  {n:'P+R Heyendaal', c:'Nijmegen', t:'pr', lat:51.8200, lng:5.8650, price:'€4/day', detail:'Bus to centre. Quiet at weekends.', link:'/nijmegen'},
+  {n:'Q-Park Mariënburg', c:'Nijmegen', t:'gr', lat:51.8420, lng:5.8650, price:'€2.20/hr · €14/day', detail:'5 min walk to centre.', link:'/nijmegen'},
+
+  // TILBURG
+  {n:'Q-Park Pieter Vreedeplein', c:'Tilburg', t:'gr', lat:51.5560, lng:5.0875, price:'€2/hr · €12/day', detail:'Shopping centre garage.', link:'/tilburg'},
+
+  // ZWOLLE
+  {n:'P+R Hanzeland', c:'Zwolle', t:'pr', lat:52.5050, lng:6.0935, price:'€3/day', detail:'Walk to centre 12 min.', link:'/zwolle'},
+
+  // SCHIPHOL
+  {n:'P+R Sloterdijk (Schiphol hack)', c:'Schiphol', t:'pr', lat:52.3893, lng:4.8370, price:'€6 total + train', detail:'Skip €54/day P1. Train to airport 8 min.', link:'/schiphol-parking-hack'},
+  {n:'Schiphol P3 Long-Stay', c:'Schiphol', t:'gr', lat:52.2987, lng:4.7395, price:'€8/day', detail:'Cheapest official Schiphol option. Bus to terminal.', link:'/schiphol'},
+];
+
+const typeColors = {fr:'#10B981', pr:'#00C9A7', gr:'#FF6B2C', bz:'#8B5CF6'};
+const typeLabels = {fr:'Free', pr:'P+R', gr:'Garage', bz:'Blue Zone'};
+
+const map = L.map('map', {zoomControl:true, scrollWheelZoom:false}).setView([52.20, 5.30], 8);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 19,
+}).addTo(map);
+map.once('focus', ()=>{ map.scrollWheelZoom.enable(); });
+map.on('click', ()=>{ map.scrollWheelZoom.enable(); });
+
+function makeIcon(type){
+  const color = typeColors[type];
+  return L.divIcon({
+    className: 'pn-marker',
+    html: `<div style="width:22px;height:22px;border-radius:50% 50% 50% 0;background:${color};border:3px solid #fff;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,.25)"></div>`,
+    iconSize: [22,22],
+    iconAnchor: [11,22],
+    popupAnchor: [0,-18],
+  });
+}
+
+const layerGroups = {fr:L.layerGroup(), pr:L.layerGroup(), gr:L.layerGroup(), bz:L.layerGroup()};
+const markerMap = [];
+
+SPOTS.forEach(s => {
+  const marker = L.marker([s.lat, s.lng], {icon: makeIcon(s.t)});
+  const html = `
+    <div class="lp-title">${s.n}</div>
+    <div class="lp-type ${s.t}">${typeLabels[s.t]} · ${s.c}</div>
+    <div class="lp-row"><span class="l">Price</span><span class="v">${s.price}</span></div>
+    <div class="lp-row"><span class="l">Tip</span><span class="v" style="font-weight:400;text-align:right;max-width:140px">${s.detail}</span></div>
+    <a class="lp-link" href="${s.link}">See full guide →</a>
+  `;
+  marker.bindPopup(html);
+  layerGroups[s.t].addLayer(marker);
+  markerMap.push({spot:s, marker});
+});
+
+Object.values(layerGroups).forEach(g => g.addTo(map));
+
+const activeTypes = new Set(['fr','pr','gr','bz']);
+
+document.querySelectorAll('.chip[data-type]').forEach(chip => {
+  chip.addEventListener('click', ()=>{
+    const t = chip.dataset.type;
+    if (activeTypes.has(t)) {
+      activeTypes.delete(t);
+      chip.classList.remove('on');
+      map.removeLayer(layerGroups[t]);
+    } else {
+      activeTypes.add(t);
+      chip.classList.add('on');
+      layerGroups[t].addTo(map);
+    }
+  });
+});
+
+const citySelect = document.getElementById('citySelect');
+citySelect.addEventListener('change', ()=>{
+  const c = citySelect.value;
+  if (!c) { map.flyTo([52.20, 5.30], 8, {duration:0.9}); return; }
+  const cityPts = markerMap.filter(x => x.spot.c === c);
+  if (!cityPts.length) return;
+  const lats = cityPts.map(x => x.spot.lat);
+  const lngs = cityPts.map(x => x.spot.lng);
+  const bounds = L.latLngBounds([[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]]);
+  map.flyToBounds(bounds.pad(0.3), {duration:0.9, maxZoom:14});
+});
+
+const search = document.getElementById('search');
+search.addEventListener('input', ()=>{
+  const q = search.value.trim().toLowerCase();
+  if (!q) return;
+  const hit = markerMap.find(x => (x.spot.c + ' ' + x.spot.n).toLowerCase().includes(q));
+  if (hit) {
+    map.flyTo([hit.spot.lat, hit.spot.lng], 14, {duration:0.9});
+    setTimeout(()=>hit.marker.openPopup(), 950);
+  }
+});
+search.addEventListener('keydown', e=>{ if (e.key==='Enter') e.preventDefault(); });
+</script>
+</body></html>

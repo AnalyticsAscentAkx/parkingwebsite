@@ -30,3 +30,14 @@
 /amsterdam-pr-guide.html  /amsterdam-pr-guide  301
 /amsterdam-parking-tourist.html  /amsterdam-parking-tourist  301
 /weekend-parking-amsterdam.html  /weekend-parking-amsterdam  301
+/link-to-us.html       /link-to-us       301
+/map.html              /map              301
+/blog.html             /blog             301
+
+# Legacy / WordPress-era URLs that still show up in Search Console
+/home                    /                 301
+/home/                   /                 301
+/parking-spots/          /free-parking     301
+/discover-the-best-free-parking-spots-in-your-city/  /free-parking  301
+/how-to-find-the-best-free-parking-spots-in-your-city/  /free-parking  301
+/author/craakashgmail-com/  /              301
