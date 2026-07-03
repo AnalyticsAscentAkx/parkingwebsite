@@ -1,0 +1,3815 @@
+[
+ {
+  "areaid": "363_DOME",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Dome-garage (Amsterdam)",
+  "slug": "dome-garage-amsterdam",
+  "lat": 52.317081,
+  "lng": 4.937702,
+  "capacity": 550,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_DOME",
+   "363_DOMEDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "GAR036CUY",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Albert Cuyp",
+  "slug": "albert-cuyp-amsterdam",
+  "lat": 52.35575,
+  "lng": 4.88717,
+  "capacity": 600,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_MARK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.5,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "GAR066BTY",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Boven t Y",
+  "slug": "boven-t-y-amsterdam",
+  "lat": 52.39975,
+  "lng": 4.938709,
+  "capacity": 448,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR043BAN",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage De Banne",
+  "slug": "de-banne-amsterdam",
+  "lat": 52.408258,
+  "lng": 4.914952,
+  "capacity": 440,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GRV021HAL",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage De Hallen",
+  "slug": "de-hallen-amsterdam",
+  "lat": 52.368096,
+  "lng": 4.868238,
+  "capacity": 110,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR069WND",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage De Wending",
+  "slug": "de-wending-amsterdam",
+  "lat": 52.369079,
+  "lng": 4.858036,
+  "capacity": 78,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR052HRD",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Haardstee",
+  "slug": "haardstee-amsterdam",
+  "lat": 52.310293,
+  "lng": 4.952376,
+  "capacity": 0,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR054HOP",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Hoptille",
+  "slug": "hoptille-amsterdam",
+  "lat": 52.308706,
+  "lng": 4.95376,
+  "capacity": 0,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GRV017YOE",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage IJ-Oever",
+  "slug": "ij-oever-amsterdam",
+  "lat": 52.37732,
+  "lng": 4.918906,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_MARK",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Markenhoven (Amsterdam)",
+  "slug": "markenhoven-amsterdam",
+  "lat": 52.369774,
+  "lng": 4.90879,
+  "capacity": 352,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "363_MARK",
+   "363_MARKDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.5,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "GRV004MP",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Mercatorplein",
+  "slug": "mercatorplein-amsterdam",
+  "lat": 52.369318,
+  "lng": 4.851438,
+  "capacity": 200,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GRV006MT",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Muziektheater",
+  "slug": "muziektheater-amsterdam",
+  "lat": 52.368027,
+  "lng": 4.902315,
+  "capacity": 400,
+  "ev_points": 0,
+  "max_height_cm": 180,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GRV014ODE",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Oosterdokseiland",
+  "slug": "oosterdokseiland-amsterdam",
+  "lat": 52.376483,
+  "lng": 4.908907,
+  "capacity": 1100,
+  "ev_points": 60,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR062PDM",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P-Dome",
+  "slug": "p-dome-amsterdam",
+  "lat": 52.359138,
+  "lng": 4.833624,
+  "capacity": 550,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GARKP"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.37,
+  "rate_3h": 16.11,
+  "rate_day": 128.88
+ },
+ {
+  "areaid": "363_AREN",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P1 ArenA (Amsterdam)",
+  "slug": "p1-arena-amsterdam",
+  "lat": 52.314024,
+  "lng": 4.940788,
+  "capacity": 2400,
+  "ev_points": 0,
+  "max_height_cm": 225,
+  "regulations": [
+   "363_AREN",
+   "363_ARENDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "363_PLAZ",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P10 Plaza ArenA (Amsterdam)",
+  "slug": "p10-plaza-arena-amsterdam",
+  "lat": 52.30627,
+  "lng": 4.942695,
+  "capacity": 814,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "363_PLAZ",
+   "363_PLAZDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 8.0,
+  "rate_day": 58.0
+ },
+ {
+  "areaid": "GAR029P10",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P10 Zuidoost",
+  "slug": "p10-zuidoost-amsterdam",
+  "lat": 52.30627,
+  "lng": 4.942695,
+  "capacity": 814,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_HES",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P18 HES/ROC (Amsterdam)",
+  "slug": "p18-hes-roc-amsterdam",
+  "lat": 52.315131,
+  "lng": 4.946282,
+  "capacity": 291,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "363_HES",
+   "363_HESDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "GAR030P18",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P18 HvA Zuidoost",
+  "slug": "p18-hva-zuidoost-amsterdam",
+  "lat": 52.315131,
+  "lng": 4.946282,
+  "capacity": 291,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_BOME",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P2 Bomengarage (Amsterdam)",
+  "slug": "p2-bomengarage-amsterdam",
+  "lat": 52.399715,
+  "lng": 4.938664,
+  "capacity": 448,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_BOME",
+   "363_BOMEDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.4,
+  "rate_3h": 1.4,
+  "rate_day": 26.6
+ },
+ {
+  "areaid": "363_MIKA",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P3 Mikado (Amsterdam)",
+  "slug": "p3-mikado-amsterdam",
+  "lat": 52.310434,
+  "lng": 4.941118,
+  "capacity": 366,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_MIKA",
+   "363_MIKADK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "363_VIL4",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P4 Villa ArenA (Amsterdam)",
+  "slug": "p4-villa-arena-amsterdam",
+  "lat": 52.311382,
+  "lng": 4.93943,
+  "capacity": 1248,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "363_VIL4",
+   "363_VIL4DK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "GAR028P04",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P4 en P5 Villa Arena Zuidoost",
+  "slug": "p4-en-p5-villa-arena-zuidoost-amsterdam",
+  "lat": 52.311382,
+  "lng": 4.93943,
+  "capacity": 1354,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_VIL5",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P5 Villa ArenA (Amsterdam)",
+  "slug": "p5-villa-arena-amsterdam",
+  "lat": 52.311676,
+  "lng": 4.941235,
+  "capacity": 1354,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "363_VIL5",
+   "363_VIL5DK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "363_PATH",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage P6 Pathé ArenA/Uitgaansdriehoek (Amsterdam)",
+  "slug": "p6-pathe-arena-uitgaansdriehoek-amsterdam",
+  "lat": 52.311619,
+  "lng": 4.945382,
+  "capacity": 399,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "363_PATH",
+   "363_PATHDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "GRV008PH",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Piet Hein",
+  "slug": "piet-hein-amsterdam",
+  "lat": 52.377626,
+  "lng": 4.91488,
+  "capacity": 400,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR061RKN",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Rokin",
+  "slug": "rokin-amsterdam",
+  "lat": 52.369995,
+  "lng": 4.892451,
+  "capacity": 293,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR070SGR",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Singelgracht-Marnix",
+  "slug": "singelgracht-marnix-amsterdam",
+  "lat": 52.37836,
+  "lng": 4.87785,
+  "capacity": 800,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_STAD",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Stadhuis-Muziektheater (Amsterdam)",
+  "slug": "stadhuis-muziektheater-amsterdam",
+  "lat": 52.368027,
+  "lng": 4.902315,
+  "capacity": 400,
+  "ev_points": 0,
+  "max_height_cm": 180,
+  "regulations": [
+   "363_STAD",
+   "363_STADDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 6.3,
+  "rate_3h": 18.9,
+  "rate_day": 151.2
+ },
+ {
+  "areaid": "GRV019WES",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Westerpark",
+  "slug": "westerpark-amsterdam",
+  "lat": 52.384872,
+  "lng": 4.864039,
+  "capacity": 480,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_WILL",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage Willemspoort (Amsterdam)",
+  "slug": "willemspoort-amsterdam",
+  "lat": 52.384982,
+  "lng": 4.884537,
+  "capacity": 109,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_WILL",
+   "363_WILLDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 6.3,
+  "rate_3h": 18.9,
+  "rate_day": 151.2
+ },
+ {
+  "areaid": "GAR065OPG",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Garage de Opgang",
+  "slug": "de-opgang-amsterdam",
+  "lat": 52.397728,
+  "lng": 4.937569,
+  "capacity": 800,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_PRAR",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R ArenA (Amsterdam)",
+  "slug": "p-r-arena-amsterdam",
+  "lat": 52.314024,
+  "lng": 4.940788,
+  "capacity": 500,
+  "ev_points": 0,
+  "max_height_cm": 225,
+  "regulations": [
+   "363_PRAR",
+   "363_PRARDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "363_PRBO",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Bos en Lommer (Amsterdam)",
+  "slug": "p-r-bos-en-lommer-amsterdam",
+  "lat": 52.379336,
+  "lng": 4.845331,
+  "capacity": 250,
+  "ev_points": 0,
+  "max_height_cm": 195,
+  "regulations": [
+   "363_PRBO",
+   "363_PRBODK"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "GAR042PRN",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Noord",
+  "slug": "p-r-noord-amsterdam",
+  "lat": 52.404695,
+  "lng": 4.934017,
+  "capacity": 442,
+  "ev_points": 0,
+  "max_height_cm": 220,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "363_PROL",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Olympisch Stadion (Amsterdam)",
+  "slug": "p-r-olympisch-stadion-amsterdam",
+  "lat": 52.344565,
+  "lng": 4.855038,
+  "capacity": 200,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_PROL",
+   "363_PROLDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "363_PRRAI",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R RAI (Amsterdam)",
+  "slug": "p-r-rai-amsterdam",
+  "lat": 52.339299,
+  "lng": 4.890092,
+  "capacity": 678,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "363_PRRAI"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "363_PRSL",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Sloterdijk (Amsterdam)",
+  "slug": "p-r-sloterdijk-amsterdam",
+  "lat": 52.389957,
+  "lng": 4.837902,
+  "capacity": 200,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "363_PRSL",
+   "363_PRSLDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "363_PRVU",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R VUmc (Amsterdam)",
+  "slug": "p-r-vumc-amsterdam",
+  "lat": 52.3366,
+  "lng": 4.861061,
+  "capacity": 450,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "363_PRVU"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "363_PRZE",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Zeeburg (Amsterdam)",
+  "slug": "p-r-zeeburg-amsterdam",
+  "lat": 52.370783,
+  "lng": 4.96174,
+  "capacity": 200,
+  "ev_points": 0,
+  "max_height_cm": 430,
+  "regulations": [
+   "363_PRZE",
+   "363_PRZEDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "GAR071ZB1",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Zeeburg 1",
+  "slug": "p-r-zeeburg-1-amsterdam",
+  "lat": 52.371217,
+  "lng": 4.961787,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "363_PRZ2",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Zeeburg 2 (Amsterdam)",
+  "slug": "p-r-zeeburg-2-amsterdam",
+  "lat": 52.370666,
+  "lng": 4.96363,
+  "capacity": 400,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "363_PRZ2",
+   "363_PRZ2DK"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.0,
+  "rate_3h": 1.0,
+  "rate_day": 1.0
+ },
+ {
+  "areaid": "GAR064ZB3",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "P+R Zeeburg III",
+  "slug": "p-r-zeeburg-iii-amsterdam",
+  "lat": 52.37074,
+  "lng": 4.967626,
+  "capacity": 265,
+  "ev_points": 0,
+  "max_height_cm": 250,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "363_MUSBUS",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeergarage Museumplein Touringcars (Amsterdam)",
+  "slug": "museumplein-touringcars-amsterdam",
+  "lat": 52.359184,
+  "lng": 4.882648,
+  "capacity": 25,
+  "ev_points": 0,
+  "max_height_cm": 400,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_VUP1",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeergarage P1 VUmc Westflank (Amsterdam)",
+  "slug": "p1-vumc-westflank-amsterdam",
+  "lat": 52.333576,
+  "lng": 4.857956,
+  "capacity": 415,
+  "ev_points": 9,
+  "max_height_cm": 200,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_VUP2",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeergarage P2 VUmc ACTA (Amsterdam)",
+  "slug": "p2-vumc-acta-amsterdam",
+  "lat": 52.336628,
+  "lng": 4.860764,
+  "capacity": 455,
+  "ev_points": 20,
+  "max_height_cm": 190,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_VUP3",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeergarage P3 VU Campus (Amsterdam)",
+  "slug": "p3-vu-campus-amsterdam",
+  "lat": 52.333791,
+  "lng": 4.863144,
+  "capacity": 615,
+  "ev_points": 25,
+  "max_height_cm": 210,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_TTA",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeergarage PTA/TTA Touringcars (Amsterdam)",
+  "slug": "pta-tta-touringcars-amsterdam",
+  "lat": 52.377647,
+  "lng": 4.916547,
+  "capacity": 41,
+  "ev_points": 0,
+  "max_height_cm": 400,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR038AB1",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeerterrein Amsterdamse Bos Hoofdentree",
+  "slug": "amsterdamse-bos-hoofdentree-amsterdam",
+  "lat": 52.328949,
+  "lng": 4.854814,
+  "capacity": 700,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_ARTIS",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeerterrein Artis (Amsterdam)",
+  "slug": "artis-amsterdam",
+  "lat": 52.367799,
+  "lng": 4.914046,
+  "capacity": 385,
+  "ev_points": 6,
+  "max_height_cm": null,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR059P07",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Parkeerterrein P7 Science Park",
+  "slug": "p7-science-park-amsterdam",
+  "lat": 52.35384,
+  "lng": 4.957554,
+  "capacity": 261,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "363_PIET",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Piet Heingarage (Amsterdam)",
+  "slug": "piet-heingarage-amsterdam",
+  "lat": 52.377626,
+  "lng": 4.91488,
+  "capacity": 400,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "363_PIET",
+   "363_PIETDK",
+   "363_PIETEK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.5,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "363_P2BO",
+  "amid": "363",
+  "city": "amsterdam",
+  "name": "Terrein P2 Borchlandweg (Amsterdam)",
+  "slug": "p2-borchlandweg-amsterdam",
+  "lat": 52.316676,
+  "lng": 4.931664,
+  "capacity": 2200,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "363_P2BO"
+  ],
+  "is_pr": false,
+  "rate_hr": 12.0,
+  "rate_3h": 12.0,
+  "rate_day": 12.0
+ },
+ {
+  "areaid": "758_CHAS",
+  "amid": "758",
+  "city": "breda",
+  "name": "Garage Chasséparking (Breda)",
+  "slug": "chasseparking-breda",
+  "lat": 51.58678,
+  "lng": 4.784122,
+  "capacity": 620,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "758_CHAS"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "758_BARON",
+  "amid": "758",
+  "city": "breda",
+  "name": "Garage De Barones (Breda)",
+  "slug": "de-barones-breda",
+  "lat": 51.58734,
+  "lng": 4.772406,
+  "capacity": 510,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "758_BARON"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "758_PRIN",
+  "amid": "758",
+  "city": "breda",
+  "name": "Garage De Prins (Breda)",
+  "slug": "de-prins-breda",
+  "lat": 51.590999,
+  "lng": 4.770443,
+  "capacity": 470,
+  "ev_points": 0,
+  "max_height_cm": 195,
+  "regulations": [
+   "758_PRIN"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "758_TURF",
+  "amid": "758",
+  "city": "breda",
+  "name": "Garage Het Turfschip (Breda)",
+  "slug": "het-turfschip-breda",
+  "lat": 51.58901,
+  "lng": 4.785656,
+  "capacity": 600,
+  "ev_points": 0,
+  "max_height_cm": 205,
+  "regulations": [
+   "758_TURF"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "758_CONC",
+  "amid": "758",
+  "city": "breda",
+  "name": "Garage Oranje Zuid (Breda)",
+  "slug": "oranje-zuid-breda",
+  "lat": 51.584263,
+  "lng": 4.77544,
+  "capacity": 455,
+  "ev_points": 0,
+  "max_height_cm": 180,
+  "regulations": [
+   "758_CONC"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "758_PRBRP",
+  "amid": "758",
+  "city": "breda",
+  "name": "P+R Breda-Prinsenbeek (Breda)",
+  "slug": "p-r-breda-prinsenbeek-breda",
+  "lat": 51.606007,
+  "lng": 4.721919,
+  "capacity": 60,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "758_PRBRP"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "PTBV",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterrein Beyerd-Vlaszak",
+  "slug": "beyerd-vlaszak-breda",
+  "lat": 51.588881,
+  "lng": 4.781819,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "VERG_24_7"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "PTCH",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterrein Chasseveld",
+  "slug": "chasseveld-breda",
+  "lat": 51.588079,
+  "lng": 4.785827,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "VERG_24_7"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "1298",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterrein Gashuisvelden en Arsenaalpad",
+  "slug": "gashuisvelden-en-arsenaalpad-breda",
+  "lat": 51.584057,
+  "lng": 4.767728,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "VERG_24_7"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "PTMN",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterrein Minervum",
+  "slug": "minervum-breda",
+  "lat": 51.587035,
+  "lng": 4.828954,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "1299",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterrein Spoorstraat",
+  "slug": "spoorstraat-breda",
+  "lat": 51.594369,
+  "lng": 4.774859,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "VERG_24_7"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "PTGM",
+  "amid": "758",
+  "city": "breda",
+  "name": "Parkeerterreinen Galderse Meren",
+  "slug": "parkeerterreinen-galderse-meren-breda",
+  "lat": 51.521401,
+  "lng": 4.753146,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "VERG_24_7"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "503_MARK",
+  "amid": "503",
+  "city": "delft",
+  "name": "Marktgarage (Delft)",
+  "slug": "marktgarage-delft",
+  "lat": 52.014289,
+  "lng": 4.365997,
+  "capacity": 339,
+  "ev_points": 2,
+  "max_height_cm": 220,
+  "regulations": [
+   "503_MARKT",
+   "503_DAG1"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.64,
+  "rate_3h": 9.64,
+  "rate_day": 72.64
+ },
+ {
+  "areaid": "503_PRDZU",
+  "amid": "503",
+  "city": "delft",
+  "name": "P+R Delft-Zuid (Delft)",
+  "slug": "p-r-delft-zuid-delft",
+  "lat": 51.989435,
+  "lng": 4.365975,
+  "capacity": 150,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "503_PR01"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "503_PHOE",
+  "amid": "503",
+  "city": "delft",
+  "name": "Phoenixgarage (Delft)",
+  "slug": "phoenixgarage-delft",
+  "lat": 52.010766,
+  "lng": 4.354602,
+  "capacity": 202,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "503_DAG2",
+   "503_PHOEN"
+  ],
+  "is_pr": false,
+  "rate_hr": 30.0,
+  "rate_3h": 30.0,
+  "rate_day": 30.0
+ },
+ {
+  "areaid": "503_PRINS",
+  "amid": "503",
+  "city": "delft",
+  "name": "Prinsenhofgarage",
+  "slug": "prinsenhofgarage-delft",
+  "lat": 52.014884,
+  "lng": 4.349818,
+  "capacity": 639,
+  "ev_points": 8,
+  "max_height_cm": 210,
+  "regulations": [
+   "503_MARKT",
+   "503_DAG1"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.64,
+  "rate_3h": 9.64,
+  "rate_day": 72.64
+ },
+ {
+  "areaid": "503_ZUID",
+  "amid": "503",
+  "city": "delft",
+  "name": "Zuidpoortgarage (Delft)",
+  "slug": "zuidpoortgarage-delft",
+  "lat": 52.008015,
+  "lng": 4.363065,
+  "capacity": 810,
+  "ev_points": 4,
+  "max_height_cm": 205,
+  "regulations": [
+   "503_MARKT",
+   "503_DAG1"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.64,
+  "rate_3h": 9.64,
+  "rate_day": 72.64
+ },
+ {
+  "areaid": "772_CPNUE",
+  "amid": "772",
+  "city": "eindhoven",
+  "name": "Carpool Nuenen A270",
+  "slug": "carpool-nuenen-a270-eindhoven",
+  "lat": 51.454223,
+  "lng": 5.524989,
+  "capacity": 23,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "DEELPTKLIP",
+  "amid": "772",
+  "city": "eindhoven",
+  "name": "Klipperstraat - parkeerterrein",
+  "slug": "klipperstraat-parkeerterrein-eindhoven",
+  "lat": 51.440307,
+  "lng": 5.453309,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "REGD03"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "1PRGENNEP",
+  "amid": "772",
+  "city": "eindhoven",
+  "name": "P+R Genneper Parken",
+  "slug": "p-r-genneper-parken-eindhoven",
+  "lat": 51.409782,
+  "lng": 5.481443,
+  "capacity": 640,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "GAR01",
+   "GAR02"
+  ],
+  "is_pr": true,
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 36.0
+ },
+ {
+  "areaid": "213BOMANSP",
+  "amid": "772",
+  "city": "eindhoven",
+  "name": "Parkeerterrein Bomansplaats - vergunninghouderszone",
+  "slug": "bomansplaats-vergunninghouderszone-eindhoven",
+  "lat": 51.430757,
+  "lng": 5.484141,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "REG21"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "DEELPTSTAT",
+  "amid": "772",
+  "city": "eindhoven",
+  "name": "Stationsweg - parkeerterrein",
+  "slug": "stationsweg-parkeerterrein-eindhoven",
+  "lat": 51.442329,
+  "lng": 5.483195,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "REGD02"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "3051",
+  "amid": "14",
+  "city": "groningen",
+  "name": "Garage Voorhorst, De Brinken en Oldehof",
+  "slug": "voorhorst-de-brinken-en-oldehof-groningen",
+  "lat": 53.172143,
+  "lng": 6.6027,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "REG42"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.33,
+  "rate_3h": 4.55,
+  "rate_day": 61.25
+ },
+ {
+  "areaid": "14_PREU",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Euroborg P3 (Groningen)",
+  "slug": "p-r-euroborg-p3-groningen",
+  "lat": 53.207358,
+  "lng": 6.596652,
+  "capacity": 630,
+  "ev_points": 4,
+  "max_height_cm": 240,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "PENRHAREN",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Haren",
+  "slug": "p-r-haren-groningen",
+  "lat": 53.169953,
+  "lng": 6.59195,
+  "capacity": 900,
+  "ev_points": 4,
+  "max_height_cm": null,
+  "regulations": [
+   "PENR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "PENRHOOGK",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Hoogkerk",
+  "slug": "p-r-hoogkerk-groningen",
+  "lat": 53.197841,
+  "lng": 6.511704,
+  "capacity": 1215,
+  "ev_points": 4,
+  "max_height_cm": null,
+  "regulations": [
+   "PENR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "PENRKARD",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Kardinge",
+  "slug": "p-r-kardinge-groningen",
+  "lat": 53.238384,
+  "lng": 6.593482,
+  "capacity": 880,
+  "ev_points": 8,
+  "max_height_cm": null,
+  "regulations": [
+   "PENR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "PENRMEERS",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Meerstad",
+  "slug": "p-r-meerstad-groningen",
+  "lat": 53.225514,
+  "lng": 6.614556,
+  "capacity": 400,
+  "ev_points": 8,
+  "max_height_cm": null,
+  "regulations": [
+   "PENR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "PENRREITD",
+  "amid": "14",
+  "city": "groningen",
+  "name": "P+R Reitdiep",
+  "slug": "p-r-reitdiep-groningen",
+  "lat": 53.23703,
+  "lng": 6.518788,
+  "capacity": 300,
+  "ev_points": 16,
+  "max_height_cm": 290,
+  "regulations": [
+   "PENR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "14-BOTER",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Boterdiep",
+  "slug": "boterdiep-groningen",
+  "lat": 53.225257,
+  "lng": 6.563005,
+  "capacity": 1040,
+  "ev_points": 8,
+  "max_height_cm": 200,
+  "regulations": [
+   "14_BOTER",
+   "14_BOTERDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 66.0
+ },
+ {
+  "areaid": "CIR",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Circus",
+  "slug": "circus-groningen",
+  "lat": 53.227149,
+  "lng": 6.562133,
+  "capacity": 300,
+  "ev_points": 2,
+  "max_height_cm": 190,
+  "regulations": [
+   "14_CIRC",
+   "14_CIRCDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 8.0,
+  "rate_day": 58.0
+ },
+ {
+  "areaid": "PGD",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Damsterdiep",
+  "slug": "damsterdiep-groningen",
+  "lat": 53.21843,
+  "lng": 6.578117,
+  "capacity": 514,
+  "ev_points": 10,
+  "max_height_cm": 205,
+  "regulations": [
+   "14_DAMST",
+   "14_DAMSTDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 66.0
+ },
+ {
+  "areaid": "EUR",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Euroborg",
+  "slug": "euroborg-groningen",
+  "lat": 53.207098,
+  "lng": 6.592639,
+  "capacity": 2149,
+  "ev_points": 2,
+  "max_height_cm": 190,
+  "regulations": [
+   "14_EURO",
+   "14_EURODK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 36.0
+ },
+ {
+  "areaid": "FOR",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Forum",
+  "slug": "forum-groningen",
+  "lat": 53.219207,
+  "lng": 6.57081,
+  "capacity": 0,
+  "ev_points": 10,
+  "max_height_cm": 200,
+  "regulations": [
+   "14_FORUM",
+   "14_FORUMDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.0,
+  "rate_3h": 10.0,
+  "rate_day": 80.0
+ },
+ {
+  "areaid": "STEUR",
+  "amid": "14",
+  "city": "groningen",
+  "name": "parkeergarage Station Europapark",
+  "slug": "station-europapark-groningen",
+  "lat": 53.20571,
+  "lng": 6.585602,
+  "capacity": 216,
+  "ev_points": 4,
+  "max_height_cm": 205,
+  "regulations": [
+   "14_EURO",
+   "14_EURODK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 36.0
+ },
+ {
+  "areaid": "392_CRO",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage Cronjé (Haarlem)",
+  "slug": "cronje-haarlem",
+  "lat": 52.3945,
+  "lng": 4.638407,
+  "capacity": 404,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "392_CRO",
+   "392_CROAV",
+   "392_CRODK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.62,
+  "rate_3h": 4.86,
+  "rate_day": 38.88
+ },
+ {
+  "areaid": "392_APP",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage De Appelaar (Haarlem)",
+  "slug": "de-appelaar-haarlem",
+  "lat": 52.380269,
+  "lng": 4.639066,
+  "capacity": 296,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "392_APP",
+   "392_APPAV",
+   "392_APPDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
+ },
+ {
+  "areaid": "392_KAMP",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage De Kamp (Haarlem)",
+  "slug": "de-kamp-haarlem",
+  "lat": 52.377478,
+  "lng": 4.636735,
+  "capacity": 395,
+  "ev_points": 2,
+  "max_height_cm": 200,
+  "regulations": [
+   "392_GAR01",
+   "392_GAR02",
+   "392_GAR03"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.49,
+  "rate_3h": 10.47,
+  "rate_day": 83.76
+ },
+ {
+  "areaid": "392_DRE",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage Dreef (Haarlem)",
+  "slug": "dreef-haarlem",
+  "lat": 52.37198,
+  "lng": 4.630349,
+  "capacity": 239,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "392_DRE",
+   "392_DREAK",
+   "392_DREAV"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.62,
+  "rate_3h": 7.86,
+  "rate_day": 62.88
+ },
+ {
+  "areaid": "392_FLO",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage Floridastraat (Haarlem)",
+  "slug": "floridastraat-haarlem",
+  "lat": 52.358885,
+  "lng": 4.655786,
+  "capacity": 596,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "392_FLO",
+   "392_FLODK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.2,
+  "rate_3h": 3.6,
+  "rate_day": 28.8
+ },
+ {
+  "areaid": "392_HOUT",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage Houtplein (Haarlem)",
+  "slug": "houtplein-haarlem",
+  "lat": 52.374715,
+  "lng": 4.631711,
+  "capacity": 860,
+  "ev_points": 6,
+  "max_height_cm": 195,
+  "regulations": [
+   "392_GAR01",
+   "392_GAR02",
+   "392_GAR03"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.49,
+  "rate_3h": 10.47,
+  "rate_day": 83.76
+ },
+ {
+  "areaid": "392_RAA",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "Garage Raaks (Haarlem)",
+  "slug": "raaks-haarlem",
+  "lat": 52.381754,
+  "lng": 4.629215,
+  "capacity": 960,
+  "ev_points": 8,
+  "max_height_cm": 200,
+  "regulations": [
+   "392_GAR01",
+   "392_GAR02",
+   "392_GAR03"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.49,
+  "rate_3h": 10.47,
+  "rate_day": 83.76
+ },
+ {
+  "areaid": "394_PRGET",
+  "amid": "394",
+  "city": "haarlem",
+  "name": "P+R Getsewoud-Zuid (Nieuw-Vennep)",
+  "slug": "p-r-getsewoud-zuid-haarlem",
+  "lat": 52.260448,
+  "lng": 4.605492,
+  "capacity": 100,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "394_PRGET"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "392_PRSPA",
+  "amid": "392",
+  "city": "haarlem",
+  "name": "P+R Station Haarlem Spaarnwoude (Haarlem)",
+  "slug": "p-r-station-haarlem-spaarnwoude-haarlem",
+  "lat": 52.383627,
+  "lng": 4.671528,
+  "capacity": 152,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "392_PRSPA"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "546_MORS",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Centrum Morspoort (Leiden)",
+  "slug": "centrum-morspoort-leiden",
+  "lat": 52.162766,
+  "lng": 4.480614,
+  "capacity": 397,
+  "ev_points": 4,
+  "max_height_cm": 210,
+  "regulations": [
+   "546_MORS",
+   "546_MORSDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "546_GARE",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Garenmarkt (Leiden)",
+  "slug": "garenmarkt-leiden",
+  "lat": 52.154574,
+  "lng": 4.493523,
+  "capacity": 475,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "546_GARE",
+   "546_GAREDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.8,
+  "rate_3h": 8.4,
+  "rate_day": 67.2
+ },
+ {
+  "areaid": "546_HAAR",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Haarlemmerstraat (Leiden)",
+  "slug": "haarlemmerstraat-leiden",
+  "lat": 52.15968,
+  "lng": 4.497982,
+  "capacity": 275,
+  "ev_points": 4,
+  "max_height_cm": 190,
+  "regulations": [
+   "546_HAAR",
+   "546_HAARDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.55,
+  "rate_3h": 4.65,
+  "rate_day": 37.2
+ },
+ {
+  "areaid": "546_LAM",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Lammermarkt (Leiden)",
+  "slug": "lammermarkt-leiden",
+  "lat": 52.163551,
+  "lng": 4.486786,
+  "capacity": 525,
+  "ev_points": 8,
+  "max_height_cm": 210,
+  "regulations": [
+   "546_LAM",
+   "546_LAMMDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.8,
+  "rate_3h": 8.4,
+  "rate_day": 67.2
+ },
+ {
+  "areaid": "546_RING",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Ringkade (Leiden)",
+  "slug": "ringkade-leiden",
+  "lat": 52.165665,
+  "lng": 4.507183,
+  "capacity": 210,
+  "ev_points": 2,
+  "max_height_cm": 210,
+  "regulations": [
+   "546_RING"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.0,
+  "rate_3h": 3.0,
+  "rate_day": 34.5
+ },
+ {
+  "areaid": "546_SOES",
+  "amid": "546",
+  "city": "leiden",
+  "name": "Garage Soestdijkkade (Leiden)",
+  "slug": "soestdijkkade-leiden",
+  "lat": 52.166194,
+  "lng": 4.505805,
+  "capacity": 140,
+  "ev_points": 2,
+  "max_height_cm": 200,
+  "regulations": [
+   "546_SOES",
+   "546_SOESDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.0,
+  "rate_3h": 3.0,
+  "rate_day": 34.5
+ },
+ {
+  "areaid": "546_PRHAA",
+  "amid": "546",
+  "city": "leiden",
+  "name": "P+R Haagweg (Leiden)",
+  "slug": "p-r-haagweg-leiden",
+  "lat": 52.159547,
+  "lng": 4.478473,
+  "capacity": 600,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "546_PRHAA",
+   "546_PRHAAD"
+  ],
+  "is_pr": true,
+  "rate_hr": 4.0,
+  "rate_3h": 6.0,
+  "rate_day": 2230.0
+ },
+ {
+  "areaid": "935_PRMNO",
+  "amid": "935",
+  "city": "maastricht",
+  "name": "P+R Station Maastricht Noord I",
+  "slug": "p-r-station-maastricht-noord-i-maastricht",
+  "lat": 50.873017,
+  "lng": 5.718397,
+  "capacity": 343,
+  "ev_points": 0,
+  "max_height_cm": 250,
+  "regulations": [
+   "935_PRMNO"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "935_PRMNO2",
+  "amid": "935",
+  "city": "maastricht",
+  "name": "P+R Station Maastricht Noord II",
+  "slug": "p-r-station-maastricht-noord-ii-maastricht",
+  "lat": 50.87225,
+  "lng": 5.718426,
+  "capacity": 181,
+  "ev_points": 0,
+  "max_height_cm": 250,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "935_PRMRA",
+  "amid": "935",
+  "city": "maastricht",
+  "name": "P+R Station Maastricht Randwyck Oostzijde (Maastricht)",
+  "slug": "p-r-station-maastricht-randwyck-oostzijde-maastricht",
+  "lat": 50.837602,
+  "lng": 5.719744,
+  "capacity": 23,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "935_PRMRA"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "935_PRMRW",
+  "amid": "935",
+  "city": "maastricht",
+  "name": "P+R Station Maastricht Randwyck Westzijde (Maastricht)",
+  "slug": "p-r-station-maastricht-randwyck-westzijde-maastricht",
+  "lat": 50.837372,
+  "lng": 5.717532,
+  "capacity": 14,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "935_PRMRW"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "268_CANISI",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Canisius Wilhelmina Ziekenhuis Hoofdgebouw",
+  "slug": "canisius-wilhelmina-ziekenhuis-hoofdgebouw-nijmegen",
+  "lat": 51.817197,
+  "lng": 5.829637,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "268_CANDAG",
+   "268_CANISI"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 7.5
+ },
+ {
+  "areaid": "268_CANSPO",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Canisius Wilhelmina Ziekenhuis spoedplein",
+  "slug": "canisius-wilhelmina-ziekenhuis-spoedplein-nijmegen",
+  "lat": 51.817197,
+  "lng": 5.829637,
+  "capacity": 25,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "268_CANSPO",
+   "268_CANSPD"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.8,
+  "rate_3h": 5.4,
+  "rate_day": 39.15
+ },
+ {
+  "areaid": "268_EIERM",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Garage Eiermarkt (Nijmegen)",
+  "slug": "eiermarkt-nijmegen",
+  "lat": 51.847434,
+  "lng": 5.86656,
+  "capacity": 350,
+  "ev_points": 4,
+  "max_height_cm": 190,
+  "regulations": [
+   "268_EIERM",
+   "268_EIERDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.9,
+  "rate_3h": 8.7,
+  "rate_day": 69.6
+ },
+ {
+  "areaid": "268_KEIZK",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Garage Keizer Karel (Nijmegen)",
+  "slug": "keizer-karel-nijmegen",
+  "lat": 51.842178,
+  "lng": 5.85737,
+  "capacity": 684,
+  "ev_points": 4,
+  "max_height_cm": 210,
+  "regulations": [
+   "268_KEIZK",
+   "268_KEIKDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.9,
+  "rate_3h": 8.7,
+  "rate_day": 69.6
+ },
+ {
+  "areaid": "268_KELFKB",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Garage Kelfkensbos (Nijmegen)",
+  "slug": "kelfkensbos-nijmegen",
+  "lat": 51.846208,
+  "lng": 5.870647,
+  "capacity": 600,
+  "ev_points": 4,
+  "max_height_cm": 190,
+  "regulations": [
+   "268_KELFKB",
+   "268_KELFDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.9,
+  "rate_3h": 8.7,
+  "rate_day": 69.6
+ },
+ {
+  "areaid": "268_MARBUR",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Garage Mariénburg (Nijmegen)",
+  "slug": "marienburg-nijmegen",
+  "lat": 51.844784,
+  "lng": 5.865989,
+  "capacity": 300,
+  "ev_points": 2,
+  "max_height_cm": 200,
+  "regulations": [
+   "268_MARBUR",
+   "268_MARBDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.9,
+  "rate_3h": 8.7,
+  "rate_day": 69.6
+ },
+ {
+  "areaid": "268_PRNOO",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "P+R Nijmegen-Noord (Nijmegen)",
+  "slug": "p-r-nijmegen-noord-nijmegen",
+  "lat": 51.881898,
+  "lng": 5.861051,
+  "capacity": 350,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "268_PRNOD",
+   "268_PRNOW",
+   "268_PRNOM"
+  ],
+  "is_pr": true,
+  "rate_hr": 3.5,
+  "rate_3h": 3.5,
+  "rate_day": 3.5
+ },
+ {
+  "areaid": "268_PRWES",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "P+R Nijmegen-West (Nijmegen)",
+  "slug": "p-r-nijmegen-west-nijmegen",
+  "lat": 51.836545,
+  "lng": 5.800985,
+  "capacity": 131,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "268_PRWES"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "268_PRLEN",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "P+R Station Nijmegen Lent (Lent)",
+  "slug": "p-r-station-nijmegen-lent-nijmegen",
+  "lat": 51.861969,
+  "lng": 5.861608,
+  "capacity": 30,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "268_PRLEN"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "268_CANIJO",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Polikliniek Jonkerbosch Canisius Ziekenhuis kantoor",
+  "slug": "polikliniek-jonkerbosch-canisius-ziekenhuis-kantoor-nijmegen",
+  "lat": 51.819257,
+  "lng": 5.833383,
+  "capacity": 80,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "268_CANIJO"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.35,
+  "rate_3h": 4.95,
+  "rate_day": 42.75
+ },
+ {
+  "areaid": "268_MOLPDK",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "Terrein Molenpoortdak (Nijmegen)",
+  "slug": "molenpoortdak-nijmegen",
+  "lat": 51.843891,
+  "lng": 5.864618,
+  "capacity": 350,
+  "ev_points": 0,
+  "max_height_cm": 240,
+  "regulations": [
+   "268_MOLPDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "ZONE_K",
+  "amid": "268",
+  "city": "nijmegen",
+  "name": "parkeerterrein Zwanenveld bij winkelcentrum Dukenburg",
+  "slug": "zwanenveld-bij-winkelcentrum-dukenburg-nijmegen",
+  "lat": 51.82347,
+  "lng": 5.800552,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "REG02"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.9,
+  "rate_3h": 8.7,
+  "rate_day": 69.6
+ },
+ {
+  "areaid": "BENTHSTR",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Benthuizerstraat (Rotterdam)",
+  "slug": "benthuizerstraat-rotterdam",
+  "lat": 51.9367,
+  "lng": 4.4803,
+  "capacity": 135,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_BHST",
+   "599_BHSTDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 4.5,
+  "rate_day": 39.5
+ },
+ {
+  "areaid": "BOULEVZ",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Boulevard Zuid (Rotterdam)",
+  "slug": "boulevard-zuid-rotterdam",
+  "lat": 51.896415,
+  "lng": 4.509613,
+  "capacity": 189,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_BOUZ",
+   "599_BOUZDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 4.5,
+  "rate_day": 39.5
+ },
+ {
+  "areaid": "COLWEG",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Colosseumweg (Rotterdam)",
+  "slug": "colosseumweg-rotterdam",
+  "lat": 51.896932,
+  "lng": 4.51172,
+  "capacity": 203,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_COLW",
+   "599_COLWDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 4.5,
+  "rate_day": 39.5
+ },
+ {
+  "areaid": "DEBOOMPJES",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage De Boompjes (Rotterdam)",
+  "slug": "de-boompjes-rotterdam",
+  "lat": 51.913787,
+  "lng": 4.485195,
+  "capacity": 632,
+  "ev_points": 22,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_BOOM",
+   "599_BOOMDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "ERASMUS",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Erasmusbrug (Rotterdam)",
+  "slug": "erasmusbrug-rotterdam",
+  "lat": 51.910553,
+  "lng": 4.48387,
+  "capacity": 327,
+  "ev_points": 1,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_ERMB",
+   "599_ERMBDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "HOOGVL",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Hoogvliet Centrum (Rotterdam)",
+  "slug": "hoogvliet-centrum-rotterdam",
+  "lat": 51.865992,
+  "lng": 4.358066,
+  "capacity": 257,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_HOOG",
+   "599_HOOGDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 0.0,
+  "rate_3h": 3.5,
+  "rate_day": 38.5
+ },
+ {
+  "areaid": "KIPHOF",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Kiphof (Rotterdam)",
+  "slug": "kiphof-rotterdam",
+  "lat": 51.921755,
+  "lng": 4.492372,
+  "capacity": 339,
+  "ev_points": 2,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_KIPH",
+   "599_KIPHDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "LUSTHOF",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Lusthofstraat (Rotterdam)",
+  "slug": "lusthofstraat-rotterdam",
+  "lat": 51.925142,
+  "lng": 4.509258,
+  "capacity": 217,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_LUST",
+   "599_LUSTDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 4.5,
+  "rate_day": 39.5
+ },
+ {
+  "areaid": "MATHPLN",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Mathenesserplein (Rotterdam)",
+  "slug": "mathenesserplein-rotterdam",
+  "lat": 51.918176,
+  "lng": 4.444854,
+  "capacity": 156,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_MATP",
+   "599_MATPDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 4.5,
+  "rate_day": 39.5
+ },
+ {
+  "areaid": "MEENT",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Meent (Rotterdam)",
+  "slug": "meent-rotterdam",
+  "lat": 51.924172,
+  "lng": 4.482425,
+  "capacity": 548,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_STJP",
+   "599_STJPDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "MUSEUMPARK",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Museumpark (Rotterdam)",
+  "slug": "museumpark-rotterdam",
+  "lat": 51.913874,
+  "lng": 4.470421,
+  "capacity": 1162,
+  "ev_points": 4,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_MUPK",
+   "599_MUPKDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "NWBINWG",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Nieuwe Binnenweg (Rotterdam)",
+  "slug": "nieuwe-binnenweg-rotterdam",
+  "lat": 51.911246,
+  "lng": 4.452694,
+  "capacity": 115,
+  "ev_points": 2,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_NWBW",
+   "599_NWBWDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 5.0,
+  "rate_day": 40.0
+ },
+ {
+  "areaid": "OUDEHAVE",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Oude Haven (Rotterdam)",
+  "slug": "oude-haven-rotterdam",
+  "lat": 51.920983,
+  "lng": 4.492877,
+  "capacity": 229,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_OUHA",
+   "599_OUHADK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "599_PL53",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Plein 1953 (Rotterdam)",
+  "slug": "plein-1953-rotterdam",
+  "lat": 51.874722,
+  "lng": 4.468464,
+  "capacity": 69,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "SCHBP1",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Schouwburgplein 1 (Rotterdam)",
+  "slug": "schouwburgplein-1-rotterdam",
+  "lat": 51.923057,
+  "lng": 4.470506,
+  "capacity": 730,
+  "ev_points": 2,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_SCHBDK",
+   "599_SCHBP"
+  ],
+  "is_pr": false,
+  "rate_hr": 41.0,
+  "rate_3h": 41.0,
+  "rate_day": 41.0
+ },
+ {
+  "areaid": "SCHBP2",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Schouwburgplein 2 (Rotterdam)",
+  "slug": "schouwburgplein-2-rotterdam",
+  "lat": 51.922799,
+  "lng": 4.470409,
+  "capacity": 760,
+  "ev_points": 10,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_KRPL",
+   "599_KRPLDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 5.0,
+  "rate_3h": 13.0,
+  "rate_day": 103.0
+ },
+ {
+  "areaid": "VERANDA",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Veranda (Rotterdam)",
+  "slug": "veranda-rotterdam",
+  "lat": 51.896813,
+  "lng": 4.527899,
+  "capacity": 589,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_VERA",
+   "599_VERADK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 5.0,
+  "rate_day": 40.0
+ },
+ {
+  "areaid": "ZOOMSTR",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "Garage Zoomstraat (Rotterdam)",
+  "slug": "zoomstraat-rotterdam",
+  "lat": 51.937587,
+  "lng": 4.480219,
+  "capacity": 94,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "599_ZMST",
+   "599_ZMSTDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.5,
+  "rate_3h": 4.0,
+  "rate_day": 31.5
+ },
+ {
+  "areaid": "599_PRAL",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Alexander (Rotterdam)",
+  "slug": "p-r-alexander-rotterdam",
+  "lat": 51.953005,
+  "lng": 4.550463,
+  "capacity": 437,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PRAL",
+   "599_PRALDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 2.0,
+  "rate_3h": 5.5,
+  "rate_day": 42.5
+ },
+ {
+  "areaid": "599_BEVER",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Beverwaard (Rotterdam)",
+  "slug": "p-r-beverwaard-rotterdam",
+  "lat": 51.885571,
+  "lng": 4.569489,
+  "capacity": 508,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_CAPEL",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Capelsebrug (Rotterdam)",
+  "slug": "p-r-capelsebrug-rotterdam",
+  "lat": 51.920556,
+  "lng": 4.558533,
+  "capacity": 430,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_HOOGPR",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Hoogvliet (Rotterdam)",
+  "slug": "p-r-hoogvliet-rotterdam",
+  "lat": 51.859501,
+  "lng": 4.365646,
+  "capacity": 229,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_HOOGTU",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Hoogvliet Tussenwater (Rotterdam)",
+  "slug": "p-r-hoogvliet-tussenwater-rotterdam",
+  "lat": 51.867442,
+  "lng": 4.378589,
+  "capacity": 20,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_HOOGZA",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Hoogvliet Zalmplaat (Rotterdam)",
+  "slug": "p-r-hoogvliet-zalmplaat-rotterdam",
+  "lat": 51.859901,
+  "lng": 4.365596,
+  "capacity": 229,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_KRAL",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Kralingse Zoom (Rotterdam)",
+  "slug": "p-r-kralingse-zoom-rotterdam",
+  "lat": 51.923144,
+  "lng": 4.534294,
+  "capacity": 1700,
+  "ev_points": 12,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_KRAL",
+   "599_KRALDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 2.0,
+  "rate_3h": 5.5,
+  "rate_day": 42.5
+ },
+ {
+  "areaid": "599_MPLEIN",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Meijersplein (Rotterdam)",
+  "slug": "p-r-meijersplein-rotterdam",
+  "lat": 51.955583,
+  "lng": 4.457441,
+  "capacity": 500,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PRSL",
+   "599_PRSLDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 2.0,
+  "rate_3h": 5.5,
+  "rate_day": 42.5
+ },
+ {
+  "areaid": "599_MELAN",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Melanchtonweg (Rotterdam)",
+  "slug": "p-r-melanchtonweg-rotterdam",
+  "lat": 51.949404,
+  "lng": 4.464408,
+  "capacity": 80,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_NESSE",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Nesselande (Rotterdam)",
+  "slug": "p-r-nesselande-rotterdam",
+  "lat": 51.979563,
+  "lng": 4.58607,
+  "capacity": 61,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_NOORD",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Noorderhelling (Rotterdam)",
+  "slug": "p-r-noorderhelling-rotterdam",
+  "lat": 51.894989,
+  "lng": 4.533083,
+  "capacity": 322,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_PERNIS",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Pernis (Rotterdam)",
+  "slug": "p-r-pernis-rotterdam",
+  "lat": 51.884913,
+  "lng": 4.381764,
+  "capacity": 31,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_SCHENK",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Schenkel (Rotterdam)",
+  "slug": "p-r-schenkel-rotterdam",
+  "lat": 51.931883,
+  "lng": 4.564271,
+  "capacity": 102,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "599_PRSL",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Slinge (Rotterdam)",
+  "slug": "p-r-slinge-rotterdam",
+  "lat": 51.873542,
+  "lng": 4.476918,
+  "capacity": 849,
+  "ev_points": 2,
+  "max_height_cm": 210,
+  "regulations": [
+   "599_PRSL",
+   "599_PRSLDK"
+  ],
+  "is_pr": true,
+  "rate_hr": 2.0,
+  "rate_3h": 5.5,
+  "rate_day": 42.5
+ },
+ {
+  "areaid": "599_PRLOM",
+  "amid": "599",
+  "city": "rotterdam",
+  "name": "P+R Station Rotterdam Lombardijen (Rotterdam)",
+  "slug": "p-r-station-rotterdam-lombardijen-rotterdam",
+  "lat": 51.879798,
+  "lng": 4.529345,
+  "capacity": 236,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "599_PR"
+  ],
+  "is_pr": true,
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
+ },
+ {
+  "areaid": "518_HELIC",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "Garage Helicon (Den Haag)",
+  "slug": "helicon-the-hague",
+  "lat": 52.079996,
+  "lng": 4.321658,
+  "capacity": 226,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "G2",
+   "GDK1"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.4,
+  "rate_3h": 13.2,
+  "rate_day": 105.6
+ },
+ {
+  "areaid": "518_MARK",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "Garage Markthof (Den Haag)",
+  "slug": "markthof-the-hague",
+  "lat": 52.076747,
+  "lng": 4.315006,
+  "capacity": 125,
+  "ev_points": 4,
+  "max_height_cm": 200,
+  "regulations": [
+   "G4"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.5,
+  "rate_3h": 10.5,
+  "rate_day": 84.0
+ },
+ {
+  "areaid": "518_PARK",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "Garage Parkstraat (Den Haag)",
+  "slug": "parkstraat-the-hague",
+  "lat": 52.0829,
+  "lng": 4.30755,
+  "capacity": 164,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "G3"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
+ },
+ {
+  "areaid": "518_PLEI",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "Garage Pleingarage (Den Haag)",
+  "slug": "pleingarage-the-hague",
+  "lat": 52.080416,
+  "lng": 4.316002,
+  "capacity": 255,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "518_PLEI",
+   "518_PLEIDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
+ },
+ {
+  "areaid": "518_PRUIT",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "P+R De Uithof (Den Haag)",
+  "slug": "p-r-de-uithof-the-hague",
+  "lat": 52.039558,
+  "lng": 4.245764,
+  "capacity": 300,
+  "ev_points": 4,
+  "max_height_cm": null,
+  "regulations": [
+   "PR01"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "518_PRPBS",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "P+R Park & Beach Scheveningen (Den Haag)",
+  "slug": "p-r-park-beach-scheveningen-the-hague",
+  "lat": 52.080422,
+  "lng": 4.327525,
+  "capacity": 960,
+  "ev_points": 1,
+  "max_height_cm": 190,
+  "regulations": [
+   "PR05"
+  ],
+  "is_pr": true,
+  "rate_hr": 5.0,
+  "rate_3h": 5.0,
+  "rate_day": 5.0
+ },
+ {
+  "areaid": "518_PRYPE",
+  "amid": "518",
+  "city": "the-hague",
+  "name": "P+R Station Ypenburg (Den Haag)",
+  "slug": "p-r-station-ypenburg-the-hague",
+  "lat": 52.054896,
+  "lng": 4.390974,
+  "capacity": 225,
+  "ev_points": 4,
+  "max_height_cm": null,
+  "regulations": [
+   "PR01"
+  ],
+  "is_pr": true
+ },
+ {
+  "areaid": "GAR_TIVOLI",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage 013-Tivoli",
+  "slug": "013-tivoli-tilburg",
+  "lat": 51.55896,
+  "lng": 5.092951,
+  "capacity": 650,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "855_GAR04",
+   "855_GAR05"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "GAR_EMMA",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Emmapassage",
+  "slug": "emmapassage-tilburg",
+  "lat": 51.555012,
+  "lng": 5.088794,
+  "capacity": 297,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "855_GAR04",
+   "855_GAR05"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "GAR_JUMBO",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Jumbo Foodmarkt Tilburg",
+  "slug": "jumbo-foodmarkt-tilburg-tilburg",
+  "lat": 51.541046,
+  "lng": 5.076524,
+  "capacity": 200,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "855_GAR02",
+   "855_GAR03"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.5,
+  "rate_3h": 7.5,
+  "rate_day": 60.0
+ },
+ {
+  "areaid": "855_KNEGT",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Knegtel (Tilburg)",
+  "slug": "knegtel-tilburg",
+  "lat": 51.560868,
+  "lng": 5.077499,
+  "capacity": 560,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "AUTO-NPR"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "GAR_KONING",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Koningsplein",
+  "slug": "koningsplein-tilburg",
+  "lat": 51.554087,
+  "lng": 5.090273,
+  "capacity": 429,
+  "ev_points": 0,
+  "max_height_cm": 185,
+  "regulations": [
+   "855_GAR04",
+   "855_GAR05"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "GAR_PIEVRE",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Pieter Vreedeplein",
+  "slug": "pieter-vreedeplein-tilburg",
+  "lat": 51.558431,
+  "lng": 5.08903,
+  "capacity": 640,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "855_GAR04",
+   "855_GAR05"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "GAR_SCHOUW",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergarage Schouwburg",
+  "slug": "schouwburg-tilburg",
+  "lat": 51.55439,
+  "lng": 5.081828,
+  "capacity": 520,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "855_GAR04",
+   "855_GAR05"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
+ },
+ {
+  "areaid": "GAR_HEUVEL",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Parkeergaragse Heuvelpoort",
+  "slug": "parkeergaragse-heuvelpoort-tilburg",
+  "lat": 51.556148,
+  "lng": 5.090703,
+  "capacity": 375,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "855_GAR01"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.2,
+  "rate_3h": 6.6,
+  "rate_day": 52.8
+ },
+ {
+  "areaid": "TER_BOERP",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein Boerhaaveplein",
+  "slug": "boerhaaveplein-tilburg",
+  "lat": 51.559726,
+  "lng": 5.098565,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "TER_KOOPV",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein Koopvaardijstraat",
+  "slug": "koopvaardijstraat-tilburg",
+  "lat": 51.553337,
+  "lng": 5.090751,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "TER_NSPLN",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein NS-Plein",
+  "slug": "ns-plein-tilburg",
+  "lat": 51.561627,
+  "lng": 5.092378,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "TER_NHR",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein Noordhoekring",
+  "slug": "noordhoekring-tilburg",
+  "lat": 51.558302,
+  "lng": 5.078411,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "TER_SCHOEN",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein Schoenerstraat",
+  "slug": "schoenerstraat-tilburg",
+  "lat": 51.553043,
+  "lng": 5.09472,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "TER_SPOOR",
+  "amid": "855",
+  "city": "tilburg",
+  "name": "Terrein Spoorlaan Oost",
+  "slug": "spoorlaan-oost-tilburg",
+  "lat": 51.559725,
+  "lng": 5.092745,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "TER_VERG"
+  ],
+  "is_pr": false
+ },
+ {
+  "areaid": "BERLIJNPLN",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Berlijnplein",
+  "slug": "berlijnplein-utrecht",
+  "lat": 52.09786,
+  "lng": 5.06867,
+  "capacity": 620,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "UTG5",
+   "AKG5",
+   "DAG-BRLN"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
+ },
+ {
+  "areaid": "CROESELAAN",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Croeselaan",
+  "slug": "croeselaan-utrecht",
+  "lat": 52.087255,
+  "lng": 5.106741,
+  "capacity": 778,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "AKG4",
+   "DAG-CROE",
+   "KTGCROES"
+  ],
+  "is_pr": false,
+  "rate_hr": 49.6,
+  "rate_3h": 49.6,
+  "rate_day": 148.8
+ },
+ {
+  "areaid": "GRIFTHOEK",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Grifthoek",
+  "slug": "grifthoek-utrecht",
+  "lat": 52.098067,
+  "lng": 5.126273,
+  "capacity": 320,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "UTG2",
+   "AKG2",
+   "DAG-G",
+   "JKG24-5",
+   "JKG24-7",
+   "MKG24-5",
+   "MKG24-7"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.85,
+  "rate_3h": 8.55,
+  "rate_day": 68.4
+ },
+ {
+  "areaid": "KVL",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Kop van Lombok",
+  "slug": "kop-van-lombok-utrecht",
+  "lat": 52.092415,
+  "lng": 5.103828,
+  "capacity": 230,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "UTG1",
+   "AKG1",
+   "DAG-KVL",
+   "JKG24-5",
+   "JKG24-7",
+   "MKG24-5",
+   "MKG24-7"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.58,
+  "rate_3h": 10.74,
+  "rate_day": 85.92
+ },
+ {
+  "areaid": "KRUISSTR",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Kruisstraat",
+  "slug": "kruisstraat-utrecht",
+  "lat": 52.093808,
+  "lng": 5.129441,
+  "capacity": 105,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "KTGKRST",
+   "DAG-KRST",
+   "AKG3"
+  ],
+  "is_pr": false,
+  "rate_hr": 4.58,
+  "rate_3h": 13.74,
+  "rate_day": 109.92
+ },
+ {
+  "areaid": "VAARTSCHER",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "Garage Vaartsche Rijn",
+  "slug": "vaartsche-rijn-utrecht",
+  "lat": 52.077857,
+  "lng": 5.122746,
+  "capacity": 224,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "UTG1",
+   "DAG-VR",
+   "AKG1",
+   "JKG24-5",
+   "JKG24-7",
+   "MKG24-5",
+   "MKG24-7"
+  ],
+  "is_pr": false,
+  "rate_hr": 3.58,
+  "rate_3h": 10.74,
+  "rate_day": 85.92
+ },
+ {
+  "areaid": "PAPENDORP",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "P+R Papendorp",
+  "slug": "p-r-papendorp-utrecht",
+  "lat": 52.070349,
+  "lng": 5.08324,
+  "capacity": 750,
+  "ev_points": 0,
+  "max_height_cm": null,
+  "regulations": [
+   "P+R-MAAND",
+   "P+R-JAAR",
+   "P+R-COMBI"
+  ],
+  "is_pr": true,
+  "rate_hr": 104.16,
+  "rate_3h": 104.16,
+  "rate_day": 104.16
+ },
+ {
+  "areaid": "DE UITHOF",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "P+R Utrecht Science Park",
+  "slug": "p-r-utrecht-science-park-utrecht",
+  "lat": 52.091671,
+  "lng": 5.177909,
+  "capacity": 500,
+  "ev_points": 0,
+  "max_height_cm": 210,
+  "regulations": [
+   "P+R-MAAND",
+   "P+R-JAAR",
+   "P+R-DAG",
+   "P+R-COMBI"
+  ],
+  "is_pr": true,
+  "rate_hr": 104.16,
+  "rate_3h": 104.16,
+  "rate_day": 104.16
+ },
+ {
+  "areaid": "WESTRAVEN",
+  "amid": "344",
+  "city": "utrecht",
+  "name": "P+R Westraven",
+  "slug": "p-r-westraven-utrecht",
+  "lat": 52.057685,
+  "lng": 5.104994,
+  "capacity": 1385,
+  "ev_points": 0,
+  "max_height_cm": 200,
+  "regulations": [
+   "P+R-MAAND",
+   "P+R-JAAR",
+   "P+R-DAG",
+   "P+R-COMBI"
+  ],
+  "is_pr": true,
+  "rate_hr": 104.16,
+  "rate_3h": 104.16,
+  "rate_day": 104.16
+ },
+ {
+  "areaid": "193_DIEZER",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Diezerpoort (Zwolle)",
+  "slug": "diezerpoort-zwolle",
+  "lat": 52.517227,
+  "lng": 6.100186,
+  "capacity": 611,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "193_DIEP",
+   "193_DIEPDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.3,
+  "rate_3h": 3.9,
+  "rate_day": 31.2
+ },
+ {
+  "areaid": "193_EMMA",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Emmawijk - Dek",
+  "slug": "emmawijk-dek-zwolle",
+  "lat": 52.509209,
+  "lng": 6.086367,
+  "capacity": 100,
+  "ev_points": 2,
+  "max_height_cm": 200,
+  "regulations": [
+   "193_EMMA",
+   "193_EMMADK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.35,
+  "rate_3h": 6.75,
+  "rate_day": 52.8
+ },
+ {
+  "areaid": "193_EMMKEL",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Emmawijk - Kelder",
+  "slug": "emmawijk-kelder-zwolle",
+  "lat": 52.509779,
+  "lng": 6.086397,
+  "capacity": 100,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "193_EMMA",
+   "193_EMMADK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.35,
+  "rate_3h": 6.75,
+  "rate_day": 52.8
+ },
+ {
+  "areaid": "193_KATW",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Katwolderplein (Zwolle)",
+  "slug": "katwolderplein-zwolle",
+  "lat": 52.51436,
+  "lng": 6.086261,
+  "capacity": 700,
+  "ev_points": 30,
+  "max_height_cm": 210,
+  "regulations": [
+   "193_NOOR",
+   "193_NOORDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.73,
+  "rate_3h": 8.18,
+  "rate_day": 65.45
+ },
+ {
+  "areaid": "193_LUBECK",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Lébeckgarage (Zwolle)",
+  "slug": "lebeckgarage-zwolle",
+  "lat": 52.503792,
+  "lng": 6.088352,
+  "capacity": 385,
+  "ev_points": 4,
+  "max_height_cm": 200,
+  "regulations": [
+   "193_LUB",
+   "193_LUBDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.3,
+  "rate_3h": 3.9,
+  "rate_day": 31.2
+ },
+ {
+  "areaid": "193_NOORD",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Noordereiland - Dek (Zwolle)",
+  "slug": "noordereiland-dek-zwolle",
+  "lat": 52.515666,
+  "lng": 6.095621,
+  "capacity": 330,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "193_NOORAK",
+   "193_NOOR",
+   "193_NOORDK",
+   "193_NOORDL"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.73,
+  "rate_3h": 8.18,
+  "rate_day": 65.45
+ },
+ {
+  "areaid": "193_NOORDK",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Noordereiland - Kelder (Zwolle)",
+  "slug": "noordereiland-kelder-zwolle",
+  "lat": 52.51539,
+  "lng": 6.09693,
+  "capacity": 340,
+  "ev_points": 0,
+  "max_height_cm": 190,
+  "regulations": [
+   "193_NOORAK",
+   "193_NOOR",
+   "193_NOORDK",
+   "193_NOORDL"
+  ],
+  "is_pr": false,
+  "rate_hr": 2.73,
+  "rate_3h": 8.18,
+  "rate_day": 65.45
+ },
+ {
+  "areaid": "193_DEUX",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeergarage Pas de Deux (Zwolle)",
+  "slug": "pas-de-deux-zwolle",
+  "lat": 52.503617,
+  "lng": 6.091695,
+  "capacity": 204,
+  "ev_points": 8,
+  "max_height_cm": 200,
+  "regulations": [
+   "193_DEUX",
+   "193_DEUXDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.3,
+  "rate_3h": 3.9,
+  "rate_day": 31.2
+ },
+ {
+  "areaid": "193_HLAND",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Parkeerterrein Hanzelaan (Zwolle)",
+  "slug": "hanzelaan-zwolle",
+  "lat": 52.501297,
+  "lng": 6.097804,
+  "capacity": 335,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [
+   "193_HLAND",
+   "193_HLANDK"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.3,
+  "rate_3h": 3.9,
+  "rate_day": 31.2
+ },
+ {
+  "areaid": "ZN2_ALBC",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Albert Cuypstraat Parkeerterrein",
+  "slug": "zone-2-centrumschil-albert-cuypstraat-parkeerterrein-zwolle",
+  "lat": 52.516434,
+  "lng": 6.091171,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_ASSDK",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Assendorperdijk Parkeerterrein",
+  "slug": "zone-2-centrumschil-assendorperdijk-parkeerterrein-zwolle",
+  "lat": 52.506571,
+  "lng": 6.102804,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_DVEST",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Dieze Veste Parkeerterrein",
+  "slug": "zone-2-centrumschil-dieze-veste-parkeerterrein-zwolle",
+  "lat": 52.517692,
+  "lng": 6.099361,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DV_DK",
+   "RZN2_DVEST"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_GRWZ",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Groot Wezenlanden Parkeerterrein",
+  "slug": "zone-2-centrumschil-groot-wezenlanden-parkeerterrein-zwolle",
+  "lat": 52.509357,
+  "lng": 6.097659,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_HEDON",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Hedon Parkeerterrein",
+  "slug": "zone-2-centrumschil-hedon-parkeerterrein-zwolle",
+  "lat": 52.51696,
+  "lng": 6.093984,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_MEEUW2",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Meeuwenlaan 2 Parkeerterrein (Alleen weekeinde)",
+  "slug": "zone-2-centrumschil-meeuwenlaan-2-parkeerterrein-zwolle",
+  "lat": 52.514875,
+  "lng": 6.083372,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_ME2DK",
+   "RZN2_MEU2"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_MEEUW4",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Meeuwenlaan 4/6 Parkeerterrein",
+  "slug": "zone-2-centrumschil-meeuwenlaan-4-6-parkeerterrein-zwolle",
+  "lat": 52.5142,
+  "lng": 6.081412,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_SCHUT",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Schuttervaerkade Parkeerterreinen",
+  "slug": "zone-2-centrumschil-schuttervaerkade-parkeerterreinen-zwolle",
+  "lat": 52.515939,
+  "lng": 6.090385,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN2_TURFM",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 2 Centrumschil Turfmarkt Parkeerterrein",
+  "slug": "zone-2-centrumschil-turfmarkt-parkeerterrein-zwolle",
+  "lat": 52.513057,
+  "lng": 6.103722,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN2_DK",
+   "RZN2_PTER"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN3_HOVEN",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 3 Spoorzone Parkeerterrein Hanzehoven",
+  "slug": "zone-3-spoorzone-parkeerterrein-hanzehoven-zwolle",
+  "lat": 52.503515,
+  "lng": 6.087679,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN3_DK",
+   "RZN3_HOVEN"
+  ],
+  "is_pr": false,
+  "rate_hr": 7.5,
+  "rate_3h": 7.5,
+  "rate_day": 22.5
+ },
+ {
+  "areaid": "ZN4_BIWI",
+  "amid": "193",
+  "city": "zwolle",
+  "name": "Zone 4 Schil Bisschop Willebrandlaan Parkeerterrein Aldi",
+  "slug": "zone-4-schil-bisschop-willebrandlaan-parkeerterrein-aldi-zwolle",
+  "lat": 52.517476,
+  "lng": 6.105858,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [
+   "RZN4_BIWI"
+  ],
+  "is_pr": false,
+  "rate_hr": 1.0,
+  "rate_3h": 3.0,
+  "rate_day": 24.0
+ }
+]

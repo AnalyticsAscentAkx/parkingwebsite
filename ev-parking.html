@@ -50,6 +50,7 @@
       <a href="/all-cities">All Cities →</a>
     </div>
   </li>
+  <li><a href="/search">Search 🔍</a></li>
   <li><a href="/map">Map 🗺️</a></li>
   <li><a href="/schiphol">Schiphol ✈</a></li>
   <li class="has-drop"><a href="/free-parking">Guides ▾</a>
@@ -196,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="font-size:12px;color:#6366F1;font-weight:700;margin-bottom:6px">⚡ EV Charging Available</div>
                 <div style="font-size:13px;color:#334155"><strong>${evPts}</strong> charging point(s)</div>
                 ${g.capacity ? `<div style="font-size:12px;color:#64748B">Capacity: ${g.capacity} spots</div>` : ''}
-                ${g.max_height && g.max_height !== '0' ? `<div style="font-size:12px;color:#64748B">Max height: ${g.max_height}cm</div>` : ''}
+                ${g.max_height_cm ? `<div style="font-size:12px;color:#64748B">Max height: ${g.max_height_cm}cm</div>` : ''}
                 <div style="font-size:10px;color:#94A3B8;margin-top:6px">Source: opendata.rdw.nl (CC0)</div>
             </div>`);
             evLayers.rdw.push(m);

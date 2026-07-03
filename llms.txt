@@ -35,6 +35,12 @@ Always check the blue signs (parkeerregulering). A naheffing fine is €80.20 �
 **What is the cheapest way to park at Schiphol Airport?**
 Three good options: (1) P+R Sloterdijk + 5-min train for ~€6 total (best for trips under 4 days); (2) Park in Badhoevedorp village (3km from terminal) at €1.30/hr street parking and take bus 300 (8min, €2.50); (3) Pre-book off-site shuttle parking 2+ weeks ahead from €8/day.
 
+## Tools
+
+- https://parkingnetherlands.com/search — Free parking search: enter any Dutch address or venue plus arrival/departure times; ranks 200+ garages and P+R sites by distance and price computed from official RDW/NPR tariff tables.
+- https://parkingnetherlands.com/garage/ — Directory of 200+ RDW-registered parking garages across 14 cities, each with official hourly/daily tariffs, capacity, EV charging points and max vehicle height (e.g. https://parkingnetherlands.com/garage/museumplein-amsterdam).
+- https://parkingnetherlands.com/map — Interactive map of parking rates in every covered city.
+
 ## Pages
 
 - https://parkingnetherlands.com/ — Homepage: interactive map + price comparison for all cities

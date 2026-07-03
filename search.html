@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parking Search Netherlands — Find &amp; Compare Garages Near Any Address</title>
+<meta name="description" content="Free parking search for the Netherlands. Enter any address or venue, pick your arrival and departure time, and compare 200+ garages and P+R sites with official RDW tariffs.">
+<link rel="canonical" href="https://parkingnetherlands.com/search">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B1120'/><text x='16' y='23' text-anchor='middle' font-size='20' font-weight='bold' fill='white' font-family='sans-serif'>P</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://parkingnetherlands.com/search">
+<meta property="og:title" content="Parking Search Netherlands — Compare Garages Near Any Address">
+<meta property="og:description" content="Enter a destination and your parking times. We rank 200+ Dutch garages and P+R sites by distance and price, using official RDW tariff data.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+[
+ {
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"Parking Netherlands Search",
+  "url":"https://parkingnetherlands.com/search",
+  "applicationCategory":"TravelApplication",
+  "operatingSystem":"Web",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},
+  "description":"Free parking comparison tool for the Netherlands: search any address, compare 200+ garages and P+R locations on distance and official RDW tariffs."
+ },
+ {
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+   {"@type":"Question","name":"Where does the parking price data come from?","acceptedAnswer":{"@type":"Answer","text":"Prices are computed from the official Dutch NPR tariff tables published by RDW (opendata.rdw.nl, CC0 licence). We calculate the drive-in cost for your exact stay duration. Garages may apply day caps or online-booking discounts on top."}},
+   {"@type":"Question","name":"Can I book a parking spot through this site?","acceptedAnswer":{"@type":"Answer","text":"No — this is an independent, free comparison tool. We show you the cheapest options near your destination; you park on arrival or book directly with the operator."}},
+   {"@type":"Question","name":"How accurate are the walking distances?","acceptedAnswer":{"@type":"Answer","text":"Distances are straight-line from garage entrance to your destination. Walking time assumes 12 minutes per kilometre, typical for Dutch city centres."}}
+  ]
+ }
+]
+</script>
+<style>
+.tool-hero{background:var(--ink);position:relative;overflow:hidden;padding:52px 0 0}
+.tool-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(148,163,184,.13) 1px,transparent 1px);background-size:22px 22px;mask-image:radial-gradient(ellipse 70% 100% at 50% 0%,#000 30%,transparent 80%)}
+.tool-hero h1{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.12;max-width:640px;position:relative;z-index:2}
+.tool-hero .sub{color:#94A3B8;font-size:15px;margin:12px 0 30px;max-width:520px;position:relative;z-index:2}
+.tool-hero .sub .mono{color:#CBD5E1;font-size:12.5px}
+.panel{position:relative;z-index:3;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 50px -20px rgba(11,17,32,.45);padding:18px;display:grid;grid-template-columns:2.2fr 1fr 1fr auto;gap:12px;align-items:end;transform:translateY(46px)}
+.panel .go{height:44px;padding:0 26px;font-size:14.5px}
+.ac-wrap{position:relative}
+.ac{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh-md);z-index:50;overflow:hidden;display:none}
+.ac.open{display:block}
+.ac button{display:block;width:100%;text-align:left;background:none;border:none;padding:10px 14px;font-family:var(--f-ui);font-size:14px;color:var(--ink);cursor:pointer}
+.ac button:hover,.ac button.hl{background:var(--paper-2)}
+.ac small{display:block;color:var(--mut-2);font-size:12px}
+.results-zone{padding:88px 0 72px;background:var(--paper-2);border-bottom:1px solid var(--line-soft);min-height:300px}
+.rgrid{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:start}
+#resMap{height:560px;border-radius:var(--r-lg);border:1px solid var(--line);position:sticky;top:80px;box-shadow:var(--sh)}
+.rhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.rhead .stat{font-size:14px;color:var(--mut)}
+.rhead .stat b{color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.seg button{border:none;background:none;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;color:var(--mut);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.rcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:4px 16px;box-shadow:var(--sh);transition:.15s;cursor:pointer}
+.rcard:hover{border-color:#CBD5E1;box-shadow:var(--sh-md)}
+.rcard.sel{border-color:var(--sig);box-shadow:0 0 0 3px rgba(234,88,12,.12)}
+.rname{font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.01em}
+.rmeta{font-size:12.5px;color:var(--mut);display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.rmeta .mono{font-size:11.5px}
+.rprice{grid-row:1/3;text-align:right;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px}
+.rprice .amt{font-family:var(--f-mono);font-weight:600;font-size:19px;color:var(--ink);letter-spacing:-.03em}
+.rprice .per{font-size:11px;color:var(--mut-2);font-family:var(--f-mono)}
+.rlinks{grid-column:1/3;display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft)}
+.chip-filters{display:flex;gap:8px}
+.chip{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.05em;border:1px solid var(--line);background:#fff;border-radius:100px;padding:7px 14px;color:var(--mut);cursor:pointer;transition:.15s}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.empty{border:1px dashed var(--line);border-radius:var(--r-lg);padding:40px;text-align:center;color:var(--mut);background:#fff}
+.empty h3{color:var(--ink);font-size:17px;margin-bottom:6px}
+.citylinks{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.prose-sec{max-width:720px}
+.prose-sec h2{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:36px 0 12px}
+.prose-sec p{color:var(--txt);font-size:15px;margin-bottom:14px}
+.prose-sec a{color:var(--sig);font-weight:600;text-decoration:none}
+@media(max-width:960px){
+ .panel{grid-template-columns:1fr 1fr;transform:translateY(60px)}
+ .panel .field:first-child{grid-column:1/3}
+ .panel .go{grid-column:1/3;width:100%}
+ .results-zone{padding-top:110px}
+ .rgrid{grid-template-columns:1fr}
+ #resMap{height:380px;position:static;order:-1}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+<ul class="nav-links" id="navLinks">
+  <li class="has-drop"><a href="/all-cities">Cities</a>
+    <div class="drop">
+      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
+      <div class="drop-div"></div>
+      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
+      <div class="drop-div"></div>
+      <a href="/all-cities">All cities →</a>
+    </div>
+  </li>
+  <li class="active"><a href="/search">Search</a></li>
+  <li><a href="/map">Map</a></li>
+  <li><a href="/schiphol">Schiphol</a></li>
+  <li class="has-drop"><a href="/free-parking">Guides</a>
+    <div class="drop">
+      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV charging</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
+      <div class="drop-div"></div>
+      <a href="/about">About this site</a>
+    </div>
+  </li>
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
+</ul>
+<button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+</div></nav>
+
+<header class="tool-hero"><div class="wrap hero-in">
+  <h1>Find the cheapest parking near any address</h1>
+  <p class="sub">Search 200+ garages and P+R sites across 14 Dutch cities. Prices computed for your exact stay from official RDW tariff tables. <span class="mono">DATA: RDW·NPR (CC0) · UPDATED MONTHLY</span></p>
+  <form class="panel" id="searchPanel" onsubmit="return runSearch(event)">
+    <div class="field ac-wrap">
+      <label for="q">Destination</label>
+      <input type="text" id="q" placeholder="Address, venue or city — e.g. Johan Cruijff ArenA" autocomplete="off" required>
+      <div class="ac" id="ac"></div>
+    </div>
+    <div class="field">
+      <label for="arrive">Arrival</label>
+      <input type="datetime-local" id="arrive" required>
+    </div>
+    <div class="field">
+      <label for="depart">Departure</label>
+      <input type="datetime-local" id="depart" required>
+    </div>
+    <button type="submit" class="btn btn-primary go">Find parking</button>
+  </form>
+</div></header>
+
+<section class="results-zone"><div class="wrap">
+  <div id="resultsUI" style="display:none">
+    <div class="rhead">
+      <div class="stat" id="resStat"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <div class="chip-filters">
+          <button type="button" class="chip" id="fPr" onclick="toggleFilter('pr')">P+R only</button>
+          <button type="button" class="chip" id="fEv" onclick="toggleFilter('ev')">EV charging</button>
+        </div>
+        <div class="seg">
+          <button type="button" id="sortDist" class="on" onclick="setSort('dist')">Nearest</button>
+          <button type="button" id="sortPrice" onclick="setSort('price')">Cheapest</button>
+        </div>
+      </div>
+    </div>
+    <div class="rgrid">
+      <div id="resList"></div>
+      <div id="resMap"></div>
+    </div>
+  </div>
+  <div id="emptyState" class="empty">
+    <h3>Search any Dutch address, venue or station</h3>
+    <p style="font-size:14px">Try “Museumplein Amsterdam”, “Markthal Rotterdam” or “Johan Cruijff ArenA”.<br>We’ll rank every garage and P+R within reach by distance and price.</p>
+    <div class="citylinks">
+      <a class="btn btn-ghost btn-sm" href="javascript:demo('Amsterdam Centraal')">Amsterdam Centraal</a>
+      <a class="btn btn-ghost btn-sm" href="javascript:demo('Johan Cruijff ArenA')">Johan Cruijff ArenA</a>
+      <a class="btn btn-ghost btn-sm" href="javascript:demo('Markthal Rotterdam')">Markthal Rotterdam</a>
+      <a class="btn btn-ghost btn-sm" href="javascript:demo('Vrijthof Maastricht')">Vrijthof Maastricht</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap prose-sec">
+  <div class="eyebrow">Methodology</div>
+  <h2 style="margin-top:0">How this parking search works</h2>
+  <p>Every result comes from the Dutch national parking register (NPR), published as open data by RDW — the same dataset parking apps and municipalities use. For each garage we compute the drive-in cost of <em>your exact stay</em> from the official stepped tariff tables: a 2-hour visit is priced differently from a 26-hour one, and this tool does that arithmetic for all 200+ locations at once.</p>
+  <p>Three things to know when reading the numbers. First, prices are <strong>drive-in rates</strong> — some garages offer cheaper pre-booked online rates, and some apply day caps that the register doesn't encode. Second, distances are straight-line; in a Dutch city grid, actual walking distance runs roughly 20% longer. Third, P+R sites (shown in cyan) often require a public-transport check-in to qualify for the €1–5 day rate — read our <a href="/amsterdam-pr-guide">P+R guide</a> before choosing one.</p>
+  <p>If you're comparing cities rather than addresses, start with the <a href="/all-cities">city comparison table</a>, or read the <a href="/parking-tips-netherlands">10 rules of Dutch parking</a> to avoid the €80.20 enforcement fine.</p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+      <p>Independent parking comparison for the Netherlands. Official data, no bookings pushed, no paywall — helping tourists, expats and locals park smarter.</p>
+      <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+    </div>
+    <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All cities</a></div>
+    <div class="foot-col"><h4>Tools</h4><a href="/search">Parking search</a><a href="/map">Interactive map</a><a href="/all-cities">Price comparison</a><a href="/blog">Blog</a></div>
+    <div class="foot-col"><h4>Guides</h4><a href="/free-parking">Free parking</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/ev-parking">EV parking</a><a href="/about">About</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Parking Netherlands — an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span class="foot-pill">DATA: RDW OPEN DATA · CC0</span>
+    <span>Not affiliated with any municipality</span>
+  </div>
+</div></footer>
+
+<script src="/rdw-data.js"></script>
+<script>
+// ---------- setup ----------
+const ALL = Object.entries(RDW_DATA).flatMap(([city, gs]) => gs.map(g => ({...g, city})));
+const CITY_LABEL = {'amsterdam':'Amsterdam','rotterdam':'Rotterdam','the-hague':'The Hague','utrecht':'Utrecht','eindhoven':'Eindhoven','groningen':'Groningen','maastricht':'Maastricht','leiden':'Leiden','haarlem':'Haarlem','breda':'Breda','delft':'Delft','nijmegen':'Nijmegen','tilburg':'Tilburg','zwolle':'Zwolle'};
+let dest = null, results = [], sortBy = 'dist', filters = {pr:false, ev:false};
+let map = null, markerLayer = null, leafletReady = false;
+
+// default times: arrive in ~1h (rounded), stay 3h
+(function initTimes(){
+  const pad = n => String(n).padStart(2,'0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:00`;
+  const a = new Date(Date.now() + 60*60*1000), d = new Date(a.getTime() + 3*60*60*1000);
+  document.getElementById('arrive').value = fmt(a);
+  document.getElementById('depart').value = fmt(d);
+})();
+
+// ---------- geocoding (Photon / komoot, CC-BY OSM) ----------
+async function geocode(q){
+  const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=en&bbox=3.2,50.7,7.3,53.6`;
+  const r = await fetch(url);
+  if(!r.ok) throw new Error('geocode failed');
+  const j = await r.json();
+  return (j.features||[]).map(f => ({
+    lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0],
+    label: f.properties.name + (f.properties.city && f.properties.city !== f.properties.name ? ', ' + f.properties.city : (f.properties.state ? ', ' + f.properties.state : ''))
+  }));
+}
+
+// autocomplete
+let acTimer = null, acItems = [];
+document.getElementById('q').addEventListener('input', e => {
+  dest = null;
+  clearTimeout(acTimer);
+  const v = e.target.value.trim();
+  if(v.length < 3){ closeAc(); return; }
+  acTimer = setTimeout(async () => {
+    try{
+      acItems = await geocode(v);
+      const box = document.getElementById('ac');
+      box.innerHTML = acItems.map((it,i) => `<button type="button" onclick="pickAc(${i})">${esc(it.label)}</button>`).join('');
+      box.classList.toggle('open', acItems.length > 0);
+    }catch(_){ closeAc(); }
+  }, 280);
+});
+function pickAc(i){ dest = acItems[i]; document.getElementById('q').value = acItems[i].label; closeAc(); }
+function closeAc(){ document.getElementById('ac').classList.remove('open'); }
+document.addEventListener('click', e => { if(!e.target.closest('.ac-wrap')) closeAc(); });
+function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ---------- pricing ----------
+// piecewise-linear through official 1h / 3h / 24h tariff points
+function estCost(g, mins){
+  if(g.rate_hr == null) return null;
+  const h1 = g.rate_hr, h3 = (g.rate_3h != null ? g.rate_3h : h1*3), d1 = (g.rate_day != null ? g.rate_day : h1*24);
+  function upTo24(m){
+    if(m <= 0) return 0;
+    if(m <= 60)  return h1 * (m/60 < .5 ? .5 : m/60);   // sub-hour ≈ pro-rata, min 30 min
+    if(m <= 180) return h1 + (h3-h1) * (m-60)/120;
+    return h3 + (d1-h3) * (m-180)/1260;
+  }
+  if(mins <= 1440) return upTo24(mins);
+  const days = Math.floor(mins/1440), rem = mins % 1440;
+  return days*d1 + Math.min(upTo24(rem), d1);
+}
+function haversine(a, b){
+  const R = 6371, dLa = (b.lat-a.lat)*Math.PI/180, dLo = (b.lng-a.lng)*Math.PI/180;
+  const x = Math.sin(dLa/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLo/2)**2;
+  return 2*R*Math.asin(Math.sqrt(x));
+}
+
+// ---------- search ----------
+async function runSearch(e){
+  if(e) e.preventDefault();
+  const q = document.getElementById('q').value.trim();
+  if(!q) return false;
+  const btn = document.querySelector('.go'); btn.textContent = 'Searching…';
+  try{
+    if(!dest){
+      const hits = await geocode(q);
+      if(!hits.length){ alert('Address not found — try adding the city name.'); btn.textContent='Find parking'; return false; }
+      dest = hits[0];
+    }
+    render();
+    history.replaceState(null,'',`/search?q=${encodeURIComponent(q)}&lat=${dest.lat.toFixed(5)}&lng=${dest.lng.toFixed(5)}`);
+  }catch(err){
+    alert('Search is temporarily unavailable — the geocoding service did not respond. Please try again in a minute.');
+  }
+  btn.textContent = 'Find parking';
+  return false;
+}
+function demo(q){ document.getElementById('q').value = q; dest = null; runSearch(); }
+
+function stayMinutes(){
+  const a = new Date(document.getElementById('arrive').value);
+  const d = new Date(document.getElementById('depart').value);
+  const m = Math.round((d-a)/60000);
+  return (isFinite(m) && m > 0) ? m : 180;
+}
+
+function render(){
+  const mins = stayMinutes();
+  results = ALL
+    .map(g => ({...g, dist: haversine(dest, g), cost: estCost(g, mins)}))
+    .filter(g => g.dist <= 35)
+    .filter(g => !filters.pr || g.pr)
+    .filter(g => !filters.ev || (g.ev_points > 0));
+  results.sort((a,b) => sortBy === 'price'
+    ? ((a.cost ?? 1e9) - (b.cost ?? 1e9)) || (a.dist - b.dist)
+    : a.dist - b.dist);
+  results = results.slice(0, 20);
+
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultsUI').style.display = 'block';
+  const hrs = (mins/60).toFixed(mins % 60 ? 1 : 0);
+  document.getElementById('resStat').innerHTML =
+    `<b>${results.length}</b> options near <b>${esc(dest.label || document.getElementById('q').value)}</b> · ${hrs}h stay`;
+
+  document.getElementById('resList').innerHTML = results.length ? results.map((g,i) => `
+    <div class="rcard" id="rc${i}" onclick="focusG(${i})">
+      <div>
+        <div class="rname">${esc(g.name)}</div>
+        <div class="rmeta">
+          <span class="mono">${g.dist < 1 ? Math.round(g.dist*1000)+' m' : g.dist.toFixed(1)+' km'} · ~${Math.max(1,Math.round(g.dist*12))} min walk</span>
+          ${g.capacity ? `<span class="mono">${g.capacity} spaces</span>` : ''}
+          ${g.ev_points ? `<span class="mono" style="color:var(--ok)">⚡ ${g.ev_points} EV</span>` : ''}
+          ${g.max_height_cm ? `<span class="mono">↥ ${(g.max_height_cm/100).toFixed(2)} m</span>` : ''}
+          ${g.pr ? '<span class="badge badge-pr">P+R</span>' : ''}
+        </div>
+      </div>
+      <div class="rprice">
+        ${g.cost != null
+          ? `<span class="amt">€${g.cost.toFixed(2)}</span><span class="per">for ${hrs}h · €${g.rate_hr.toFixed(2)}/h</span>`
+          : '<span class="per">rate not<br>published</span>'}
+      </div>
+      <div class="rlinks">
+        <a class="btn btn-ghost btn-sm" href="/garage/${g.slug}" onclick="event.stopPropagation()">Details</a>
+        <a class="btn btn-dark btn-sm" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+           href="https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}">Directions</a>
+      </div>
+    </div>`).join('')
+    : `<div class="empty"><h3>No garages within 35 km</h3><p>This tool covers 14 major Dutch cities. Try a destination closer to a city centre.</p></div>`;
+
+  drawMap();
+}
+
+function toggleFilter(k){
+  filters[k] = !filters[k];
+  document.getElementById(k === 'pr' ? 'fPr' : 'fEv').classList.toggle('on', filters[k]);
+  if(dest) render();
+}
+function setSort(s){
+  sortBy = s;
+  document.getElementById('sortDist').classList.toggle('on', s === 'dist');
+  document.getElementById('sortPrice').classList.toggle('on', s === 'price');
+  if(dest) render();
+}
+
+// ---------- map ----------
+function loadLeaflet(cb){
+  if(leafletReady) return cb();
+  const css = document.createElement('link'); css.rel = 'stylesheet';
+  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
+  const js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  js.onload = () => { leafletReady = true; cb(); }; document.head.appendChild(js);
+}
+function pin(color, letter){
+  return L.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="30" height="38" viewBox="0 0 30 38"><path d="M15 0C6.7 0 0 6.7 0 15c0 11.25 15 23 15 23s15-11.75 15-23C30 6.7 23.3 0 15 0z" fill="${color}"/><circle cx="15" cy="14" r="7.5" fill="white" opacity=".95"/><text x="15" y="18" text-anchor="middle" font-size="9.5" font-weight="bold" fill="${color}" font-family="sans-serif">${letter}</text></svg>`,iconSize:[30,38],iconAnchor:[15,38],popupAnchor:[0,-38],className:''});
+}
+function drawMap(){
+  loadLeaflet(() => {
+    if(!map){
+      map = L.map('resMap', {scrollWheelZoom:false});
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        {attribution:'© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>', maxZoom:18}).addTo(map);
+      map.on('click', () => map.scrollWheelZoom.enable());
+    }
+    if(markerLayer) markerLayer.remove();
+    markerLayer = L.layerGroup().addTo(map);
+    L.marker([dest.lat, dest.lng], {icon: pin('#0B1120','★')}).addTo(markerLayer)
+      .bindPopup(`<b style="font-family:sans-serif">${esc(dest.label || 'Destination')}</b>`);
+    const pts = [[dest.lat, dest.lng]];
+    results.forEach((g,i) => {
+      const m = L.marker([g.lat, g.lng], {icon: pin(g.pr ? '#0891B2' : '#EA580C', String(i+1))}).addTo(markerLayer);
+      m.bindPopup(`<div style="font-family:sans-serif;min-width:170px"><b>${esc(g.name)}</b><br><span style="color:#64748B;font-size:12px">${g.dist.toFixed(1)} km${g.cost != null ? ' · €'+g.cost.toFixed(2)+' for your stay' : ''}</span><br><a href="/garage/${g.slug}" style="font-size:12.5px;font-weight:600;color:#EA580C">Garage details →</a></div>`);
+      m.on('click', () => highlight(i));
+      g._marker = m;
+      pts.push([g.lat, g.lng]);
+    });
+    map.fitBounds(pts, {padding:[36,36], maxZoom:15});
+  });
+}
+function focusG(i){
+  highlight(i);
+  const g = results[i];
+  if(map && g._marker){ map.setView([g.lat, g.lng], 15); g._marker.openPopup(); }
+}
+function highlight(i){
+  document.querySelectorAll('.rcard').forEach(el => el.classList.remove('sel'));
+  const el = document.getElementById('rc'+i);
+  if(el){ el.classList.add('sel'); el.scrollIntoView({block:'nearest', behavior:'smooth'}); }
+}
+
+// ---------- deep link (?q= / ?lat=&lng=) ----------
+(function(){
+  const p = new URLSearchParams(location.search);
+  const q = p.get('q');
+  if(p.get('lat') && p.get('lng')){
+    dest = {lat: parseFloat(p.get('lat')), lng: parseFloat(p.get('lng')), label: q || 'Destination'};
+    if(q) document.getElementById('q').value = q;
+    render();
+  } else if(q){
+    document.getElementById('q').value = q;
+    runSearch();
+  }
+})();
+</script>
+</body>
+</html>
