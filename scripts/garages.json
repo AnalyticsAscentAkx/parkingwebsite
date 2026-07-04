@@ -20,6 +20,20 @@
   "rate_day": 72.0
  },
  {
+  "areaid": "NPR_6e422b0b",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage AMC P2 (Amsterdam)",
+  "slug": "amc-p2-amsterdam",
+  "lat": 52.293063,
+  "lng": 4.955573,
+  "capacity": 900,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "GAR036CUY",
   "amid": "363",
   "city": "amsterdam",
@@ -37,6 +51,34 @@
   "rate_hr": 4.5,
   "rate_3h": 13.0,
   "rate_day": 103.0
+ },
+ {
+  "areaid": "NPR_ddcdd081",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Amsterdam Centrum (Amsterdam)",
+  "slug": "amsterdam-centrum-amsterdam",
+  "lat": 52.378466,
+  "lng": 4.897065,
+  "capacity": 434,
+  "ev_points": 6,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_71d79095",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Antarctica (Amsterdam)",
+  "slug": "antarctica-amsterdam",
+  "lat": 52.309404,
+  "lng": 4.946782,
+  "capacity": 688,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "GAR066BTY",
@@ -87,6 +129,20 @@
   "is_pr": false
  },
  {
+  "areaid": "NPR_0192291b",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage De Loodsen (Amsterdam)",
+  "slug": "de-loodsen-amsterdam",
+  "lat": 52.3765,
+  "lng": 4.925,
+  "capacity": 446,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "GAR069WND",
   "amid": "363",
   "city": "amsterdam",
@@ -103,6 +159,62 @@
   "is_pr": false
  },
  {
+  "areaid": "NPR_ee50386d",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Flowparking (Amsterdam)",
+  "slug": "flowparking-amsterdam",
+  "lat": 52.3401,
+  "lng": 4.893494,
+  "capacity": 170,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_7f728d4a",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Geelvinck (Amsterdam)",
+  "slug": "geelvinck-amsterdam",
+  "lat": 52.366363,
+  "lng": 4.89177,
+  "capacity": 60,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_0c8410c5",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Gelderlandplein (Amsterdam)",
+  "slug": "gelderlandplein-amsterdam",
+  "lat": 52.331283,
+  "lng": 4.87908,
+  "capacity": 820,
+  "ev_points": 12,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_4ef99de8",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Geuzenpoort (Amsterdam)",
+  "slug": "geuzenpoort-amsterdam",
+  "lat": 52.378596,
+  "lng": 4.800725,
+  "capacity": 90,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "GAR052HRD",
   "amid": "363",
   "city": "amsterdam",
@@ -116,6 +228,20 @@
   "regulations": [
    "GAR"
   ],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_eb79ab5a",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Heinekenplein (Amsterdam)",
+  "slug": "heinekenplein-amsterdam",
+  "lat": 52.357512,
+  "lng": 4.892585,
+  "capacity": 259,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": false
  },
  {
@@ -148,6 +274,48 @@
   "regulations": [
    "GAR"
   ],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_9fa30f4e",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage IJDock (Amsterdam)",
+  "slug": "ijdock-amsterdam",
+  "lat": 52.384732,
+  "lng": 4.894227,
+  "capacity": 350,
+  "ev_points": 6,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_fcaa1a21",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage IJburg (Amsterdam)",
+  "slug": "ijburg-amsterdam",
+  "lat": 52.358072,
+  "lng": 4.991419,
+  "capacity": 281,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_e9110aeb",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Koopcentrum Akerpoort (Amsterdam)",
+  "slug": "koopcentrum-akerpoort-amsterdam",
+  "lat": 52.359656,
+  "lng": 4.783157,
+  "capacity": 550,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": false
  },
  {
@@ -187,6 +355,20 @@
   "is_pr": false
  },
  {
+  "areaid": "NPR_f4b9fb6b",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Middenweg (Amsterdam)",
+  "slug": "middenweg-amsterdam",
+  "lat": 52.353341,
+  "lng": 4.931504,
+  "capacity": 90,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "GRV006MT",
   "amid": "363",
   "city": "amsterdam",
@@ -216,6 +398,34 @@
   "regulations": [
    "GAR"
   ],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_6fd23205",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Oranjekwartier (Amsterdam)",
+  "slug": "oranjekwartier-amsterdam",
+  "lat": 52.353343,
+  "lng": 4.839617,
+  "capacity": 472,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_639aa083",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Osdorpplein (Amsterdam)",
+  "slug": "osdorpplein-amsterdam",
+  "lat": 52.360024,
+  "lng": 4.805204,
+  "capacity": 450,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": false
  },
  {
@@ -350,6 +560,20 @@
   "rate_day": 26.6
  },
  {
+  "areaid": "NPR_c6158c5f",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage P2 VUmc (Amsterdam)",
+  "slug": "p2-vumc-amsterdam",
+  "lat": 52.336623,
+  "lng": 5.861029,
+  "capacity": 450,
+  "ev_points": 20,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "363_MIKA",
   "amid": "363",
   "city": "amsterdam",
@@ -446,6 +670,20 @@
   "rate_day": 72.0
  },
  {
+  "areaid": "NPR_7f71b2b8",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Parnassusweg (Amsterdam)",
+  "slug": "parnassusweg-amsterdam",
+  "lat": 52.339474,
+  "lng": 4.868446,
+  "capacity": 100,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "GRV008PH",
   "amid": "363",
   "city": "amsterdam",
@@ -459,6 +697,20 @@
   "regulations": [
    "GAR"
   ],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_92871f2d",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Prins & Keizer (Amsterdam)",
+  "slug": "prins-keizer-amsterdam",
+  "lat": 52.3624,
+  "lng": 4.8916,
+  "capacity": 140,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": false
  },
  {
@@ -512,6 +764,34 @@
   "rate_hr": 6.3,
   "rate_3h": 18.9,
   "rate_day": 151.2
+ },
+ {
+  "areaid": "NPR_a63813f7",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage The Bank (Amsterdam)",
+  "slug": "the-bank-amsterdam",
+  "lat": 52.366163,
+  "lng": 4.898545,
+  "capacity": 110,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_d1afdb94",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Garage Waterlooplein (Amsterdam)",
+  "slug": "waterlooplein-amsterdam",
+  "lat": 52.368921,
+  "lng": 4.904703,
+  "capacity": 180,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "GRV019WES",
@@ -772,6 +1052,20 @@
   "is_pr": true
  },
  {
+  "areaid": "NPR_caa78d3b",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Parkeerdek AMC P1 (Amsterdam)",
+  "slug": "parkeerdek-amc-p1-amsterdam",
+  "lat": 52.296086,
+  "lng": 4.957438,
+  "capacity": 192,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "363_MUSBUS",
   "amid": "363",
   "city": "amsterdam",
@@ -900,6 +1194,20 @@
   "is_pr": false
  },
  {
+  "areaid": "NPR_c022b0e7",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Parking de Hoofdstad (Amsterdam)",
+  "slug": "de-hoofdstad-amsterdam",
+  "lat": 52.363165,
+  "lng": 4.886929,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "363_PIET",
   "amid": "363",
   "city": "amsterdam",
@@ -921,6 +1229,34 @@
   "rate_day": 103.0
  },
  {
+  "areaid": "NPR_71bd7e11",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Terrein Molukkenstraat (Amsterdam)",
+  "slug": "molukkenstraat-amsterdam",
+  "lat": 52.358146,
+  "lng": 4.940455,
+  "capacity": 80,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_808ddf6b",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Terrein Oostenburgereiland Touringcar parking (Amsterdam)",
+  "slug": "oostenburgereiland-touringcar-parking-amsterdam",
+  "lat": 52.372785,
+  "lng": 4.93084,
+  "capacity": 15,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "363_P2BO",
   "amid": "363",
   "city": "amsterdam",
@@ -938,6 +1274,62 @@
   "rate_hr": 12.0,
   "rate_3h": 12.0,
   "rate_day": 12.0
+ },
+ {
+  "areaid": "NPR_dd4505ae",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Terrein Spaklerweg/Daniël Goedkoopstraat (Amsterdam)",
+  "slug": "spaklerweg-daniel-goedkoopstraat-amsterdam",
+  "lat": 52.335519,
+  "lng": 4.922832,
+  "capacity": 470,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_5a15f514",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Terrein Zuidpark P1 (Amsterdam)",
+  "slug": "zuidpark-p1-amsterdam",
+  "lat": 52.332197,
+  "lng": 4.923392,
+  "capacity": 490,
+  "ev_points": 44,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_812f64fa",
+  "amid": "npr",
+  "city": "amsterdam",
+  "name": "Terrein Zuidpark P2 (Amsterdam)",
+  "slug": "zuidpark-p2-amsterdam",
+  "lat": 52.330801,
+  "lng": 4.919144,
+  "capacity": 245,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_094738fc",
+  "amid": "npr",
+  "city": "breda",
+  "name": "Carpool Breda-West A58/A16 (Breda)",
+  "slug": "carpool-breda-west-a58-a16-breda",
+  "lat": 51.579129,
+  "lng": 4.721101,
+  "capacity": 103,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "758_CHAS",
@@ -1039,6 +1431,34 @@
   "rate_day": 0.0
  },
  {
+  "areaid": "NPR_d5565e93",
+  "amid": "npr",
+  "city": "breda",
+  "name": "P+R Station (Breda)",
+  "slug": "p-r-station-breda",
+  "lat": 51.596259,
+  "lng": 4.777855,
+  "capacity": 728,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_0958e08b",
+  "amid": "npr",
+  "city": "breda",
+  "name": "P+R Stationsweg (Breda)",
+  "slug": "p-r-stationsweg-breda",
+  "lat": 51.59507,
+  "lng": 4.781971,
+  "capacity": 89,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
   "areaid": "PTBV",
   "amid": "758",
   "city": "breda",
@@ -1132,6 +1552,76 @@
   "regulations": [
    "VERG_24_7"
   ],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_b01e8d8c",
+  "amid": "npr",
+  "city": "breda",
+  "name": "Terrein Amphia Ziekenhuis locatie Langendijk (Breda)",
+  "slug": "amphia-ziekenhuis-locatie-langendijk-breda",
+  "lat": 51.575612,
+  "lng": 4.762343,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_99d78e86",
+  "amid": "npr",
+  "city": "breda",
+  "name": "Terrein Amphia Ziekenhuis locatie Molengracht (Breda)",
+  "slug": "amphia-ziekenhuis-locatie-molengracht-breda",
+  "lat": 51.581302,
+  "lng": 4.798806,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_defc29fe",
+  "amid": "npr",
+  "city": "breda",
+  "name": "Terrein Oude Vest (Breda)",
+  "slug": "oude-vest-breda",
+  "lat": 51.586703,
+  "lng": 4.778702,
+  "capacity": 55,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_2a2c85e7",
+  "amid": "npr",
+  "city": "delft",
+  "name": "Carpool Delft-Noord (Delft)",
+  "slug": "carpool-delft-noord-delft",
+  "lat": 52.026888,
+  "lng": 4.363021,
+  "capacity": 95,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_1c65ef37",
+  "amid": "npr",
+  "city": "delft",
+  "name": "Garage In de Hoven (Delft)",
+  "slug": "in-de-hoven-delft",
+  "lat": 51.99858,
+  "lng": 4.354541,
+  "capacity": 600,
+  "ev_points": 18,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": false
  },
  {
@@ -1250,6 +1740,90 @@
   "is_pr": false
  },
  {
+  "areaid": "NPR_733120f4",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage De Grijze Generaal (Eindhoven)",
+  "slug": "de-grijze-generaal-eindhoven",
+  "lat": 51.466914,
+  "lng": 5.478482,
+  "capacity": 344,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_6b5f3ec8",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage Hooghuis (Eindhoven)",
+  "slug": "hooghuis-eindhoven",
+  "lat": 51.437849,
+  "lng": 5.476231,
+  "capacity": 195,
+  "ev_points": 1,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_7acbf003",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage Kennedy Business Center (Eindhoven)",
+  "slug": "kennedy-business-center-eindhoven",
+  "lat": 51.443741,
+  "lng": 5.481531,
+  "capacity": 799,
+  "ev_points": 3,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_606f83dd",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage Klokgebouw (Eindhoven)",
+  "slug": "klokgebouw-eindhoven",
+  "lat": 51.448455,
+  "lng": 5.458939,
+  "capacity": 498,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_8e3f9207",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage Mathildelaan (Eindhoven)",
+  "slug": "mathildelaan-eindhoven",
+  "lat": 51.441205,
+  "lng": 5.473426,
+  "capacity": 1187,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_d65358f0",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Garage Stadskantoor (Eindhoven)",
+  "slug": "stadskantoor-eindhoven",
+  "lat": 51.434558,
+  "lng": 5.480048,
+  "capacity": 265,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "DEELPTKLIP",
   "amid": "772",
   "city": "eindhoven",
@@ -1267,6 +1841,34 @@
   "rate_hr": 0.0,
   "rate_3h": 0.0,
   "rate_day": 0.0
+ },
+ {
+  "areaid": "NPR_e583831c",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "P+R Beukenlaan (Eindhoven)",
+  "slug": "p-r-beukenlaan-eindhoven",
+  "lat": 51.451258,
+  "lng": 5.457733,
+  "capacity": 20,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_cc7a3d99",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "P+R Fuutlaan (Eindhoven)",
+  "slug": "p-r-fuutlaan-eindhoven",
+  "lat": 51.44248,
+  "lng": 5.4856,
+  "capacity": 150,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
  },
  {
   "areaid": "1PRGENNEP",
@@ -1287,6 +1889,20 @@
   "rate_hr": 1.5,
   "rate_3h": 4.5,
   "rate_day": 36.0
+ },
+ {
+  "areaid": "NPR_049aa9d4",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "P+R Meerhoven (Eindhoven)",
+  "slug": "p-r-meerhoven-eindhoven",
+  "lat": 51.435939,
+  "lng": 5.424606,
+  "capacity": 231,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
  },
  {
   "areaid": "213BOMANSP",
@@ -1322,6 +1938,174 @@
   "rate_hr": 0.0,
   "rate_3h": 0.0,
   "rate_day": 0.0
+ },
+ {
+  "areaid": "NPR_96f45e43",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Terrein Kastanjelaan P4 (Eindhoven)",
+  "slug": "kastanjelaan-p4-eindhoven",
+  "lat": 51.444741,
+  "lng": 5.458661,
+  "capacity": 295,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_83e022bd",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Terrein Philitelaan (Eindhoven)",
+  "slug": "philitelaan-eindhoven",
+  "lat": 51.445575,
+  "lng": 5.461694,
+  "capacity": 310,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_0876aa9e",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Terrein Strijps Bultje (Eindhoven)",
+  "slug": "strijps-bultje-eindhoven",
+  "lat": 51.448562,
+  "lng": 5.452893,
+  "capacity": 240,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_9359f12e",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Terrein TD gebouw (Eindhoven)",
+  "slug": "td-gebouw-eindhoven",
+  "lat": 51.433231,
+  "lng": 5.477712,
+  "capacity": 103,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_f2410d8a",
+  "amid": "npr",
+  "city": "eindhoven",
+  "name": "Terrein VideoLab/SX (Eindhoven)",
+  "slug": "videolab-sx-eindhoven",
+  "lat": 51.446012,
+  "lng": 5.459246,
+  "capacity": 120,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_eda67214",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage Biosparking (Groningen)",
+  "slug": "biosparking-groningen",
+  "lat": 53.214003,
+  "lng": 6.566734,
+  "capacity": 90,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_d1a9e917",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage Centrum (Groningen)",
+  "slug": "centrum-groningen",
+  "lat": 53.217006,
+  "lng": 6.566222,
+  "capacity": 340,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_272555e9",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage Holland Casino (Groningen)",
+  "slug": "holland-casino-groningen",
+  "lat": 53.21724,
+  "lng": 6.572378,
+  "capacity": 225,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_9e9f2eae",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage Martini-ziekenhuis (Groningen)",
+  "slug": "martini-ziekenhuis-groningen",
+  "lat": 53.193098,
+  "lng": 6.549578,
+  "capacity": 1200,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_af70526b",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage Oosterpoort (Groningen)",
+  "slug": "oosterpoort-groningen",
+  "lat": 53.214005,
+  "lng": 6.574881,
+  "capacity": 296,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_2ea012c9",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage UMCG Noord (Groningen)",
+  "slug": "umcg-noord-groningen",
+  "lat": 53.224157,
+  "lng": 6.573118,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_0e119572",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Garage UMCG Zuid (Groningen)",
+  "slug": "umcg-zuid-groningen",
+  "lat": 53.220378,
+  "lng": 6.577471,
+  "capacity": 1500,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "3051",
@@ -1372,6 +2156,20 @@
   "regulations": [
    "PENR"
   ],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_cf95aa52",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "P+R Hoofdstation (Groningen)",
+  "slug": "p-r-hoofdstation-groningen",
+  "lat": 53.211582,
+  "lng": 6.560898,
+  "capacity": 258,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": true
  },
  {
@@ -1437,6 +2235,62 @@
    "PENR"
   ],
   "is_pr": true
+ },
+ {
+  "areaid": "NPR_6e5ad176",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "P+R Zernike (Groningen)",
+  "slug": "p-r-zernike-groningen",
+  "lat": 53.244308,
+  "lng": 6.527338,
+  "capacity": 100,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_f9567218",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Parkeerdek MartiniPlaza Parking (Groningen)",
+  "slug": "parkeerdek-martiniplaza-parking-groningen",
+  "lat": 53.203129,
+  "lng": 6.554899,
+  "capacity": null,
+  "ev_points": 6,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_93c57c47",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Terrein Paddepoel (Groningen)",
+  "slug": "paddepoel-groningen",
+  "lat": 53.230463,
+  "lng": 6.545731,
+  "capacity": 300,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_191bbbe3",
+  "amid": "npr",
+  "city": "groningen",
+  "name": "Terrein Zaanstraat (Groningen)",
+  "slug": "zaanstraat-groningen",
+  "lat": 53.208304,
+  "lng": 6.563365,
+  "capacity": 300,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "14-BOTER",
@@ -1705,6 +2559,20 @@
   "rate_day": 83.76
  },
  {
+  "areaid": "NPR_e2532484",
+  "amid": "npr",
+  "city": "haarlem",
+  "name": "Garage Station (Haarlem)",
+  "slug": "station-haarlem",
+  "lat": 52.386569,
+  "lng": 4.638824,
+  "capacity": 460,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "394_PRGET",
   "amid": "394",
   "city": "haarlem",
@@ -1741,6 +2609,20 @@
   "rate_hr": 0.0,
   "rate_3h": 0.0,
   "rate_day": 0.0
+ },
+ {
+  "areaid": "NPR_161cd572",
+  "amid": "npr",
+  "city": "leiden",
+  "name": "Carpool Willem van der Madeweg (Leiden)",
+  "slug": "carpool-willem-van-der-madeweg-leiden",
+  "lat": 52.143285,
+  "lng": 4.510771,
+  "capacity": 53,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "546_MORS",
@@ -1823,6 +2705,20 @@
   "rate_day": 67.2
  },
  {
+  "areaid": "NPR_86180a13",
+  "amid": "npr",
+  "city": "leiden",
+  "name": "Garage Level (Leiden)",
+  "slug": "level-leiden",
+  "lat": 52.166683,
+  "lng": 4.480786,
+  "capacity": 331,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "546_RING",
   "amid": "546",
   "city": "leiden",
@@ -1880,6 +2776,76 @@
   "rate_hr": 4.0,
   "rate_3h": 6.0,
   "rate_day": 2230.0
+ },
+ {
+  "areaid": "NPR_7395d1c9",
+  "amid": "npr",
+  "city": "leiden",
+  "name": "P+R Station Leiden Lammenschans (Leiden)",
+  "slug": "p-r-station-leiden-lammenschans-leiden",
+  "lat": 52.147296,
+  "lng": 4.493303,
+  "capacity": 36,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_68274882",
+  "amid": "npr",
+  "city": "leiden",
+  "name": "Transferium 't Schouw A44 (Leiden)",
+  "slug": "transferium-t-schouw-a44-leiden",
+  "lat": 52.165472,
+  "lng": 4.450314,
+  "capacity": 195,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_42bb7985",
+  "amid": "npr",
+  "city": "maastricht",
+  "name": "Garage Noorderbrug (Maastricht)",
+  "slug": "noorderbrug-maastricht",
+  "lat": 50.860079,
+  "lng": 5.700289,
+  "capacity": 254,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_c74987a5",
+  "amid": "npr",
+  "city": "maastricht",
+  "name": "P+R Meersenerstraat (Maastricht)",
+  "slug": "p-r-meersenerstraat-maastricht",
+  "lat": 50.85319,
+  "lng": 5.70299,
+  "capacity": 66,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_74823881",
+  "amid": "npr",
+  "city": "maastricht",
+  "name": "P+R Parallelweg (Maastricht)",
+  "slug": "p-r-parallelweg-maastricht",
+  "lat": 50.85099,
+  "lng": 5.70635,
+  "capacity": 340,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
  },
  {
   "areaid": "935_PRMNO",
@@ -1946,6 +2912,20 @@
   "is_pr": true
  },
  {
+  "areaid": "NPR_af0b223f",
+  "amid": "npr",
+  "city": "maastricht",
+  "name": "Terrein Stadspark 2 (Maastricht)",
+  "slug": "stadspark-2-maastricht",
+  "lat": 50.50344,
+  "lng": 5.41454,
+  "capacity": 79,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "268_CANISI",
   "amid": "268",
   "city": "nijmegen",
@@ -1986,6 +2966,34 @@
   "rate_day": 39.15
  },
  {
+  "areaid": "NPR_76052908",
+  "amid": "npr",
+  "city": "nijmegen",
+  "name": "Carpool Oosterhout/Nijmegen A15 (Nijmegen)",
+  "slug": "carpool-oosterhout-nijmegen-a15-nijmegen",
+  "lat": 51.892522,
+  "lng": 5.83838,
+  "capacity": 25,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_7bf4c205",
+  "amid": "npr",
+  "city": "nijmegen",
+  "name": "Garage Dukenburg (Nijmegen)",
+  "slug": "dukenburg-nijmegen",
+  "lat": 51.82401,
+  "lng": 5.798478,
+  "capacity": 740,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "268_EIERM",
   "amid": "268",
   "city": "nijmegen",
@@ -2004,6 +3012,20 @@
   "rate_hr": 2.9,
   "rate_3h": 8.7,
   "rate_day": 69.6
+ },
+ {
+  "areaid": "NPR_d3430b9b",
+  "amid": "npr",
+  "city": "nijmegen",
+  "name": "Garage FiftyTwoDegrees (Nijmegen)",
+  "slug": "fiftytwodegrees-nijmegen",
+  "lat": 51.824198,
+  "lng": 5.823714,
+  "capacity": 603,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "268_KEIZK",
@@ -2064,6 +3086,20 @@
   "rate_hr": 2.9,
   "rate_3h": 8.7,
   "rate_day": 69.6
+ },
+ {
+  "areaid": "NPR_85d7e2a6",
+  "amid": "npr",
+  "city": "nijmegen",
+  "name": "P+R Eerste Oude Heselaan (Nijmegen)",
+  "slug": "p-r-eerste-oude-heselaan-nijmegen",
+  "lat": 51.844696,
+  "lng": 5.851244,
+  "capacity": 90,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
  },
  {
   "areaid": "268_PRNOO",
@@ -2182,6 +3218,20 @@
   "rate_day": 69.6
  },
  {
+  "areaid": "NPR_83245c89",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Carpool Schieveensedijk (Rotterdam)",
+  "slug": "carpool-schieveensedijk-rotterdam",
+  "lat": 51.952191,
+  "lng": 4.420751,
+  "capacity": 26,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "BENTHSTR",
   "amid": "599",
   "city": "rotterdam",
@@ -2200,6 +3250,34 @@
   "rate_hr": 1.0,
   "rate_3h": 4.5,
   "rate_day": 39.5
+ },
+ {
+  "areaid": "NPR_5516a177",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Bigshops (Rotterdam)",
+  "slug": "bigshops-rotterdam",
+  "lat": 51.90935,
+  "lng": 4.436444,
+  "capacity": 750,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_7bd4fe2b",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Blaak 16 (Rotterdam)",
+  "slug": "blaak-16-rotterdam",
+  "lat": 51.918511,
+  "lng": 4.488151,
+  "capacity": 125,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "BOULEVZ",
@@ -2262,6 +3340,20 @@
   "rate_day": 103.0
  },
  {
+  "areaid": "NPR_83681793",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage De Vlaggeman (Rotterdam)",
+  "slug": "de-vlaggeman-rotterdam",
+  "lat": 51.926828,
+  "lng": 4.436417,
+  "capacity": 340,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "ERASMUS",
   "amid": "599",
   "city": "rotterdam",
@@ -2280,6 +3372,34 @@
   "rate_hr": 5.0,
   "rate_3h": 13.0,
   "rate_day": 103.0
+ },
+ {
+  "areaid": "NPR_f3795fbd",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Eudokiaplein (Rotterdam)",
+  "slug": "eudokiaplein-rotterdam",
+  "lat": 51.932872,
+  "lng": 4.470042,
+  "capacity": 220,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_e6bee28f",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Hart van IJsselmonde (Rotterdam)",
+  "slug": "hart-van-ijsselmonde-rotterdam",
+  "lat": 51.888628,
+  "lng": 4.549288,
+  "capacity": 1200,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "HOOGVL",
@@ -2302,6 +3422,20 @@
   "rate_day": 38.5
  },
  {
+  "areaid": "NPR_8b7e1a23",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Jumbo Hillelaan (Rotterdam)",
+  "slug": "jumbo-hillelaan-rotterdam",
+  "lat": 51.902632,
+  "lng": 4.495469,
+  "capacity": null,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "KIPHOF",
   "amid": "599",
   "city": "rotterdam",
@@ -2322,6 +3456,34 @@
   "rate_day": 103.0
  },
  {
+  "areaid": "NPR_5599078d",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Kruiskade (Rotterdam)",
+  "slug": "kruiskade-rotterdam",
+  "lat": 51.92311,
+  "lng": 4.476303,
+  "capacity": 275,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_d7dc0cd3",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Lijnbaan (Rotterdam)",
+  "slug": "lijnbaan-rotterdam",
+  "lat": 51.918479,
+  "lng": 4.476827,
+  "capacity": 540,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "LUSTHOF",
   "amid": "599",
   "city": "rotterdam",
@@ -2340,6 +3502,20 @@
   "rate_hr": 1.0,
   "rate_3h": 4.5,
   "rate_day": 39.5
+ },
+ {
+  "areaid": "NPR_c8131e4c",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Markthal (Rotterdam)",
+  "slug": "markthal-rotterdam",
+  "lat": 51.919591,
+  "lng": 4.486203,
+  "capacity": 1042,
+  "ev_points": 9,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "MATHPLN",
@@ -2498,6 +3674,20 @@
   "rate_day": 103.0
  },
  {
+  "areaid": "NPR_306d589c",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage The Red Apple Parkeerkelder (Rotterdam)",
+  "slug": "the-red-apple-parkeerkelder-rotterdam",
+  "lat": 51.917041,
+  "lng": 4.488291,
+  "capacity": 337,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "VERANDA",
   "amid": "599",
   "city": "rotterdam",
@@ -2516,6 +3706,48 @@
   "rate_hr": 2.0,
   "rate_3h": 5.0,
   "rate_day": 40.0
+ },
+ {
+  "areaid": "NPR_6e8f92ee",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Westblaak (Rotterdam)",
+  "slug": "westblaak-rotterdam",
+  "lat": 51.916433,
+  "lng": 4.477905,
+  "capacity": 780,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_08475416",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage Westerpark (Rotterdam)",
+  "slug": "westerpark-rotterdam",
+  "lat": 51.905631,
+  "lng": 4.474171,
+  "capacity": 350,
+  "ev_points": 1,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_5dff089b",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "Garage World Port Center (Rotterdam)",
+  "slug": "world-port-center-rotterdam",
+  "lat": 51.904416,
+  "lng": 4.48451,
+  "capacity": 505,
+  "ev_points": 27,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "ZOOMSTR",
@@ -2769,6 +4001,20 @@
   "rate_day": 0.0
  },
  {
+  "areaid": "NPR_32b5007c",
+  "amid": "npr",
+  "city": "rotterdam",
+  "name": "P+R Proveniersplein (Rotterdam)",
+  "slug": "p-r-proveniersplein-rotterdam",
+  "lat": 51.92614,
+  "lng": 4.469805,
+  "capacity": 102,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
   "areaid": "599_SCHENK",
   "amid": "599",
   "city": "rotterdam",
@@ -2827,6 +4073,48 @@
   "rate_day": 0.0
  },
  {
+  "areaid": "NPR_fe96d489",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Badhuisstraat (Den Haag)",
+  "slug": "badhuisstraat-the-hague",
+  "lat": 52.102652,
+  "lng": 4.276176,
+  "capacity": 92,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_e68fe453",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage De Zeeheld (Den Haag)",
+  "slug": "de-zeeheld-the-hague",
+  "lat": 52.081796,
+  "lng": 4.292932,
+  "capacity": 207,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_b87082bd",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Havenkwartier (Den Haag)",
+  "slug": "havenkwartier-the-hague",
+  "lat": 52.094726,
+  "lng": 4.26563,
+  "capacity": 93,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "518_HELIC",
   "amid": "518",
   "city": "the-hague",
@@ -2847,6 +4135,76 @@
   "rate_day": 105.6
  },
  {
+  "areaid": "NPR_2e7daa83",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Kurhaus (Den Haag)",
+  "slug": "kurhaus-the-hague",
+  "lat": 52.112066,
+  "lng": 4.279359,
+  "capacity": 250,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_ad4879fb",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Leidschenhof (Den Haag)",
+  "slug": "leidschenhof-the-hague",
+  "lat": 52.062768,
+  "lng": 4.403608,
+  "capacity": 207,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_85b13231",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Leyweg 1 (Den Haag)",
+  "slug": "leyweg-1-the-hague",
+  "lat": 52.046361,
+  "lng": 4.279474,
+  "capacity": 650,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_73fd2365",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Leyweg 2 (Den Haag)",
+  "slug": "leyweg-2-the-hague",
+  "lat": 52.050573,
+  "lng": 4.275586,
+  "capacity": 350,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_de5983e6",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Malieveld (Den Haag)",
+  "slug": "malieveld-the-hague",
+  "lat": 52.084741,
+  "lng": 4.317262,
+  "capacity": 600,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "518_MARK",
   "amid": "518",
   "city": "the-hague",
@@ -2864,6 +4222,34 @@
   "rate_hr": 3.5,
   "rate_3h": 10.5,
   "rate_day": 84.0
+ },
+ {
+  "areaid": "NPR_2898733d",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Mauritskade (Den Haag)",
+  "slug": "mauritskade-the-hague",
+  "lat": 52.084543,
+  "lng": 4.303368,
+  "capacity": 188,
+  "ev_points": 1,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_af4fca5b",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Noordeinde (Den Haag)",
+  "slug": "noordeinde-the-hague",
+  "lat": 52.080923,
+  "lng": 4.308334,
+  "capacity": 87,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "518_PARK",
@@ -2905,6 +4291,62 @@
   "rate_day": 96.0
  },
  {
+  "areaid": "NPR_2b66d72a",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Rijnstraat (Den Haag)",
+  "slug": "rijnstraat-the-hague",
+  "lat": 52.078803,
+  "lng": 4.323617,
+  "capacity": 217,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_35548a43",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Spui Centre (Den Haag)",
+  "slug": "spui-centre-the-hague",
+  "lat": 52.076352,
+  "lng": 4.317586,
+  "capacity": 350,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_6f411bd5",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Strand (Den Haag)",
+  "slug": "strand-the-hague",
+  "lat": 52.10151,
+  "lng": 4.259281,
+  "capacity": 2030,
+  "ev_points": 4,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_60d6f308",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Garage Wijnhaven Centrum (Den Haag)",
+  "slug": "wijnhaven-centrum-the-hague",
+  "lat": 52.076946,
+  "lng": 4.319883,
+  "capacity": 560,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "518_PRUIT",
   "amid": "518",
   "city": "the-hague",
@@ -2918,6 +4360,34 @@
   "regulations": [
    "PR01"
   ],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_fc687c9c",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "P+R Laan v NOI (Den Haag)",
+  "slug": "p-r-laan-v-noi-the-hague",
+  "lat": 52.07847,
+  "lng": 4.34398,
+  "capacity": 155,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_94043c94",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "P+R Laan van NOI (The Hague)",
+  "slug": "p-r-laan-van-noi-the-hague",
+  "lat": 52.080048,
+  "lng": 4.344105,
+  "capacity": 155,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": true
  },
  {
@@ -2953,6 +4423,90 @@
   "regulations": [
    "PR01"
   ],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_359187cb",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Terrein Station Leidschenveen Haven (Den Haag)",
+  "slug": "station-leidschenveen-haven-the-hague",
+  "lat": 52.067205,
+  "lng": 4.397527,
+  "capacity": 169,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_46c71f36",
+  "amid": "npr",
+  "city": "the-hague",
+  "name": "Terrein Zwarte Pad (Den Haag)",
+  "slug": "zwarte-pad-the-hague",
+  "lat": 52.117084,
+  "lng": 4.289013,
+  "capacity": 450,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_6e242e5a",
+  "amid": "npr",
+  "city": "tilburg",
+  "name": "Carpool T58 Oude Rielseweg (Tilburg)",
+  "slug": "carpool-t58-oude-rielseweg-tilburg",
+  "lat": 51.3152,
+  "lng": 5.0223,
+  "capacity": 16,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_cd1e923b",
+  "amid": "npr",
+  "city": "tilburg",
+  "name": "Carpool Tilburg/Hilvarenbeek A58 (Tilburg)",
+  "slug": "carpool-tilburg-hilvarenbeek-a58-tilburg",
+  "lat": 51.551642,
+  "lng": 5.110507,
+  "capacity": 120,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_a0b087fd",
+  "amid": "npr",
+  "city": "tilburg",
+  "name": "P+R Station Tilburg Reeshof Noordzijde (Tilburg)",
+  "slug": "p-r-station-tilburg-reeshof-noordzijde-tilburg",
+  "lat": 51.573907,
+  "lng": 4.99457,
+  "capacity": 120,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
+ },
+ {
+  "areaid": "NPR_fe01595c",
+  "amid": "npr",
+  "city": "tilburg",
+  "name": "P+R Station Tilburg Universiteit (Tilburg)",
+  "slug": "p-r-station-tilburg-universiteit-tilburg",
+  "lat": 51.565338,
+  "lng": 5.05196,
+  "capacity": 230,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
   "is_pr": true
  },
  {
@@ -3090,6 +4644,20 @@
   "rate_hr": 2.0,
   "rate_3h": 6.0,
   "rate_day": 48.0
+ },
+ {
+  "areaid": "NPR_85e5a169",
+  "amid": "npr",
+  "city": "tilburg",
+  "name": "Parkeergarage Stappegoor (Tilburg)",
+  "slug": "stappegoor-tilburg",
+  "lat": 51.539492,
+  "lng": 5.076497,
+  "capacity": 860,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "GAR_HEUVEL",
@@ -3320,6 +4888,62 @@
   "rate_day": 109.92
  },
  {
+  "areaid": "NPR_200e0f50",
+  "amid": "npr",
+  "city": "utrecht",
+  "name": "Garage P3 Radboud (Utrecht)",
+  "slug": "p3-radboud-utrecht",
+  "lat": 52.089804,
+  "lng": 5.113256,
+  "capacity": 451,
+  "ev_points": 3,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_552a9b88",
+  "amid": "npr",
+  "city": "utrecht",
+  "name": "Garage P5 Vredenburg (Utrecht)",
+  "slug": "p5-vredenburg-utrecht",
+  "lat": 52.091459,
+  "lng": 5.113454,
+  "capacity": 1184,
+  "ev_points": 9,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_558ec6d7",
+  "amid": "npr",
+  "city": "utrecht",
+  "name": "Garage Springweg (Utrecht)",
+  "slug": "springweg-utrecht",
+  "lat": 52.088933,
+  "lng": 5.120147,
+  "capacity": 409,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_3127ce55",
+  "amid": "npr",
+  "city": "utrecht",
+  "name": "Garage The Wall (Utrecht)",
+  "slug": "the-wall-utrecht",
+  "lat": 52.106808,
+  "lng": 5.055063,
+  "capacity": 1200,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
   "areaid": "VAARTSCHER",
   "amid": "344",
   "city": "utrecht",
@@ -3343,6 +4967,20 @@
   "rate_hr": 3.58,
   "rate_3h": 10.74,
   "rate_day": 85.92
+ },
+ {
+  "areaid": "NPR_d9d65c67",
+  "amid": "npr",
+  "city": "utrecht",
+  "name": "P+R Muziektheather (Utrecht)",
+  "slug": "p-r-muziektheather-utrecht",
+  "lat": 52.096477,
+  "lng": 5.075232,
+  "capacity": 220,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": true
  },
  {
   "areaid": "PAPENDORP",
@@ -3408,6 +5046,48 @@
   "rate_hr": 104.16,
   "rate_3h": 104.16,
   "rate_day": 104.16
+ },
+ {
+  "areaid": "NPR_809116db",
+  "amid": "npr",
+  "city": "zwolle",
+  "name": "Burgemeester van Roijensingel (Zwolle)",
+  "slug": "burgemeester-van-roijensingel-zwolle",
+  "lat": 52.507872,
+  "lng": 6.094565,
+  "capacity": 190,
+  "ev_points": 2,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_157f7b8e",
+  "amid": "npr",
+  "city": "zwolle",
+  "name": "Carpool A28 Zwolle-Zuid (Zwolle)",
+  "slug": "carpool-a28-zwolle-zuid-zwolle",
+  "lat": 52.506351,
+  "lng": 6.065098,
+  "capacity": 77,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
+ },
+ {
+  "areaid": "NPR_4c47a00e",
+  "amid": "npr",
+  "city": "zwolle",
+  "name": "Carpool Ommen/Zwolle A28 (Zwolle)",
+  "slug": "carpool-ommen-zwolle-a28-zwolle",
+  "lat": 52.529642,
+  "lng": 6.148988,
+  "capacity": 45,
+  "ev_points": null,
+  "max_height_cm": null,
+  "regulations": [],
+  "is_pr": false
  },
  {
   "areaid": "193_DIEZER",

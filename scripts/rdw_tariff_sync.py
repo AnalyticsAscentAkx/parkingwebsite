@@ -101,6 +101,93 @@ def fare_cost(parts, minutes):
     return round(total, 2)
 
 
+NPR_CITY = {  # "(City)" suffix in facility names -> our slug
+    "amsterdam": "amsterdam", "rotterdam": "rotterdam",
+    "den haag": "the-hague", "'s-gravenhage": "the-hague",
+    "utrecht": "utrecht", "eindhoven": "eindhoven", "groningen": "groningen",
+    "maastricht": "maastricht", "leiden": "leiden", "haarlem": "haarlem",
+    "breda": "breda", "delft": "delft", "nijmegen": "nijmegen",
+    "tilburg": "tilburg", "zwolle": "zwolle",
+}
+
+
+def add_npr_dynamic(garages):
+    """Merge facilities from npropendata.rdw.nl (dynamic parking register)."""
+    import time
+    url = "https://npropendata.rdw.nl/parkingdata/v2/"
+    req = urllib.request.Request(url, headers={"User-Agent": "parkingnetherlands.com data sync"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        index = json.load(r)["ParkingFacilities"]
+
+    def city_of(name):
+        m = re.search(r"\(([^)]+)\)\s*$", name)
+        if not m:
+            return None
+        return NPR_CITY.get(m.group(1).strip().lower())
+
+    todo = [f for f in index if city_of(f.get("name", ""))]
+    print(f"[npr] {len(todo)} facilities match covered cities; fetching static data…")
+
+    existing = [(g["lat"], g["lng"], g["name"].lower()) for g in garages.values()]
+    added = 0
+    for f in todo:
+        city = city_of(f["name"])
+        try:
+            req = urllib.request.Request(f["staticDataUrl"], headers={"User-Agent": "parkingnetherlands.com data sync"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                info = json.load(r).get("parkingFacilityInformation", {})
+        except Exception:
+            continue
+        time.sleep(0.03)
+
+        name = clean_name(info.get("name") or f["name"])
+        # skip street parking / permit areas
+        if re.search(r"straatparkeren|vergunning|belanghebbenden", name, re.I):
+            continue
+        aps = info.get("accessPoints") or []
+        loc = None
+        for ap in aps:
+            locs = ap.get("accessPointLocation") or []
+            l = locs[0] if isinstance(locs, list) and locs else (locs if isinstance(locs, dict) else {})
+            if l.get("latitude"):
+                loc = (float(l["latitude"]), float(l["longitude"]))
+                break
+        if not loc or not (50.5 < loc[0] < 53.6 and 3.2 < loc[1] < 7.3):
+            continue
+        # dedupe against register areas and prior npr entries (<120 m or same name)
+        nrm = re.sub(r"[^a-z0-9]", "", name.lower())
+        dup = False
+        for lat, lng, ename in existing:
+            if abs(lat - loc[0]) < 0.0012 and abs(lng - loc[1]) < 0.0018:
+                dup = True; break
+            if nrm and nrm == re.sub(r"[^a-z0-9]", "", ename):
+                dup = True; break
+        if dup:
+            continue
+
+        specs = (info.get("specifications") or [{}])[0]
+        cap = specs.get("capacity")
+        ev = specs.get("chargingPointCapacity")
+        rec = {
+            "areaid": "NPR_" + f["identifier"][:8],
+            "amid": "npr",
+            "city": city,
+            "name": name if name.endswith(")") else f"{name} ({CITY_NAMES[city]})",
+            "slug": slugify(name, city),
+            "lat": round(loc[0], 6),
+            "lng": round(loc[1], 6),
+            "capacity": int(cap) if cap else None,
+            "ev_points": int(ev) if ev else None,
+            "max_height_cm": None,
+            "regulations": [],
+            "is_pr": bool(re.search(r"p\+r", name, re.I)),
+        }
+        garages[rec["areaid"]] = rec
+        existing.append((rec["lat"], rec["lng"], rec["name"].lower()))
+        added += 1
+    print(f"[npr] added {added} new facilities from the dynamic register")
+
+
 def main():
     site_dir = Path(__file__).resolve().parent.parent
     garages = {}   # areaid -> record
@@ -228,6 +315,13 @@ def main():
                     g["rate_day"] = fare_cost(fp, 1440)
                     break
 
+    # --- national dynamic parking register (npropendata.rdw.nl) ---
+    # gemeente-published facilities incl. commercial operators missing from NPR areas
+    try:
+        add_npr_dynamic(garages)
+    except Exception as e:
+        print(f"[warn] npropendata sync failed: {e}", file=sys.stderr)
+
     # same garage can appear under several register areas (e.g. day-card variants);
     # keep the record with tariff data, or the richer one
     by_slug = {}
@@ -286,7 +380,7 @@ function addRDWMarkers(map, citySlug) {
                 iconSize:[26,34],iconAnchor:[13,34],popupAnchor:[0,-36],className:''
             })
         }).addTo(map);
-        m.bindPopup(`<div style="font-family:sans-serif;min-width:180px;padding:4px"><div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:4px">${g.name}</div>${rdwPrice(g)}<div style="font-size:11px;color:#94a3b8;margin-top:4px">Official RDW data (opendata.rdw.nl)</div><a href="/garage/${g.slug}" style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#4f46e5;text-decoration:none">Garage details →</a></div>`);
+        m.bindPopup(`<div style="font-family:sans-serif;min-width:180px;padding:4px"><div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:4px">${g.name}</div>${rdwPrice(g)}<div style="font-size:11px;color:#94a3b8;margin-top:4px">Official RDW data (opendata.rdw.nl)</div><a href="/garage/${g.slug}" style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#2337C6;text-decoration:none">Garage details →</a></div>`);
         markers.push(m);
     });
     return markers;
