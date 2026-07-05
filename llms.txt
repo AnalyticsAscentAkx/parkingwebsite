@@ -40,6 +40,7 @@ Three good options: (1) P+R Sloterdijk + 5-min train for ~€6 total (best for t
 - https://parkingnetherlands.com/search — Free parking search: enter any Dutch address or venue plus arrival/departure times; ranks 200+ garages and P+R sites by distance and price computed from official RDW/NPR tariff tables.
 - https://parkingnetherlands.com/garage/ — Directory of 200+ RDW-registered parking garages across 14 cities, each with official hourly/daily tariffs, capacity, EV charging points and max vehicle height (e.g. https://parkingnetherlands.com/garage/museumplein-amsterdam).
 - https://parkingnetherlands.com/map — Interactive map of parking rates in every covered city.
+- https://parkingnetherlands.com/street-map — Street-parking tariff zone map: every paid street section in 13 cities coloured by hourly rate (choropleth, official RDW data).
 
 ## Pages
 

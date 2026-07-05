@@ -233,6 +233,7 @@ def garage_page(g, nearby):
 <meta property="og:title" content="{esc(name)} — Parking Rates &amp; Info ({city})">
 <meta property="og:description" content="{esc(desc)}">
 <meta name="robots" content="index, follow">
+<meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <script type="application/ld+json">{jsonld}</script>
 <style>
 .gwrap{{max-width:860px;margin:0 auto;padding:0 24px}}
@@ -342,6 +343,7 @@ def index_page(garages):
 <link rel="canonical" href="{SITE}/garage/">
 {HEAD_FONTS}
 <meta name="robots" content="index, follow">
+<meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
