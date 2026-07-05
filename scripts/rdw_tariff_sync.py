@@ -111,6 +111,44 @@ NPR_CITY = {  # "(City)" suffix in facility names -> our slug
 }
 
 
+def npr_cost_fn(tariffs):
+    """Build a cost(minutes) function from NPR intervalRates, or None."""
+    import time as _t
+    now = _t.time()
+    best = None
+    for t in tariffs:
+        end = t.get("endOfPeriod")
+        if end and end < now:
+            continue
+        days = t.get("validityDays") or []
+        score = 2 if ("Wed" in days or not days) else 1
+        rates = [r for r in (t.get("intervalRates") or [])
+                 if not r.get("validityEndOfPeriod") or r["validityEndOfPeriod"] > now]
+        if not rates:
+            continue
+        if best is None or score > best[0]:
+            best = (score, rates)
+    if not best:
+        return None
+    rates = sorted(best[1], key=lambda r: r.get("durationFrom") or 0)
+
+    def cost(mins):
+        total = 0.0
+        for r in rates:
+            if r.get("durationType") != "Minutes":
+                return None
+            frm = r.get("durationFrom") or 0
+            until = r.get("durationUntil")
+            until = float("inf") if until in (-1, None) else until
+            if mins <= frm:
+                break
+            covered = min(mins, until) - frm
+            per = r.get("chargePeriod") or 60
+            total += math.ceil(covered / per) * (r.get("charge") or 0)
+        return round(total, 2)
+    return cost
+
+
 def add_npr_dynamic(garages):
     """Merge facilities from npropendata.rdw.nl (dynamic parking register)."""
     import time
@@ -168,6 +206,10 @@ def add_npr_dynamic(garages):
         specs = (info.get("specifications") or [{}])[0]
         cap = specs.get("capacity")
         ev = specs.get("chargingPointCapacity")
+        op = info.get("operator") or {}
+        op_url = (op.get("url") or "").strip()
+        if op_url and not op_url.startswith("http"):
+            op_url = "https://" + op_url
         rec = {
             "areaid": "NPR_" + f["identifier"][:8],
             "amid": "npr",
@@ -182,6 +224,15 @@ def add_npr_dynamic(garages):
             "regulations": [],
             "is_pr": bool(re.search(r"p\+r", name, re.I)),
         }
+        if op.get("name"):
+            rec["op"] = op["name"].strip()
+        if op_url:
+            rec["op_url"] = op_url
+        cost = npr_cost_fn(info.get("tariffs") or [])
+        if cost:
+            h1, h3, d1 = cost(60), cost(180), cost(1440)
+            if h1 is not None and 0 <= h1 <= 15 and d1 is not None:
+                rec["rate_hr"], rec["rate_3h"], rec["rate_day"] = h1, h3, d1
         garages[rec["areaid"]] = rec
         existing.append((rec["lat"], rec["lng"], rec["name"].lower()))
         added += 1
@@ -346,7 +397,7 @@ def main():
     by_city = {}
     for g in result:
         rec = {"name": g["name"], "slug": g["slug"], "lat": g["lat"], "lng": g["lng"]}
-        for k in ("capacity", "ev_points", "max_height_cm", "rate_hr", "rate_3h", "rate_day"):
+        for k in ("capacity", "ev_points", "max_height_cm", "rate_hr", "rate_3h", "rate_day", "op", "op_url"):
             if g.get(k) is not None:
                 rec[k] = g[k]
         if g["is_pr"]:

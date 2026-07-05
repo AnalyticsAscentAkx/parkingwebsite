@@ -255,6 +255,7 @@ h2{{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);mar
       <a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination={g['lat']},{g['lng']}">Directions</a>
       <a class="btn btn-ghost btn-sm" href="/search?q={esc(name)} {city}&lat={g['lat']}&lng={g['lng']}">Compare nearby</a>
       <a class="btn btn-ghost btn-sm" href="/{g['city']}">{city} parking guide</a>
+      {f'<a class="btn btn-dark btn-sm" target="_blank" rel="noopener nofollow" href="{g["op_url"]}">Operator website ↗</a>' if g.get("op_url") else ''}
     </div>
   </header>
 

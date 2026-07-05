@@ -338,6 +338,7 @@ function render(){
       </div>
       <div class="rlinks">
         <a class="btn btn-ghost btn-sm" href="/garage/${g.slug}" onclick="event.stopPropagation()">Details</a>
+        ${g.op_url ? `<a class="btn btn-ghost btn-sm" href="${g.op_url}" target="_blank" rel="noopener nofollow" onclick="event.stopPropagation()">${esc((g.op||'Operator').split(' ')[0])} site ↗</a>` : ''}
         <a class="btn btn-dark btn-sm" target="_blank" rel="noopener" onclick="event.stopPropagation()"
            href="https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}">Directions</a>
       </div>

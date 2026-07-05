@@ -31,7 +31,11 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Academisch Medisch Centrum",
+  "rate_hr": 1.6,
+  "rate_3h": 4.8,
+  "rate_day": 38.4
  },
  {
   "areaid": "GAR036CUY",
@@ -64,7 +68,11 @@
   "ev_points": 6,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 5.0,
+  "rate_3h": 15.0,
+  "rate_day": 120.0
  },
  {
   "areaid": "NPR_71d79095",
@@ -78,7 +86,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 2.55,
+  "rate_3h": 7.65,
+  "rate_day": 61.2
  },
  {
   "areaid": "GAR066BTY",
@@ -140,7 +153,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
  },
  {
   "areaid": "GAR069WND",
@@ -170,7 +188,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
  },
  {
   "areaid": "NPR_7f728d4a",
@@ -184,7 +207,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 5.0,
+  "rate_3h": 15.0,
+  "rate_day": 120.0
  },
  {
   "areaid": "NPR_0c8410c5",
@@ -198,7 +226,12 @@
   "ev_points": 12,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 2.0,
+  "rate_day": 107.0
  },
  {
   "areaid": "NPR_4ef99de8",
@@ -212,7 +245,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 1.0,
+  "rate_3h": 3.0,
+  "rate_day": 24.0
  },
  {
   "areaid": "GAR052HRD",
@@ -242,7 +280,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 4.6,
+  "rate_3h": 13.8,
+  "rate_day": 110.4
  },
  {
   "areaid": "GAR054HOP",
@@ -288,7 +331,12 @@
   "ev_points": 6,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 5.0,
+  "rate_3h": 15.0,
+  "rate_day": 120.0
  },
  {
   "areaid": "NPR_fcaa1a21",
@@ -302,7 +350,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 2.0,
+  "rate_3h": 4.0,
+  "rate_day": 46.0
  },
  {
   "areaid": "NPR_e9110aeb",
@@ -316,7 +369,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Koopcentrum Akerpoort",
+  "op_url": "https://www.akerpoort.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "363_MARK",
@@ -366,7 +424,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 4.5,
+  "rate_day": 99.0
  },
  {
   "areaid": "GRV006MT",
@@ -412,7 +475,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 1.8,
+  "rate_3h": 5.4,
+  "rate_day": 43.2
  },
  {
   "areaid": "NPR_639aa083",
@@ -426,7 +494,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl"
  },
  {
   "areaid": "GAR062PDM",
@@ -571,7 +641,9 @@
   "ev_points": 20,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl"
  },
  {
   "areaid": "363_MIKA",
@@ -681,7 +753,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 3.5,
+  "rate_3h": 10.5,
+  "rate_day": 84.0
  },
  {
   "areaid": "GRV008PH",
@@ -711,7 +788,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 6.0,
+  "rate_3h": 18.0,
+  "rate_day": 144.0
  },
  {
   "areaid": "GAR061RKN",
@@ -777,7 +859,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 5.0,
+  "rate_3h": 15.0,
+  "rate_day": 120.0
  },
  {
   "areaid": "NPR_d1afdb94",
@@ -791,7 +878,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 5.0,
+  "rate_3h": 15.0,
+  "rate_day": 120.0
  },
  {
   "areaid": "GRV019WES",
@@ -1063,7 +1155,11 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Academisch Medisch Centrum",
+  "rate_hr": 1.6,
+  "rate_3h": 4.8,
+  "rate_day": 38.4
  },
  {
   "areaid": "363_MUSBUS",
@@ -1205,7 +1301,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Parking de Hoofdstad",
+  "rate_hr": 4.8,
+  "rate_3h": 14.4,
+  "rate_day": 115.2
  },
  {
   "areaid": "363_PIET",
@@ -1240,7 +1340,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl"
  },
  {
   "areaid": "NPR_808ddf6b",
@@ -1254,7 +1356,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 8.0,
+  "rate_3h": 24.0,
+  "rate_day": 192.0
  },
  {
   "areaid": "363_P2BO",
@@ -1287,7 +1394,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 8.0,
+  "rate_day": 92.0
  },
  {
   "areaid": "NPR_5a15f514",
@@ -1301,7 +1413,12 @@
   "ev_points": 44,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
  },
  {
   "areaid": "NPR_812f64fa",
@@ -1315,7 +1432,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
  },
  {
   "areaid": "NPR_094738fc",
@@ -1329,7 +1451,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Breda",
+  "op_url": "https://www.breda.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "758_CHAS",
@@ -1442,7 +1569,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Nederlandse Spoorwegen",
+  "rate_hr": 2.76,
+  "rate_3h": 8.28,
+  "rate_day": 66.24
  },
  {
   "areaid": "NPR_0958e08b",
@@ -1456,7 +1587,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Q-Park Nederland BV",
+  "op_url": "https://www.q-park.nl"
  },
  {
   "areaid": "PTBV",
@@ -1566,7 +1699,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Parking + Protection",
+  "rate_hr": 6.0,
+  "rate_3h": 6.0,
+  "rate_day": 6.0
  },
  {
   "areaid": "NPR_99d78e86",
@@ -1580,7 +1717,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Parking + Protection",
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 30.0
  },
  {
   "areaid": "NPR_defc29fe",
@@ -1594,7 +1735,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Parking + Protection",
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
  },
  {
   "areaid": "NPR_2a2c85e7",
@@ -1608,7 +1753,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Delft",
+  "op_url": "https://www.delft.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "NPR_1c65ef37",
@@ -1622,7 +1772,9 @@
   "ev_points": 18,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl"
  },
  {
   "areaid": "503_MARK",
@@ -1751,7 +1903,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 33.0
  },
  {
   "areaid": "NPR_6b5f3ec8",
@@ -1765,7 +1921,11 @@
   "ev_points": 1,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 2.8,
+  "rate_3h": 8.4,
+  "rate_day": 67.2
  },
  {
   "areaid": "NPR_7acbf003",
@@ -1779,7 +1939,11 @@
   "ev_points": 3,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 2.8,
+  "rate_3h": 8.4,
+  "rate_day": 67.2
  },
  {
   "areaid": "NPR_606f83dd",
@@ -1793,7 +1957,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "PCH",
+  "op_url": "https://www.pch-dienstengroep.nl/",
+  "rate_hr": 1.4,
+  "rate_3h": 4.2,
+  "rate_day": 33.6
  },
  {
   "areaid": "NPR_8e3f9207",
@@ -1807,7 +1976,11 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 2.8,
+  "rate_3h": 8.4,
+  "rate_day": 67.2
  },
  {
   "areaid": "NPR_d65358f0",
@@ -1821,7 +1994,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Eindhoven",
+  "op_url": "https://www.eindhoven.nl"
  },
  {
   "areaid": "DEELPTKLIP",
@@ -1854,7 +2029,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Eindhoven",
+  "op_url": "https://www.eindhoven.nl"
  },
  {
   "areaid": "NPR_cc7a3d99",
@@ -1868,7 +2045,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Nederlandse Spoorwegen",
+  "rate_hr": 1.57,
+  "rate_3h": 4.71,
+  "rate_day": 37.68
  },
  {
   "areaid": "1PRGENNEP",
@@ -1902,7 +2083,8 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "P1"
  },
  {
   "areaid": "213BOMANSP",
@@ -1951,7 +2133,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "PCH",
+  "op_url": "https://www.pch-dienstengroep.nl/",
+  "rate_hr": 1.4,
+  "rate_3h": 4.2,
+  "rate_day": 33.6
  },
  {
   "areaid": "NPR_83e022bd",
@@ -1965,7 +2152,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "PCH",
+  "op_url": "https://www.pch-dienstengroep.nl/",
+  "rate_hr": 7.0,
+  "rate_3h": 7.0,
+  "rate_day": 7.0
  },
  {
   "areaid": "NPR_0876aa9e",
@@ -1979,7 +2171,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "PCH",
+  "op_url": "https://www.pch-dienstengroep.nl/",
+  "rate_hr": 7.0,
+  "rate_3h": 7.0,
+  "rate_day": 7.0
  },
  {
   "areaid": "NPR_9359f12e",
@@ -1993,7 +2190,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1"
  },
  {
   "areaid": "NPR_f2410d8a",
@@ -2007,7 +2205,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "PCH",
+  "op_url": "https://www.pch-dienstengroep.nl/",
+  "rate_hr": 1.4,
+  "rate_3h": 4.2,
+  "rate_day": 33.6
  },
  {
   "areaid": "NPR_eda67214",
@@ -2021,7 +2224,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 2.4,
+  "rate_3h": 7.2,
+  "rate_day": 57.6
  },
  {
   "areaid": "NPR_d1a9e917",
@@ -2035,7 +2243,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 2.4,
+  "rate_3h": 7.2,
+  "rate_day": 57.6
  },
  {
   "areaid": "NPR_272555e9",
@@ -2049,7 +2262,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Holland Casino"
  },
  {
   "areaid": "NPR_9e9f2eae",
@@ -2063,7 +2277,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Martini-ziekenhuis",
+  "rate_hr": 3.0,
+  "rate_3h": 4.0,
+  "rate_day": 14.5
  },
  {
   "areaid": "NPR_af70526b",
@@ -2077,7 +2295,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1"
  },
  {
   "areaid": "NPR_2ea012c9",
@@ -2091,7 +2310,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "UMCG",
+  "rate_hr": 2.0,
+  "rate_3h": 7.0,
+  "rate_day": 59.5
  },
  {
   "areaid": "NPR_0e119572",
@@ -2105,7 +2328,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "UMCG",
+  "rate_hr": 2.0,
+  "rate_3h": 7.0,
+  "rate_day": 59.5
  },
  {
   "areaid": "3051",
@@ -2170,7 +2397,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Q-Park Nederland BV",
+  "op_url": "https://www.q-park.nl"
  },
  {
   "areaid": "PENRHOOGK",
@@ -2248,7 +2477,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Groningen",
+  "op_url": "https://www.gemeente.groningen.nl"
  },
  {
   "areaid": "NPR_f9567218",
@@ -2262,7 +2493,11 @@
   "ev_points": 6,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Martini-Plaza",
+  "rate_hr": 2.1,
+  "rate_3h": 6.3,
+  "rate_day": 50.4
  },
  {
   "areaid": "NPR_93c57c47",
@@ -2276,7 +2511,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 2.0,
+  "rate_day": 23.0
  },
  {
   "areaid": "NPR_191bbbe3",
@@ -2290,7 +2530,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl"
  },
  {
   "areaid": "14-BOTER",
@@ -2570,7 +2812,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Haarlem",
+  "op_url": "https://www.haarlem.nl"
  },
  {
   "areaid": "394_PRGET",
@@ -2622,7 +2866,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Leiden",
+  "op_url": "https://www.leiden.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "546_MORS",
@@ -2716,7 +2965,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 1.8,
+  "rate_3h": 5.4,
+  "rate_day": 43.2
  },
  {
   "areaid": "546_RING",
@@ -2789,7 +3043,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Leiden",
+  "op_url": "https://www.leiden.nl"
  },
  {
   "areaid": "NPR_68274882",
@@ -2803,7 +3059,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Leiden",
+  "op_url": "https://www.leiden.nl"
  },
  {
   "areaid": "NPR_42bb7985",
@@ -2817,7 +3075,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Maastricht",
+  "op_url": "https://www.gemeentemaastricht.nl"
  },
  {
   "areaid": "NPR_c74987a5",
@@ -2831,7 +3091,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Nederlandse Spoorwegen",
+  "rate_hr": 2.17,
+  "rate_3h": 6.51,
+  "rate_day": 52.08
  },
  {
   "areaid": "NPR_74823881",
@@ -2845,7 +3109,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Nederlandse Spoorwegen",
+  "rate_hr": 14.0,
+  "rate_3h": 14.0,
+  "rate_day": 14.0
  },
  {
   "areaid": "935_PRMNO",
@@ -2923,7 +3191,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Maastricht",
+  "op_url": "https://www.gemeentemaastricht.nl"
  },
  {
   "areaid": "268_CANISI",
@@ -2977,7 +3247,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Nijmegen",
+  "op_url": "https://www.nijmegen.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "NPR_7bf4c205",
@@ -2991,7 +3266,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 1.0,
+  "rate_3h": 3.0,
+  "rate_day": 24.0
  },
  {
   "areaid": "268_EIERM",
@@ -3025,7 +3304,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl"
  },
  {
   "areaid": "268_KEIZK",
@@ -3099,7 +3380,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Q-Park Nederland BV",
+  "op_url": "https://www.q-park.nl"
  },
  {
   "areaid": "268_PRNOO",
@@ -3229,7 +3512,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Rotterdam",
+  "op_url": "https://www.rotterdam.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "BENTHSTR",
@@ -3263,7 +3551,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 1.5,
+  "rate_3h": 4.5,
+  "rate_day": 36.0
  },
  {
   "areaid": "NPR_7bd4fe2b",
@@ -3277,7 +3570,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl"
  },
  {
   "areaid": "BOULEVZ",
@@ -3351,7 +3646,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl"
  },
  {
   "areaid": "ERASMUS",
@@ -3385,7 +3682,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 1.4,
+  "rate_3h": 4.2,
+  "rate_day": 33.6
  },
  {
   "areaid": "NPR_e6bee28f",
@@ -3399,7 +3701,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl"
  },
  {
   "areaid": "HOOGVL",
@@ -3433,7 +3737,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Parking + Protection",
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
  },
  {
   "areaid": "KIPHOF",
@@ -3467,7 +3775,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 11.0,
+  "rate_day": 85.0
  },
  {
   "areaid": "NPR_d7dc0cd3",
@@ -3481,7 +3794,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
  },
  {
   "areaid": "LUSTHOF",
@@ -3515,7 +3833,12 @@
   "ev_points": 9,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
  },
  {
   "areaid": "MATHPLN",
@@ -3685,7 +4008,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 8.0,
+  "rate_day": 58.0
  },
  {
   "areaid": "VERANDA",
@@ -3719,7 +4047,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 10.0,
+  "rate_day": 76.0
  },
  {
   "areaid": "NPR_08475416",
@@ -3733,7 +4066,9 @@
   "ev_points": 1,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl"
  },
  {
   "areaid": "NPR_5dff089b",
@@ -3747,7 +4082,11 @@
   "ev_points": 27,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 2.5,
+  "rate_3h": 7.5,
+  "rate_day": 60.0
  },
  {
   "areaid": "ZOOMSTR",
@@ -4012,7 +4351,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Q-Park Nederland BV",
+  "op_url": "https://www.q-park.nl"
  },
  {
   "areaid": "599_SCHENK",
@@ -4084,7 +4425,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "BKS Parking",
+  "op_url": "https://www.bksparking.nl",
+  "rate_hr": 3.5,
+  "rate_3h": 10.5,
+  "rate_day": 84.0
  },
  {
   "areaid": "NPR_e68fe453",
@@ -4098,7 +4444,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "De Zeeheld Parking",
+  "rate_hr": 2.0,
+  "rate_3h": 6.0,
+  "rate_day": 48.0
  },
  {
   "areaid": "NPR_b87082bd",
@@ -4112,7 +4462,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 2.0,
+  "rate_day": 44.0
  },
  {
   "areaid": "518_HELIC",
@@ -4146,7 +4501,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "BKS Parking",
+  "op_url": "https://www.bksparking.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
  },
  {
   "areaid": "NPR_ad4879fb",
@@ -4160,7 +4520,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 1.5,
+  "rate_day": 33.0
  },
  {
   "areaid": "NPR_85b13231",
@@ -4174,7 +4539,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 1.6,
+  "rate_3h": 3.2,
+  "rate_day": 36.8
  },
  {
   "areaid": "NPR_73fd2365",
@@ -4188,7 +4557,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 1.6,
+  "rate_3h": 3.2,
+  "rate_day": 36.8
  },
  {
   "areaid": "NPR_de5983e6",
@@ -4202,7 +4575,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "518_MARK",
@@ -4235,7 +4613,12 @@
   "ev_points": 1,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "ParkKing",
+  "op_url": "https://www.parkking.nl",
+  "rate_hr": 3.5,
+  "rate_3h": 10.5,
+  "rate_day": 84.0
  },
  {
   "areaid": "NPR_af4fca5b",
@@ -4249,7 +4632,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl",
+  "rate_hr": 4.0,
+  "rate_3h": 12.0,
+  "rate_day": 96.0
  },
  {
   "areaid": "518_PARK",
@@ -4302,7 +4690,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "'s-Gravenhage",
+  "op_url": "https://www.denhaag.nl"
  },
  {
   "areaid": "NPR_35548a43",
@@ -4316,7 +4706,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "P1",
+  "rate_hr": 3.0,
+  "rate_3h": 9.0,
+  "rate_day": 72.0
  },
  {
   "areaid": "NPR_6f411bd5",
@@ -4330,7 +4724,12 @@
   "ev_points": 4,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "BKS Parking",
+  "op_url": "https://www.bksparking.nl",
+  "rate_hr": 3.2,
+  "rate_3h": 9.6,
+  "rate_day": 76.8
  },
  {
   "areaid": "NPR_60d6f308",
@@ -4344,7 +4743,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl"
  },
  {
   "areaid": "518_PRUIT",
@@ -4374,7 +4775,11 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Nederlandse Spoorwegen",
+  "rate_hr": 2.64,
+  "rate_3h": 7.92,
+  "rate_day": 63.36
  },
  {
   "areaid": "NPR_94043c94",
@@ -4388,7 +4793,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Q-Park Nederland BV",
+  "op_url": "https://www.q-park.nl"
  },
  {
   "areaid": "518_PRPBS",
@@ -4437,7 +4844,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 0.9,
+  "rate_3h": 2.7,
+  "rate_day": 21.6
  },
  {
   "areaid": "NPR_46c71f36",
@@ -4451,7 +4863,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "BKS Parking",
+  "op_url": "https://www.bksparking.nl"
  },
  {
   "areaid": "NPR_6e242e5a",
@@ -4465,7 +4879,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Tilburg",
+  "op_url": "https://www.tilburg.nl",
+  "rate_hr": 0.0,
+  "rate_3h": 0.0,
+  "rate_day": 0.0
  },
  {
   "areaid": "NPR_cd1e923b",
@@ -4479,7 +4898,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Tilburg",
+  "op_url": "https://www.tilburg.nl"
  },
  {
   "areaid": "NPR_a0b087fd",
@@ -4493,7 +4914,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Tilburg",
+  "op_url": "https://www.tilburg.nl"
  },
  {
   "areaid": "NPR_fe01595c",
@@ -4507,7 +4930,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "Tilburg",
+  "op_url": "https://www.tilburg.nl"
  },
  {
   "areaid": "GAR_TIVOLI",
@@ -4657,7 +5082,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Tilburg",
+  "op_url": "https://www.tilburg.nl"
  },
  {
   "areaid": "GAR_HEUVEL",
@@ -4899,7 +5326,12 @@
   "ev_points": 3,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 3.5,
+  "rate_3h": 10.0,
+  "rate_day": 80.0
  },
  {
   "areaid": "NPR_552a9b88",
@@ -4913,7 +5345,12 @@
   "ev_points": 9,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 6.0,
+  "rate_3h": 16.0,
+  "rate_day": 116.0
  },
  {
   "areaid": "NPR_558ec6d7",
@@ -4927,7 +5364,12 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Interparking",
+  "op_url": "https://www.interparking.nl",
+  "rate_hr": 6.0,
+  "rate_3h": 16.0,
+  "rate_day": 116.0
  },
  {
   "areaid": "NPR_3127ce55",
@@ -4941,7 +5383,9 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "APCOA Parking",
+  "op_url": "https://www.apcoa.nl"
  },
  {
   "areaid": "VAARTSCHER",
@@ -4980,7 +5424,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": true
+  "is_pr": true,
+  "op": "P1"
  },
  {
   "areaid": "PAPENDORP",
@@ -5059,7 +5504,12 @@
   "ev_points": 2,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Zwolle",
+  "op_url": "https://www.zwolle.nl",
+  "rate_hr": 2.2,
+  "rate_3h": 6.6,
+  "rate_day": 52.8
  },
  {
   "areaid": "NPR_157f7b8e",
@@ -5073,7 +5523,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Provincie Overijssel"
  },
  {
   "areaid": "NPR_4c47a00e",
@@ -5087,7 +5538,8 @@
   "ev_points": null,
   "max_height_cm": null,
   "regulations": [],
-  "is_pr": false
+  "is_pr": false,
+  "op": "Provincie Overijssel"
  },
  {
   "areaid": "193_DIEZER",

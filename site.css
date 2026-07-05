@@ -40,26 +40,26 @@ img{max-width:100%;display:block}
 .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 
 /* ---------- nav ---------- */
-.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.86);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(11,17,32,.94);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.07)}
 .nav-in{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),#4159E8);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.02em}
 .logo-mark::after{content:'P'}
-.logo-text{font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.02em}
+.logo-text{font-weight:700;font-size:15px;color:#fff;letter-spacing:-.02em}
 .logo-text small{color:var(--mut-2);font-weight:500}
 .nav-links{display:flex;gap:2px;list-style:none;align-items:center}
-.nav-links>li>a{text-decoration:none;font-size:13.5px;font-weight:600;color:var(--mut);padding:7px 12px;border-radius:8px;transition:.15s;display:block}
-.nav-links>li>a:hover{color:var(--ink);background:var(--paper-2)}
-.nav-links .active>a{color:var(--ink)}
+.nav-links>li>a{text-decoration:none;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.6);padding:7px 12px;border-radius:8px;transition:.15s;display:block}
+.nav-links>li>a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-links .active>a{color:#fff}
 .nav-cta{background:var(--blue);color:#fff!important;padding:8px 16px!important;border-radius:8px}
 .nav-cta:hover{background:var(--blue-2)!important;box-shadow:0 4px 14px -4px rgba(35,55,198,.5)}
 .has-drop{position:relative}
-.drop{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;min-width:190px;z-index:100;box-shadow:var(--sh-md)}
-.drop a{display:block;padding:8px 12px;border-radius:7px;color:var(--txt);font-size:13.5px;font-weight:500;text-decoration:none;white-space:nowrap}
-.drop a:hover{background:var(--paper-2);color:var(--ink)}
-.drop-div{height:1px;background:var(--line-soft);margin:5px 8px}
+.drop{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#101A30;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:6px;min-width:190px;z-index:100;box-shadow:var(--sh-md)}
+.drop a{display:block;padding:8px 12px;border-radius:7px;color:rgba(255,255,255,.7);font-size:13.5px;font-weight:500;text-decoration:none;white-space:nowrap}
+.drop a:hover{background:rgba(255,255,255,.08);color:#fff}
+.drop-div{height:1px;background:rgba(255,255,255,.08);margin:5px 8px}
 .has-drop:hover .drop{display:block}
-.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:38px;height:38px;color:var(--ink);font-size:17px;cursor:pointer}
+.menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;width:38px;height:38px;color:#fff;font-size:17px;cursor:pointer}
 
 /* ---------- labels / badges ---------- */
 .eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--sig);margin-bottom:14px}
@@ -144,13 +144,13 @@ tbody tr:hover{background:#FAFBFC}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:12px;gap:2px;box-shadow:var(--sh-md)}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(11,17,32,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px;gap:2px;box-shadow:var(--sh-md)}
   .nav-links.open{display:flex}
   .nav-links li{width:100%}
   .nav-links>li>a{padding:11px 14px;font-size:15px}
   .nav-cta{text-align:center}
   .menu-btn{display:block}
-  .has-drop .drop{display:block;position:static;box-shadow:none;border:none;background:var(--paper-2);margin:4px 0;width:100%}
+  .has-drop .drop{display:block;position:static;box-shadow:none;border:none;background:rgba(255,255,255,.05);margin:4px 0;width:100%}
   .sec{padding:56px 0}
 }
 @media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
