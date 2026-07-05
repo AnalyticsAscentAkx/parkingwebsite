@@ -57,8 +57,11 @@ def build_city(slug, amids):
 
         reg_by_area = {}
         for r in regs:
-            if rdw.active(r, "enddatearearegulation") and r.get("usageid") == "BETAALDP":
-                reg_by_area.setdefault(r["areaid"], r["regulationid"])
+            # BETAALDP = paid street; VERGUNP = permit zones where visitors
+            # can usually pay too (all of central Amsterdam) — kept only if a
+            # non-zero visitor tariff resolves below
+            if rdw.active(r, "enddatearearegulation") and r.get("usageid") in ("BETAALDP", "VERGUNP"):
+                reg_by_area.setdefault(r["areaid"], (r["regulationid"], r["usageid"]))
 
         codes = {}
         for f in frames:
@@ -81,14 +84,29 @@ def build_city(slug, amids):
         for c in parts_by_code:
             parts_by_code[c].sort(key=lambda p: float(p["startdurationfarepart"]))
 
+        # Geometry rows are versioned per section. Amsterdam's centre rows all
+        # carry stale end-dates while the areas remain actively regulated, so:
+        # use current rows when the area has any; otherwise fall back to the
+        # area's most recent expired batch.
+        rows_by_area = {}
         for g in geo:
-            end = (g.get("enddatearea") or "2999")[:4]
-            if end < rdw.TODAY[:4]:
-                continue
+            aid = g["areaid"]
+            if aid in reg_by_area:
+                rows_by_area.setdefault(aid, []).append(g)
+        chosen = []
+        for aid, rows in rows_by_area.items():
+            current = [g for g in rows if (g.get("enddatearea") or "2999")[:4] >= rdw.TODAY[:4]]
+            if current:
+                chosen.extend(current)
+            else:
+                latest = max((g.get("enddatearea") or "") for g in rows)
+                chosen.extend(g for g in rows if (g.get("enddatearea") or "") == latest)
+        for g in chosen:
             areaid = g["areaid"]
-            regid = reg_by_area.get(areaid)
-            if not regid:
+            reg = reg_by_area.get(areaid)
+            if not reg:
                 continue
+            regid, usage = reg
             code = codes.get(regid)
             if not code or code not in parts_by_code:
                 continue
@@ -100,6 +118,8 @@ def build_city(slug, amids):
             except Exception:
                 continue
             rate = rdw.fare_cost(parts_by_code[code], 60)
+            if usage == "VERGUNP" and (rate is None or rate <= 0):
+                continue   # permit-only, no visitor tariff — not paid street parking
             sections.append((geom, rate))
 
     if not sections:

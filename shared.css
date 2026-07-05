@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap');
-:root{--or:#FF6B2C;--or2:#E85A1F;--nv:#0A1628;--nv2:#0F2240;--tl:#00C9A7;--sl:#1E293B;--wm:#FDF8F4;--wm2:#FAF5EF;--cr:#FFFBF5;--g1:#F1F5F9;--g2:#E2E8F0;--g3:#CBD5E1;--g4:#94A3B8;--g5:#64748B;--g6:#475569;--g7:#334155;--gn:#10B981;--gnl:#ECFDF5;--rd:#EF4444;--rdl:#FEF2F2;--am:#F59E0B;--aml:#FFFBEB;--pr:#8B5CF6;--fd:'Instrument Serif',Georgia,serif;--fb:'DM Sans',-apple-system,sans-serif}
+:root{--or:#FF6B2C;--or2:#E85A1F;--nv:#0A1628;--nv2:#0F2240;--tl:#00C9A7;--sl:#1E293B;--wm:#FDF8F4;--wm2:#FAF5EF;--cr:#FFFBF5;--g1:#F1F5F9;--g2:#E2E8F0;--g3:#CBD5E1;--g4:#94A3B8;--g5:#64748B;--g6:#475569;--g7:#334155;--gn:#10B981;--gnl:#ECFDF5;--rd:#EF4444;--rdl:#FEF2F2;--am:#F59E0B;--aml:#FFFBEB;--pr:#8B5CF6;--fd:'Hanken Grotesk',-apple-system,sans-serif;--fb:'Hanken Grotesk',-apple-system,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--fb);color:var(--g7);background:var(--cr);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}a{color:inherit}img{max-width:100%}
 
 /* NAV */
