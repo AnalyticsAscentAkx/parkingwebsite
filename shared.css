@@ -307,3 +307,11 @@ td{padding:14px 20px;border-bottom:1px solid var(--g1)}tr:last-child td{border-b
 .map-legend .dot.pr{background:var(--tl)}
 .map-legend .dot.gr{background:var(--or)}
 .map-legend .dot.bz{background:var(--pr)}
+
+/* Hanken Grotesk normalization — display elements formerly Instrument Serif */
+.ph h1,.st,.prose h2,.sc h2{font-weight:800;letter-spacing:-.03em}
+.prose h3,.tc2 h3,.fi2 h4,.share-section h3,.fc h4{font-weight:700;letter-spacing:-.015em}
+.lm,.lt{font-weight:700}
+.ph h1 em,.st em{font-style:normal;color:var(--or)}
+.qbv,.pk-n,.pk-r .v,.tp{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tp{font-size:13.5px}
