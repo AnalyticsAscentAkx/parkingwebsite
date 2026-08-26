@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 keyword_research.csv
 keyword_research.md
+# GSC agent: never commit secrets or pulled analytics data
+scripts/gsc_agent/.venv/
+data/gsc/
+*-gsc.json

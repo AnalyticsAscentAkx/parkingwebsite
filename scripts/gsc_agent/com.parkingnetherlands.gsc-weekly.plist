@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd job: run the GSC weekly agent every Monday at 08:00 local time.
+
+  Install:
+    1. Edit run.sh (GSC_SA_KEY, GSC_PROPERTY) or export them here below.
+    2. Edit the ProgramArguments path below to your actual repo path.
+    3. cp this file to ~/Library/LaunchAgents/
+    4. launchctl load ~/Library/LaunchAgents/com.parkingnetherlands.gsc-weekly.plist
+    5. (test now) launchctl start com.parkingnetherlands.gsc-weekly
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.parkingnetherlands.gsc-weekly.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.parkingnetherlands.gsc-weekly</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /scripts/gsc_agent/run.sh</string>
+  </array>
+
+  <!-- Optionally set secrets here instead of in run.sh -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>GSC_SA_KEY</key>
+    <string>/Users/aakash.chavash/.secrets/parkingnetherlands-gsc.json</string>
+    <key>GSC_PROPERTY</key>
+    <string>sc-domain:parkingnetherlands.com</string>
+  </dict>
+
+  <!-- Every Monday at 08:00 -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>1</integer>
+    <key>Hour</key><integer>8</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /data/gsc/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /data/gsc/launchd.err.log</string>
+</dict>
+</plist>
