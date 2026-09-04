@@ -7,3 +7,8 @@ keyword_research.md
 scripts/gsc_agent/.venv/
 data/gsc/
 *-gsc.json
+
+# Demand collector: raw responses, SQLite DB, shortlists, logs (all regenerable)
+data/collector/
+scripts/collector/.venv/
+scripts/collector/locations_extra.txt

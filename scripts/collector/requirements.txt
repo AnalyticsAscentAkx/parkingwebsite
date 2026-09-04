@@ -1,0 +1,10 @@
+# Core pipeline (autocomplete, normalize, shortlist, feedback) uses only the
+# Python standard library - nothing to install for the low-hanging-fruit loop.
+
+# Optional collectors:
+#   first-party (GSC):
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
+#   PAA + SERP snapshot:
+playwright>=1.40.0            # then: python -m playwright install chromium
+# community (reddit) uses stdlib urllib; maps reviews need a Places API key.
