@@ -26,6 +26,31 @@ import sys
 import db
 import seeds as seeds_mod
 
+# Alert when a collector's row yield falls to less than half the previous run's:
+# a changed selector or a soft-block often shows up as a silent yield collapse
+# that looks like success (principle 7 / spec 9).
+YIELD_DROP_RATIO = 0.5
+
+
+def _run_id(a) -> str:
+    rid = getattr(a, "run_id", None)
+    if not rid:
+        rid = db.new_run_id()
+        a.run_id = rid
+    return rid
+
+
+def _yield_check(con, collector, manifest_id, rows_out):
+    """Return an alert note (and print it loud) if yield dropped hard, else None."""
+    prev = db.previous_rows_out(con, collector, manifest_id)
+    if prev and prev > 0 and rows_out < prev * YIELD_DROP_RATIO:
+        drop = 100 * (1 - rows_out / prev)
+        note = f"yield drop {drop:.0f}% ({rows_out} vs {prev} last run)"
+        print(f"  [YIELD-DROP ALERT] {collector}: {note} - possible silent "
+              f"breakage (selector/soft-block), investigate before trusting.")
+        return note
+    return None
+
 
 def cmd_init(a):
     db.init_db()
@@ -49,23 +74,61 @@ def cmd_autocomplete(a):
     q += " ORDER BY weight DESC, COALESCE(last_run,'') ASC, id ASC LIMIT ?"
     params.append(a.limit_seeds)
     rows = con.execute(q, params).fetchall()
-    con.close()
     print(f"[autocomplete] {len(rows)} seeds, engines={a.engines}, "
           f"expand={not a.no_expand}, rps={a.rps}")
-    out = autocomplete.collect(
-        rows,
-        engines=tuple(a.engines.split(",")),
-        expand=not a.no_expand,
-        recurse=a.recurse,
-        rps=a.rps,
-    )
+
+    rid = _run_id(a)
+    mid = db.start_run(con, rid, "autocomplete", seeds_in=len(rows))
+    con.commit()
+
+    # Standalone runs take the lock; inside `weekly` it is already held.
+    standalone = not getattr(a, "_locked", False)
+    if standalone and not db.acquire_lock("autocomplete"):
+        print("[autocomplete] another run holds the lock; aborting.")
+        db.finish_run(con, mid, "failed", rows_out=0, notes="lock held")
+        con.commit(); con.close()
+        return
+    try:
+        out = autocomplete.collect(
+            rows,
+            engines=tuple(a.engines.split(",")),
+            expand=not a.no_expand,
+            recurse=a.recurse,
+            rps=a.rps,
+        )
+    finally:
+        if standalone:
+            db.release_lock()
+
     seeds_mod.mark_seeds_run([r["id"] for r in rows])
-    print("[autocomplete]", out["stats"])
+    st = out["stats"]
+    note = _yield_check(con, "autocomplete", mid, st["unique"])
+    db.finish_run(
+        con, mid, "partial" if note else "ok", rows_out=st["unique"],
+        http_429=st["http_429"], http_403=st["http_403"],
+        empty_200=st["empty_200"],
+        notes=note or (f"skipped={st['skipped']}, "
+                       f"soft_block_trips={st.get('soft_block_trips', 0)}"),
+    )
+    con.commit(); con.close()
+    print("[autocomplete]", st)
 
 
 def cmd_normalize(a):
     import normalize
-    print("[normalize]", normalize.normalize_day())
+    con = db.connect()
+    rid = _run_id(a)
+    mid = db.start_run(con, rid, "normalize")
+    con.commit()
+    stats = normalize.normalize_day()
+    note = _yield_check(con, "normalize", mid, stats["upserts"])
+    db.finish_run(
+        con, mid, "partial" if note else "ok", rows_out=stats["upserts"],
+        notes=note or (f"rejected={stats['rejected']}, "
+                       f"clusters={stats['clusters']}"),
+    )
+    con.commit(); con.close()
+    print("[normalize]", stats)
 
 
 def cmd_firstparty(a):
@@ -94,19 +157,28 @@ def cmd_shortlist(a):
 
 
 def cmd_weekly(a):
-    print("=== WEEKLY RUN ===")
+    rid = _run_id(a)
+    print(f"=== WEEKLY RUN ({rid}) ===")
     cmd_init(a)
-    cmd_seed(a)
-    print("\n-- first-party (GSC) --");     cmd_firstparty(a)
-    print("\n-- autocomplete --");          cmd_autocomplete(a)
-    print("\n-- normalize --");             cmd_normalize(a)
-    if not a.skip_paa:
-        print("\n-- paa + serp --");        cmd_paa(a)
-    if not a.skip_community:
-        print("\n-- community --");         cmd_community(a)
-    print("\n-- feedback --");              cmd_feedback(a)
-    print("\n-- shortlist --");             cmd_shortlist(a)
-    print("\n=== DONE ===")
+    if not db.acquire_lock("weekly"):
+        print("[weekly] another collector run holds the lock "
+              f"({db.LOCK_PATH}); aborting to avoid double-fetch.")
+        return
+    a._locked = True
+    try:
+        cmd_seed(a)
+        print("\n-- first-party (GSC) --");     cmd_firstparty(a)
+        print("\n-- autocomplete --");          cmd_autocomplete(a)
+        print("\n-- normalize --");             cmd_normalize(a)
+        if not a.skip_paa:
+            print("\n-- paa + serp --");        cmd_paa(a)
+        if not a.skip_community:
+            print("\n-- community --");         cmd_community(a)
+        print("\n-- feedback --");              cmd_feedback(a)
+        print("\n-- shortlist --");             cmd_shortlist(a)
+        print("\n=== DONE ===")
+    finally:
+        db.release_lock()
 
 
 def build_parser():

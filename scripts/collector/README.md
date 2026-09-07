@@ -21,6 +21,16 @@ layer yet (Phase 3).
 4. **Everything timestamped + geo-tagged** - queries carry `location_tag`,
    `location_type`, `first_seen`, `last_seen`, `seen_count`.
 5. **No scoring in Phase 1** - the shortlist sorts by `seen_count`, nothing clever.
+6. **Fail loud, not silent** - a collector returning zero rows is a bug until
+   proven a genuine drought. Every collector writes a `run_manifest` row
+   (`seeds_in`, `rows_out`, `http_429/403`, `empty_200`) and the pipeline fires a
+   **yield-drop alert** when a run falls below half the previous run's yield.
+7. **Resumable + idempotent** - the overnight autocomplete run skips any seed
+   already fetched today (raw file exists) and holds a lockfile, so a crash at
+   hour 8 costs nothing and two runs can't double-fetch.
+8. **Reject, don't drop** - queries failing the relevance gate go to the
+   `rejects` table (with a reason), not `/dev/null`, so the gate's precision is
+   auditable from the weekly rejects sample.
 
 ## Quick start
 
@@ -44,13 +54,13 @@ Output: `data/collector/shortlist_{date}.csv` — read it, pick 10, write them.
 |---|---|---|---|
 | `db.py` | — | stdlib | schema + raw store |
 | `seed_data.py` / `seeds.py` | — | stdlib | locations × modifiers × langs (+ events); weight-ranked selection |
-| `autocomplete.py` | Google/Bing suggest | stdlib | keyless; a-z/0-9 expansion; depth-2; rate-limited |
-| `normalize.py` | reads raw | stdlib | dedupe on (query_norm, source, location_tag); geo-tags |
+| `autocomplete.py` | Google/Bing suggest | stdlib | keyless; a-z/0-9 expansion; depth-2; rate-limited; **resumable, soft-block aware** (empty-200 rate guard) |
+| `normalize.py` | reads raw | stdlib | token-sorted dedupe on (query_norm, source, location_tag); geo-tags; **is_parking relevance gate → rejects**; **near-dup clustering → cluster_id** |
 | `firstparty.py` | Search Console | `GSC_SA_KEY`,`GSC_PROPERTY` + google libs | your zero-competition demand; flags appear-but-no-click |
 | `paa.py` | Google SERP | `playwright` + chromium | PAA + supply signals (forum-in-top10, our_position, AI overview) |
 | `community.py` | Reddit / Maps | stdlib (reddit); `GOOGLE_PLACES_KEY` (maps) | upvoted unanswered = gap |
 | `feedback.py` | outcomes | stdlib | credits earned impressions back to seeds; re-weights |
-| `shortlist.py` | queries+serp+outcomes | stdlib | the Phase-1 CSV |
+| `shortlist.py` | queries+serp+outcomes | stdlib | the Phase-1 CSV, **one row per cluster** (summed `seen_count`), `is_parking=1` only, with a `why_surfaced` column + a **rejects sample** CSV for gate QA |
 | `pipeline.py` | — | — | CLI orchestrator; `run_weekly.sh` crons it |
 
 ## Enabling the credentialed collectors
@@ -78,6 +88,13 @@ automatically. That file is gitignored.
 Everything under `data/collector/` (raw responses, the SQLite DB, shortlists,
 logs) is **gitignored** — it's regenerable and the GSC pull is first-party data
 that must never be committed. Only the code lives in git.
+
+`init` migrates an existing DB in place (adds `cluster_id`, `is_parking`,
+`run_manifest`, `rejects`, etc. via `ALTER TABLE`, idempotent). Rows harvested
+before the relevance gate existed carry `is_parking=NULL` and are excluded from
+the shortlist until the next `normalize` re-tags them. Set
+`COLLECTOR_DATA_DIR=/some/tmp` to run the whole pipeline against a throwaway
+store (used by the smoke test) without touching the real DB.
 
 ## Scheduling
 
