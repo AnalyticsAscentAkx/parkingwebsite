@@ -181,7 +181,7 @@ td{padding:14px 20px;border-bottom:1px solid var(--g1)}tr:last-child td{border-b
 
 /* Mobile nav — slide down */
 @media(max-width:768px){
-  .nl{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:rgba(10,22,40,.98);backdrop-filter:blur(20px);padding:16px;gap:4px;z-index:999;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nl{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:rgba(10,22,40,.98);backdrop-filter:blur(20px);padding:16px;gap:4px;z-index:999;border-bottom:1px solid rgba(255,255,255,.08);max-height:calc(100vh - 64px);overflow-y:auto;-webkit-overflow-scrolling:touch}
   .nl.open{display:flex}
   .nl li{width:100%}
   .nl a{display:block;padding:12px 16px;font-size:15px;border-radius:10px;color:rgba(255,255,255,.7)!important}

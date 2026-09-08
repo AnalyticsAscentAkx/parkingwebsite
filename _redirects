@@ -1,4 +1,5 @@
 # Redirect .html versions to clean URLs (301 permanent)
+/parking-den-haag-centraal.html  /parking-den-haag-centraal  301
 /parking-fines.html    /parking-fines    301
 /belgium-parking.html  /belgium-parking  301
 /parking-amsterdam-centraal.html  /parking-amsterdam-centraal  301
