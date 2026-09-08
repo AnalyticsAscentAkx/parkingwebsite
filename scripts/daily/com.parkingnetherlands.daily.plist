@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd job: run the daily SEO job every day at 12:00 (midday) local time.
+
+  Install (as your login user, so git/keychain auth is available):
+    cp "scripts/daily/com.parkingnetherlands.daily.plist" ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.parkingnetherlands.daily.plist
+    launchctl kickstart -k gui/$(id -u)/com.parkingnetherlands.daily   # test now
+
+  Status / logs:
+    launchctl print gui/$(id -u)/com.parkingnetherlands.daily | head
+    tail -f "scripts/daily/logs/daily-$(date +%F).log"
+
+  Uninstall:
+    launchctl bootout gui/$(id -u)/com.parkingnetherlands.daily
+    rm ~/Library/LaunchAgents/com.parkingnetherlands.daily.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.parkingnetherlands.daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /scripts/daily/run_daily.sh</string>
+  </array>
+
+  <!-- GSC step is optional; leave these if you have the service-account key -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>GSC_SA_KEY</key>
+    <string>/Users/aakash.chavash/.secrets/parkingnetherlands-gsc.json</string>
+    <key>GSC_PROPERTY</key>
+    <string>sc-domain:parkingnetherlands.com</string>
+  </dict>
+
+  <!-- Every day at 12:00 -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>12</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <!-- If the Mac was asleep at noon, run as soon as it wakes -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /scripts/daily/logs/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/aakash.chavash/Documents/Personal Script/parking_website /scripts/daily/logs/launchd.err.log</string>
+</dict>
+</plist>

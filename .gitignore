@@ -12,3 +12,6 @@ data/gsc/
 data/collector/
 scripts/collector/.venv/
 scripts/collector/locations_extra.txt
+
+# Daily job logs (regenerable)
+scripts/daily/logs/

@@ -1,0 +1,49 @@
+[
+  {
+    "key": "den-haag-centraal",
+    "slug": "parking-den-haag-centraal",
+    "station": "Den Haag Centraal",
+    "city_name": "The Hague",
+    "city_slug": "the-hague",
+    "garage_slug": "the-hague",
+    "coords": [52.0805, 4.3247],
+    "geo_region": "NL-ZH",
+    "pr_rate": "€2.00",
+    "pr": [
+      {"name": "P+R Hoornwijck", "sub": "Park + Ride · South (A4/A13)", "rate": "€2.00/24hr", "to_label": "centre", "to": "~12 min (RandstadRail E)", "note": "On the A4/A13; fast light-rail into the centre.", "coords": [52.0466, 4.3573]},
+      {"name": "P+R Forepark", "sub": "Park + Ride · Southeast", "rate": "€2.00/24hr", "to_label": "centre", "to": "~15 min (RandstadRail)", "note": "Handy from the A12 / Utrecht direction.", "coords": [52.0553, 4.3760]},
+      {"name": "P+R Laan van NOI", "sub": "Park + Ride · East", "rate": "€2.00/24hr", "to_label": "Centraal", "to": "~5 min (train, 1 stop)", "note": "One train stop from Den Haag Centraal.", "coords": [52.0857, 4.3315]}
+    ]
+  },
+  {
+    "key": "eindhoven-station",
+    "slug": "parking-eindhoven-station",
+    "station": "Eindhoven Station",
+    "city_name": "Eindhoven",
+    "city_slug": "eindhoven",
+    "garage_slug": "eindhoven",
+    "coords": [51.4433, 5.4797],
+    "geo_region": "NL-NB",
+    "pr_rate": "€3.00",
+    "pr": [
+      {"name": "P+R Meerhoven", "sub": "Park + Ride · West (A2)", "rate": "€3.00/24hr", "to_label": "centre", "to": "~15 min (Bus 401)", "note": "Right off the A2; frequent bus into the centre.", "coords": [51.4498, 5.4058]},
+      {"name": "P+R Woensel", "sub": "Park + Ride · North", "rate": "€3.00/24hr", "to_label": "centre", "to": "~12 min (Bus)", "note": "Best from the north / A50 direction.", "coords": [51.4711, 5.4720]}
+    ]
+  },
+  {
+    "key": "groningen-station",
+    "slug": "parking-groningen-station",
+    "station": "Groningen Station",
+    "city_name": "Groningen",
+    "city_slug": "groningen",
+    "garage_slug": "groningen",
+    "coords": [53.2111, 6.5642],
+    "geo_region": "NL-GR",
+    "pr_rate": "€2.00",
+    "pr": [
+      {"name": "P+R Kardinge", "sub": "Park + Ride · Northeast", "rate": "€2.00/24hr", "to_label": "centre", "to": "~15 min (Bus)", "note": "One of the cheapest P+R sites in the Netherlands.", "coords": [53.2456, 6.5967]},
+      {"name": "P+R Reitdiep", "sub": "Park + Ride · Northwest", "rate": "€2.00/24hr", "to_label": "centre", "to": "~15 min (Bus)", "note": "Handy from the A7 / west.", "coords": [53.2340, 6.5350]},
+      {"name": "P+R Haren", "sub": "Park + Ride · South (A28)", "rate": "€2.00/24hr", "to_label": "centre", "to": "~10 min (Train/Bus)", "note": "On the A28; train option into the centre.", "coords": [53.1720, 6.6000]}
+    ]
+  }
+]
