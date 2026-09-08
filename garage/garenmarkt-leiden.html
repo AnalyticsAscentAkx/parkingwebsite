@@ -136,7 +136,7 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
     var js=document.createElement('script');js.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     js.onload=function(){
       var map=L.map('gmap',{scrollWheelZoom:false}).setView([52.154574,4.493523],15);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OSM © CARTO',maxZoom:18}).addTo(map);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM © CARTO',maxZoom:18}).addTo(map);
       L.marker([52.154574,4.493523]).addTo(map).bindPopup("Garage Garenmarkt").openPopup();
     };
     document.head.appendChild(js);

@@ -139,9 +139,8 @@ Object.entries(CITIES).forEach(([slug,[name]]) => {
 });
 
 map = L.map('zmap', {scrollWheelZoom: true}).setView([52.15, 5.2], 8);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',
-  {attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>', maxZoom: 19}).addTo(map);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {maxZoom: 19, pane: 'shadowPane'}).addTo(map);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19}).addTo(map);
 
 async function load(slug, fly){
   if(current === slug) return;

@@ -13,7 +13,7 @@ function mkI(c,l){return L.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg
 
 function initMap(id,center,zoom){
     const m=L.map(id,{scrollWheelZoom:false,zoomControl:true}).setView(center,zoom);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',maxZoom:18}).addTo(m);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',maxZoom:19}).addTo(m);
     m.on('click',()=>m.scrollWheelZoom.enable());
     m.on('mouseout',()=>m.scrollWheelZoom.disable());
     return m;
