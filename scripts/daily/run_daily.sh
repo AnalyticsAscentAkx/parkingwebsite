@@ -40,7 +40,7 @@ if [ -f "$REPO/scripts/collector/pipeline.py" ]; then
   ( cd "$REPO/scripts/collector" \
     && python3 pipeline.py init >>"$LOG" 2>&1 \
     && python3 pipeline.py seed >>"$LOG" 2>&1 \
-    && python3 pipeline.py autocomplete --limit-seeds 250 --langs nl,en >>"$LOG" 2>&1 \
+    && python3 pipeline.py autocomplete --limit-seeds 120 --no-expand --langs nl,en >>"$LOG" 2>&1 \
     && python3 pipeline.py normalize >>"$LOG" 2>&1 \
     && python3 pipeline.py shortlist >>"$LOG" 2>&1 ) \
     && log "collector refreshed (shortlist regenerated)" \
