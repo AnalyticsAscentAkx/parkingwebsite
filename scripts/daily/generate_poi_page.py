@@ -283,6 +283,7 @@ def render(target):
 </tbody>
 </table></div>
 <p class="ss" style="margin-top:14px">Need an exact price for your arrival and departure times? The <a href="/search?q={station.replace(' ','%20')}&lat={lat}&lng={lng}" style="color:var(--or);font-weight:600">parking search</a> computes the cost of your specific stay at every garage within reach.</p>
+<p class="ss" style="margin-top:10px">Know when you're arriving? Pre-booking a spot is often 10-25% cheaper than the drive-in rate and guarantees a space. <a data-aff="parkbee" href="https://www.parkbee.com/" style="color:var(--or);font-weight:600">Pre-book a garage on ParkBee →</a> <span style="color:var(--mut);font-size:12px">(affiliate link)</span></p>
 </div></section>
 
 <div class="ad-wrap wm"><div class="ad">- Advertisement -</div></div>
@@ -334,6 +335,7 @@ def render(target):
 
 <script src="rdw-data.js"></script>
 <script src="shared.js"></script>
+<script src="affiliates.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){{
   try{{
