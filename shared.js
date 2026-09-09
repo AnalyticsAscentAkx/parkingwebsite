@@ -436,13 +436,22 @@ function getNav(active){
     return links.map(l=>`<li><a href="${l.href}"${l.id===active?' class="act"':''}>${l.text}</a></li>`).join('');
 }
 
-/* Scroll reveal — animate elements as they enter viewport */
+/* Scroll reveal — animate elements as they enter viewport.
+   Content must NEVER stay hidden: if the observer is unavailable, reduced-motion
+   is on, or it ever misses an element, we force everything visible. Animation is
+   a progressive enhancement, not a gate on content being readable. */
 (function(){
-  if (typeof IntersectionObserver === 'undefined') return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const SEL = '.reveal, .reveal-l, .reveal-r, .reveal-scale';
+  const showAll = ()=>document.querySelectorAll(SEL).forEach(el=>el.classList.add('in'));
 
-  const els = document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-scale');
-  if (!els.length){
+  if (typeof IntersectionObserver === 'undefined' ||
+      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+    // no animation path: make sure any tagged elements are simply visible
+    showAll();
+    return;
+  }
+
+  if (!document.querySelectorAll(SEL).length){
     // auto-tag major content blocks if author didn't add classes
     document.querySelectorAll('.sec h2, .sec h3, .sec p, .pk, .tc2, .hs, .qb, .fi, .pg, .prose > *').forEach((el, i)=>{
       el.classList.add('reveal');
@@ -459,7 +468,18 @@ function getNav(active){
     });
   }, {rootMargin: '0px 0px -8% 0px', threshold: 0.04});
 
-  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .reveal-scale').forEach(el=>io.observe(el));
+  document.querySelectorAll(SEL).forEach(el=>io.observe(el));
+
+  // Failsafe #1: reveal anything already in (or near) the viewport that the
+  // observer may have missed, on load and on scroll.
+  const sweep = ()=>document.querySelectorAll(SEL+':not(.in)').forEach(el=>{
+    if (el.getBoundingClientRect().top < innerHeight * 1.1) el.classList.add('in');
+  });
+  window.addEventListener('scroll', sweep, {passive:true});
+  window.addEventListener('load', ()=>setTimeout(sweep, 200));
+  // Failsafe #2: nothing stays hidden. Force-reveal any straggler after a few
+  // seconds so a missed observer callback can never leave a blank heading.
+  setTimeout(showAll, 4000);
 })();
 
 /* Number count-up — finds .counter[data-to=N] and animates */
