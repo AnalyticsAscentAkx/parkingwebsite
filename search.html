@@ -91,6 +91,12 @@
  .rgrid{grid-template-columns:1fr}
  #resMap{height:380px;position:static;order:-1}
 }
+@media(max-width:560px){
+ /* phones: stack every field so the wide datetime-local inputs never overflow */
+ .panel{grid-template-columns:1fr}
+ .panel .field:first-child,.panel .field,.panel .go{grid-column:1/-1}
+ .field input,.field select{max-width:100%;min-width:0}
+}
 </style>
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta property="og:image:width" content="1200">

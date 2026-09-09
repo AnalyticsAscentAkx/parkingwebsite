@@ -144,7 +144,7 @@ tbody tr:hover{background:#FAFBFC}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(11,17,32,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px;gap:2px;box-shadow:var(--sh-md)}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(11,17,32,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px;gap:2px;box-shadow:var(--sh-md);max-height:calc(100vh - 60px);overflow-y:auto;-webkit-overflow-scrolling:touch}
   .nav-links.open{display:flex}
   .nav-links li{width:100%}
   .nav-links>li>a{padding:11px 14px;font-size:15px}
