@@ -148,6 +148,38 @@ def export() -> dict:
         (cells_dir / f"{key}.json").write_text(
             json.dumps(recs, separators=(",", ":"), ensure_ascii=False))
 
+    # Off-street facilities (garages, P+R, terreinen) as a second tile set so
+    # the same map can answer "where do I park" for any car. Record:
+    # 0 id, 1 name, 2 kind, 3 lat, 4 lon, 5 capacity, 6 area id (tariff key
+    # when priced, else null), 7 day max from the ladder or null.
+    pcells_dir = root / "pcells"
+    pcells_dir.mkdir(parents=True, exist_ok=True)
+    for old in pcells_dir.glob("*.json"):
+        old.unlink()
+    pcells = defaultdict(list)
+    for a in db.query(
+        """SELECT a.area_id, a.name, a.lat, a.lon, a.capacity, a.usage,
+                  EXISTS (SELECT 1 FROM parking_tariff t WHERE t.area_id = a.area_id) AS priced,
+                  (SELECT MAX(daily_max) FROM parking_tariff t WHERE t.area_id = a.area_id) AS day_max
+           FROM parking_area a
+           WHERE a.usage IN ('GARAGEP', 'TERREINP', 'PARKRIDE', 'PR')
+             AND a.lat IS NOT NULL AND a.name IS NOT NULL
+             AND a.lat BETWEEN %(lat0)s AND %(lat1)s AND a.lon BETWEEN %(lon0)s AND %(lon1)s""",
+        NL_BBOX):
+        n = (a["name"] or "").lower()
+        kind = ("pr" if a["usage"] in ("PARKRIDE", "PR") or "p+r" in n
+                else "garage" if a["usage"] == "GARAGEP" else "terrein")
+        if a["priced"]:
+            used_areas.add(a["area_id"])
+        pcells[cell_key(float(a["lat"]), float(a["lon"]))].append([
+            a["area_id"], a["name"], kind, _round(a["lat"]), _round(a["lon"]),
+            a["capacity"], a["area_id"] if a["priced"] else None,
+            round(float(a["day_max"]), 2) if a["day_max"] is not None else None,
+        ])
+    for key, recs in pcells.items():
+        (pcells_dir / f"{key}.json").write_text(
+            json.dumps(recs, separators=(",", ":"), ensure_ascii=False))
+
     city_list = sorted(
         ({"name": name,
           "n": c["n"], "e": c["e"],
@@ -180,6 +212,8 @@ def export() -> dict:
         "cells": len(cells),
         "cities": len(city_list),
         "priced_areas": len(used_areas),
+        "parking_places": sum(len(v) for v in pcells.values()),
+        "parking_cells": len(pcells),
         "largest_cell_kb": round(max(sizes) / 1024, 1) if sizes else 0,
         "cities_json_kb": round((root / "cities.json").stat().st_size / 1024, 1),
         "days_measured": db.one(

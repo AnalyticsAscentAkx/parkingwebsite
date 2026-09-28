@@ -385,3 +385,22 @@
 .ev-chips-map[hidden]{display:none}
 .ev-zoomhint,.ev-area{top:52px}
 @media(max-width:900px){.ev-chips-map{display:none}.ev-zoomhint,.ev-area{top:60px}}
+
+/* numbers in the UI face, matching the rest of the site */
+.ev-price,.ev-tile b,.ev-pin,.ev-card-row b,.ev-card-row.is-total[data-g] b,.ev-kw,.ev-up,#evKwh{font-family:var(--f-ui);font-variant-numeric:tabular-nums}
+.ev-price,.ev-tile b,.ev-card-row b,.ev-card-row.is-total[data-g] b{font-weight:800;letter-spacing:-.02em}
+.ev-pin{font-weight:700;letter-spacing:-.01em}
+.ev-kw,.ev-up{font-weight:600}
+
+/* Chargers | Parking: one map, two things to show */
+.ev-modes{position:absolute;top:14px;left:58px;z-index:910;display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3px;box-shadow:var(--sh-md)}
+.ev-modes button{font-family:var(--f-ui);font-size:12.5px;font-weight:700;padding:6px 14px;border:none;border-radius:99px;background:transparent;color:var(--mut);cursor:pointer}
+.ev-modes button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.ev-modes button[data-mode="parking"][aria-pressed="true"]{background:var(--sig)}
+.ev-chips-map{left:250px}
+.ev-pin[data-kind="pr"]{background:var(--blue);border-top-color:var(--blue)}
+.ev-pin[data-kind="garage"],.ev-pin[data-kind="terrein"]{background:var(--ink);border-top-color:var(--ink)}
+.ev-pin[data-kind][data-g="lo"]{background:var(--ok);border-top-color:var(--ok)}
+.ev-pin[data-kind][data-g="hi"]{background:var(--bad);border-top-color:var(--bad)}
+.ev-app[data-mode="parking"] .ev-legend{display:none}
+@media(max-width:900px){.ev-modes{top:60px;left:50%;transform:translateX(-50%)}.ev-zoomhint,.ev-area{top:104px}}

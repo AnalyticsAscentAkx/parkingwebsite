@@ -180,11 +180,11 @@ def load() -> dict:
         area_rows.append((
             aid, json.dumps(rings) if rings else None, None, usage in STREET_PAID,
             int(cap) if cap and str(cap).isdigit() else None,
-            lat, lon, name,
+            lat, lon, name, usage or None,
         ))
     db.execute("TRUNCATE parking_area, parking_fare_part")
     db.upsert("parking_area",
-              ["area_id", "geom", "city", "on_street", "capacity", "lat", "lon", "name"],
+              ["area_id", "geom", "city", "on_street", "capacity", "lat", "lon", "name", "usage"],
               ["area_id"], area_rows)
 
     # (manager, farecalculationcode) -> ordered fare ladder

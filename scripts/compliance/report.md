@@ -2,14 +2,14 @@
 
 Generated 2026-09-28 by scripts/compliance/audit.py
 
-**0 hard findings** across 0 files, **1072 warnings** across 374 files.
+**0 hard findings** across 0 files, **1073 warnings** across 374 files.
 
 ## Sources in use
 
-- **RDW open data (Nationaal Parkeer Register tariffs, garage register)**: 352 file(s). Licence: Creative Commons Zero (CC0). Terms: https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter
+- **RDW open data (Nationaal Parkeer Register tariffs, garage register)**: 353 file(s). Licence: Creative Commons Zero (CC0). Terms: https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter
 - **NDW / DOT-NL charging point register (opendata.ndw.nu)**: 1 file(s). Licence: CC0 per ndw.nu/copyright ('tenzij anders vermeld'); attribution kept. Terms: https://www.ndw.nu/copyright
 - **OpenStreetMap public tile server (tile.openstreetmap.org)**: 331 file(s). Licence: Tiles: OSMF Tile Usage Policy; data: ODbL. Terms: https://operations.osmfoundation.org/policies/tiles/
-- **Photon geocoder (photon.komoot.io), OSM data**: 2 file(s). Licence: Fair use; underlying data ODbL (attribution to OpenStreetMap). Terms: https://photon.komoot.io/
+- **Photon geocoder (photon.komoot.io), OSM data**: 3 file(s). Licence: Fair use; underlying data ODbL (attribution to OpenStreetMap). Terms: https://photon.komoot.io/
 - **Open Charge Map API (api.openchargemap.io)**: 1 file(s). Licence: Data CC BY-SA 4.0 (per OCM; terms page is JS-rendered, re-verify by hand). Terms: https://openchargemap.org/site/about/terms
 - **CBS / Statistics Netherlands**: 0 file(s). Licence: CC BY 4.0. Terms: https://www.cbs.nl/en-gb/about-us/website/copyright
 - **Stad Gent open data (data.stad.gent real-time parking)**: 1 file(s). Licence: UNVERIFIED: dataset pages state their own licence (usually Modellicentie Gratis Hergebruik / CC0). Terms: https://data.stad.gent/
@@ -30,6 +30,10 @@ Generated 2026-09-28 by scripts/compliance/audit.py
 ### [WARN] osm_tiles: site is ad-funded and serves 330+ map pages from the volunteer OSM tile server; the policy allows this but can cut access without notice. Consider CARTO basemaps or self-hosted tiles.
 331 file(s): belgium-parking.html, ev-map.js, ev.js, garage/013-tivoli-tilburg.html, garage/albert-cuyp-amsterdam.html, garage/amc-p2-amsterdam.html, garage/amphia-ziekenhuis-locatie-langendijk-breda.html, garage/amphia-ziekenhuis-locatie-molengracht-breda.html, garage/amsterdam-centrum-amsterdam.html, garage/amsterdamse-bos-hoofdentree-amsterdam.html, garage/antarctica-amsterdam.html, garage/artis-amsterdam.html ... +319 more
 > e.g. `map.html`: …false}).setView([52.20, 5.30], 8); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'&copy; <a href="https://…
+
+### [WARN] photon: geocoder appears to fire on every keystroke without a debounce; be fair to the free service (>=300 ms debounce, min 3 chars)
+1 file(s): ev-map.js
+> e.g. `ev-map.js`: …l.addEventListener('change', syncWindow); $('#evKwh').addEventListener('input', repriceAll); updateSession(); if (narrow()) { var d = $('#evWin…
 
 ## What each source allows
 

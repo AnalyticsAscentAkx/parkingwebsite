@@ -27,7 +27,8 @@
   var map, cities = [], tariffs = {}, meta = {};
   var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {}, byId = {};
   var selected = null, mode = 'overview', sortKey = 'reliable';
-  var filters = { fast: false, faulty: false, free: false, cheap: false };
+  var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false };
+  var showMode = 'chargers', places = null, placeLayer = null;
   var rowsShown = [], moveTimer = null, zoomed = false, hovered = null;
 
   /* Station record is positional, which roughly halves the tile size:
@@ -218,11 +219,12 @@
     if (!map) return;
     var b = map.getBounds();
     mode = map.getZoom() >= DETAIL_ZOOM ? 'detail' : 'overview';
+    if (showMode === 'parking') { refreshParking(b); return; }
     $('#evHint').textContent = 'Each circle is a town; larger circles have more locations. Select a town to zoom in.';
     $('#evHint').classList.toggle('is-on', mode === 'overview');
     var sorts = document.querySelector('.ev-sort');
     if (sorts) sorts.hidden = mode !== 'detail';
-    Array.prototype.forEach.call(document.querySelectorAll('.ev-chips'), function (c) { c.hidden = mode !== 'detail'; });
+    syncChips(mode === 'detail');
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = mode !== 'detail' || !!selected;   // colour only means status up close
     $('#evArea').hidden = true;
@@ -505,6 +507,7 @@
   function showCard(st) {
     var card = $('#evCard');
     if (!st) { card.hidden = true; return; }
+    if (st._place) { showPlaceCard(st); return; }
     var w = currentWindow(), p = priceOf(st, w), g = grade(st[UP], st[DOWN]);
     var status = st[DOWN] > 0
       ? st[DOWN] + ' of ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + ' reported out of order'
@@ -570,6 +573,232 @@
     });
   }
 
+
+  /* ============================================================ parking */
+  /* One map, two things to show. Parking mode draws the garages and P+R
+     sites the rest of the site already knows (rdw-data.js: 323 facilities
+     with published 1 h / 3 h / 24 h drive-in tariffs and their own pages),
+     priced for the same session with the same card and tiles. */
+  function syncChips(show) {
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-chips'), function (c) {
+      c.hidden = !show;
+      Array.prototype.forEach.call(c.querySelectorAll('button'), function (b) {
+        var only = b.dataset.only;
+        b.hidden = !!only && only !== showMode;
+      });
+    });
+  }
+
+  function setShowMode(m, silent) {
+    if (m !== 'parking' && m !== 'chargers') return;
+    showMode = m;
+    $('#evApp').dataset.mode = m;
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-modes button'), function (b) {
+      b.setAttribute('aria-pressed', b.dataset.mode === m ? 'true' : 'false');
+    });
+    clearSelection();
+    if (m === 'parking') {
+      stat('mCheapL', 'cheapest for this stop'); stat('mKwhL', 'typical price per hour');
+      stat('mParkL', 'P+R sites in view'); stat('mFastL', 'spaces in view');
+      $('#evSearch').placeholder = 'Search a town or address';
+    } else {
+      stat('mCheapL', 'cheapest stop in view'); stat('mKwhL', 'typical price per kWh');
+      stat('mParkL', 'parking for this stop'); stat('mFastL', 'fast chargers, 50 kW+');
+      $('#evSearch').placeholder = 'Search a town, e.g. Utrecht';
+      if (placeLayer) { map.removeLayer(placeLayer); placeLayer = null; }
+    }
+    if (!silent && map) { updateUrl(); refresh(); }
+  }
+
+  function loadPlaces(done) {
+    if (places) { done(); return; }
+    /* rdw-data.js declares a top-level const, which is a global binding but
+       not a window property; typeof is the only safe way to see it. */
+    function data() { return typeof RDW_DATA !== 'undefined' ? RDW_DATA : window.RDW_DATA; }
+    function flatten() {
+      places = [];
+      var D = data() || {};
+      for (var city in D) {
+        D[city].forEach(function (g) {
+          var pr = g.pr || /p\+r|park.?and.?ride/i.test(g.name);
+          var rec = { _place: true, id: 'p:' + g.slug, name: g.name, city: city, slug: g.slug,
+                      kind: pr ? 'pr' : 'garage', lat: g.lat, lon: g.lng, cap: g.capacity, ev: g.ev_points,
+                      h: g.max_height_cm, rate_hr: g.rate_hr, rate_3h: g.rate_3h, rate_day: g.rate_day, op: g.op };
+          places.push(rec); byId[rec.id] = rec;
+        });
+      }
+      done();
+    }
+    if (data()) { flatten(); return; }
+    var js = document.createElement('script');
+    js.src = '/rdw-data.js';
+    js.onload = flatten;
+    js.onerror = function () { $('#evRows').innerHTML = empty('Parking data did not load', 'Reload the page to try again.'); };
+    document.head.appendChild(js);
+  }
+
+  /* Drive-in cost through the published 1 h / 3 h / 24 h points, the same
+     estimate the parking search uses. */
+  function estCost(g, mins) {
+    if (g.rate_hr == null) return null;
+    var h1 = g.rate_hr, h3 = g.rate_3h != null ? g.rate_3h : h1 * 3, d1 = g.rate_day != null ? g.rate_day : h1 * 24;
+    function upTo24(m) {
+      if (m <= 0) return 0;
+      if (m <= 60) return h1 * (m / 60 < .5 ? .5 : m / 60);
+      if (m <= 180) return h1 + (h3 - h1) * (m - 60) / 120;
+      return h3 + (d1 - h3) * (m - 180) / 1260;
+    }
+    if (mins <= 1440) return upTo24(mins);
+    var days = Math.floor(mins / 1440), rem = mins % 1440;
+    return days * d1 + Math.min(upTo24(rem), d1);
+  }
+  function placePrice(g, w) {
+    var c = estCost(g, (w.l - w.a) / 60000);
+    return c == null ? null : { park: c, charge: null, total: c };
+  }
+  function placeGrade(g, median) {
+    if (!g._p) return 'none';
+    if (g._p.total === 0) return 'lo';
+    if (median == null) return 'mid';
+    return g._p.total <= median * .8 ? 'lo' : g._p.total >= median * 1.25 ? 'hi' : 'mid';
+  }
+
+  function refreshParking(b) {
+    $('#evHint').classList.remove('is-on');
+    var sorts = document.querySelector('.ev-sort'); if (sorts) sorts.hidden = true;
+    syncChips(true);
+    var lg = document.querySelector('.ev-legend'); if (lg) lg.hidden = true;
+    $('#evArea').hidden = true;
+    if (layer) { map.removeLayer(layer); layer = null; }
+    if (cityLayer) { map.removeLayer(cityLayer); cityLayer = null; }
+    loadPlaces(function () { drawPlaces(map.getBounds()); });
+  }
+
+  function drawPlaces(b) {
+    if (!places) return;
+    var w = currentWindow();
+    var rows = places.filter(function (g) { return b.contains([g.lat, g.lon]); });
+    rows.forEach(function (g) { g._p = placePrice(g, w); });
+    var totals = rows.filter(function (g) { return g._p; }).map(function (g) { return g._p.total; }).sort(function (a, c) { return a - c; });
+    var median = totals.length ? totals[Math.floor(totals.length / 2)] : null;
+    rows = rows.filter(function (g) {
+      if (filters.pr && g.kind !== 'pr') return false;
+      if (filters.garage && g.kind === 'pr') return false;
+      if (filters.free && !(g._p && g._p.total === 0)) return false;
+      if (filters.cheap && !(g._p && median != null && g._p.total <= median)) return false;
+      return true;
+    });
+    if (placeLayer) map.removeLayer(placeLayer);
+    placeLayer = L.layerGroup();
+    markers = {};
+    var pills = map.getZoom() >= 12;
+    rows.forEach(function (g) {
+      var m;
+      if (pills && g._p) {
+        m = L.marker([g.lat, g.lon], { icon: L.divIcon({ className: 'ev-pinwrap',
+          html: '<span class="ev-pin" data-kind="' + g.kind + '" data-g="' + placeGrade(g, median) + '">' + money(g._p.total) + '</span>',
+          iconSize: null, iconAnchor: [0, 0] }), riseOnHover: true });
+      } else {
+        m = L.circleMarker([g.lat, g.lon], { radius: markerRadius() + 1, weight: 1.5, color: '#fff',
+          fillColor: g.kind === 'pr' ? '#2337C6' : '#0B1120', fillOpacity: .95 });
+      }
+      m.on('click', function () { select(g.id, true); });
+      m.on('mouseover', function () { hover(g.id, true); });
+      m.on('mouseout', function () { hover(null, true); });
+      m.bindTooltip(esc(g.name), { direction: 'top', opacity: .95 });
+      markers[g.id] = m;
+      placeLayer.addLayer(m);
+    });
+    placeLayer.addTo(map);
+    if (selected && markers[selected]) styleMarker(selected, 'selected');
+    listPlaces(rows, w, median);
+  }
+
+  function listPlaces(rows, w, median) {
+    rows = rows.slice().sort(function (a, c) {
+      return (a._p ? a._p.total : Infinity) - (c._p ? c._p.total : Infinity);
+    });
+    rowsShown = rows;
+    var active = [];
+    if (filters.pr) active.push('P+R only'); if (filters.garage) active.push('garages only');
+    if (filters.free) active.push('free'); if (filters.cheap) active.push('low cost');
+    $('#evMode').textContent = 'Parking in view';
+    $('#evCount').textContent = rows.length.toLocaleString() + (rows.length === 1 ? ' place' : ' places') +
+      (active.length ? ' (' + active.join(', ') + ')' : '') +
+      (rows.length ? '' : '. The site covers 14 cities; zoom out or search a city.');
+    updateSession();
+    var prs = rows.filter(function (g) { return g.kind === 'pr'; });
+    var hrs = rows.filter(function (g) { return g.rate_hr != null; }).map(function (g) { return g.rate_hr; }).sort(function (a, c) { return a - c; });
+    var totals = rows.filter(function (g) { return g._p; }).map(function (g) { return g._p.total; }).sort(function (a, c) { return a - c; });
+    stat('mCheap', totals.length ? money(totals[0]) : '–');
+    stat('mKwh', hrs.length ? money(hrs[Math.floor(hrs.length / 2)]) : '–');
+    stat('mPark', rows.length ? String(prs.length) : '–');
+    stat('mFast', rows.length ? rows.reduce(function (n, g) { return n + (g.cap || 0); }, 0).toLocaleString() : '–');
+    var label = sessionLabel(w, true).replace(/est\. \d+ kWh \+ /, 'est. ');
+    $('#evRows').innerHTML = rows.length ? rows.map(function (g, i) {
+      var price = g._p
+        ? '<span class="ev-price" data-g="' + placeGrade(g, median) + '">' + money(g._p.total) +
+          '<small>' + label + ' drive-in' + (g.rate_day != null ? ' · ' + money(g.rate_day) + '/day' : '') + '</small></span>'
+        : '<span class="ev-price is-unpriced">No published price</span>';
+      return '<div class="ev-row" role="option" tabindex="0" data-i="' + i + '" data-kind="station" data-id="' + esc(g.id) + '"' +
+        (selected === g.id ? ' aria-selected="true"' : '') + '>' +
+        '<div><div class="ev-name">' + esc(g.name) + '</div>' +
+        '<div class="ev-meta"><span>' + (g.kind === 'pr' ? 'P+R' : 'Garage') + '</span>' +
+        (g.cap ? '<span class="ev-kw">' + g.cap.toLocaleString() + ' spaces</span>' : '') +
+        (g.ev ? '<span class="ev-up" data-g="ok">' + g.ev + ' charge point' + (g.ev === 1 ? '' : 's') + '</span>' : '') +
+        (g.h ? '<span>max ' + (g.h / 100).toFixed(2) + ' m</span>' : '') +
+        '</div></div>' + price + '</div>';
+    }).join('') : empty('No parking in view', filters.pr || filters.garage || filters.free || filters.cheap ? 'Clear a filter, or move the map.' : 'Move the map, or search a city.');
+    bindRows();
+  }
+
+  function showPlaceCard(g) {
+    var card = $('#evCard'), w = currentWindow(), p = placePrice(g, w);
+    var lines = '';
+    if (p) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l) + ' (drive-in)', money(p.total), placeGrade(g, null));
+    else lines += row('Parking', 'Price not published', 'none');
+    if (g.rate_hr != null) lines += row('First hour', money(g.rate_hr), 'none');
+    if (g.rate_day != null) lines += row('24 hours', money(g.rate_day), 'none');
+    card.innerHTML =
+      '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
+      '<div class="ev-card-name">' + esc(g.name) + '</div>' +
+      '<div class="ev-card-meta">' + (g.kind === 'pr' ? 'Park and Ride' : 'Parking garage') +
+        (g.op ? ' · ' + esc(g.op) : '') + (g.cap ? ' · ' + g.cap.toLocaleString() + ' spaces' : '') +
+        (g.h ? ' · max height ' + (g.h / 100).toFixed(2) + ' m' : '') + '</div>' +
+      (g.ev ? '<div class="ev-card-status" data-g="ok"><i></i>' + g.ev + ' EV charge point' + (g.ev === 1 ? '' : 's') + ' inside</div>' : '') +
+      '<div class="ev-card-rows">' + lines + '</div>' +
+      '<div class="ev-card-note">Drive-in estimate through the published 1 h, 3 h and 24 h tariffs for ' + sessionLabel(w, false).replace(/^\d+ kWh and a /, 'a ') +
+        '. Pre-booking online is often cheaper.</div>' +
+      '<div class="ev-card-act">' +
+        '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + g.lat + ',' + g.lon + '">Directions</a>' +
+        (g.slug ? '<a class="ev-card-btn" href="/garage/' + esc(g.slug) + '">Details &amp; rates</a>' : '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>') +
+      '</div>';
+    card.hidden = false;
+    card.querySelector('.ev-card-x').onclick = clearSelection;
+    var cw = $('#evCardWindow');
+    if (cw) cw.onclick = function () { var d = $('#evWindow'); if (d) d.open = true; $('#evArrive').focus(); };
+  }
+
+  /* Addresses go to Photon (OpenStreetMap data) when no town matches. */
+  var geoMarker = null;
+  function geocode(q) {
+    $('#evCount').textContent = 'Looking up “' + q + '”…';
+    fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(q) + '&limit=1&lang=en&bbox=3.2,50.7,7.3,53.6')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        var f = j && j.features && j.features[0];
+        if (!f) { searchType(q); return; }
+        var ll = [f.geometry.coordinates[1], f.geometry.coordinates[0]];
+        if (geoMarker) map.removeLayer(geoMarker);
+        geoMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#EA580C', fillOpacity: 1 })
+          .bindTooltip(esc(f.properties.name || q), { direction: 'top' }).addTo(map);
+        zoomed = true;
+        map.setView(ll, 15);
+        if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
+      })
+      .catch(function () { searchType(q); });
+  }
+
   /* --------------------------------------------------------------- init */
   function syncWindow() {
     var a = $('#evArrive'), l = $('#evLeave');
@@ -586,12 +815,13 @@
     var c = map.getCenter(), w = currentWindow();
     window.history.replaceState({}, '', location.pathname +
       '?lat=' + c.lat.toFixed(5) + '&lng=' + c.lng.toFixed(5) + '&zoom=' + map.getZoom() +
-      '&arriving=' + stamp(w.a) + '&leaving=' + stamp(w.l) + '&kwh=' + w.kwh);
+      '&arriving=' + stamp(w.a) + '&leaving=' + stamp(w.l) + '&kwh=' + w.kwh + (showMode === 'parking' ? '&mode=parking' : ''));
   }
 
   function repriceAll() {
     updateSession();
-    if (mode === 'detail') drawStations(map.getBounds());
+    if (showMode === 'parking') drawPlaces(map.getBounds());
+    else if (mode === 'detail') drawStations(map.getBounds());
     if (selected && byId[selected]) showCard(byId[selected]);
   }
 
@@ -629,7 +859,7 @@
       scheduleRefresh();
       if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
     } else {
-      searchType(q);
+      geocode(q);
     }
   }
 
@@ -659,6 +889,10 @@
         if (mode === 'detail') drawStations(map.getBounds());
       };
     });
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-modes button'), function (btn) {
+      btn.onclick = function () { setShowMode(btn.dataset.mode); };
+    });
+    if (q.get('mode') === 'parking') setShowMode('parking', true);
     var chips = document.querySelectorAll('.ev-chips button');
     Array.prototype.forEach.call(chips, function (btn) {
       btn.onclick = function () {
@@ -667,7 +901,8 @@
         Array.prototype.forEach.call(document.querySelectorAll('.ev-chips button[data-f="' + f + '"]'), function (b2) {
           b2.setAttribute('aria-pressed', filters[f] ? 'true' : 'false');
         });
-        if (mode === 'detail') drawStations(map.getBounds());
+        if (showMode === 'parking') drawPlaces(map.getBounds());
+        else if (mode === 'detail') drawStations(map.getBounds());
       };
     });
 

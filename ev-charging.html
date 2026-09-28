@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929b">
-<link rel="stylesheet" href="/ev-map.css?v=20260929g">
+<link rel="stylesheet" href="/site.css?v=20260929c">
+<link rel="stylesheet" href="/ev-map.css?v=20260929j">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
@@ -70,7 +70,7 @@
 </form>
 </nav>
 
-<main class="ev-app" id="evApp" data-view="map">
+<main class="ev-app" id="evApp" data-view="map" data-mode="chargers">
 
   <div class="ev-tabs" role="group" aria-label="Switch between map and list">
     <button id="tabMap" aria-pressed="true">Map</button>
@@ -80,12 +80,18 @@
   <div class="ev-mapwrap">
     <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
     <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <div class="ev-modes" role="group" aria-label="What to show">
+      <button type="button" data-mode="chargers" aria-pressed="true">Chargers</button>
+      <button type="button" data-mode="parking" aria-pressed="false">Parking</button>
+    </div>
     <button type="button" class="ev-area" id="evArea" hidden>Search this area</button>
     <div class="ev-chips ev-chips-map" role="group" aria-label="Filter chargers" hidden>
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
-        <button type="button" data-f="fast" aria-pressed="false">Fast, 50 kW+</button>
-        <button type="button" data-f="faulty" aria-pressed="false">Reported faulty</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
       </div>
     <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
     <div class="ev-legend" hidden>
@@ -108,10 +114,10 @@
         <button id="evGo" type="button">Go</button>
       </div>
       <div class="ev-meta" id="evMeta" aria-live="polite">
-        <div class="ev-tile is-lo"><b id="mCheap">–</b><span>cheapest stop in view</span></div>
-        <div class="ev-tile"><b id="mKwh">–</b><span>typical price per kWh</span></div>
-        <div class="ev-tile"><b id="mPark">–</b><span>parking for this stop</span></div>
-        <div class="ev-tile is-blue"><b id="mFast">–</b><span>fast chargers, 50 kW+</span></div>
+        <div class="ev-tile is-lo"><b id="mCheap">–</b><span id="mCheapL">cheapest stop in view</span></div>
+        <div class="ev-tile"><b id="mKwh">–</b><span id="mKwhL">typical price per kWh</span></div>
+        <div class="ev-tile"><b id="mPark">–</b><span id="mParkL">parking for this stop</span></div>
+        <div class="ev-tile is-blue"><b id="mFast">–</b><span id="mFastL">fast chargers, 50 kW+</span></div>
       </div>
 
       <details class="ev-window" id="evWindow" open>
@@ -143,8 +149,10 @@
       <div class="ev-chips" role="group" aria-label="Filter chargers" hidden>
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
-        <button type="button" data-f="fast" aria-pressed="false">Fast, 50 kW+</button>
-        <button type="button" data-f="faulty" aria-pressed="false">Reported faulty</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
       </div>
       <p class="ev-session" id="evSession">Estimates assume 20 kWh and a 2 h stop.</p>
     </div>
@@ -457,7 +465,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js?v=20260929g" defer></script>
+<script src="/ev-map.js?v=20260929j" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they
