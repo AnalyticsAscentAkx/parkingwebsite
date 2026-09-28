@@ -156,7 +156,7 @@ def load() -> dict:
             continue
         by_reg.setdefault((tv.get("areamanagerid"), tv.get("regulationid")), []).append(tv)
 
-    tariff_rows, fare_rows, seen, seen_fare = [], [], set(), set()
+    fare_rows, seen, seen_fare = [], {}, set()
     for aid, reg_key in reg_by_area.items():
         for tv in by_reg.get(reg_key, []):
             day = _DAY_INDEX.get((tv.get("daytimeframe") or "").strip().upper())
@@ -175,10 +175,14 @@ def load() -> dict:
             per_hour = fare_cost(parts, 60)
             day_max = fare_cost(parts, 1440)
 
+            # A zone can publish several products for the same window: the
+            # hourly tariff, a dagkaart, an avondkaart. The visitor pays the
+            # cheapest one that covers the stay, and for a charging stop that
+            # is the one with the lowest one-hour cost. Keep that ladder.
             k = (aid, day, start)
-            if k not in seen:
-                seen.add(k)
-                tariff_rows.append((aid, day, start, end, per_hour, day_max))
+            prev = seen.get(k)
+            if prev is None or per_hour < prev[4]:
+                seen[k] = (aid, day, start, end, per_hour, day_max, code)
 
             fk = (aid, code)
             if fk not in seen_fare:
@@ -192,8 +196,10 @@ def load() -> dict:
                         float(p.get("amountfarepart") or 0),
                     ))
 
+    tariff_rows = list(seen.values())
+    db.execute("TRUNCATE parking_tariff")
     db.upsert("parking_tariff",
-              ["area_id", "day_of_week", "start_min", "end_min", "price_per_hour", "daily_max"],
+              ["area_id", "day_of_week", "start_min", "end_min", "price_per_hour", "daily_max", "fare_code"],
               ["area_id", "day_of_week", "start_min"], tariff_rows)
     db.upsert("parking_fare_part",
               ["area_id", "fare_code", "start_min", "end_min", "step_min", "amount"],
@@ -211,8 +217,10 @@ def link_stations(max_m: float = 400.0) -> dict:
     """
     stations = db.query(
         "SELECT station_id, lat, lon FROM station WHERE lat IS NOT NULL")
+    # Public chargers stand at the kerb, so the parking they imply is the
+    # street zone, never the garage across the road with its day ticket.
     areas = db.query(
-        "SELECT area_id, lat, lon FROM parking_area WHERE lat IS NOT NULL")
+        "SELECT area_id, lat, lon FROM parking_area WHERE lat IS NOT NULL AND on_street")
     if not areas:
         return {"linked": 0, "note": "no parking areas loaded yet"}
 

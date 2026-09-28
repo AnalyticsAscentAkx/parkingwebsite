@@ -76,12 +76,21 @@ def export() -> dict:
 
     # Parking windows, shared by many stations, so they are sent once and
     # referenced by id rather than copied onto every marker.
-    windows = defaultdict(list)
+    # Each window names its fare ladder; the ladder is shipped once per code so
+    # the page prices a stay the way the meter does, band by band, instead of
+    # multiplying an hourly figure.
+    windows = defaultdict(lambda: {"w": [], "f": {}})
     for w in db.query(
-        """SELECT area_id, day_of_week, start_min, end_min, price_per_hour
-           FROM parking_tariff WHERE price_per_hour > 0"""):
-        windows[w["area_id"]].append(
-            [w["day_of_week"], w["start_min"], w["end_min"], round(float(w["price_per_hour"]), 2)])
+        """SELECT area_id, day_of_week, start_min, end_min, fare_code
+           FROM parking_tariff WHERE fare_code IS NOT NULL"""):
+        windows[w["area_id"]]["w"].append(
+            [w["day_of_week"], w["start_min"], w["end_min"], w["fare_code"]])
+    for fp in db.query(
+        """SELECT area_id, fare_code, start_min, end_min, step_min, amount
+           FROM parking_fare_part ORDER BY area_id, fare_code, start_min"""):
+        if fp["area_id"] in windows:
+            windows[fp["area_id"]]["f"].setdefault(fp["fare_code"], []).append(
+                [fp["start_min"], fp["end_min"], fp["step_min"], round(float(fp["amount"]), 2)])
 
     cells = defaultdict(list)
     cities = defaultdict(lambda: {"n": 0, "e": 0, "lat": 0.0, "lon": 0.0, "up": [], "kw": 0})

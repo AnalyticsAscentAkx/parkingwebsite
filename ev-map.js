@@ -21,6 +21,7 @@
   var MAX_MARKERS = 1200;     // beyond this the map reads as noise anyway
   var TOWN_ROWS = 400;        // list cap in overview; the map draws every town
   var FAST_KW = 50;
+  var PIN_ZOOM = 14;          // from here each priced charger shows its price on the pin
   var $ = function (s) { return document.querySelector(s); };
 
   var map, cities = [], tariffs = {}, meta = {};
@@ -68,6 +69,16 @@
          : g === 'bad' ? '#DC2626' : '#7C8DB5';
   }
   function narrow() { return window.innerWidth <= 900; }
+  /* Charging price graded against the national spread: p10-p90 is 0.28-0.63
+     around a 0.41 median, so under 0.36 is cheap and over 0.50 is dear. */
+  function ppkGrade(ppk) {
+    if (ppk == null) return 'none';
+    return ppk < 0.36 ? 'lo' : ppk > 0.50 ? 'hi' : 'mid';
+  }
+  function parkGrade(p) {
+    if (!p || p.park == null) return 'none';
+    return p.park === 0 ? 'lo' : p.park > 6 ? 'hi' : 'mid';
+  }
   function reportedAt() {
     if (!meta.generated) return 'at the last data refresh';
     var d = new Date(meta.generated);
@@ -78,30 +89,48 @@
   }
 
   /* ------------------------------------------------------------ pricing */
-  /* Parking is only charged for the minutes that fall inside a paid window,
-     which is why an evening stop can cost less than an afternoon one at the
-     same bay. */
+  /* Parking is charged only for the minutes inside a paid window, and those
+     minutes are priced by the zone's fare ladder: duration bands with a step
+     size, the way the meter does it. A first free half hour or a 12-hour
+     ticket therefore come out right instead of being multiplied by hours. */
+  function ladderCost(parts, minutes) {
+    var total = 0;
+    for (var i = 0; i < parts.length; i++) {
+      var start = parts[i][0], end = parts[i][1], step = Math.max(parts[i][2], 1), amount = parts[i][3];
+      if (minutes <= start) break;
+      var covered = Math.min(minutes, end) - start;
+      if (covered > 0) total += Math.ceil(covered / step) * amount;
+    }
+    return total;
+  }
+
   function parkCost(areaId, arrive, leave) {
-    var w = tariffs[areaId];
-    if (!w || !w.length) return null;
-    var total = 0, cursor = new Date(arrive.getTime());
+    var t = tariffs[areaId];
+    if (!t || !t.w || !t.w.length) return null;
+    var paid = {}, cursor = new Date(arrive.getTime());
     var guard = 0;
     while (cursor < leave && guard++ < 40) {
       var day0 = new Date(cursor.getTime()); day0.setHours(0, 0, 0, 0);
       var next = new Date(day0.getTime()); next.setDate(next.getDate() + 1);
       var segEnd = leave < next ? leave : next;
       var dow = cursor.getDay() === 0 ? 7 : cursor.getDay();
-      for (var i = 0; i < w.length; i++) {
-        if (w[i][0] !== dow) continue;
-        var ws = new Date(day0.getTime() + w[i][1] * 60000);
-        var we = new Date(day0.getTime() + w[i][2] * 60000);
+      for (var i = 0; i < t.w.length; i++) {
+        if (t.w[i][0] !== dow) continue;
+        var ws = new Date(day0.getTime() + t.w[i][1] * 60000);
+        var we = new Date(day0.getTime() + t.w[i][2] * 60000);
         var s = cursor > ws ? cursor : ws;
         var e = segEnd < we ? segEnd : we;
-        if (e > s) total += w[i][3] * ((e - s) / 3600000);
+        if (e > s) paid[t.w[i][3]] = (paid[t.w[i][3]] || 0) + (e - s) / 60000;
       }
       cursor = segEnd;
     }
-    return total;
+    var total = 0, any = false;
+    for (var code in paid) {
+      any = true;
+      var ladder = t.f[code];
+      if (ladder) total += ladderCost(ladder, paid[code]);
+    }
+    return any ? total : 0;
   }
 
   function priceOf(st, w) {
@@ -200,6 +229,7 @@
 
   /* A pan in detail mode offers, rather than forces, a new result set. */
   function onMoveEnd() {
+    updateUrl();
     if (zoomed || mode === 'overview') { zoomed = false; scheduleRefresh(); return; }
     $('#evArea').hidden = false;
   }
@@ -254,11 +284,17 @@
     layer = L.layerGroup();
     markers = {};
     var w = currentWindow(), r = markerRadius();
+    var pills = map.getZoom() >= PIN_ZOOM;
     rows.forEach(function (st) {
-      var m = L.circleMarker([st[LAT], st[LON]], {
-        radius: r, weight: 1.5, color: '#fff',
-        fillColor: colour(grade(st[UP], st[DOWN])), fillOpacity: .95
-      });
+      var p = pills ? priceOf(st, w) : null, m;
+      if (p) {
+        m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0), riseOnHover: true });
+      } else {
+        m = L.circleMarker([st[LAT], st[LON]], {
+          radius: r, weight: 1.5, color: '#fff',
+          fillColor: colour(grade(st[UP], st[DOWN])), fillOpacity: .95
+        });
+      }
       m.on('click', function () { select(st[ID], true); });
       m.on('mouseover', function () { hover(st[ID], true); });
       m.on('mouseout', function () { hover(null, true); });
@@ -271,13 +307,29 @@
     listStations(rows, w);
   }
 
+  function pinIcon(p, g, faulty) {
+    return L.divIcon({
+      className: 'ev-pinwrap',
+      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + money(p.total) + '</span>',
+      iconSize: null, iconAnchor: [0, 0]
+    });
+  }
+
   function styleMarker(id, state) {
     var m = markers[id];
     if (!m) return;
-    var r = markerRadius();
-    if (state === 'selected') m.setStyle({ radius: r + 4, weight: 3, color: '#0B1120' }).bringToFront();
-    else if (state === 'hover') m.setStyle({ radius: r + 2, weight: 2.5, color: '#0B1120' }).bringToFront();
-    else m.setStyle({ radius: r, weight: 1.5, color: '#fff' });
+    if (m.setStyle) {
+      var r = markerRadius();
+      if (state === 'selected') m.setStyle({ radius: r + 4, weight: 3, color: '#0B1120' }).bringToFront();
+      else if (state === 'hover') m.setStyle({ radius: r + 2, weight: 2.5, color: '#0B1120' }).bringToFront();
+      else m.setStyle({ radius: r, weight: 1.5, color: '#fff' });
+      return;
+    }
+    var el = m.getElement();
+    if (!el) return;
+    el.classList.toggle('is-sel', state === 'selected');
+    el.classList.toggle('is-hover', state === 'hover');
+    m.setZIndexOffset(state === 'selected' ? 2000 : state === 'hover' ? 1000 : 0);
   }
 
   /* --------------------------------------------------------------- list */
@@ -333,9 +385,10 @@
     $('#evRows').innerHTML = rows.length ? rows.map(function (st, i) {
       var g = grade(st[UP], st[DOWN]);
       var price = st._p
-        ? '<span class="ev-price">' + money(st._p.total) + '<small>' + label +
-          (st._p.charge != null && st._p.park != null ? '' : st._p.charge != null ? ', charging only' : ', parking only') +
-          '</small></span>'
+        ? '<span class="ev-price" data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.total) +
+          '<small>' + (st._p.charge != null ? '<i data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.charge) + ' charge</i>' : '<i data-g="none">no charge price</i>') +
+          ' + ' + (st._p.park != null ? '<i data-g="' + parkGrade(st._p) + '">' + (st._p.park === 0 ? 'free parking' : money(st._p.park) + ' parking') + '</i>' : '<i data-g="none">parking n/a</i>') +
+          '</small><small>' + label + '</small></span>'
         : '<span class="ev-price is-unpriced">No published price</span>';
       return '<div class="ev-row" role="option" tabindex="0" data-i="' + i +
         '" data-kind="station" data-id="' + esc(st[ID]) + '"' +
@@ -409,10 +462,10 @@
       ? st[DOWN] + ' of ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + ' reported out of order'
       : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime over 30 days';
     var lines = '';
-    if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh', money(p.charge));
-    else lines += row('Charging', 'Price not published');
-    if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window');
-    else lines += row('Parking', 'Not inside a paid zone we know');
+    if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh', money(p.charge), ppkGrade(st[PPK]));
+    else lines += row('Charging', 'Price not published', 'none');
+    if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
+    else lines += row('Parking', 'No paid zone at this spot', 'none');
     card.innerHTML =
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(st[NAME]) + '</div>' +
@@ -422,7 +475,7 @@
       '<div class="ev-card-status" data-g="' + g + '"><i></i>' + status +
         '<small>Reported by the operator ' + reportedAt() + '. Occupancy is not published.</small></div>' +
       '<div class="ev-card-rows">' + lines +
-        (p ? '<div class="ev-card-row is-total"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
+        (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
       '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) +
         '. Connector types are not in the register; check the operator app before relying on a fast charge.</div>' +
@@ -442,8 +495,8 @@
     };
   }
 
-  function row(label, value) {
-    return '<div class="ev-card-row"><span>' + esc(label) + '</span><b>' + esc(value) + '</b></div>';
+  function row(label, value, g) {
+    return '<div class="ev-card-row" data-g="' + (g || 'none') + '"><span>' + esc(label) + '</span><b>' + esc(value) + '</b></div>';
   }
 
   function activate(el) {
@@ -476,11 +529,16 @@
     if (isNaN(ad.getTime()) || isNaN(ld.getTime()) || ld <= ad) return;
     a.dataset.stamp = stamp(ad);
     l.dataset.stamp = stamp(ld);
-    if (window.history.replaceState) {
-      window.history.replaceState({}, '',
-        location.pathname + '?arriving=' + stamp(ad) + '&leaving=' + stamp(ld));
-    }
+    updateUrl();
     repriceAll();
+  }
+
+  function updateUrl() {
+    if (!window.history.replaceState || !map) return;
+    var c = map.getCenter(), w = currentWindow();
+    window.history.replaceState({}, '', location.pathname +
+      '?lat=' + c.lat.toFixed(5) + '&lng=' + c.lng.toFixed(5) + '&zoom=' + map.getZoom() +
+      '&arriving=' + stamp(w.a) + '&leaving=' + stamp(w.l) + '&kwh=' + w.kwh);
   }
 
   function repriceAll() {
@@ -575,13 +633,17 @@
     $('#evGo').onclick = function () { searchGo(box.value); };
     $('#evArea').onclick = function () { $('#evArea').hidden = true; refresh(); };
 
-    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView([52.15, 5.3], 8);
+    var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng')), zoom = parseInt(q.get('zoom'), 10);
+    var start = (isNaN(lat) || isNaN(lng)) ? [52.3731, 4.8926] : [lat, lng];   // Amsterdam unless the link says otherwise
+    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView(start, isNaN(zoom) ? 14 : zoom);
+    if (q.get('kwh')) $('#evKwh').value = q.get('kwh');
     window.__evMap = map;                       // the mobile tabs resize it
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19
     }).addTo(map);
     map.on('zoomstart', function () { zoomed = true; });
     map.on('moveend', onMoveEnd);
+    updateUrl();
     refresh();
   }
 

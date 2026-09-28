@@ -73,11 +73,14 @@ def nav_for(url: str) -> str:
     """Mark the nav item that owns this page as active; drop the search bar where redundant."""
     nav = NAV_SEARCH_RE.sub("", NAV) if url in NO_NAV_SEARCH else NAV
     out = []
+    parts = re.split(r"(?=<li)", nav)
+    # A direct top-level item wins over a dropdown that also lists the page.
+    direct = any(re.findall(r'href="([^"]+)"', li)[:1] == [url] for li in parts if li.startswith("<li"))
     marked = False
-    for li in re.split(r"(?=<li)", nav):
+    for li in parts:
         if li.startswith("<li"):
             hrefs = re.findall(r'href="([^"]+)"', li)
-            own = hrefs[:1] == [url] or (li.startswith('<li class="has-drop"') and url in hrefs)
+            own = hrefs[:1] == [url] or (not direct and li.startswith('<li class="has-drop"') and url in hrefs)
             if own and not marked:
                 marked = True
                 li = (li.replace('<li class="has-drop">', '<li class="has-drop active">', 1)
