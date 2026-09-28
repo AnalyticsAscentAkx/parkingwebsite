@@ -543,3 +543,4 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 .drop-h{font-size:10.5px}
 .menu-btn{width:42px;height:42px;font-size:19px}
 @media(max-width:768px){.nav-in{height:auto}.nav-links{top:auto}}
+.ev-nl-link{font-size:13.5px;margin:-8px 0 18px}.ev-nl-link a{color:var(--blue);font-weight:600;text-decoration:none}.ev-nl-link a:hover{text-decoration:underline}

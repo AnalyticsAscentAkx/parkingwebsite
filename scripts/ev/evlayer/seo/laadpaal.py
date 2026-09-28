@@ -157,7 +157,8 @@ HEAD = """<!DOCTYPE html>
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="https://parkingnetherlands.com/{path}">
-<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="article"><meta property="og:locale" content="nl_NL">
+{alternates}
+<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:type" content="article"><meta property="og:locale" content="nl_NL"><meta property="og:image" content="https://parkingnetherlands.com/og-image.png"><meta property="og:url" content="https://parkingnetherlands.com/{path}">
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="/site.css">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -291,7 +292,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
 <p style="margin-top:22px;font-size:13px;color:var(--mut)">Laadpuntdata: NDW / DOT-NL, stand {DATE_NL}. Parkeertarieven uit het Nationaal Parkeer Register. Prijzen zijn de door exploitanten gepubliceerde ad-hoctarieven; je laadpas kan een opslag rekenen.</p>
 </div></section>
 """
-    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld) + body + FOOT
+    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates="") + body + FOOT
     return path, html
 
 
@@ -350,7 +351,7 @@ def operator_page(o, nat) -> tuple[str, str]:
 <p style="margin-top:22px;font-size:13px;color:var(--mut)">Statusmeldingen: NDW / DOT-NL, zoals door de exploitant aangeleverd. Buiten gebruik = OUTOFORDER of INOPERATIVE in het register. Deze site is onafhankelijk en niet verbonden aan {esc(cpo)}.</p>
 </div></section>
 """
-    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld) + body + FOOT
+    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates="") + body + FOOT
     return path, html
 
 
@@ -411,7 +412,8 @@ def hub_page(nat, cs, ops) -> tuple[str, str]:
 <p style="margin-top:22px;font-size:13px;color:var(--mut)">Laadpuntdata: NDW / DOT-NL. Parkeertarieven uit het Nationaal Parkeer Register. <a href="/ev-charging" style="color:var(--blue)">English version: EV charging map</a>.</p>
 </div></section>
 """
-    return path, HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld) + body + FOOT
+    alts='<link rel="alternate" hreflang="nl" href="https://parkingnetherlands.com/laadpalen">\n<link rel="alternate" hreflang="en" href="https://parkingnetherlands.com/ev-charging">\n<link rel="alternate" hreflang="x-default" href="https://parkingnetherlands.com/ev-charging">'
+    return path, HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates=alts) + body + FOOT
 
 
 def build() -> dict:

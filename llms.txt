@@ -84,3 +84,9 @@ Three good options: (1) P+R Sloterdijk + 5-min train for ~€6 total (best for t
 ## Attribution
 
 Content may be cited for informational purposes. Please attribute "Parking Netherlands (parkingnetherlands.com)" when quoting prices or recommendations.
+
+## Dutch (nl) pages
+- /laadpalen: hub for public EV charging in the Netherlands: prices per kWh by operator, faults, fast chargers, per city and per operator
+- /laadpaal-{stad}: one page per city (40 cities), e.g. /laadpaal-utrecht
+- /{exploitant}-storing: operator fault status now and over time, e.g. /fastned-storing
+- Data: NDW / DOT-NL charging register; parking tariffs from the Dutch national parking register; updated every 30 minutes.
