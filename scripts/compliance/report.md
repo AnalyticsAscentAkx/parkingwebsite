@@ -13,6 +13,7 @@ Generated 2026-09-28 by scripts/compliance/audit.py
 - **Open Charge Map API (api.openchargemap.io)**: 1 file(s). Licence: Data CC BY-SA 4.0 (per OCM; terms page is JS-rendered, re-verify by hand). Terms: https://openchargemap.org/site/about/terms
 - **CBS / Statistics Netherlands**: 0 file(s). Licence: CC BY 4.0. Terms: https://www.cbs.nl/en-gb/about-us/website/copyright
 - **Stad Gent open data (data.stad.gent real-time parking)**: 1 file(s). Licence: UNVERIFIED: dataset pages state their own licence (usually Modellicentie Gratis Hergebruik / CC0). Terms: https://data.stad.gent/
+- **PDOK Locatieserver (Kadaster) address and postcode search**: 1 file(s). Licence: Open data (BAG, CC0); PDOK asks for fair use and attribution. Terms: https://www.pdok.nl/voorwaarden
 - **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 370 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/
 - **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 7 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
 - **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 371 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
@@ -44,3 +45,4 @@ Generated 2026-09-28 by scripts/compliance/audit.py
 - **ocm**: 2026-09-28. Terms page could not be fetched as text (single-page app). OCM publishes its data under CC BY-SA 4.0: attribute 'Open Charge Map' with a link; any redistributed derivative must stay share-alike. API key must be sent.
 - **cbs**: 2026-09-28. CC BY 4.0; 'Statistics Netherlands is cited as the source'; must not imply CBS endorses the derivative work; logos and photos excluded.
 - **gent**: 2026-09-28. The portal's general terms page only covers the website ('persoonlijke en niet-commerciele doeleinden, mits bronvermelding'); per-dataset licences were not fetchable. Attribution to Stad Gent is required under every plausible reading, so it is enforced here. TODO: open the parking dataset page and record its licence.
+- **pdok**: 2026-09-28. Free, keyless, CORS-enabled geocoder on Dutch government data. Used only on visitor-triggered searches (Enter or Go), never per keystroke. Credited in the map footer.

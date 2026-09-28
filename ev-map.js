@@ -644,11 +644,11 @@
     if (m === 'parking') {
       stat('mCheapL', 'cheapest for this stop'); stat('mKwhL', 'typical price per hour');
       stat('mParkL', 'P+R sites in view'); stat('mFastL', 'spaces in view');
-      $('#evSearch').placeholder = 'Search a town or address';
+      $('#evSearch').placeholder = 'Town, address or postcode';
     } else {
       stat('mCheapL', 'cheapest stop in view'); stat('mKwhL', 'typical price per kWh');
       stat('mParkL', 'parking for this stop'); stat('mFastL', 'fast chargers, 50 kW+');
-      $('#evSearch').placeholder = 'Search a town, e.g. Utrecht';
+      $('#evSearch').placeholder = 'Town, address or postcode';
       if (placeLayer) { map.removeLayer(placeLayer); placeLayer = null; }
     }
     if (!silent && map) { updateUrl(); refresh(); }
@@ -834,20 +834,35 @@
 
   /* Addresses go to Photon (OpenStreetMap data) when no town matches. */
   var geoMarker = null;
+  /* Dutch postcodes and addresses go to PDOK's Locatieserver (Kadaster, keyless,
+     authoritative for NL); anything it does not know falls back to Photon. */
   function geocode(q) {
     $('#evCount').textContent = 'Looking up “' + q + '”…';
-    fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(q) + '&limit=1&lang=en&bbox=3.2,50.7,7.3,53.6')
+    var pc = q.replace(/\s+/g, '').toUpperCase();
+    var isPostcode = /^\d{4}[A-Z]{0,2}$/.test(pc);
+    fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fl=weergavenaam,centroide_ll,type&q=' +
+          encodeURIComponent(isPostcode ? pc : q) + (isPostcode ? '&fq=type:(postcode OR adres)' : ''))
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
-        var f = j && j.features && j.features[0];
-        if (!f) { searchType(q); return; }
-        var ll = [f.geometry.coordinates[1], f.geometry.coordinates[0]];
+        var d = j && j.response && j.response.docs && j.response.docs[0];
+        var m = d && /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(d.centroide_ll || '');
+        if (m) return { ll: [parseFloat(m[2]), parseFloat(m[1])], name: d.weergavenaam, zoom: d.type === 'postcode' && pc.length === 4 ? 14 : 15 };
+        return fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(q) + '&limit=1&lang=en&bbox=3.2,50.7,7.3,53.6')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (p) {
+            var f = p && p.features && p.features[0];
+            return f ? { ll: [f.geometry.coordinates[1], f.geometry.coordinates[0]], name: f.properties.name || q, zoom: 15 } : null;
+          });
+      })
+      .then(function (hit) {
+        if (!hit) { searchType(q); return; }
+        var ll = hit.ll, f = { properties: { name: hit.name } };
         setOrigin(ll);
         if (geoMarker) map.removeLayer(geoMarker);
         geoMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#FFBC42', fillOpacity: 1 })
           .bindTooltip(esc(f.properties.name || q), { direction: 'top' }).addTo(map);
         zoomed = true;
-        map.setView(ll, 15);
+        map.setView(ll, hit.zoom);
         if (narrow()) sheet('peek');
       })
       .catch(function () { searchType(q); });

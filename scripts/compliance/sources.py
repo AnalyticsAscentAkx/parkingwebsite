@@ -158,6 +158,20 @@ SOURCES = [
         "forbid": [],
         "advise": [],
     },
+    {
+        "key": "pdok",
+        "name": "PDOK Locatieserver (Kadaster) address and postcode search",
+        "licence": "Open data (BAG, CC0); PDOK asks for fair use and attribution",
+        "terms_url": "https://www.pdok.nl/voorwaarden",
+        "verified": (
+            "2026-09-28. Free, keyless, CORS-enabled geocoder on Dutch government data. Used only "
+            "on visitor-triggered searches (Enter or Go), never per keystroke. Credited in the map footer."
+        ),
+        "uses": r"api\.pdok\.nl",
+        "require": [(r"PDOK|Kadaster", "must credit PDOK / Kadaster for address search")],
+        "forbid": [],
+        "advise": [],
+    },
 ]
 
 # Legal / regulatory checks that are not tied to a single data source.
