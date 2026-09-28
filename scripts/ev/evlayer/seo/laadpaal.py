@@ -354,6 +354,66 @@ def operator_page(o, nat) -> tuple[str, str]:
     return path, html
 
 
+def hub_page(nat, cs, ops) -> tuple[str, str]:
+    """/laadpalen: the Dutch front door to every city and operator page."""
+    path = "laadpalen"
+    title = f"Laadpalen in Nederland: prijzen, storingen en snelladers per stad ({TODAY.year})"
+    desc = (f"{nat['stations']} openbare laadlocaties, {nat['points']} laadpunten, mediaan {eur(nat['med_kwh'])} per kWh, "
+            f"{pct(nat['fault_pct'])} buiten gebruik. Per stad en per exploitant, elk half uur bijgewerkt, met de prijs van laden én parkeren.")
+    qa = [
+        ("Hoeveel openbare laadpalen zijn er in Nederland?",
+         f"Het nationale laadpuntenregister telt {nat['stations']} openbare laadlocaties met {nat['points']} laadpunten (stand {DATE_NL}); locaties die exploitanten als niet-openbaar markeren zijn niet meegeteld."),
+        ("Wat kost laden aan een openbare laadpaal?",
+         f"De mediaan van de gepubliceerde tarieven is {eur(nat['med_kwh'])} per kWh; tussen exploitanten scheelt het tot zestig procent. Per stad staat het goedkoopste en duurste netwerk op de stadspagina."),
+        ("Welke exploitant heeft de meeste storingen?",
+         f"Landelijk staat {pct(nat['fault_pct'])} van de laadpunten als buiten gebruik gemeld. De storingspagina's per exploitant tonen het aandeel nu en, na dertig dagen meten, de beschikbaarheid over de tijd."),
+    ]
+    ld = json.dumps([ld_breadcrumb([("Home", "/"), ("Laadpalen", "/" + path)]), ld_faq(qa)], ensure_ascii=False)
+    rows_c = "".join(
+        f"<tr><td><a href=\"/laadpaal-{slug(c['city'])}\" style=\"color:var(--blue);font-weight:700;text-decoration:none\">{esc(c['city'])}</a></td>"
+        f"<td class=\"num\">{c['stations']}</td><td class=\"num\">{c['points']}</td><td class=\"num\">{pct(c['fault_pct'] or 0)}</td><td class=\"num\">{c['fast']}</td></tr>" for c in cs)
+    rows_o = "".join(
+        f"<tr><td><a href=\"/{slug(o['cpo'])}-storing\" style=\"color:var(--blue);font-weight:700;text-decoration:none\">{esc(o['cpo'])}</a></td>"
+        f"<td class=\"num\">{o['stations']}</td><td class=\"num\">{o['points']}</td><td class=\"num\">{o['down']}</td><td class=\"num\">{pct(o['fault_pct'] or 0)}</td></tr>" for o in ops)
+    body = f"""
+<div class="bc-bar"><div class="ct bc-in"><a href="/">Home</a> → <strong>Laadpalen</strong></div></div>
+<div class="ph"><div class="ct">
+<span class="updated">Stand {DATE_NL} · elk half uur bijgewerkt</span>
+<h1>Laadpalen in Nederland: <em>prijzen, storingen en snelladers</em> per stad</h1>
+<p class="sub">Alle {nat['stations']} openbare laadlocaties uit het nationale register, met wat laden kost per exploitant, welk deel buiten gebruik is en wat parkeren erbij doet. Kies een stad of een exploitant.</p>
+<div class="qs">
+<div class="qb"><div class="qbl">Laadlocaties</div><div class="qbv">{nat['stations']}</div></div>
+<div class="qb"><div class="qbl">Laadpunten</div><div class="qbv">{nat['points']}</div></div>
+<div class="qb"><div class="qbl">Mediaan per kWh</div><div class="qbv">{eur(nat['med_kwh'])}</div></div>
+<div class="qb"><div class="qbl">Buiten gebruik</div><div class="qbv h">{pct(nat['fault_pct'])}</div></div>
+</div>
+<p style="margin-top:18px"><a class="btn btn-primary" href="/ev-charging">Open de laadkaart met parkeerprijzen</a></p>
+</div></div>
+
+<section class="sec"><div class="ct">
+<div class="sl">Per stad</div>
+<h2 class="st">Laadpalen per stad</h2>
+<p class="ss">De {len(cs)} steden met de meeste laadpunten. Elke stadspagina toont de prijs per kWh per exploitant, de storingen, de snelladers en de parkeerkosten bij de paal.</p>
+<div class="tw"><table><thead><tr><th>Stad</th><th>Locaties</th><th>Laadpunten</th><th>Buiten gebruik</th><th>Snelladers 50 kW+</th></tr></thead><tbody>{rows_c}</tbody></table></div>
+</div></section>
+
+<section class="sec sec-alt"><div class="ct">
+<div class="sl">Per exploitant</div>
+<h2 class="st">Storingen per exploitant</h2>
+<p class="ss">Wat elke exploitant zelf meldt als buiten gebruik, nu. Na dertig dagen meten komt daar de beschikbaarheid over de tijd bij.</p>
+<div class="tw"><table><thead><tr><th>Exploitant</th><th>Locaties</th><th>Laadpunten</th><th>Buiten gebruik</th><th>Aandeel</th></tr></thead><tbody>{rows_o}</tbody></table></div>
+</div></section>
+
+<section class="sec"><div class="ct">
+<div class="sl">Veelgestelde vragen</div>
+<h2 class="st">Laadpalen in Nederland</h2>
+<div style="max-width:760px">{faq_html(qa)}</div>
+<p style="margin-top:22px;font-size:13px;color:var(--mut)">Laadpuntdata: NDW / DOT-NL. Parkeertarieven uit het Nationaal Parkeer Register. <a href="/ev-charging" style="color:var(--blue)">English version: EV charging map</a>.</p>
+</div></section>
+"""
+    return path, HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld) + body + FOOT
+
+
 def build() -> dict:
     root: Path = config.SITE_ROOT
     nat = national()
@@ -363,8 +423,12 @@ def build() -> dict:
         path, html = city_page(c, nat, cs)
         (root / f"{path}.html").write_text(html, "utf-8")
         written.append(path)
-    for o in operators():
+    ops = operators()
+    for o in ops:
         path, html = operator_page(o, nat)
         (root / f"{path}.html").write_text(html, "utf-8")
         written.append(path)
+    path, html = hub_page(nat, cs, ops)
+    (root / f"{path}.html").write_text(html, "utf-8")
+    written.append(path)
     return {"pages": len(written), "paths": written}

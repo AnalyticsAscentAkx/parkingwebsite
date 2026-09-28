@@ -6,8 +6,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 today = datetime.date.today().isoformat()
 cities = sorted(p.stem for p in ROOT.glob('laadpaal-*.html'))
 ops = sorted(p.stem for p in ROOT.glob('*-storing.html'))
+hub = ['laadpalen'] if (ROOT / 'laadpalen.html').exists() else []
 sm = (ROOT / 'sitemap.xml').read_text(); rd = (ROOT / '_redirects').read_text(); added = 0
-for p in cities + ops:
+for p in hub + cities + ops:
     if f'/{p}</loc>' not in sm:
         sm = sm.replace('</urlset>', f'  <url><loc>https://parkingnetherlands.com/{p}</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>\n</urlset>'); added += 1
     if f'/{p}.html' not in rd:
