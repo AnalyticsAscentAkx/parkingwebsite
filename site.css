@@ -499,3 +499,12 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 .foot-brand .credit a,.foot-support a{color:var(--sig)}
 /* map tiles muted so markers carry the colour */
 .leaflet-tile-pane{filter:saturate(.5) contrast(.93) brightness(1.05)}
+
+/* phones: the three destinations that matter stay one tap away */
+.nav-mobile-pair{display:none}
+@media(max-width:768px){
+  .nav-mobile-pair{display:flex;order:3;flex-basis:100%;gap:6px}
+  .nav-mobile-pair a{flex:1;text-align:center;font-size:13px;font-weight:700;color:#fff;text-decoration:none;padding:9px 6px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);min-height:40px;display:flex;align-items:center;justify-content:center}
+  .nav-mobile-pair a:first-child{background:var(--blue);border-color:var(--blue)}
+  .nav-in .nav-search{order:4}
+}

@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929f">
-<link rel="stylesheet" href="/ev-map.css?v=20260929s">
+<link rel="stylesheet" href="/site.css?v=20260929g">
+<link rel="stylesheet" href="/ev-map.css?v=20260929t">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 
 <meta property="og:type" content="website">
@@ -192,6 +192,7 @@
   </li>
   <li><a href="/about">About</a></li>
 </ul>
+<div class="nav-mobile-pair"><a href="/search">Search</a><a href="/ev-charging?mode=parking">Parking</a><a href="/ev-charging">Chargers</a></div>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div>
 </nav>
@@ -243,12 +244,8 @@
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
       </div>
     <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
-    <div class="ev-legend" hidden>
-      <b>Charge point status</b>
-      <div><i style="background:#059669"></i> Working, no faults reported</div>
-      <div><i style="background:#DC2626"></i> Reported out of order</div>
-      <div><i style="background:#7C8DB5"></i> Status not published</div>
-    </div>
+    <button type="button" class="ev-locate" id="evLocate" title="Use my location" aria-label="Use my location"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+    <div class="ev-legend" id="evLegend" hidden></div>
   </div>
 
   <aside class="ev-panel" aria-label="Results">
@@ -274,7 +271,7 @@
       </div>
 
       <details class="ev-window" id="evWindow">
-        <summary>Price a stop</summary>
+        <summary>Price a stop <small>arrival, departure, kWh</small></summary>
         <div class="ev-fields">
           <div class="ev-field"><label for="evArrive">Arriving</label>
             <input type="datetime-local" id="evArrive" data-stamp=""></div>
@@ -294,6 +291,7 @@
           <span id="evCount" aria-live="polite">Loading</span>
         </div>
         <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="near" aria-pressed="false" hidden>Nearest</button>
           <button data-sort="reliable" aria-pressed="true">Status</button>
           <button data-sort="cheap" aria-pressed="false">Cost</button>
           <button data-sort="fast" aria-pressed="false">Power</button>
@@ -438,7 +436,7 @@
   l.onclick = function(){ set('list'); };
 })();
 </script>
-<script src="/ev-map.js?v=20260929s" defer></script>
+<script src="/ev-map.js?v=20260929t" defer></script>
 
 </body>
 </html>

@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929f">
-<link rel="stylesheet" href="/ev-map.css?v=20260929s">
+<link rel="stylesheet" href="/site.css?v=20260929g">
+<link rel="stylesheet" href="/ev-map.css?v=20260929t">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
@@ -58,6 +58,7 @@
   </li>
   <li><a href="/about">About</a></li>
 </ul>
+<div class="nav-mobile-pair"><a href="/search">Search</a><a href="/ev-charging?mode=parking">Parking</a><a href="/ev-charging">Chargers</a></div>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div>
 </nav>
@@ -86,12 +87,8 @@
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
       </div>
     <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
-    <div class="ev-legend" hidden>
-      <b>Charge point status</b>
-      <div><i style="background:#059669"></i> Working, no faults reported</div>
-      <div><i style="background:#DC2626"></i> Reported out of order</div>
-      <div><i style="background:#7C8DB5"></i> Status not published</div>
-    </div>
+    <button type="button" class="ev-locate" id="evLocate" title="Use my location" aria-label="Use my location"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+    <div class="ev-legend" id="evLegend" hidden></div>
   </div>
 
   <aside class="ev-panel" aria-label="Results">
@@ -117,7 +114,7 @@
       </div>
 
       <details class="ev-window" id="evWindow" open>
-        <summary>Price a stop</summary>
+        <summary>Price a stop <small>arrival, departure, kWh</small></summary>
         <div class="ev-fields">
           <div class="ev-field"><label for="evArrive">Arriving</label>
             <input type="datetime-local" id="evArrive" data-stamp=""></div>
@@ -137,6 +134,7 @@
           <span id="evCount" aria-live="polite">Loading</span>
         </div>
         <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="near" aria-pressed="false" hidden>Nearest</button>
           <button data-sort="reliable" aria-pressed="true">Status</button>
           <button data-sort="cheap" aria-pressed="false">Cost</button>
           <button data-sort="fast" aria-pressed="false">Power</button>
@@ -169,10 +167,11 @@
     </p>
   </aside>
 </main>
+<nav class="ev-jump" aria-label="On this page"><span>On this page</span><a href="#prices">Prices</a><a href="#parking-fees">Parking fees</a><a href="#reliability">Broken chargers</a><a href="#fast-charging">Fast charging</a><a href="#by-city">By city</a><a href="#method">How the data works</a></nav>
 
 <article class="ev-content">
 
-  <h2>What charging actually costs in the Netherlands</h2>
+  <h2 id="prices">What charging actually costs in the Netherlands</h2>
   <p>Public charging in the Netherlands is priced per kWh, and the price is set by whoever
      owns the post rather than by any national tariff. Across the 93,002 published prices in
      the national register, the middle of the market sits close to 41 cents.</p>
@@ -215,7 +214,7 @@
      Vattenfall InCharge, for identical electricity. Nothing on the post tells you this, which
      is why the map above prices each location rather than quoting a national average.</p>
 
-  <h2>The parking half of the bill</h2>
+  <h2 id="parking-fees">The parking half of the bill</h2>
   <p>This is the part almost every charging map leaves out. A charging bay inside a paid
      parking zone is still a paid parking space. You pay the street tariff for the whole time
      you are plugged in, on top of the electricity.</p>
@@ -237,7 +236,7 @@
      covers how Dutch zones and tariffs work, and <a href="/free-parking">free parking</a> lists
      where you pay nothing at all.</p>
 
-  <h2>How many chargers are broken right now</h2>
+  <h2 id="reliability">How many chargers are broken right now</h2>
   <p>Operators publish the status of every charge point to the national register. Most of the
      time most of them work, but the failure rate is not evenly spread.</p>
 
@@ -277,7 +276,7 @@
      does. On the map above, red means the operator itself is reporting the point as out of
      order, so it is worth checking before you drive rather than after you arrive.</p>
 
-  <h2>Fast charging is rarer than it looks</h2>
+  <h2 id="fast-charging">Fast charging is rarer than it looks</h2>
   <p>The Netherlands has the densest charging network in Europe by land area, but density is
      not the same as speed. The overwhelming majority of Dutch posts are ordinary AC chargers
      built for cars that sit still for hours.</p>
@@ -300,7 +299,7 @@
      Leiden, which has 682 charging locations but almost no DC at all, the nearest real fast
      charger may be a motorway junction away.</p>
 
-  <h2>Charging by city</h2>
+  <h2 id="by-city">Charging by city</h2>
   <p>Rotterdam and Den Haag both have more charging locations than Amsterdam, and the average
      price differs by city more than most drivers expect. Nijmegen averages &euro;0.34 per kWh
      against Dordrecht at &euro;0.52, a difference of about half again for the same energy.</p>
@@ -426,7 +425,7 @@
   </div>
 
   <div class="ev-method">
-    <h2>Where these numbers come from</h2>
+    <h2 id="method">Where these numbers come from</h2>
     <p>Charging locations, connector specifications, prices and status come from the Dutch
        national charging register, published under the EU alternative fuels rules and refreshed
        continuously. Parking tariffs come from the national parking register and are matched to
@@ -461,7 +460,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js?v=20260929s" defer></script>
+<script src="/ev-map.js?v=20260929t" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they

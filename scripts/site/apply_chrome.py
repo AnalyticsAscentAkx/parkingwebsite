@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260929f"
+CSS_VERSION = "20260929g"
 SITE_CSS = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 # Colours from the retired palette, mapped onto the design system. These

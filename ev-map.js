@@ -29,6 +29,36 @@
   var selected = null, mode = 'overview', sortKey = 'reliable';
   var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false };
   var showMode = 'chargers', places = null, placeLayer = null;
+  var origin = null;          // where the visitor is, or the address they searched
+  function distKm(lat, lon) {
+    if (!origin) return null;
+    var dLat = (lat - origin[0]) * 111.32, dLon = (lon - origin[1]) * 68.0;
+    return Math.sqrt(dLat * dLat + dLon * dLon);
+  }
+  function distLabel(km) {
+    if (km == null) return '';
+    var walk = Math.max(1, Math.round(km * 1000 / 80));
+    return (km < 1 ? Math.round(km * 1000) + ' m' : km.toFixed(1) + ' km') + ' · ~' + walk + ' min walk';
+  }
+  function setOrigin(ll) {
+    origin = ll;
+    var near = document.querySelector('.ev-sort button[data-sort="near"]');
+    if (near) { near.hidden = false; }
+    if (sortKey !== 'near') {
+      sortKey = 'near';
+      Array.prototype.forEach.call(document.querySelectorAll('.ev-sort button'), function (b) {
+        b.setAttribute('aria-pressed', b.dataset.sort === 'near' ? 'true' : 'false');
+      });
+    }
+  }
+  function isApple() { return /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent); }
+  function directions(lat, lon) {
+    var g = 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lon;
+    var a = 'https://maps.apple.com/?daddr=' + lat + ',' + lon + '&dirflg=d';
+    return isApple()
+      ? '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="' + a + '">Apple Maps</a><a class="ev-card-btn" target="_blank" rel="noopener" href="' + g + '">Google Maps</a>'
+      : '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="' + g + '">Directions</a>';
+  }
   var rowsShown = [], moveTimer = null, zoomed = false, hovered = null;
 
   /* Station record is positional, which roughly halves the tile size:
@@ -237,6 +267,7 @@
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = mode !== 'detail' || !!selected;   // colour only means status up close
     $('#evArea').hidden = true;
+    legend(mode === 'detail' && (map.getZoom() >= PIN_ZOOM + 1) ? 'pins' : 'dots');
 
     if (mode === 'overview') {
       if (layer) { map.removeLayer(layer); layer = null; }
@@ -368,7 +399,7 @@
   function pinIcon(p, g, faulty) {
     return L.divIcon({
       className: 'ev-pinwrap',
-      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + money(p.total) + '</span>',
+      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + money(p.total) + '</span>',
       iconSize: null, iconAnchor: [0, 0]
     });
   }
@@ -416,7 +447,9 @@
   function listStations(rows, w) {
     rows = rows.slice();
     rows.forEach(function (st) { st._p = priceOf(st, w); });
+    rows.forEach(function (st) { st._d = distKm(st[LAT], st[LON]); });
     rows.sort(function (a, b) {
+      if (sortKey === 'near' && origin) return (a._d || 0) - (b._d || 0);
       if (sortKey === 'cheap') {
         return (a._p ? a._p.total : Infinity) - (b._p ? b._p.total : Infinity);
       }
@@ -454,7 +487,8 @@
         '" data-kind="station" data-id="' + esc(st[ID]) + '"' +
         (selected === st[ID] ? ' aria-selected="true"' : '') + '>' +
         '<div><div class="ev-name">' + esc(st[NAME]) + '</div>' +
-        '<div class="ev-meta"><span>' + esc(st[CPO] || 'Operator not published') + '</span>' +
+        '<div class="ev-meta">' + (st._d != null ? '<span class="ev-dist">' + distLabel(st._d) + '</span>' : '') +
+        '<span>' + esc(st[CPO] || 'Operator not published') + '</span>' +
         (st[KW] ? '<span class="ev-kw">' + st[KW] + ' kW</span>' : '') +
         '<span class="ev-up" data-g="' + g + '">' +
           (st[DOWN] > 0 ? st[DOWN] + ' reported out of order'
@@ -528,7 +562,7 @@
     card.innerHTML =
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(st[NAME]) + '</div>' +
-      '<div class="ev-card-meta">' + esc(st[CPO] || 'Operator not published') +
+      '<div class="ev-card-meta">' + (st._d != null ? distLabel(st._d) + ' · ' : '') + esc(st[CPO] || 'Operator not published') +
         (st[KW] ? ' · up to ' + st[KW] + ' kW' : ' · power not published') +
         ' · ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + '</div>' +
       '<div class="ev-card-status" data-g="' + g + '"><i></i>' + status +
@@ -538,9 +572,7 @@
       '</div>' +
       '<div class="ev-card-note">' + (srcNote(st, false) ? srcNote(st, false) + ' ' : '') + 'Estimate for ' + sessionLabel(w, false) +
         '. Connector types are not in the register; check the operator app before relying on a fast charge.</div>' +
-      '<div class="ev-card-act">' +
-        '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' +
-          st[LAT] + ',' + st[LON] + '">Directions</a>' +
+      '<div class="ev-card-act">' + directions(st[LAT], st[LON]) +
         '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>' +
       '</div>';
     card.hidden = false;
@@ -671,9 +703,17 @@
     return g._p.total <= median * .8 ? 'lo' : g._p.total >= median * 1.25 ? 'hi' : 'mid';
   }
 
+  function legend(kind) {
+    var lg = document.getElementById('evLegend');
+    if (!lg) return;
+    lg.innerHTML = kind === 'pins'
+      ? '<b>Price for your stop</b><div><i style="background:#168A68"></i> Below typical</div><div><i style="background:#17243A"></i> Around typical</div><div><i style="background:#B45309"></i> Above typical</div><div><i class="is-fault"></i> Red ring: reported out of order</div>'
+      : '<b>Charge point status</b><div><i style="background:#168A68"></i> Working, no faults reported</div><div><i style="background:#DC2626"></i> Reported out of order</div><div><i style="background:#7C8DB5"></i> Status not published</div>';
+  }
+
   function refreshParking(b) {
     $('#evHint').classList.remove('is-on');
-    var sorts = document.querySelector('.ev-sort'); if (sorts) sorts.hidden = true;
+    var sorts = document.querySelector('.ev-sort'); if (sorts) sorts.hidden = !origin;
     syncChips(true);
     var lg = document.querySelector('.ev-legend'); if (lg) lg.hidden = true;
     $('#evArea').hidden = true;
@@ -723,7 +763,9 @@
   }
 
   function listPlaces(rows, w, median) {
+    rows.forEach(function (g) { g._d = distKm(g.lat, g.lon); });
     rows = rows.slice().sort(function (a, c) {
+      if (sortKey === 'near' && origin) return (a._d || 0) - (c._d || 0);
       return (a._p ? a._p.total : Infinity) - (c._p ? c._p.total : Infinity);
     });
     rowsShown = rows;
@@ -751,7 +793,7 @@
       return '<div class="ev-row" role="option" tabindex="0" data-i="' + i + '" data-kind="station" data-id="' + esc(g.id) + '"' +
         (selected === g.id ? ' aria-selected="true"' : '') + '>' +
         '<div><div class="ev-name">' + esc(g.name) + '</div>' +
-        '<div class="ev-meta"><span>' + (g.kind === 'pr' ? 'P+R' : 'Garage') + '</span>' +
+        '<div class="ev-meta">' + (g._d != null ? '<span class="ev-dist">' + distLabel(g._d) + '</span>' : '') + '<span>' + (g.kind === 'pr' ? 'P+R' : 'Garage') + '</span>' +
         (g.cap ? '<span class="ev-kw">' + g.cap.toLocaleString() + ' spaces</span>' : '') +
         (g.ev ? '<span class="ev-up" data-g="ok">' + g.ev + ' charge point' + (g.ev === 1 ? '' : 's') + '</span>' : '') +
         (g.h ? '<span>max ' + (g.h / 100).toFixed(2) + ' m</span>' : '') +
@@ -770,15 +812,14 @@
     card.innerHTML =
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(g.name) + '</div>' +
-      '<div class="ev-card-meta">' + (g.kind === 'pr' ? 'Park and Ride' : 'Parking garage') +
+      '<div class="ev-card-meta">' + (g._d != null ? distLabel(g._d) + ' · ' : '') + (g.kind === 'pr' ? 'Park and Ride' : 'Parking garage') +
         (g.op ? ' · ' + esc(g.op) : '') + (g.cap ? ' · ' + g.cap.toLocaleString() + ' spaces' : '') +
         (g.h ? ' · max height ' + (g.h / 100).toFixed(2) + ' m' : '') + '</div>' +
       (g.ev ? '<div class="ev-card-status" data-g="ok"><i></i>' + g.ev + ' EV charge point' + (g.ev === 1 ? '' : 's') + ' inside</div>' : '') +
       '<div class="ev-card-rows">' + lines + '</div>' +
       '<div class="ev-card-note">Drive-in estimate through the published 1 h, 3 h and 24 h tariffs for ' + sessionLabel(w, false).replace(/^\d+ kWh and a /, 'a ') +
         '. Pre-booking online is often cheaper.</div>' +
-      '<div class="ev-card-act">' +
-        '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + g.lat + ',' + g.lon + '">Directions</a>' +
+      '<div class="ev-card-act">' + directions(g.lat, g.lon) +
         (g.slug ? '<a class="ev-card-btn" href="/garage/' + esc(g.slug) + '">Details &amp; rates</a>' : '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>') +
       '</div>';
     card.hidden = false;
@@ -797,6 +838,7 @@
         var f = j && j.features && j.features[0];
         if (!f) { searchType(q); return; }
         var ll = [f.geometry.coordinates[1], f.geometry.coordinates[0]];
+        setOrigin(ll);
         if (geoMarker) map.removeLayer(geoMarker);
         geoMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#EA580C', fillOpacity: 1 })
           .bindTooltip(esc(f.properties.name || q), { direction: 'top' }).addTo(map);
@@ -926,7 +968,21 @@
     });
     $('#evGo').onclick = function () { searchGo(box.value); };
     var handle = $('#evHandle');
-    if (handle) { handle.onclick = sheetToggle; sheet('peek'); }
+    if (handle) {
+      handle.onclick = sheetToggle; sheet('peek');
+      var y0 = null;
+      handle.addEventListener('touchstart', function (e) { y0 = e.touches[0].clientY; }, { passive: true });
+      handle.addEventListener('touchend', function (e) {
+        if (y0 == null) return;
+        var dy = e.changedTouches[0].clientY - y0; y0 = null;
+        if (dy < -30) sheet('full'); else if (dy > 30) sheet('peek');
+      }, { passive: true });
+    }
+    if (narrow()) {
+      /* results first; the calculator becomes a secondary "adjust" control under the list */
+      var win = $('#evWindow'), foot = document.querySelector('.ev-foot');
+      if (win && foot) { win.classList.add('is-after'); foot.parentNode.insertBefore(win, foot); win.querySelector('summary').innerHTML = 'Adjust cost estimate <small>arrival, departure, kWh</small>'; }
+    }
     /* typing in the sheet's search box needs the sheet open */
     box.addEventListener('focus', function () { if (narrow()) sheet('full'); });
     $('#evArea').onclick = function () { $('#evArea').hidden = true; refresh(); };
@@ -956,6 +1012,7 @@
     if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
     navigator.geolocation.getCurrentPosition(function (pos) {
       var ll = [pos.coords.latitude, pos.coords.longitude];
+      setOrigin(ll);
       if (hereMarker) map.removeLayer(hereMarker);
       hereMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#315CCB', fillOpacity: 1 })
         .bindTooltip('You are here', { direction: 'top' }).addTo(map);
@@ -997,6 +1054,8 @@
     if (near) near.onclick = goHere;
     var pnear = document.getElementById('evNear');
     if (pnear) pnear.onclick = goHere;
+    var loc = document.getElementById('evLocate');
+    if (loc) loc.onclick = goHere;
   }
 
   function stat(id, v) {
