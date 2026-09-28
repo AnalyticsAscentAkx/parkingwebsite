@@ -528,3 +528,18 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 .nav-links>li>a.nav-find svg{color:var(--sig)}
 .nav-links .active>a.nav-find{background:var(--blue-2);box-shadow:inset 0 -3px 0 var(--sig)}
 @media(max-width:768px){.nav-mobile-pair a:first-child{flex:1.4}}
+
+/* header scale, matched to ParkBee's: 68px bar, larger wordmark and links */
+.nav-in{height:68px;gap:18px}
+.logo{gap:11px}
+.logo-mark{width:38px;height:38px;flex-basis:38px;border-radius:9px}
+.logo-text{font-size:17.5px;line-height:1.05}
+.logo-text small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.nav-links{gap:4px}
+.nav-links>li>a{font-size:15px;padding:9px 14px}
+.nav-links>li>a.nav-find{font-size:15px;padding:10px 18px;border-radius:9px}
+.nav-links>li>a.nav-find svg{width:15px;height:15px}
+.drop a{font-size:14px;padding:9px 12px}
+.drop-h{font-size:10.5px}
+.menu-btn{width:42px;height:42px;font-size:19px}
+@media(max-width:768px){.nav-in{height:auto}.nav-links{top:auto}}
