@@ -52,6 +52,7 @@ def build(source: str = "db", cities: list[str] | None = None,
         sts = sorted(sts, key=lambda s: (-(s.get("up") or 0), s["n"]))
         total = len(sts)
         city_evses = sum(x.get("evses") or 0 for x in sts)
+        city_intents = G.eligible_intents(sts)
         for s0 in sts:
             s0["_city_total"] = total
             s0["_city_evses"] = city_evses
@@ -59,7 +60,8 @@ def build(source: str = "db", cities: list[str] | None = None,
 
         for pg in range(1, pages + 1):
             chunk = sts[(pg - 1) * G.PAGE_SIZE: pg * G.PAGE_SIZE]
-            html, ok = G.city_page(city, chunk, days, page=pg, pages=pages)
+            html, ok = G.city_page(city, chunk, days, page=pg, pages=pages,
+                                   intents=city_intents)
             dest = (root / EV_CHARGING / f"{city}.html" if pg == 1
                     else root / EV_CHARGING / city / f"page-{pg}.html")
             _write(dest, html)
@@ -69,9 +71,7 @@ def build(source: str = "db", cities: list[str] | None = None,
                        else f"{config.SITE_URL}/{EV_CHARGING}/{city}/page-{pg}")
                 indexable_urls.append(url)
 
-        if total < G.MIN_INTENT_STATIONS:
-            continue
-        for intent in G.INTENTS:
+        for intent in city_intents:
             _write(root / EV_CHARGING / city / f"{intent}.html",
                    G.intent_page(city, intent, sts, days))
             written["intents"] += 1

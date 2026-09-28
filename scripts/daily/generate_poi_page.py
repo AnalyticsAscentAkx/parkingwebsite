@@ -265,11 +265,11 @@ def render(target):
 <section class="sec sec-wm"><div class="ct">
 <div class="sl">Interactive Map</div>
 <h2 class="st">Garages &amp; P+R around {station}</h2>
-<p class="ss">The blue pin is the station. Orange pins are official RDW garages; dark pins are the P+R sites that connect into the centre.</p>
+<p class="ss">The blue pin is the station. Orange pins are garages from the national parking register; dark pins are the P+R sites that connect into the centre.</p>
 <div class="mw"><div id="cMap" class="mc"></div></div>
 <div class="ml">
 <div class="mli"><div class="mld" style="background:#2337C6"></div> {station}</div>
-<div class="mli"><div class="mld" style="background:var(--or)"></div> Garages (RDW)</div>
+<div class="mli"><div class="mld" style="background:var(--or)"></div> Registered garages</div>
 <div class="mli"><div class="mld" style="background:#0A1628"></div> P+R</div>
 </div></div></section>
 
@@ -278,7 +278,7 @@ def render(target):
 <section class="sec sec-wm"><div class="ct">
 <div class="sl">Parking Garages</div>
 <h2 class="st">Garages near {station}, closest first</h2>
-<p class="ss">Walking distance measured from the station. Prices are the official 2026 drive-in tariffs from the RDW register. Pre-booking through an app often saves 10-20%.</p>
+<p class="ss">Walking distance measured from the station. Prices are the official 2026 drive-in tariffs from the national parking register. Pre-booking through an app often saves 10-20%.</p>
 <div class="tw"><table>
 <thead><tr><th>Garage</th><th>Walk to station</th><th>Per Hour</th><th>Per Day (24h)</th><th>Spaces</th></tr></thead>
 <tbody>

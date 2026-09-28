@@ -1,0 +1,52 @@
+{
+ "rdw": {
+  "hash": "001fe64587b73025",
+  "date": "2026-09-28",
+  "url": "https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter"
+ },
+ "ndw": {
+  "hash": "f26abb8b61af1352",
+  "date": "2026-09-28",
+  "url": "https://www.ndw.nu/copyright"
+ },
+ "osm_tiles": {
+  "hash": "7eb978ff978c58ec",
+  "date": "2026-09-28",
+  "url": "https://operations.osmfoundation.org/policies/tiles/"
+ },
+ "photon": {
+  "hash": "65a3200a9c1d9160",
+  "date": "2026-09-28",
+  "url": "https://photon.komoot.io/"
+ },
+ "ocm": {
+  "hash": "79304a771f4913bb",
+  "date": "2026-09-28",
+  "url": "https://openchargemap.org/site/about/terms"
+ },
+ "cbs": {
+  "hash": "f647f6cc11c0b30e",
+  "date": "2026-09-28",
+  "url": "https://www.cbs.nl/en-gb/about-us/website/copyright"
+ },
+ "gent": {
+  "hash": "00e7db51f3623594",
+  "date": "2026-09-28",
+  "url": "https://data.stad.gent/"
+ },
+ "adsense_consent": {
+  "hash": "dc2a3b473e72a135",
+  "date": "2026-09-28",
+  "url": "https://www.google.com/about/company/user-consent-policy/"
+ },
+ "affiliate_disclosure": {
+  "hash": "07f09885832a7d9e",
+  "date": "2026-09-28",
+  "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+ },
+ "google_fonts": {
+  "hash": "44738161b597e017",
+  "date": "2026-09-28",
+  "url": "https://developers.google.com/fonts/faq/privacy"
+ }
+}

@@ -70,7 +70,7 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
   <div class="crumb"><a href="/">Home</a> / <a href="/nijmegen">Parking Nijmegen</a> / Carpool Oosterhout/Nijmegen A15</div>
   <header class="ghead">
     <h1>Carpool Oosterhout/Nijmegen A15</h1>
-    <p class="sub">Parking facility in Nijmegen · official RDW-registered location </p>
+    <p class="sub">Parking facility in Nijmegen · listed in the national parking register </p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=51.892522,5.83838">Directions</a>
       <a class="btn btn-ghost btn-sm" href="/search?q=Carpool Oosterhout/Nijmegen A15 Nijmegen&lat=51.892522&lng=5.83838">Compare nearby</a>
@@ -95,7 +95,7 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
   <tbody><tr><td><a href="/garage/p-r-nijmegen-noord-nijmegen" style="font-weight:600;color:var(--ink);text-decoration:none">P+R Nijmegen-Noord</a></td><td class="num">1954 m</td><td class="price">€3.50/h</td></tr><tr><td><a href="/garage/p-r-station-nijmegen-lent-nijmegen" style="font-weight:600;color:var(--ink);text-decoration:none">P+R Station Nijmegen Lent</a></td><td class="num">3753 m</td><td class="price">-</td></tr><tr><td><a href="/garage/eiermarkt-nijmegen" style="font-weight:600;color:var(--ink);text-decoration:none">Garage Eiermarkt</a></td><td class="num">5374 m</td><td class="price">€2.90/h</td></tr><tr><td><a href="/garage/p-r-eerste-oude-heselaan-nijmegen" style="font-weight:600;color:var(--ink);text-decoration:none">P+R Eerste Oude Heselaan</a></td><td class="num">5391 m</td><td class="price">-</td></tr><tr><td><a href="/garage/kelfkensbos-nijmegen" style="font-weight:600;color:var(--ink);text-decoration:none">Garage Kelfkensbos</a></td><td class="num">5606 m</td><td class="price">€2.90/h</td></tr></tbody></table></div>
 
   <p style="font-size:12.5px;color:var(--mut);margin:26px 0 60px">
-    Source: <a href="https://opendata.rdw.nl" rel="noopener" target="_blank" style="color:var(--mut)">RDW Open Data (NPR)</a>, CC0 licence · Page generated 2026-07-05 ·
+    Source: the national parking register (NPR), CC0 open data · Page generated 2026-07-05 ·
     Found an error? <a href="/about" style="color:var(--mut)">Let us know</a>.
   </p>
 </div>
@@ -108,12 +108,12 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
     </div>
     <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
     <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
-    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a></div>
+    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/privacy">Privacy &amp; cookies</a></div>
   </div>
   <div class="foot-bottom">
     <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
     <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
-    <span>Not affiliated with any municipality</span>
+    <span>Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
   </div>
 </div></footer>
 <script>
@@ -123,7 +123,7 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
     var js=document.createElement('script');js.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     js.onload=function(){
       var map=L.map('gmap',{scrollWheelZoom:false}).setView([51.892522,5.83838],15);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM © CARTO',maxZoom:18}).addTo(map);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',maxZoom:18}).addTo(map);
       L.marker([51.892522,5.83838]).addTo(map).bindPopup("Carpool Oosterhout/Nijmegen A15").openPopup();
     };
     document.head.appendChild(js);

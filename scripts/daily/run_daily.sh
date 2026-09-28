@@ -67,6 +67,19 @@ fi
 step "3b. Apply site chrome"
 python3 "$REPO/scripts/site/apply_chrome.py" >>"$LOG" 2>&1 || true
 
+# --- 3c. data-licence compliance audit: hard findings block the publish -------
+step "3c. Compliance audit"
+python3 "$REPO/scripts/compliance/fix_rdw.py" >>"$LOG" 2>&1 || true
+python3 "$REPO/scripts/compliance/audit.py" --fetch >>"$LOG" 2>&1
+AUDIT_RC=$?
+if [ "$AUDIT_RC" = "2" ]; then
+  log "ERROR compliance audit found hard violations or changed terms; NOT publishing. See scripts/compliance/report.md"
+  BLOCK_PUSH=1
+else
+  log "compliance audit rc=$AUDIT_RC"
+  BLOCK_PUSH=0
+fi
+
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------
 step "4. Freshen sitemap for changed pages"
 CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^[a-z0-9-]+\.html$' | sed 's/\.html$//')"
@@ -91,7 +104,10 @@ fi
 
 # --- 5. commit + push -------------------------------------------------------
 step "5. Commit + push"
-if ! git diff --cached --quiet; then
+if [ "${BLOCK_PUSH:-0}" = "1" ]; then
+  log "publish blocked by compliance audit; staged changes left uncommitted for review"
+  PUSHED=0
+elif ! git diff --cached --quiet; then
   MSG="Daily auto-update $(date +%F): $(echo $CHANGED_SLUGS | tr '\n' ' ')"
   git commit -q -m "$MSG" -m "Automated by scripts/daily/run_daily.sh" \
     -m "Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>" >>"$LOG" 2>&1

@@ -84,17 +84,17 @@
 <section class="sec sec-wm"><div class="ct">
 <div class="sl">Live Map</div>
 <h2 class="st">EV charging stations near Dutch parking garages</h2>
-<p class="ss">Blue markers = parking garages with EV charging (RDW data). Click any marker for details. Use the layer toggle to filter.</p>
+<p class="ss">Blue markers = parking garages with EV charging (national register data). Click any marker for details. Use the layer toggle to filter.</p>
 <div class="map-btns">
 <button class="map-btn" style="background:#6366F1" onclick="toggleEV('rdw',this)">🔵 EV-Friendly Garages</button>
 <button class="map-btn" style="background:#10B981" onclick="toggleEV('ocm',this)">🟢 Public Chargers (OpenChargeMap)</button>
 </div>
 <div class="mw"><div id="evMap" style="width:100%;height:500px"></div></div>
 <div class="ml">
-<div class="mli"><div class="mld" style="background:#6366F1"></div> Parking garages with EV charging (RDW)</div>
+<div class="mli"><div class="mld" style="background:#6366F1"></div> Parking garages with EV charging (national register)</div>
 <div class="mli"><div class="mld" style="background:#10B981"></div> Public chargers (OpenChargeMap)</div>
 </div>
-<p style="font-size:12px;color:var(--g4);margin-top:12px">Data: <a href="https://opendata.rdw.nl" target="_blank" style="color:var(--or)">RDW Open Data</a> (CC0) + <a href="https://openchargemap.org" target="_blank" style="color:var(--or)">OpenChargeMap</a> (ODbL)</p>
+<p style="font-size:12px;color:var(--g4);margin-top:12px">Data: national parking register open data (CC0) + <a href="https://openchargemap.org" target="_blank" style="color:var(--or)">OpenChargeMap</a> (ODbL)</p>
 </div></section>
 
 <section class="sec sec-w"><div class="ct">
@@ -161,12 +161,12 @@
     </div>
     <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
     <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
-    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a></div>
+    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/privacy">Privacy &amp; cookies</a></div>
   </div>
   <div class="foot-bottom">
     <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
     <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
-    <span>Not affiliated with any municipality</span>
+    <span>Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
   </div>
 </div></footer><script src="shared.js"></script>
 <script src="rdw-data.js"></script>
@@ -190,7 +190,7 @@ function mkEvIcon(color, label) {
 document.addEventListener('DOMContentLoaded', function() {
     var map = initMap('evMap', [52.3676, 4.9041], 12);
 
-    // RDW garages with EV charging - Amsterdam as default
+    // register garages with EV charging - Amsterdam as default
     var amsGarages = RDW_DATA['amsterdam'] || [];
     amsGarages.forEach(g => {
         var evPts = parseInt(g.ev_points || '0');
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="font-size:13px;color:#334155"><strong>${evPts}</strong> charging point(s)</div>
                 ${g.capacity ? `<div style="font-size:12px;color:#64748B">Capacity: ${g.capacity} spots</div>` : ''}
                 ${g.max_height_cm ? `<div style="font-size:12px;color:#64748B">Max height: ${g.max_height_cm}cm</div>` : ''}
-                <div style="font-size:10px;color:#94A3B8;margin-top:6px">Source: opendata.rdw.nl (CC0)</div>
+                <div style="font-size:10px;color:#94A3B8;margin-top:6px">Source: national parking register (CC0)</div>
             </div>`);
             evLayers.rdw.push(m);
         }
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 evLayers.ocm.push(m);
             });
         })
-        .catch(() => console.log('OpenChargeMap load failed - showing RDW data only'));
+        .catch(() => console.log('OpenChargeMap load failed - showing register data only'));
 });
 </script>
 

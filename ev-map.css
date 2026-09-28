@@ -104,6 +104,7 @@
 .ev-mode b{font-size:12.5px;font-weight:700;color:var(--ink)}
 .ev-mode span{font-size:11.5px;color:var(--mut);font-variant-numeric:tabular-nums}
 .ev-sort{display:flex;gap:3px}
+.ev-sort[hidden]{display:none}
 .ev-sort button{
   font-family:var(--f-ui);font-size:11.5px;font-weight:600;color:var(--mut);
   background:transparent;border:1px solid transparent;border-radius:7px;

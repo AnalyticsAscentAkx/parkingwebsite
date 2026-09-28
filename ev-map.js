@@ -17,8 +17,8 @@
   var MAX_MARKERS = 1200;     // beyond this the map reads as noise anyway
   var $ = function (s) { return document.querySelector(s); };
 
-  var map, cities = [], tariffs = {}, cards = [], meta = {};
-  var tiles = {}, layer, cityLayer, markers = {};
+  var map, cities = [], tariffs = {}, meta = {};
+  var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {};
   var selected = null, mode = 'overview', sortKey = 'reliable';
   var rowsShown = [], moveTimer = null;
 
@@ -94,16 +94,6 @@
     return { park: park, charge: charge, total: (park || 0) + (charge || 0) };
   }
 
-  function bestCard(kwh) {
-    if (!cards.length) return null;
-    var best = null;
-    for (var i = 0; i < cards.length; i++) {
-      var v = cards[i].kwh * kwh + (cards[i].fee || 0);
-      if (!best || v < best.eur) best = { card: cards[i].card, eur: v };
-    }
-    return best;
-  }
-
   function currentWindow() {
     var a = parseStamp($('#evArrive').dataset.stamp) || new Date();
     var l = parseStamp($('#evLeave').dataset.stamp) || new Date(a.getTime() + 7200000);
@@ -125,14 +115,23 @@
   function loadTiles(keys, done) {
     var pending = 0;
     keys.forEach(function (k) {
-      if (tiles[k] !== undefined) return;
+      if (tiles[k] !== undefined && !tileFailures[k]) return;
       tiles[k] = null;
+      delete tileFailures[k];
       pending++;
       fetch(DATA + '/cells/' + k + '.json')
-        .then(function (r) { return r.ok ? r.json() : []; })
-        .catch(function () { return []; })
+        .then(function (r) {
+          if (!r.ok) throw new Error('Tile request failed');
+          return r.json();
+        })
         .then(function (rows) {
           tiles[k] = rows || [];
+        })
+        .catch(function () {
+          tiles[k] = [];
+          tileFailures[k] = true;
+        })
+        .then(function () {
           if (--pending === 0) done();
         });
     });
@@ -144,7 +143,10 @@
     if (!map) return;
     var b = map.getBounds();
     mode = map.getZoom() >= DETAIL_ZOOM ? 'detail' : 'overview';
+    $('#evHint').textContent = 'Each circle is a town; larger circles have more locations. Select a town to zoom in.';
     $('#evHint').classList.toggle('is-on', mode === 'overview');
+    var sorts = document.querySelector('.ev-sort');
+    if (sorts) sorts.hidden = mode !== 'detail';
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = mode !== 'detail';   // colour only means status up close
 
@@ -239,7 +241,7 @@
         '<div class="ev-meta"><span>' + c.n.toLocaleString() + ' locations</span>' +
         '<span>' + c.e.toLocaleString() + ' points</span>' +
         (c.kw ? '<span class="ev-kw">up to ' + c.kw + ' kW</span>' : '') +
-        '</div></div><span class="ev-price is-unpriced">Open</span></div>';
+        '</div></div><span class="ev-price is-unpriced">View chargers</span></div>';
     }).join('') : empty('No towns in view', 'Pan the map or zoom out.');
     bindRows();
   }
@@ -257,11 +259,12 @@
     });
     rowsShown = rows;
 
-    var best = bestCard(w.kwh);
     $('#evMode').textContent = 'Chargers in view';
     $('#evCount').textContent = rows.length.toLocaleString() +
       (rows.length === 1 ? ' charger' : ' chargers') +
-      (rows.length >= MAX_MARKERS ? ', zoom in for the rest' : '');
+      (rows.length >= MAX_MARKERS ? ', zoom in for the rest' : '') +
+      (neededTiles(b).some(function (k) { return tileFailures[k]; })
+        ? ' · Some map areas could not load; move the map to retry.' : '');
 
     $('#evRows').innerHTML = rows.length ? rows.map(function (st, i) {
       var g = grade(st[UP], st[DOWN]);
@@ -280,9 +283,6 @@
           (st[DOWN] > 0 ? st[DOWN] + ' out of order'
            : st[UP] == null ? 'No history yet' : st[UP].toFixed(1) + '% uptime') +
         '</span></div>' +
-        (st[PPK] != null && best
-          ? '<div class="ev-meta"><span>Cheapest card here: ' + esc(best.card) +
-            ', ' + money(best.eur) + '</span></div>' : '') +
         '</div>' + price + '</div>';
     }).join('') : empty('No chargers in view', 'Pan the map or zoom out.');
     bindRows();
@@ -343,15 +343,24 @@
   }
 
   function search(q) {
-    q = (q || '').trim().toLowerCase();
+    var original = (q || '').trim();
+    q = original.toLowerCase();
     if (!q) return;
     var hit = null;
     for (var i = 0; i < cities.length; i++) {
       var n = cities[i].name.toLowerCase();
       if (n === q) { hit = cities[i]; break; }
-      if (!hit && n.indexOf(q) === 0) hit = cities[i];
+      if (!hit && n.indexOf(q) !== -1) hit = cities[i];
     }
-    if (hit) map.setView([hit.lat, hit.lon], 13);
+    if (hit) {
+      map.setView([hit.lat, hit.lon], 13);
+      scheduleRefresh();
+    } else {
+      rowsShown = [];
+      $('#evMode').textContent = 'Town search';
+      $('#evCount').textContent = 'No town found for “' + original + '”. Try another spelling.';
+      $('#evRows').innerHTML = empty('No matching town', 'Try a broader part of the town name.');
+    }
   }
 
   function boot() {
@@ -390,7 +399,7 @@
     map = L.map('evmap', { scrollWheelZoom: true }).setView([52.15, 5.3], 8);
     window.__evMap = map;                       // the mobile tabs resize it
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap', maxZoom: 19
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19
     }).addTo(map);
     map.on('moveend zoomend', scheduleRefresh);
     refresh();
@@ -409,13 +418,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    Promise.all([json('/cities.json'), json('/tariffs.json'),
-                 json('/cards.json'), json('/meta.json')])
+    Promise.all([json('/cities.json'), json('/tariffs.json'), json('/meta.json')])
       .then(function (res) {
-        cities = res[0]; tariffs = res[1]; cards = res[2]; meta = res[3];
+        cities = res[0]; tariffs = res[1]; meta = res[2];
         stat('statStations', (meta.stations || 0).toLocaleString());
         stat('statCities', (meta.cities || 0).toLocaleString());
-        stat('statDays', meta.days_measured || 0);
+        stat('statDays', meta.days_measured
+          ? meta.days_measured.toLocaleString() + ' days' : 'Not available');
 
         var css = document.createElement('link');
         css.rel = 'stylesheet';

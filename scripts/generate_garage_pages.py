@@ -73,7 +73,7 @@ FOOTER = f"""<footer class="footer"><div class="wrap">
   </div>
   <div class="foot-bottom">
     <span>© {YEAR} Parking Netherlands — an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
-    <span class="foot-pill">DATA: RDW OPEN DATA · CC0</span>
+    <span class="foot-pill">DATA: NATIONAL PARKING REGISTER · CC0</span>
     <span>Not affiliated with any municipality</span>
   </div>
 </div></footer>"""
@@ -176,7 +176,7 @@ def garage_page(g, nearby):
 <tr><td>3 hours</td><td class="price">{eur(g['rate_3h'])}</td><td class="price">{eur(g['rate_3h']/3)}</td></tr>
 <tr><td>24 hours</td><td class="price">{eur(g['rate_day'])}</td><td class="price">{eur(g['rate_day']/24)}</td></tr>
 </tbody></table></div>
-<p style="font-size:12.5px;color:var(--mut);margin-top:10px">Drive-in rates computed from the RDW/NPR tariff table for a weekday stay. Operators may offer cheaper pre-booked online rates or apply day caps not encoded in the register.</p>"""
+<p style="font-size:12.5px;color:var(--mut);margin-top:10px">Drive-in rates computed from the national parking register (NPR) tariff table for a weekday stay. Operators may offer cheaper pre-booked online rates or apply day caps not encoded in the register.</p>"""
     elif is_free:
         rows = '<p><span class="badge badge-ok">Free parking</span> — the national register lists a €0.00 tariff for this facility.</p>'
     else:
@@ -251,7 +251,7 @@ h2{{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);mar
   <div class="crumb"><a href="/">Home</a> / <a href="/{g['city']}">Parking {city}</a> / {esc(name)}</div>
   <header class="ghead">
     <h1>{esc(name)}</h1>
-    <p class="sub">{'P+R site' if g.get('is_pr') else 'Parking facility'} in {city} · official RDW-registered location {'· <span class="badge badge-pr">P+R</span>' if g.get('is_pr') else ''}</p>
+    <p class="sub">{'P+R site' if g.get('is_pr') else 'Parking facility'} in {city} · listed in the national parking register {'· <span class="badge badge-pr">P+R</span>' if g.get('is_pr') else ''}</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination={g['lat']},{g['lng']}">Directions</a>
       <a class="btn btn-ghost btn-sm" href="/search?q={esc(name)} {city}&lat={g['lat']}&lng={g['lng']}">Compare nearby</a>
@@ -276,7 +276,7 @@ h2{{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);mar
   <tbody>{nearby_html}</tbody></table></div>
 
   <p style="font-size:12.5px;color:var(--mut);margin:26px 0 60px">
-    Source: <a href="https://opendata.rdw.nl" rel="noopener" target="_blank" style="color:var(--mut)">RDW Open Data (NPR)</a>, CC0 licence · Page generated {TODAY} ·
+    Source: the national parking register (NPR), CC0 open data · Page generated {TODAY} ·
     Found an error? <a href="/about" style="color:var(--mut)">Let us know</a>.
   </p>
 </div>
@@ -329,7 +329,7 @@ def index_page(garages):
         "@context": "https://schema.org", "@type": "CollectionPage",
         "name": "Parking Garage Directory Netherlands",
         "url": f"{SITE}/garage/",
-        "description": f"Directory of {len(garages)} RDW-registered parking garages and P+R sites across {len(by_city)} Dutch cities with official tariffs.",
+        "description": f"Directory of {len(garages)} register-listed parking garages and P+R sites across {len(by_city)} Dutch cities with official tariffs.",
     }, ensure_ascii=False)
 
     return f"""<!DOCTYPE html>
@@ -339,7 +339,7 @@ def index_page(garages):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parking Garage Directory Netherlands — {len(garages)} Garages, Official {YEAR} Rates</title>
-<meta name="description" content="Every RDW-registered parking garage and P+R site in {len(by_city)} Dutch cities: official hourly and daily tariffs, capacity and EV charging points. Free and independent.">
+<meta name="description" content="Every register-listed parking garage and P+R site in {len(by_city)} Dutch cities: official hourly and daily tariffs, capacity and EV charging points. Free and independent.">
 <link rel="canonical" href="{SITE}/garage/">
 {HEAD_FONTS}
 <meta name="robots" content="index, follow">
@@ -352,7 +352,7 @@ def index_page(garages):
   <header style="padding:44px 0 6px">
     <div class="eyebrow">Garage directory</div>
     <h1 style="font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1.12">Every registered parking garage in the Netherlands</h1>
-    <p style="color:var(--mut);font-size:15.5px;max-width:620px;margin-top:12px">{len(garages)} garages, lots and P+R sites across {len(by_city)} cities, straight from the RDW national parking register — with official drive-in tariffs where published. Prefer searching by address? Use the <a href="/search" style="color:var(--sig);font-weight:600">parking search</a>.</p>
+    <p style="color:var(--mut);font-size:15.5px;max-width:620px;margin-top:12px">{len(garages)} garages, lots and P+R sites across {len(by_city)} cities, straight from the national parking register — with official drive-in tariffs where published. Prefer searching by address? Use the <a href="/search" style="color:var(--sig);font-weight:600">parking search</a>.</p>
   </header>
   {sections}
 </div>

@@ -54,6 +54,23 @@ INTENTS = {
 }
 
 
+def eligible_intents(stations: list[dict]) -> list[str]:
+    """Return only comparisons with enough records to support their promise."""
+    enough_history = sum(
+        1 for s in stations
+        if (s.get("hist_days") or 0) >= config.MIN_HISTORY_DAYS and s.get("up") is not None
+    ) >= MIN_INTENT_STATIONS
+    enough_prices = sum(
+        1 for s in stations if s.get("ppk") is not None
+    ) >= MIN_INTENT_STATIONS
+    enough_fast = sum(1 for s in stations if (s.get("kw") or 0) >= 43) >= MIN_INTENT_STATIONS
+    return [key for key, available in (
+        ("most-reliable", enough_history),
+        ("cheapest", enough_prices),
+        ("fast-charging", enough_fast),
+    ) if available]
+
+
 # --------------------------------------------------------------- sources
 def from_feed(limit_cities: int = 0) -> dict[str, list[dict]]:
     """Build station records straight from the GeoJSON bulk file.
@@ -231,7 +248,8 @@ def _sources_note(measured_days: int) -> str:
 
 # ------------------------------------------------------------------ pages
 def city_page(city_slug: str, stations: list[dict], measured_days: int,
-              page: int = 1, pages: int = 1) -> tuple[str, bool]:
+              page: int = 1, pages: int = 1,
+              intents: list[str] | None = None) -> tuple[str, bool]:
     """Returns (html, indexable). Page 1 lives at /ev-charging/{city}; later
     pages at /ev-charging/{city}/page-N, each canonical to itself so the set
     is crawlable without duplicating content onto one URL."""
@@ -247,11 +265,14 @@ def city_page(city_slug: str, stations: list[dict], measured_days: int,
     avg = round(sum(s["up"] for s in with_hist) / len(with_hist), 1) if with_hist else None
 
     suffix = "" if page == 1 else f" (page {page})"
-    title = (f"EV charging {label}: {all_n} chargers, uptime and total cost{suffix} | {config.SITE_NAME}"
-             if not avg else
-             f"EV charging {label}: {all_n} chargers, {avg}% uptime{suffix} | {config.SITE_NAME}")
-    desc = (f"Every public charger in {label} with measured reliability and the real cost of a "
-            f"session, charging plus parking. {all_n} locations, {evses} charge points.")
+    title = (f"EV charging {label}: {all_n} locations, {avg}% measured uptime{suffix} | {config.SITE_NAME}"
+             if avg is not None else
+             f"EV charging {label}: {all_n} locations and charging costs{suffix} | {config.SITE_NAME}")
+    desc = (f"Compare public chargers in {label} with {avg}% measured uptime and estimated "
+            f"charging plus parking costs. {all_n} locations, {evses} charge points."
+            if avg is not None else
+            f"Compare public chargers in {label}. See published charging prices and matched "
+            f"parking tariffs where available. {all_n} locations, {evses} charge points.")
 
     ld = json.dumps([
         {"@context": "https://schema.org", "@type": "ItemList",
@@ -272,12 +293,16 @@ def city_page(city_slug: str, stations: list[dict], measured_days: int,
     stats = f"""<div class="ev-since">
       <div><b>{all_n:,}</b><span>charging locations</span></div>
       <div><b>{evses:,}</b><span>charge points</span></div>
-      {'<div><b>' + str(avg) + '%</b><span>average uptime, 30 days</span></div>' if avg else ''}
-      <div><b>{measured_days}</b><span>days measured</span></div>
+      {'<div><b>' + str(avg) + '%</b><span>average uptime, 30 days</span></div>' if avg is not None else ''}
+      {'<div><b>' + str(measured_days) + '</b><span>days measured</span></div>' if measured_days else '<div><b>—</b><span>reliability history not available</span></div>'}
     </div>"""
 
+    available_intents = intents if intents is not None else eligible_intents(stations)
     intent_links = " ".join(
-        f'<a href="/ev-charging/{city_slug}/{k}">{v[1]}</a>' for k, v in INTENTS.items())
+        f'<a href="/ev-charging/{city_slug}/{k}">{INTENTS[k][1]}</a>'
+        for k in available_intents)
+    intent_section = (f'<p class="ev-src" style="border:none;padding-top:14px">'
+                      f'Compare in {esc(label)}: {intent_links}</p>' if intent_links else "")
 
     def page_url(i):
         return f"/ev-charging/{city_slug}" if i == 1 else f"/ev-charging/{city_slug}/page-{i}"
@@ -317,7 +342,7 @@ def city_page(city_slug: str, stations: list[dict], measured_days: int,
       {_window_control()}
       {_table()}
       {pager}
-      <p class="ev-src" style="border:none;padding-top:14px">More in {esc(label)}: {intent_links}</p>
+      {intent_section}
     </div>
   </div>
   {_sources_note(measured_days)}
@@ -333,7 +358,11 @@ def intent_page(city_slug: str, intent: str, stations: list[dict], measured_days
     canonical = f"{config.SITE_URL}/ev-charging/{city_slug}/{intent}"
 
     if sort_key == "fast":
-        stations = [s for s in stations if (s.get("kw") or 0) >= 43] or stations
+        stations = [s for s in stations if (s.get("kw") or 0) >= 43]
+    elif sort_key == "reliable":
+        stations = [s for s in stations if (s.get("hist_days") or 0) >= config.MIN_HISTORY_DAYS and s.get("up") is not None]
+    elif sort_key == "cheap":
+        stations = [s for s in stations if s.get("ppk") is not None]
     # These pages are a ranking, so a top-N is the honest shape and keeps the
     # embedded payload small.
     stations = stations[:PAGE_SIZE]
