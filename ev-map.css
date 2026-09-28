@@ -537,3 +537,17 @@
 .ev-pinwrap.is-sel .ev-pin{background:var(--sig)!important;color:#17243A;border-color:#fff;box-shadow:0 0 0 3px rgba(255,188,66,.45),0 2px 8px rgba(11,17,32,.35)}
 .ev-card{border-top-color:var(--sig)}
 .ev-modes button[data-mode="parking"][aria-pressed="true"]{background:var(--blue)}
+
+/* split price pin: charging half + parking half */
+.ev-pin-split{padding:0;background:#fff!important;color:#17243A;border-color:#fff;display:inline-flex;overflow:hidden}
+.ev-pin-split i{font-style:normal;padding:3px 7px;white-space:nowrap}
+.ev-pin-split i.c{color:#fff}
+.ev-pin-split i.c[data-g="lo"]{background:#16845B}
+.ev-pin-split i.c[data-g="mid"]{background:#17243A}
+.ev-pin-split i.c[data-g="hi"]{background:#B45309}
+.ev-pin-split i.c[data-g="none"]{background:#7C8DB5}
+.ev-pin-split i.p{background:#EAF0FB;color:#17243A;font-weight:700}
+.ev-pin-split i.p[data-free="1"]{background:#E6F5EE;color:#16845B}
+.ev-pin-split::after{border-top-color:#fff}
+.ev-pin-split b{margin:0 0 0 6px;align-self:center}
+.ev-pinwrap.is-sel .ev-pin-split{background:#fff!important;border-color:var(--sig)}

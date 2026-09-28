@@ -388,7 +388,7 @@
       m.on('click', function () { select(st[ID], true); });
       m.on('mouseover', function () { hover(st[ID], true); });
       m.on('mouseout', function () { hover(null, true); });
-      m.bindTooltip(esc(st[NAME]), { direction: 'top', opacity: .95 });
+      m.bindTooltip(esc(st[NAME]) + (p ? ' · ' + money(p.total) + ' total' : ''), { direction: 'top', opacity: .95 });
       markers[st[ID]] = m;
       layer.addLayer(m);
     });
@@ -397,10 +397,15 @@
     listStations(rows, w);
   }
 
+  /* The pin shows the two halves of the bill side by side: charging (bolt,
+     coloured by the kWh price grade) and parking (P). One half alone when
+     the other is unknown. The total is in the list and the card. */
   function pinIcon(p, g, faulty) {
+    var charge = p.charge != null ? '<i class="c" data-g="' + g + '">\u26A1' + money(p.charge) + '</i>' : '';
+    var park = p.park != null ? '<i class="p"' + (p.park === 0 ? ' data-free="1"' : '') + '>P ' + (p.park === 0 ? 'free' : money(p.park)) + '</i>' : '';
     return L.divIcon({
       className: 'ev-pinwrap',
-      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + money(p.total) + '</span>',
+      html: '<span class="ev-pin ev-pin-split" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + charge + park + '</span>',
       iconSize: null, iconAnchor: [0, 0]
     });
   }
