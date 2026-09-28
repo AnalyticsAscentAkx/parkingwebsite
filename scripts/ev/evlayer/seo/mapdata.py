@@ -4,7 +4,7 @@
 go. The export is therefore split two ways:
 
   cities.json          one row per town, for the zoomed-out view and search
-  cells/{x}_{y}.json   a 0.25 degree grid, fetched only for the visible area
+  cells/{x}_{y}.json   a 0.1 degree grid, fetched only for the visible area
 
 The map loads a handful of small cells for wherever the viewer is looking, so
 the page stays light and the whole thing remains static files on a CDN.
@@ -63,7 +63,21 @@ def export() -> dict:
         NL_BBOX
     )
 
-    # Charging price per station, from the CPO ad-hoc tariffs.
+    # Charging price per station, from the CPO ad-hoc tariffs. Where an
+    # operator has not published a tariff for a station, its usual published
+    # rate elsewhere is a fair estimate, and is labelled as one (src 1);
+    # with nothing from the operator at all, the national median (src 2).
+    cpo_median = {r["cpo"]: float(r["med"]) for r in db.query(
+        """SELECT s.cpo, percentile_cont(0.5) WITHIN GROUP (ORDER BY t.price_per_kwh) AS med
+           FROM station s JOIN evse e ON e.station_id = s.station_id
+           JOIN connector c ON c.evse_id = e.evse_id
+           JOIN LATERAL unnest(c.tariff_ids) AS tid ON true
+           JOIN cpo_tariff t ON t.tariff_id = tid
+           WHERE t.price_per_kwh IS NOT NULL AND s.cpo IS NOT NULL
+           GROUP BY s.cpo HAVING COUNT(DISTINCT s.station_id) >= 20""")}
+    national = db.one(
+        """SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY price_per_kwh) AS med
+           FROM cpo_tariff WHERE price_per_kwh IS NOT NULL""")["med"]
     price = {r["station_id"]: r for r in db.query(
         """SELECT s.station_id, MAX(t.price_per_kwh) AS ppk, MAX(t.start_fee) AS fee
            FROM station s
@@ -111,9 +125,12 @@ def export() -> dict:
             float(r["kw"]) if r["kw"] else 0,
             r["evses"] or 1,
             float(r["up"]) if r["up"] is not None else None,
-            round(float(p["ppk"]), 3) if p.get("ppk") else None,
+            round(float(p["ppk"]), 3) if p.get("ppk")
+            else (round(cpo_median[r["cpo"]], 3) if r["cpo"] in cpo_median
+                  else (round(float(national), 3) if national else None)),
             area,
             r["down_now"] or 0,
+            0 if p.get("ppk") else (1 if r["cpo"] in cpo_median else 2),   # price source
         ]
         cells[cell_key(lat, lon)].append(rec)
 

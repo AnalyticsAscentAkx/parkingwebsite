@@ -32,9 +32,17 @@
 
   /* Station record is positional, which roughly halves the tile size:
      0 id, 1 name, 2 operator, 3 lat, 4 lon, 5 kW, 6 points,
-     7 uptime, 8 price per kWh, 9 parking area id, 10 points down now */
+     7 uptime, 8 price per kWh, 9 parking area id, 10 points down now,
+     11 price source: 0 this charger's tariff, 1 operator's usual rate,
+        2 national median (operator publishes nothing) */
   var ID = 0, NAME = 1, CPO = 2, LAT = 3, LON = 4, KW = 5,
-      PTS = 6, UP = 7, PPK = 8, AREA = 9, DOWN = 10;
+      PTS = 6, UP = 7, PPK = 8, AREA = 9, DOWN = 10, SRC = 11;
+  function srcNote(st, short) {
+    var s = st[SRC] || 0;
+    if (s === 1) return short ? 'operator\u2019s usual rate' : 'No tariff is published for this charger; this is the operator\u2019s usual rate elsewhere.';
+    if (s === 2) return short ? 'typical NL rate' : 'This operator publishes no tariffs; the national median is used.';
+    return '';
+  }
 
   /* ------------------------------------------------------------ helpers */
   function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -163,7 +171,7 @@
 
   function updateSession() {
     var el = $('#evSession');
-    if (el) el.textContent = 'Estimates assume ' + sessionLabel(currentWindow(), false) + '.';
+    if (el) el.textContent = 'Estimates assume ' + sessionLabel(currentWindow(), false) + '. * = operator\u2019s usual rate, no tariff published for that charger.';
   }
 
   /* -------------------------------------------------------------- tiles */
@@ -393,8 +401,8 @@
       var g = grade(st[UP], st[DOWN]);
       var price = st._p
         ? '<span class="ev-price" data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.total) +
-          '<small>' + (st._p.charge != null ? '<i data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.charge) + ' charge</i>' : '<i data-g="none">no charge price</i>') +
-          ' + ' + (st._p.park != null ? '<i data-g="' + parkGrade(st._p) + '">' + (st._p.park === 0 ? 'free parking' : money(st._p.park) + ' parking') + '</i>' : '<i data-g="none">parking n/a</i>') +
+          '<small>' + (st._p.charge != null ? '<i data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.charge) + ' charge' + (st[SRC] ? '*' : '') + '</i>' : '<i data-g="none">no charge price</i>') +
+          ' + ' + (st._p.park != null ? '<i data-g="' + parkGrade(st._p) + '">' + (st._p.park === 0 ? 'free parking' : money(st._p.park) + ' parking') + '</i>' : '<i data-g="none">no paid zone on record</i>') +
           '</small><small>' + label + '</small></span>'
         : '<span class="ev-price is-unpriced">No published price</span>';
       return '<div class="ev-row" role="option" tabindex="0" data-i="' + i +
@@ -469,7 +477,7 @@
       ? st[DOWN] + ' of ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + ' reported out of order'
       : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime over 30 days';
     var lines = '';
-    if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh', money(p.charge), ppkGrade(st[PPK]));
+    if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh' + (st[SRC] ? ' (' + srcNote(st, true) + ')' : ''), money(p.charge), ppkGrade(st[PPK]));
     else lines += row('Charging', 'Price not published', 'none');
     if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
     else lines += row('Parking', 'No paid zone at this spot', 'none');
@@ -484,7 +492,7 @@
       '<div class="ev-card-rows">' + lines +
         (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
-      '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) +
+      '<div class="ev-card-note">' + (srcNote(st, false) ? srcNote(st, false) + ' ' : '') + 'Estimate for ' + sessionLabel(w, false) +
         '. Connector types are not in the register; check the operator app before relying on a fast charge.</div>' +
       '<div class="ev-card-act">' +
         '<a class="ev-card-btn is-primary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' +
