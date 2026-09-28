@@ -114,13 +114,20 @@
       var next = new Date(day0.getTime()); next.setDate(next.getDate() + 1);
       var segEnd = leave < next ? leave : next;
       var dow = cursor.getDay() === 0 ? 7 : cursor.getDay();
-      for (var i = 0; i < t.w.length; i++) {
-        if (t.w[i][0] !== dow) continue;
-        var ws = new Date(day0.getTime() + t.w[i][1] * 60000);
-        var we = new Date(day0.getTime() + t.w[i][2] * 60000);
-        var s = cursor > ws ? cursor : ws;
-        var e = segEnd < we ? segEnd : we;
-        if (e > s) paid[t.w[i][3]] = (paid[t.w[i][3]] || 0) + (e - s) / 60000;
+      /* Windows can overlap (an hourly tariff and an avondkaart both cover
+         19:00-24:00). Walk the day in 15-minute slots and charge each slot
+         to the cheapest product that covers it, never to two at once. */
+      var slot = new Date(cursor.getTime());
+      while (slot < segEnd) {
+        var slotEnd = new Date(Math.min(slot.getTime() + 900000, segEnd.getTime()));
+        var minute = (slot - day0) / 60000, best = null, bestRate = Infinity;
+        for (var i = 0; i < t.w.length; i++) {
+          if (t.w[i][0] !== dow || minute < t.w[i][1] || minute >= t.w[i][2]) continue;
+          var code = t.w[i][3], rate = t.f[code] ? ladderCost(t.f[code], 60) : Infinity;
+          if (rate < bestRate) { bestRate = rate; best = code; }
+        }
+        if (best) paid[best] = (paid[best] || 0) + (slotEnd - slot) / 60000;
+        slot = slotEnd;
       }
       cursor = segEnd;
     }
