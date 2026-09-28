@@ -10,6 +10,7 @@ The map loads a handful of small cells for wherever the viewer is looking, so
 the page stays light and the whole thing remains static files on a CDN.
 """
 import json
+from datetime import datetime, timezone
 import math
 from collections import defaultdict
 from pathlib import Path
@@ -148,6 +149,7 @@ def export() -> dict:
     total = sum(len(v) for v in cells.values())
     sizes = [(cells_dir / f"{k}.json").stat().st_size for k in cells]
     meta = {
+        "generated": datetime.now(timezone.utc).isoformat(timespec="minutes"),
         "stations": total,
         "cells": len(cells),
         "cities": len(city_list),

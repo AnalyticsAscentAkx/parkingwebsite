@@ -275,3 +275,61 @@
    header while scrolling. The header has to outrank the map furniture. */
 .nav{z-index:1200}
 .leaflet-top,.leaflet-bottom{z-index:700}
+
+/* ===================================================================
+   Search -> compare -> inspect -> act (Sept 2026)
+   =================================================================== */
+.ev-window summary{font-size:12.5px;font-weight:600;color:var(--mut);cursor:pointer;list-style:none;
+  display:flex;align-items:center;gap:6px;margin:0 0 7px}
+.ev-window summary::-webkit-details-marker{display:none}
+.ev-window summary::before{content:"";width:0;height:0;border:4px solid transparent;border-left:5px solid var(--mut-2);transition:transform .15s}
+.ev-window[open] summary::before{transform:rotate(90deg)}
+.ev-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 8px}
+.ev-chips[hidden]{display:none}
+.ev-chips button{font-family:var(--f-ui);font-size:11.5px;font-weight:600;color:var(--txt);
+  background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:5px 11px;cursor:pointer;transition:.15s}
+.ev-chips button:hover{border-color:var(--blue);color:var(--blue)}
+.ev-chips button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.ev-session{font-size:11px;color:var(--mut-2);margin:0 0 9px;line-height:1.4}
+.ev-row.is-hover{background:var(--paper-2)}
+
+.ev-area{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:900;
+  font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink);background:#fff;
+  border:1px solid var(--line);border-radius:99px;padding:8px 16px;box-shadow:var(--sh-md);cursor:pointer}
+.ev-area:hover{border-color:var(--blue);color:var(--blue)}
+.ev-area[hidden]{display:none}
+
+.ev-card{position:absolute;left:12px;bottom:18px;z-index:950;width:min(360px,calc(100% - 24px));
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-md);
+  padding:16px 16px 14px;font-size:13px;color:var(--txt)}
+.ev-card[hidden]{display:none}
+.ev-card-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border:none;background:none;
+  font-size:22px;line-height:1;color:var(--mut-2);cursor:pointer;border-radius:8px}
+.ev-card-x:hover{background:var(--paper-2);color:var(--ink)}
+.ev-card-name{font-size:15px;font-weight:750;color:var(--ink);letter-spacing:-.015em;padding-right:28px;line-height:1.3}
+.ev-card-meta{font-size:12px;color:var(--mut);margin-top:3px}
+.ev-card-status{display:flex;align-items:flex-start;gap:8px;margin:10px 0;font-size:12.5px;font-weight:600;flex-wrap:wrap}
+.ev-card-status i{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px;background:var(--mut-2)}
+.ev-card-status[data-g="ok"]{color:var(--ok)}.ev-card-status[data-g="ok"] i{background:var(--ok)}
+.ev-card-status[data-g="warn"]{color:var(--warn)}.ev-card-status[data-g="warn"] i{background:var(--warn)}
+.ev-card-status[data-g="bad"]{color:var(--bad)}.ev-card-status[data-g="bad"] i{background:var(--bad)}
+.ev-card-status[data-g="none"]{color:var(--txt)}
+.ev-card-status small{flex-basis:100%;font-weight:400;color:var(--mut);font-size:11px;line-height:1.4}
+.ev-card-rows{border-top:1px solid var(--line-soft);margin-top:4px}
+.ev-card-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:12.5px}
+.ev-card-row span{color:var(--mut)}
+.ev-card-row b{font-family:var(--f-mono);font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ev-card-row.is-total{border-bottom:none}
+.ev-card-row.is-total span{color:var(--ink);font-weight:700}
+.ev-card-row.is-total b{font-size:16px;color:var(--ink)}
+.ev-card-note{font-size:11px;color:var(--mut-2);line-height:1.45;margin:6px 0 12px}
+.ev-card-act{display:flex;gap:8px}
+.ev-card-btn{flex:1;text-align:center;font-family:var(--f-ui);font-size:13px;font-weight:700;padding:9px 12px;
+  border-radius:var(--r);border:1px solid var(--line);background:#fff;color:var(--txt);text-decoration:none;cursor:pointer;transition:.15s}
+.ev-card-btn:hover{border-color:var(--blue);color:var(--blue)}
+.ev-card-btn.is-primary{background:var(--sig);border-color:var(--sig);color:#fff}
+.ev-card-btn.is-primary:hover{background:#C2410C;border-color:#C2410C;color:#fff}
+@media(max-width:900px){
+  .ev-card{left:8px;right:8px;bottom:10px;width:auto;padding:14px}
+  .ev-area{top:60px}
+}

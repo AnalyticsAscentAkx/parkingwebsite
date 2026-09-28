@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=20260929a">
-<link rel="stylesheet" href="/ev-map.css">
+<link rel="stylesheet" href="/ev-map.css?v=20260929a">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
@@ -80,6 +80,8 @@
   <div class="ev-mapwrap">
     <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
     <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <button type="button" class="ev-area" id="evArea" hidden>Search this area</button>
+    <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
     <div class="ev-legend" hidden>
       <b>Charge point status</b>
       <div><i style="background:#059669"></i> Working, no faults reported</div>
@@ -91,23 +93,23 @@
   <aside class="ev-panel" aria-label="Charger details">
     <div class="ev-phead">
       <h1>EV charging in the Netherlands</h1>
-      <p class="sub">Every public charging location, with what a stop actually costs once
-         parking is counted. Set your arrival and departure time to price it.</p>
+      <p class="sub">Search a town, compare the chargers in view, open one for the price of
+         your stop with parking counted, then get directions.</p>
 
+      <div class="ev-search">
+        <input type="search" id="evSearch" placeholder="Search a town, e.g. Utrecht"
+               aria-label="Search for a town" autocomplete="off" spellcheck="false">
+        <button id="evGo" type="button">Go</button>
+      </div>
       <div class="ev-stats">
         <div><b id="statStations">80,001</b><span>locations</span></div>
         <div><b id="statCities">2,837</b><span>towns</span></div>
         <div><b id="statDays">Not available</b><span>uptime history</span></div>
       </div>
 
-      <div class="ev-search">
-        <input type="search" id="evSearch" placeholder="Find a town, e.g. Utrecht"
-               aria-label="Search for a town" autocomplete="off" spellcheck="false">
-        <button id="evGo" type="button">Find</button>
-      </div>
 
-      <div class="ev-window">
-        <h2>Price a stop</h2>
+      <details class="ev-window" id="evWindow" open>
+        <summary>Price a stop</summary>
         <div class="ev-fields">
           <div class="ev-field"><label for="evArrive">Arriving</label>
             <input type="datetime-local" id="evArrive" data-stamp=""></div>
@@ -119,7 +121,7 @@
             <span class="hint">kWh, about 120 km in a typical EV</span>
           </div>
         </div>
-      </div>
+      </details>
 
       <div class="ev-tbar">
         <div class="ev-mode">
@@ -132,6 +134,12 @@
           <button data-sort="fast" aria-pressed="false">Power</button>
         </div>
       </div>
+      <div class="ev-chips" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="fast" aria-pressed="false">Fast, 50 kW+</button>
+        <button type="button" data-f="priced" aria-pressed="false">Published price</button>
+        <button type="button" data-f="faulty" aria-pressed="false">Reported faulty</button>
+      </div>
+      <p class="ev-session" id="evSession">Estimates assume 20 kWh and a 2 h stop.</p>
     </div>
 
     <div class="ev-list" id="evRows" role="listbox" aria-label="Charging locations">
@@ -442,7 +450,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js" defer></script>
+<script src="/ev-map.js?v=20260929a" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they
