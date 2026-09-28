@@ -373,7 +373,7 @@
 @media(max-width:900px){.ev-panel{order:0}}
 
 /* live cost tiles: the header answers "what does a stop cost here" */
-.ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ev-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
 .ev-tile{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;min-width:0}
 .ev-tile b{display:block;font-family:var(--f-mono);font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
 .ev-tile span{display:block;font-size:10.5px;color:var(--mut);margin-top:3px;line-height:1.3}
@@ -435,7 +435,7 @@
   .ev-phead{padding:4px 14px 0}
   .ev-phead h1,.ev-phead h2{font-size:1rem;margin:0}
   .ev-phead .sub{display:none}
-  .ev-meta{grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 10px}
+  .ev-tiles{grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 10px}
   .ev-tile{padding:8px 8px}
   .ev-tile b{font-size:.95rem}
   .ev-tile span{font-size:9.5px}
@@ -517,7 +517,7 @@
 .ev-tablescroll{position:relative}
 @media(max-width:900px){
   .ev-tablescroll::after{content:"scroll \\2192";position:sticky;left:100%;display:inline-block;font-size:11px;color:var(--mut);background:linear-gradient(90deg,transparent,#fff 40%);padding:4px 6px 4px 24px;margin-top:-30px;pointer-events:none}
-  .ev-meta{grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px}
+  .ev-tiles{grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px}
   .ev-tile{padding:10px 12px;min-height:44px}
   .ev-tile b{font-size:1.05rem}
   .ev-tile span{font-size:11.5px}
@@ -525,7 +525,7 @@
   .ev-modes button{min-height:38px;padding:8px 16px}
   .ev-row{padding:14px 16px}
   .ev-name{font-size:15px}
-  .ev-meta,.ev-price small{font-size:12px}
+  .ev-price small{font-size:12px}
   .ev-handle{padding:10px 0 6px;min-height:44px}
   .ev-locate{right:12px;top:64px}
   .ev-jump{padding:0 18px}
@@ -559,3 +559,36 @@
 .ev-card-access b{color:var(--ink)}
 .ev-card-access.is-warn{background:#FFF4D6;border-color:#FDE68A}
 .ev-card-access.is-warn b::before{content:"\26A0\FE0E ";color:#B45309}
+
+/* ------------------------------------------------ calmer panel, Sept 28 */
+.ev-tile{padding:8px 10px}
+.ev-tile b{font-size:1rem}
+.ev-tile span{font-size:10px;line-height:1.25}
+.ev-window{margin:0 0 6px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2)}
+.ev-window summary{margin:0;font-size:12.5px;color:var(--ink)}
+.ev-window[open] summary{margin-bottom:8px}
+.ev-window summary small{color:var(--blue);font-weight:600}
+.ev-tbar{position:sticky;top:0;z-index:2;background:var(--paper);margin:8px -18px 0;padding:10px 18px 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ev-mode b{font-size:13.5px}
+.ev-mode span{font-size:12px}
+.ev-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:8px 0 4px;margin:0 -18px;padding-left:18px;padding-right:18px}
+.ev-chips::-webkit-scrollbar{display:none}
+.ev-chips button{flex:none}
+.ev-session{margin:2px 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-phead .sub{margin-bottom:10px}
+.ev-list{border-top:1px solid var(--line);background:var(--paper-2)}
+.ev-row{margin:0;border-bottom:1px solid var(--line);background:#fff}
+.ev-row+.ev-row{border-top:0}
+.ev-meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.ev-meta>span{white-space:nowrap}
+.ev-meta .ev-up,.ev-meta .ev-access{flex-basis:100%;margin-top:1px}
+.ev-price small{white-space:normal;max-width:150px;margin-left:auto}
+@media(max-width:900px){
+  .ev-tiles{grid-template-columns:repeat(4,1fr);gap:5px;margin:6px 0 8px}
+  .ev-tile{padding:7px 8px;min-height:0}
+  .ev-tile b{font-size:.95rem}
+  .ev-tile span{font-size:9.5px}
+  .ev-tbar{margin:6px -14px 0;padding:8px 14px 6px}
+  .ev-chips{margin:0 -14px;padding-left:14px;padding-right:14px}
+  .ev-meta,.ev-price small{font-size:11.5px}
+}

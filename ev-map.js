@@ -227,8 +227,9 @@
   }
 
   function updateSession() {
-    var el = $('#evSession');
-    if (el) el.textContent = 'Estimates assume ' + sessionLabel(currentWindow(), false) + '. * = operator\u2019s usual rate, no tariff published for that charger.';
+    var w = currentWindow(), el = $('#evSession'), sm = $('#evSessionSummary');
+    if (el) { el.textContent = 'Estimates for ' + sessionLabel(w, true).replace('est. ', '') + ' \u00b7 * operator\u2019s usual rate'; el.title = 'Estimates assume ' + sessionLabel(w, false) + '. An asterisk means no tariff is published for that charger and the operator\u2019s usual rate is used.'; }
+    if (sm) sm.textContent = w.kwh + ' kWh \u00b7 ' + hhmm(w.a) + '\u2013' + hhmm(w.l) + ' \u00b7 change';
   }
 
   /* -------------------------------------------------------------- tiles */
@@ -1044,7 +1045,7 @@
     if (narrow()) {
       /* results first; the calculator becomes a secondary "adjust" control under the list */
       var win = $('#evWindow'), foot = document.querySelector('.ev-foot');
-      if (win && foot) { win.classList.add('is-after'); foot.parentNode.insertBefore(win, foot); win.querySelector('summary').innerHTML = 'Adjust cost estimate <small>arrival, departure, kWh</small>'; }
+      if (win && foot) { win.classList.add('is-after'); foot.parentNode.insertBefore(win, foot); win.querySelector('summary').innerHTML = 'Adjust cost estimate <small id="evSessionSummary"></small>'; updateSession(); }
     }
     /* typing in the sheet's search box needs the sheet open */
     box.addEventListener('focus', function () { if (narrow()) sheet('full'); });
