@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929d">
+<link rel="stylesheet" href="/site.css?v=20260929e">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="place">
 <meta property="og:url" content="https://parkingnetherlands.com/garage/klipperstraat-parkeerterrein-eindhoven">
@@ -32,6 +32,15 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
 <body>
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking + EV Charging<small>The Netherlands</small></span></a>
+<form class="nav-search" action="/search" method="get" role="search" onsubmit="var v=this.q.value.trim();if(!v){event.preventDefault();this.q.focus()}">
+  <div class="nav-search-in">
+    <label for="navQ" class="sr-only">Search parking near an address</label>
+    <svg class="nav-search-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="navQ" name="q" placeholder="Address, venue or city" autocomplete="off">
+    <button type="button" class="nav-near" title="Use my location" aria-label="Use my location" onclick="var b=this;b.disabled=true;navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&amp;lng='+p.coords.longitude.toFixed(5)+'&amp;q=Near+me'},function(){b.disabled=false;location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg><span>Near me</span></button>
+    <button type="submit" class="nav-go" aria-label="Search">Go</button>
+  </div>
+</form>
 <ul class="nav-links" id="navLinks">
   <li class="nav-pair"><a href="/search" class="nav-find">Find parking</a><a href="/ev-charging" class="nav-find nav-find-ev">Find a charger</a></li>
   <li class="has-drop"><a href="/all-cities">Cities</a>
@@ -56,14 +65,6 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
 </ul>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div>
-<form class="nav-search" action="/search" method="get" role="search" onsubmit="var v=this.q.value.trim();if(!v){event.preventDefault();this.q.focus()}">
-  <div class="nav-search-in">
-    <label for="navQ" class="sr-only">Search parking near an address</label>
-    <input type="search" id="navQ" name="q" placeholder="Search parking near an address, venue or city" autocomplete="off">
-    <button type="button" class="nav-near" title="Use my location" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&amp;lng='+p.coords.longitude.toFixed(5)+'&amp;q=Near+me'},function(){b.disabled=false;b.textContent='Near me';location.href='/search'},{timeout:8000}):location.href='/search'">Near me</button>
-    <button type="submit" class="nav-go">Search</button>
-  </div>
-</form>
 </nav>
 <div class="gwrap">
   <div class="crumb"><a href="/">Home</a> / <a href="/eindhoven">Parking Eindhoven</a> / Klipperstraat - parkeerterrein</div>

@@ -431,3 +431,28 @@ tbody tr:hover{background:#FAFBFC}
 .mstat .v,.ev-stats b{font-family:var(--f-ui);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .qbv,.hstat .n,.city-card .lead .n,.ev-figure b{font-weight:800}
 .pk-r .v,.tp,.price,.num{font-weight:700}
+
+/* header, third pass: search lives in the header row itself */
+.nav-in{gap:14px}
+.nav-in .nav-search{flex:1 1 auto;min-width:0;max-width:440px;background:none;border:none}
+.nav-in .nav-search-in{padding:0;gap:6px;max-width:none}
+.nav-search-in{position:relative}
+.nav-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5);pointer-events:none}
+.nav-in .nav-search input{padding-left:32px;font-size:13.5px;height:36px}
+.nav-in .nav-near{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 10px}
+.nav-in .nav-near span{font-size:12.5px}
+.nav-in .nav-go{height:36px;padding:0 12px}
+.nav-links{flex:none}
+.logo{flex:none}
+.drop-wide{grid-template-columns:max-content max-content;gap:0 18px}
+.drop-col{min-width:0}
+@media(max-width:1100px){.nav-in .nav-near span{display:none}.nav-in .nav-search{max-width:300px}}
+@media(max-width:920px){.nav-in .nav-go{display:none}}
+@media(max-width:768px){
+  .nav-in{flex-wrap:wrap;height:auto;padding:10px 16px;row-gap:8px}
+  .nav-in .logo{order:1}.nav-in .menu-btn{order:2;margin-left:auto}
+  .nav-in .nav-search{order:3;flex-basis:100%;max-width:none}
+  .nav-in .nav-go{display:inline-flex}
+  .nav-links{top:auto;position:absolute;left:0;right:0}
+}
+@media(max-width:768px){.nav-links{order:4;top:auto}}

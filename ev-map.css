@@ -450,3 +450,4 @@
   .leaflet-bottom{bottom:232px}
   .ev-app[data-sheet="hidden"] .leaflet-bottom,.ev-app[data-sheet="full"] .leaflet-bottom{bottom:0}
 }
+@media(max-width:900px){:root{--ev-nav:104px}}
