@@ -487,3 +487,7 @@
 .ev-search button{height:46px;padding:0 18px;font-size:14px;background:var(--sig);border-radius:var(--r)}
 .ev-search button:hover{background:#C2410C}
 @media(max-width:900px){.ev-search-label{margin-top:4px}.ev-search input{height:42px}.ev-search button{height:42px;padding:0 14px}}
+.ev-near{height:46px;width:46px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--blue);border-radius:var(--r);background:#fff;color:var(--blue);cursor:pointer;padding:0}
+.ev-near:hover{background:var(--blue-soft)}
+.ev-near[aria-busy="true"]{opacity:.6;cursor:wait}
+@media(max-width:900px){.ev-near{height:42px;width:42px}}

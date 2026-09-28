@@ -65,7 +65,7 @@ def page_url(path: Path) -> str:
 
 
 # Pages whose main content already is the search box do not get the sticky bar.
-NO_NAV_SEARCH = {"/", "/search"}
+NO_NAV_SEARCH = {"/", "/search", "/ev-charging"}
 NAV_SEARCH_RE = re.compile(r'\s*<form class="nav-search".*?</form>', re.S)
 
 

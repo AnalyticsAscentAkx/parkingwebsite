@@ -951,9 +951,9 @@
      it on the visitor and marks where they are. */
   var hereMarker = null;
   function goHere() {
-    var btn = document.querySelector('.nav-near'), label = btn ? btn.textContent : '';
+    var btn = document.querySelector('.nav-near') || document.getElementById('evNear'), label = btn ? btn.innerHTML : '';
     if (!navigator.geolocation) { searchGo(''); return; }
-    if (btn) { btn.disabled = true; btn.textContent = 'Locating\u2026'; }
+    if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
     navigator.geolocation.getCurrentPosition(function (pos) {
       var ll = [pos.coords.latitude, pos.coords.longitude];
       if (hereMarker) map.removeLayer(hereMarker);
@@ -962,9 +962,9 @@
       zoomed = true;
       map.setView(ll, 15);
       if (narrow()) sheet('peek');
-      if (btn) { btn.disabled = false; btn.textContent = label; }
+      if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
     }, function () {
-      if (btn) { btn.disabled = false; btn.textContent = label; }
+      if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
       $('#evCount').textContent = 'Location not available. Search a town instead.';
     }, { timeout: 8000, maximumAge: 60000 });
   }
@@ -995,6 +995,8 @@
       if (q) q.placeholder = 'Search a town for chargers, e.g. Utrecht';
     }
     if (near) near.onclick = goHere;
+    var pnear = document.getElementById('evNear');
+    if (pnear) pnear.onclick = goHere;
   }
 
   function stat(id, v) {
