@@ -4,12 +4,12 @@
    ============================================ */
 
 // Mobile menu
-function toggleMenu(){document.querySelector('.nl').classList.toggle('open');}
+function toggleMenu(){var n=document.getElementById('navLinks')||document.querySelector('.nav-links');if(n)n.classList.toggle('open');}
 // FAQ
 document.addEventListener('click',e=>{const q=e.target.closest('.fqq');if(q)q.parentElement.classList.toggle('open');});
 
 // ---- MAP UTILITIES ----
-function mkI(c,l){return L.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="46" viewBox="0 0 36 46"><path d="M18 0C8.1 0 0 8.1 0 18c0 13.5 18 28 18 28s18-14.5 18-28C36 8.1 27.9 0 18 0z" fill="${c}" filter="drop-shadow(0 2px 4px rgba(0,0,0,.3))"/><circle cx="18" cy="17" r="9" fill="white" opacity=".95"/><text x="18" y="21" text-anchor="middle" font-size="11" font-weight="bold" fill="${c}" font-family="DM Sans,sans-serif">${l}</text></svg>`,iconSize:[36,46],iconAnchor:[18,46],popupAnchor:[0,-40],className:''});}
+function mkI(c,l){return L.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="46" viewBox="0 0 36 46"><path d="M18 0C8.1 0 0 8.1 0 18c0 13.5 18 28 18 28s18-14.5 18-28C36 8.1 27.9 0 18 0z" fill="${c}" filter="drop-shadow(0 2px 4px rgba(0,0,0,.3))"/><circle cx="18" cy="17" r="9" fill="white" opacity=".95"/><text x="18" y="21" text-anchor="middle" font-size="11" font-weight="bold" fill="${c}" font-family="Hanken Grotesk,sans-serif">${l}</text></svg>`,iconSize:[36,46],iconAnchor:[18,46],popupAnchor:[0,-40],className:''});}
 
 function initMap(id,center,zoom){
     const m=L.map(id,{scrollWheelZoom:false,zoomControl:true}).setView(center,zoom);
@@ -21,12 +21,12 @@ function initMap(id,center,zoom){
 
 function addMarker(map,d,color,sym){
     const m=L.marker([d.lat,d.lng],{icon:mkI(color,sym)}).addTo(map);
-    m.bindPopup(`<div style="font-family:DM Sans,sans-serif;min-width:180px;padding:6px 4px">
-        <div style="font-family:Instrument Serif,serif;font-size:18px;color:#0A1628;margin-bottom:2px">${d.name}</div>
+    m.bindPopup(`<div style="font-family:inherit;min-width:180px;padding:6px 4px">
+        <div style="font-family:inherit;font-weight:700;font-size:16px;color:#0B1120;margin-bottom:2px">${d.name}</div>
         <div style="font-size:11px;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">${d.type||''}</div>
-        <div style="font-family:Instrument Serif,serif;font-size:22px;color:${color}">${d.price}</div>
+        <div style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:20px;letter-spacing:-.02em;color:${color}">${d.price}</div>
         ${d.detail?`<div style="font-size:12px;color:#64748B;margin-top:4px">${d.detail}</div>`:''}
-        ${d.link?`<a href="${d.link}" style="display:block;margin-top:12px;padding:8px 16px;background:#FF6B2C;color:#fff;text-align:center;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600">View Details →</a>`:''}
+        ${d.link?`<a href="${d.link}" style="display:block;margin-top:12px;padding:8px 16px;background:#EA580C;color:#fff;text-align:center;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600">View Details →</a>`:''}
     </div>`);
     return m;
 }

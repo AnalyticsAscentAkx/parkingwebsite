@@ -63,6 +63,10 @@ else
   log "GSC_SA_KEY unset or agent missing, skipping"
 fi
 
+# --- 3b. stamp the canonical nav, footer and stylesheet on every page ---------
+step "3b. Apply site chrome"
+python3 "$REPO/scripts/site/apply_chrome.py" >>"$LOG" 2>&1 || true
+
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------
 step "4. Freshen sitemap for changed pages"
 CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^[a-z0-9-]+\.html$' | sed 's/\.html$//')"

@@ -7,7 +7,10 @@
 <title>Netherlands Parking Map 2026 - Free Zones, P+R & Garages Interactive</title>
 <meta name="description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €1/day, garages with live rates. Filter by city, type and price. No login.">
 <link rel="canonical" href="https://parkingnetherlands.com/map">
-<link rel="stylesheet" href="shared.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=20260928b">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Netherlands Parking Map 2026 - Free, P+R & Garages">
@@ -20,10 +23,10 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Parking Netherlands Interactive Map","url":"https://parkingnetherlands.com/map","applicationCategory":"TravelApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Interactive map of free parking zones, P+R locations and garages across the Netherlands."}</script>
 <style>
 .map-hero{background:var(--nv);color:#fff;padding:48px 0 40px;position:relative;overflow:hidden}
-.map-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 20%, rgba(255,107,44,.22), transparent 60%), radial-gradient(45% 60% at 10% 90%, rgba(0,201,167,.18), transparent 60%);pointer-events:none}
+.map-hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(148,163,184,.14) 1px,transparent 1px);background-size:22px 22px;mask-image:radial-gradient(ellipse 75% 95% at 50% 0%,#000 25%,transparent 78%)}
 .map-hero .ct{position:relative;z-index:2}
-.map-hero h1{font-family:var(--fd);font-size:clamp(2rem,4.5vw,3rem);font-weight:400;color:#fff;margin-bottom:10px;letter-spacing:-.3px}
-.map-hero h1 em{color:var(--or);font-style:italic}
+.map-hero h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-.035em;line-height:1.08}
+.map-hero h1 em{color:var(--sig);font-style:normal}
 .map-hero .sub{color:#cbd5e1;font-size:16px;max-width:640px;line-height:1.7}
 
 .map-toolbar{background:#fff;border:1px solid var(--g2);border-radius:14px;padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0;box-shadow:0 4px 18px rgba(10,22,40,.04)}
@@ -47,7 +50,7 @@
 @media(max-width:680px){.map-stats{grid-template-columns:repeat(2,1fr)}}
 .mstat{background:#fff;border:1px solid var(--g2);border-radius:12px;padding:18px;text-align:center;transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s}
 .mstat:hover{transform:translateY(-3px);border-color:var(--or)}
-.mstat .v{font-family:var(--fd);font-size:32px;color:var(--nv);line-height:1.1}
+.mstat .v{font-family:var(--f-mono);font-weight:600;font-size:30px;color:var(--ink);line-height:1.1;letter-spacing:-.03em}
 .mstat .v.or{color:var(--or)}.mstat .v.tl{color:var(--tl)}.mstat .v.gn{color:var(--gn)}
 .mstat .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--g4);margin-top:6px;font-weight:600}
 
@@ -71,51 +74,40 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body><nav class="nav"><div class="nav-in">
-<a href="/" class="logo"><div class="lm">P</div><span class="lt">Parking Netherlands</span></a>
-<ul class="nl">
-  <li class="has-drop"><a href="/all-cities">Cities ▾</a>
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+<ul class="nav-links" id="navLinks">
+  <li class="has-drop"><a href="/all-cities">Cities</a>
     <div class="drop">
-      <a href="/amsterdam">Amsterdam</a>
-      <a href="/rotterdam">Rotterdam</a>
-      <a href="/the-hague">The Hague</a>
-      <a href="/utrecht">Utrecht</a>
-      <a href="/eindhoven">Eindhoven</a>
+      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
       <div class="drop-div"></div>
-      <a href="/groningen">Groningen</a>
-      <a href="/haarlem">Haarlem</a>
-      <a href="/leiden">Leiden</a>
-      <a href="/delft">Delft</a>
-      <a href="/maastricht">Maastricht</a>
-      <a href="/breda">Breda</a>
+      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
       <div class="drop-div"></div>
-      <a href="/nijmegen">Nijmegen</a>
-      <a href="/tilburg">Tilburg</a>
-      <a href="/zwolle">Zwolle</a>
+      <a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a>
       <div class="drop-div"></div>
-      <a href="/all-cities">All Cities →</a>
+      <a href="/all-cities">All cities</a>
     </div>
   </li>
-  <li><a href="/map" class="act">Map 🗺️</a></li>
-  <li><a href="/ev-charging">EV Charging ⚡</a></li>
-  <li><a href="/schiphol">Schiphol ✈</a></li>
-  <li class="has-drop"><a href="/free-parking">Guides ▾</a>
+  <li><a href="/search">Search</a></li>
+  <li class="has-drop active"><a href="/map">Map</a>
     <div class="drop">
-      <a href="/free-parking">🆓 Free Parking</a>
-      <a href="/street-parking">🛣️ Street Parking</a>
-      <a href="/long-term-parking">🕐 Long-Term Parking</a>
-      <a href="/parking-tips-netherlands">💡 Parking Tips</a>
-      <a href="/ev-parking">⚡ EV Parking Guide</a>
-      <a href="/parking-apps">📱 Parking Apps</a>
-      <a href="/parking-fines">⚠️ Fines Guide</a>
-      <div class="drop-div"></div>
-      <a href="/parkbee">🅿️ ParkBee Guide</a>
-      <div class="drop-div"></div>
-      <a href="/about">About this site</a>
+      <a href="/map">Garages &amp; P+R map</a><a href="/street-map">Street tariff zones</a>
     </div>
   </li>
-  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="cb" target="_blank">💙 Support</a></li>
+  <li><a href="/ev-charging">EV charging</a></li>
+  <li><a href="/schiphol">Schiphol</a></li>
+  <li class="has-drop"><a href="/free-parking">Guides</a>
+    <div class="drop">
+      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV parking guide</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
+      <div class="drop-div"></div>
+      <a href="/parkbee">ParkBee guide</a>
+      <div class="drop-div"></div>
+      <a href="/belgium-parking">Belgium parking</a><a href="/about">About this site</a>
+    </div>
+  </li>
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
 </ul>
-<button class="mt" onclick="toggleMenu()" aria-label="Menu">☰</button>
+<button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div></nav>
 <div class="bc-bar"><div class="ct bc-in"><a href="/">Home</a> → <strong>Parking Map</strong></div></div>
 
@@ -191,18 +183,22 @@
   </div>
 </section>
 
-<footer class="footer"><div class="ct">
-<div class="fg">
-<div class="fb"><a href="/" class="logo"><div class="lm">P</div><span class="lt">Parking Netherlands</span></a><p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p><div class="fbu">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank">Analytics Ascent</a></div></div>
-<div class="fc"><h4>Major Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol ✈</a></div>
-<div class="fc"><h4>More Cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
-<div class="fc"><h4>Resources</h4><a href="/map">Parking Map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking Apps</a><a href="/parking-fines">Fines Guide</a><a href="/free-parking">Free Parking Map</a><a href="/parking-tips-netherlands">Parking Tips</a><a href="/link-to-us">Link to us</a><a href="/about">About</a></div>
-</div>
-<div class="fbo">
-<span>© 2026 Parking Netherlands - An <a href="https://analyticascent.com" target="_blank" style="color:var(--or)">Analytics Ascent</a> project</span>
-<span class="ff">🆓 100% free - no sign-up required</span>
-<span>Not affiliated with any municipality</span>
-</div>
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+      <p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p>
+      <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+    </div>
+    <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
+    <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
+    <span>Not affiliated with any municipality</span>
+  </div>
 </div></footer>
 
 <script src="shared.js"></script>
@@ -282,7 +278,7 @@ const SPOTS = [
   {n:'Schiphol P3 Long-Stay', c:'Schiphol', t:'gr', lat:52.2987, lng:4.7395, price:'€8/day', detail:'Cheapest official Schiphol option. Bus to terminal.', link:'/schiphol'},
 ];
 
-const typeColors = {fr:'#10B981', pr:'#00C9A7', gr:'#FF6B2C', bz:'#8B5CF6'};
+const typeColors = {fr:'#10B981', pr:'#059669', gr:'#EA580C', bz:'#8B5CF6'};
 const typeLabels = {fr:'Free', pr:'P+R', gr:'Garage', bz:'Blue Zone'};
 
 const map = L.map('map', {zoomControl:true, scrollWheelZoom:false}).setView([52.20, 5.30], 8);
