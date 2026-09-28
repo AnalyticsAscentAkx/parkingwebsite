@@ -74,7 +74,7 @@
     return up >= 97 ? 'ok' : up >= 90 ? 'warn' : 'bad';
   }
   function colour(g) {
-    return g === 'ok' ? '#059669' : g === 'warn' ? '#D97706'
+    return g === 'ok' ? '#168A68' : g === 'warn' ? '#D97706'
          : g === 'bad' ? '#DC2626' : '#7C8DB5';
   }
   function narrow() { return window.innerWidth <= 900; }
@@ -270,7 +270,7 @@
     inView.forEach(function (c) {
       var m = L.circleMarker([c.lat, c.lon], {
         radius: Math.max(5, Math.min(26, Math.sqrt(c.n) * 1.5)),
-        weight: 1.5, color: '#fff', fillColor: '#2337C6', fillOpacity: .62
+        weight: 1.5, color: '#fff', fillColor: '#315CCB', fillOpacity: .62
       });
       m.bindTooltip(esc(c.name) + ': ' + c.n.toLocaleString() + ' locations',
                     { direction: 'top' });
@@ -378,8 +378,8 @@
     if (!m) return;
     if (m.setStyle) {
       var r = markerRadius();
-      if (state === 'selected') m.setStyle({ radius: r + 4, weight: 3, color: '#0B1120' }).bringToFront();
-      else if (state === 'hover') m.setStyle({ radius: r + 2, weight: 2.5, color: '#0B1120' }).bringToFront();
+      if (state === 'selected') m.setStyle({ radius: r + 4, weight: 3, color: '#EA580C' }).bringToFront();
+      else if (state === 'hover') m.setStyle({ radius: r + 2, weight: 2.5, color: '#315CCB' }).bringToFront();
       else m.setStyle({ radius: r, weight: 1.5, color: '#fff' });
       return;
     }
@@ -708,7 +708,7 @@
           iconSize: null, iconAnchor: [0, 0] }), riseOnHover: true });
       } else {
         m = L.circleMarker([g.lat, g.lon], { radius: markerRadius() + 1, weight: 1.5, color: '#fff',
-          fillColor: g.kind === 'pr' ? '#2337C6' : '#0B1120', fillOpacity: .95 });
+          fillColor: g.kind === 'pr' ? '#315CCB' : '#17243A', fillOpacity: .95 });
       }
       m.on('click', function () { select(g.id, true); });
       m.on('mouseover', function () { hover(g.id, true); });
@@ -957,7 +957,7 @@
     navigator.geolocation.getCurrentPosition(function (pos) {
       var ll = [pos.coords.latitude, pos.coords.longitude];
       if (hereMarker) map.removeLayer(hereMarker);
-      hereMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#2337C6', fillOpacity: 1 })
+      hereMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#315CCB', fillOpacity: 1 })
         .bindTooltip('You are here', { direction: 'top' }).addTo(map);
       zoomed = true;
       map.setView(ll, 15);

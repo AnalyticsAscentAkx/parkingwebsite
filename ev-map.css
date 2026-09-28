@@ -465,3 +465,25 @@
 .ev-chips button[data-f="faulty"]{border-color:#FECACA;color:var(--bad)}
 .ev-chips button[data-f="free"][aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
 .ev-chips button[data-f="faulty"][aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+
+/* palette: cobalt = navigation and selection, teal = live/available, orange = the action */
+.ev-app{background:var(--paper-2)}
+.ev-pinwrap.is-sel .ev-pin{background:var(--sig)!important;border-color:#fff;border-width:2px;box-shadow:0 0 0 3px rgba(234,88,12,.35),0 2px 8px rgba(11,17,32,.35)}
+.ev-pinwrap.is-hover .ev-pin{box-shadow:0 0 0 3px rgba(49,92,203,.35),0 2px 8px rgba(11,17,32,.35)}
+.ev-row[aria-selected="true"]{background:var(--blue-soft);box-shadow:inset 3px 0 0 var(--blue)}
+.ev-card{border-top:3px solid var(--sig)}
+.ev-modes button[aria-pressed="true"]{background:var(--blue)}
+.ev-modes button[data-mode="parking"][aria-pressed="true"]{background:var(--blue)}
+.ev-legend div:nth-child(2) i{background:var(--ok)}
+.ev-card-status[data-g="ok"]{color:var(--ok)}.ev-card-status[data-g="ok"] i{background:var(--ok)}
+
+/* the search box is the first thing to use: labelled, tall, framed in cobalt */
+.ev-search-label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:2px 0 6px}
+.ev-search{position:relative;margin-bottom:14px}
+.ev-search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--blue);pointer-events:none}
+.ev-search input{height:46px;padding:0 12px 0 40px;font-size:15px;background:#fff;border:2px solid var(--blue);border-radius:var(--r);box-shadow:0 4px 14px -6px rgba(49,92,203,.45)}
+.ev-search input::placeholder{color:#6B7A93}
+.ev-search input:focus{border-color:var(--blue-2);box-shadow:0 0 0 4px var(--blue-soft)}
+.ev-search button{height:46px;padding:0 18px;font-size:14px;background:var(--sig);border-radius:var(--r)}
+.ev-search button:hover{background:#C2410C}
+@media(max-width:900px){.ev-search-label{margin-top:4px}.ev-search input{height:42px}.ev-search button{height:42px;padding:0 14px}}
