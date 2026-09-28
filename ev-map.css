@@ -592,3 +592,19 @@
   .ev-chips{margin:0 -14px;padding-left:14px;padding-right:14px}
   .ev-meta,.ev-price small{font-size:11.5px}
 }
+
+/* filters wrap again, small enough for two lines; the panel edge drags */
+.ev-chips{flex-wrap:wrap;overflow:visible;gap:5px;padding:8px 0 4px;margin:0}
+.ev-chips button{padding:5px 10px;font-size:11.5px;min-height:0}
+.ev-app{grid-template-columns:var(--ev-panel) 6px minmax(0,1fr)}
+.ev-resizer{grid-column:2;cursor:col-resize;background:var(--line);position:relative;z-index:5}
+.ev-resizer::after{content:"";position:absolute;left:1px;top:50%;width:4px;height:36px;margin-top:-18px;border-radius:2px;background:var(--mut-2)}
+.ev-resizer:hover,.ev-resizer:hover::after{background:var(--blue)}
+.ev-panel{order:0;grid-column:1}
+.ev-mapwrap{grid-column:3}
+@media(max-width:900px){
+  .ev-resizer{display:none}
+  .ev-chips button{min-height:36px;padding:7px 12px;font-size:12.5px}
+  .ev-chips{margin:0;padding:6px 0 4px}
+}
+.ev-panel,.ev-resizer,.ev-mapwrap{grid-row:1}

@@ -1031,6 +1031,27 @@
       if (e.key === 'Escape') { box.value = ''; refresh(); }
     });
     $('#evGo').onclick = function () { searchGo(box.value); };
+    /* desktop: drag the panel edge to make it wider; remembered per browser */
+    var rz = $('#evResizer'), app0 = $('#evApp');
+    if (rz && app0) {
+      try { var saved = parseInt(localStorage.getItem('evPanelW'), 10); if (saved >= 340 && saved <= 720) app0.style.setProperty('--ev-panel', saved + 'px'); } catch (e) {}
+      rz.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        var startX = e.clientX, startW = app0.querySelector('.ev-panel').offsetWidth;
+        function move(ev) {
+          var w = Math.max(340, Math.min(720, startW + (ev.clientX - startX)));
+          app0.style.setProperty('--ev-panel', w + 'px');
+        }
+        function up() {
+          document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up);
+          document.body.style.cursor = '';
+          try { localStorage.setItem('evPanelW', app0.querySelector('.ev-panel').offsetWidth); } catch (e) {}
+          if (map) map.invalidateSize();
+        }
+        document.body.style.cursor = 'col-resize';
+        document.addEventListener('mousemove', move); document.addEventListener('mouseup', up);
+      });
+    }
     var handle = $('#evHandle');
     if (handle) {
       handle.onclick = sheetToggle; sheet('peek');

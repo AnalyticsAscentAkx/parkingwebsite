@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=20260929j">
 <script src="/analytics.js?v=20260929j" defer></script>
-<link rel="stylesheet" href="/ev-map.css?v=20260930c">
+<link rel="stylesheet" href="/ev-map.css?v=20260930e">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
@@ -94,6 +94,7 @@
     <div class="ev-legend" id="evLegend" hidden></div>
   </div>
 
+  <div class="ev-resizer" id="evResizer" title="Drag to resize the panel" aria-hidden="true"></div>
   <aside class="ev-panel" aria-label="Results">
     <button type="button" class="ev-handle" id="evHandle" aria-label="Show or hide the results list"><i></i><span id="evHandleText">Results</span></button>
     <div class="ev-phead">
@@ -465,7 +466,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js?v=20260930c" defer></script>
+<script src="/ev-map.js?v=20260930e" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they
