@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260928b">
+<link rel="stylesheet" href="/site.css?v=20260929a">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does parking cost in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Street parking in Amsterdam centre costs \u20ac8.05/hr in 2026 - 24/7, including Sundays. Garages start from \u20ac1.25/hr (\u20ac10/day). P+R parking is \u20ac1.00/24hr including public transport into the centre."}}, {"@type": "Question", "name": "How much does parking cost per day in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "A full day ranges from \u20ac1 to about \u20ac80. Central street parking at \u20ac8.05/hr runs all day and can reach \u20ac80. Garages are roughly \u20ac10/day (Mobihub Rembrandtpark). The cheapest is P+R at \u20ac1/24hr including transit."}}, {"@type": "Question", "name": "What is the cheapest garage in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Mobihub Rembrandtpark at \u20ac1.25/hr and \u20ac10/day in west Amsterdam, about 15 min by tram to the centre. Second cheapest is Mobihub NDSM at \u20ac2/hr in Noord, with a free ferry to the centre."}}, {"@type": "Question", "name": "Can I park in Amsterdam for free on Sunday?", "acceptedAnswer": {"@type": "Answer", "text": "No. Amsterdam paid zones operate 24/7, 365 days a year, so Sundays are not free in the centre. The only near-free options are P+R (\u20ac1/24hr with transit), Noord beyond the paid zone, and outer Nieuw-West in the evenings."}}, {"@type": "Question", "name": "How do I use Amsterdam P+R parking?", "acceptedAnswer": {"@type": "Answer", "text": "Park at a P+R location for \u20ac1/24hr, then tap your OV-chipkaart to take public transport into the centre. The \u20ac1 rate requires checking in and out on public transport at least twice; without it you pay the normal daily rate."}}, {"@type": "Question", "name": "Do Amsterdam parking fines apply to foreign cars?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Scan cars operate 24/7 and foreign plates are tracked through European databases. The \u20ac82 fine is sent to the registered owner abroad, and ignoring it leads to debt collection in your home country."}}, {"@type": "Question", "name": "Is it worth driving to Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "For most visitors, no - the train is faster and cheaper. If you must drive, use P+R Sloterdijk at \u20ac1/24hr, one of the best parking deals in Europe for a city this size."}}]}</script>
@@ -38,39 +38,38 @@
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
 <ul class="nav-links" id="navLinks">
+  <li><a href="/search" class="nav-find">Find parking</a></li>
   <li class="has-drop active"><a href="/all-cities">Cities</a>
-    <div class="drop">
-      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
-      <div class="drop-div"></div>
-      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
-      <div class="drop-div"></div>
-      <a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a>
-      <div class="drop-div"></div>
-      <a href="/all-cities">All cities</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
+      <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a><a href="/belgium-parking">Belgium</a></div>
     </div>
   </li>
-  <li><a href="/search">Search</a></li>
-  <li class="has-drop"><a href="/map">Map</a>
+  <li class="has-drop"><a href="/map">Maps</a>
     <div class="drop">
-      <a href="/map">Garages &amp; P+R map</a><a href="/street-map">Street tariff zones</a>
+      <a href="/map">Garages &amp; P+R</a><a href="/street-map">Street tariff zones</a><a href="/ev-charging">EV chargers</a>
     </div>
   </li>
-  <li><a href="/ev-charging">EV charging</a></li>
-  <li><a href="/schiphol">Schiphol</a></li>
   <li class="has-drop"><a href="/free-parking">Guides</a>
-    <div class="drop">
-      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV parking guide</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
-      <div class="drop-div"></div>
-      <a href="/parkbee">ParkBee guide</a>
-      <div class="drop-div"></div>
-      <a href="/belgium-parking">Belgium parking</a><a href="/about">About this site</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/ev-parking">EV parking</a><a href="/parkbee">ParkBee</a><a href="/blog">Blog</a></div>
     </div>
   </li>
-  <li><a href="/blog">Blog</a></li>
-  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
-</div></nav>
+</div>
+<form class="nav-search" action="/search" method="get" role="search" onsubmit="var v=this.q.value.trim();if(!v){event.preventDefault();this.q.focus()}">
+  <div class="nav-search-in">
+    <label for="navQ" class="sr-only">Search parking near an address</label>
+    <input type="search" id="navQ" name="q" placeholder="Search parking near an address, venue or city" autocomplete="off">
+    <button type="button" class="nav-near" title="Use my location" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&amp;lng='+p.coords.longitude.toFixed(5)+'&amp;q=Near+me'},function(){b.disabled=false;b.textContent='Near me';location.href='/search'},{timeout:8000}):location.href='/search'">Near me</button>
+    <button type="submit" class="nav-go">Search</button>
+  </div>
+</form>
+</nav>
 <div class="bc-bar"><div class="ct bc-in"><a href="/">Home</a> → <strong>Amsterdam</strong></div></div>
 <div class="ph"><div class="ct">
 <h1>Parking in <em>Amsterdam</em> - 2026</h1>
@@ -298,6 +297,7 @@
       <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
       <p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p>
       <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+      <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
     </div>
     <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
     <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>

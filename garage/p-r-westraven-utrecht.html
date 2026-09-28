@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260928b">
+<link rel="stylesheet" href="/site.css?v=20260929a">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="place">
 <meta property="og:url" content="https://parkingnetherlands.com/garage/p-r-westraven-utrecht">
@@ -33,39 +33,38 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
 <ul class="nav-links" id="navLinks">
+  <li><a href="/search" class="nav-find">Find parking</a></li>
   <li class="has-drop"><a href="/all-cities">Cities</a>
-    <div class="drop">
-      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
-      <div class="drop-div"></div>
-      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
-      <div class="drop-div"></div>
-      <a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a>
-      <div class="drop-div"></div>
-      <a href="/all-cities">All cities</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
+      <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a><a href="/belgium-parking">Belgium</a></div>
     </div>
   </li>
-  <li><a href="/search">Search</a></li>
-  <li class="has-drop"><a href="/map">Map</a>
+  <li class="has-drop"><a href="/map">Maps</a>
     <div class="drop">
-      <a href="/map">Garages &amp; P+R map</a><a href="/street-map">Street tariff zones</a>
+      <a href="/map">Garages &amp; P+R</a><a href="/street-map">Street tariff zones</a><a href="/ev-charging">EV chargers</a>
     </div>
   </li>
-  <li><a href="/ev-charging">EV charging</a></li>
-  <li><a href="/schiphol">Schiphol</a></li>
   <li class="has-drop"><a href="/free-parking">Guides</a>
-    <div class="drop">
-      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV parking guide</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
-      <div class="drop-div"></div>
-      <a href="/parkbee">ParkBee guide</a>
-      <div class="drop-div"></div>
-      <a href="/belgium-parking">Belgium parking</a><a href="/about">About this site</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/ev-parking">EV parking</a><a href="/parkbee">ParkBee</a><a href="/blog">Blog</a></div>
     </div>
   </li>
-  <li><a href="/blog">Blog</a></li>
-  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
-</div></nav>
+</div>
+<form class="nav-search" action="/search" method="get" role="search" onsubmit="var v=this.q.value.trim();if(!v){event.preventDefault();this.q.focus()}">
+  <div class="nav-search-in">
+    <label for="navQ" class="sr-only">Search parking near an address</label>
+    <input type="search" id="navQ" name="q" placeholder="Search parking near an address, venue or city" autocomplete="off">
+    <button type="button" class="nav-near" title="Use my location" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&amp;lng='+p.coords.longitude.toFixed(5)+'&amp;q=Near+me'},function(){b.disabled=false;b.textContent='Near me';location.href='/search'},{timeout:8000}):location.href='/search'">Near me</button>
+    <button type="submit" class="nav-go">Search</button>
+  </div>
+</form>
+</nav>
 <div class="gwrap">
   <div class="crumb"><a href="/">Home</a> / <a href="/utrecht">Parking Utrecht</a> / P+R Westraven</div>
   <header class="ghead">
@@ -127,6 +126,7 @@ h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);marg
       <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
       <p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p>
       <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+      <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
     </div>
     <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
     <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>

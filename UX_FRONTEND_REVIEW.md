@@ -338,3 +338,59 @@ Review Search Console indexing and queries, analytics task completion, map/list 
 ## Changes made after the initial review
 
 In the first implementation pass, [ev-map.js](/Users/aakash.chavash/Documents/Personal%20Script/parking_website%20/ev-map.js) now distinguishes failed map-tile requests from valid empty tiles, shows a partial-data warning, and retries failed tiles when the user moves the map. It explains the town-circle overview, hides charger sort controls until individual chargers are shown, searches for town-name fragments, announces a no-match state, and replaces the ambiguous “Open” text on town rows with “View chargers.” It also removes the misleading “Cheapest card here” estimate because the source was a site-wide benchmark rather than the charger operator's tariff. The page now shows “Not available” for missing uptime history and aligns its town count with the generated data. The EV page generator now emits only comparison pages supported by enough history, priced locations, or qualifying fast chargers; it also removes uptime promises and replaces the zero-days statistic when history is unavailable. These are scoped improvements; they do not synchronize the manually maintained `/ev-charging` article, FAQ and structured data with the data snapshot, or yet make generated page content unique and useful beyond its result list.
+
+## Follow-up review: current live page and content organization
+
+**Reviewed:** 28 September 2026, live `/ev-charging` at a narrow mobile viewport, including Map and List states and the full page text. This is a content and interaction review, not a full device matrix.
+
+### Highest-impact user-friction findings
+
+1. **The mobile list makes the user configure a stop before finding a charger.** The sequence is title and paragraph, three statistics, town search, arrival time, departure time, energy amount, then results. On the observed phone-sized view, those controls consume most of the first screen and only a few town rows are visible. Put town search first, show results next, and move the date/time/energy inputs into a clearly named expandable “Refine cost estimate” section. Keep sensible defaults so cost sorting still works.
+2. **“400 towns” can read as a complete result count.** The list is intentionally capped at 400 visible towns, while the page reports 2,837 towns nationally. Say “Showing up to 400 towns in this map view; search to find another town,” or change the interaction so search filters all 2,837 towns and the visible-map count is explicit. Do not imply the list is complete.
+3. **The two ways to start are not equally easy to discover.** On mobile, map/list is the right pattern, but the map can be visually dense in the Randstad. Make search available in both modes and let typing narrow the town list immediately. If map circles overlap, the town list should remain the reliable route; do not ask the user to tap a tiny circle.
+4. **The page has no contents navigation before a long article.** After the tool, the reader reaches seven substantial topics, several tables, a glossary, seven FAQs, and methodology. Add a short “On this page” row of anchors (Costs, Parking, Status, Fast charging, Cities, Questions, Sources). On mobile it can wrap or scroll horizontally with a visible affordance.
+5. **The data tables compete with the main explanation.** The operator-price and fault tables each have ten rows, and the city table has fifteen. Lead each with a one-sentence takeaway and keep a compact top-five/summary visible. Put the full comparison in a labeled disclosure such as “See all 10 operators.” Give every disclosure a useful summary, keep captions and table headers intact, and leave one table open at most by default.
+
+### Fix content contradictions before polishing the prose
+
+- The map result no longer shows a “cheapest card” estimate, but the FAQ still says the map shows the cheapest card for each location. Remove or rewrite that answer; it now promises a feature the tool does not provide.
+- The methodology says an unreported failed post “will still show as working,” while the map uses a separate unavailable/no-history state when reliability is absent. Align the sentence with the actual interface: operator-reported faults are shown; missing reports are unknown, not verified working.
+- Several current-snapshot numbers are repeated in the opening, tables, FAQ, structured data and explanatory text. Keep one canonical source and derive the copies from it; label snapshot-dependent facts with an “As of” date/time.
+- “Broken right now” and “refreshed continuously” sound more precise than a page without a visible last-updated timestamp. Prefer “reported faulty in the latest feed snapshot” and show the snapshot time, or describe the update cadence that can actually be guaranteed.
+- “What a stop actually costs” overpromises a calculation based on requested kWh and matched hourly parking. Call it an estimate and state that vehicle charging speed, taper, card/session fees, occupancy and access restrictions can change the real stop.
+
+### Recommended page outline
+
+1. **Find a charger** — concise H1 and one-sentence value proposition; town search; Map/List switch; visible result count; results. Keep the map available, but don't let it be the only path to towns.
+2. **Optional cost estimate** — collapsed by default on mobile; arrival, departure and kWh; describe the current default estimate. Expand automatically only if the user chooses cost sorting or opens a result's price details.
+3. **Quick answers** — three compact cards: typical charging-price range, parking may be charged separately, and status is operator-reported. Include the snapshot date and links to deeper sections.
+4. **Compare costs and parking** — short explanation and key result first; detailed operator table behind a disclosure; link to the full parking guide.
+5. **Check status and choose speed** — keep current faults distinct from historical reliability; summarize AC vs DC; detailed breakdown available on demand.
+6. **Explore by city** — a compact, searchable city directory/table that links to useful city charger pages. Avoid repeating the site-wide parking-guide links as if they were charger results.
+7. **Practical questions** — 4–5 concise FAQs addressing cost, parking, current status, fast charging, and payment. Remove answers that simply restate a table or promise missing app functionality.
+8. **Sources and method** — put data providers, matching radius, price limitations, status meaning, refresh time and contact/correction route in one scannable section.
+
+Keep the page long enough to answer real questions, but make detail optional. Collapsing secondary tables and grouping topics improves scanning without deleting useful indexable text. Avoid making every paragraph an accordion: users should see the core answer and the most useful evidence without opening several controls.
+
+### Suggested implementation order
+
+**P0:** fix the obsolete card-price FAQ; accurately state how missing status is represented; make the 400-town cap explicit; add a compact contents nav and real snapshot timestamp.
+
+**P1:** reorder the mobile panel to Search → Results → optional cost estimate; make town search filter the list; collapse secondary tables and remove the default-open FAQ answer.
+
+**P2:** group content into the outline above, replace duplicated factual copy with generated values, and review whether the city directory belongs on this page or on a dedicated index page.
+
+## Map inspiration: patterns to borrow from ParkBee
+
+ParkBee's official product material describes one map experience that puts nearby street and garage options together, with prices, opening hours and availability, and a map control to switch street parking on or off. Its published app imagery also uses price labels on map pins and a selected-location card with the rate, availability, practical constraints and a direct action. These patterns help the driver compare and act without reading a long explanation first. See [ParkBee's app overview](https://parkbee.com/en/pages/parking-app) and [how it works](https://parkbee.com/en/how-it-works).
+
+Apply the interaction principles to charger discovery, while displaying only facts your data can support:
+
+1. **Start with the destination.** Keep “Search town or address” visible above the map/list and let it filter the town results as the user types. On the current mobile list, the visitor must pass the national counts and all three estimate fields before reaching results.
+2. **Make the map markers carry a decision.** At town zoom, use clusters/counts instead of hundreds of overlapping circles. At charger zoom, consider price labels for an explicitly defined example session, or keep the map clean and show price/status in a strong selected-location card. Avoid putting price, fault status, power and cluster size into color/shape simultaneously.
+3. **Give a selected charger a useful preview.** Selecting a marker should reveal a mobile bottom sheet / desktop detail panel with operator, reported status and timestamp, maximum power and connector details when known, charge estimate, parking estimate and combined total. Make the next action clear (for example, directions) only when the location data can support it.
+4. **Keep map and list in sync.** Highlight the selected row and pin, preserve the selected location when switching modes, and give the user a “Search this area” action after panning. A list is especially valuable in dense Randstad clusters where small map targets overlap.
+5. **Offer a few task-based map filters.** Use concise chips such as “Fast charging,” “Lower estimated cost,” and “Reported faulty,” provided the relevant data is present. Make filters visibly active and include a one-tap clear action. “Reported faulty” must not imply live connector availability.
+6. **Put the price context in the result.** ParkBee's public description emphasizes comparing options with rates and availability together. For your map, say what the total represents (for example, “20 kWh + 2 hours”) and keep the charging and parking parts visible. Do not call it a guaranteed final bill.
+
+The strongest ParkBee lesson is the order: search, compare nearby options, inspect one option, then act. The charger map already has meaningful data; reducing the steps and making map pins answer “which one should I look at?” will make that data easier to use.

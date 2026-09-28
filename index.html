@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260928b">
+<link rel="stylesheet" href="/site.css?v=20260929a">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <meta property="og:type" content="website">
@@ -115,12 +115,6 @@
 .city-card .go svg{transition:transform .18s}
 .city-card:hover .go svg{transform:translateX(4px)}
 
-/* --- steps --- */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:step}
-.step{padding:26px 24px;border:1px solid rgba(148,163,184,.16);border-radius:var(--r-lg);background:rgba(255,255,255,.025)}
-.step::before{counter-increment:step;content:counter(step,decimal-leading-zero);font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--sig);letter-spacing:.08em}
-.step h3{font-size:15.5px;font-weight:700;color:#fff;margin:12px 0 6px;letter-spacing:-.01em}
-.step p{font-size:13.5px;color:#94A3B8;line-height:1.65}
 
 /* --- tips --- */
 .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -182,39 +176,30 @@
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
 <ul class="nav-links" id="navLinks">
+  <li><a href="/search" class="nav-find">Find parking</a></li>
   <li class="has-drop"><a href="/all-cities">Cities</a>
-    <div class="drop">
-      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
-      <div class="drop-div"></div>
-      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
-      <div class="drop-div"></div>
-      <a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a>
-      <div class="drop-div"></div>
-      <a href="/all-cities">All cities</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
+      <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a><a href="/belgium-parking">Belgium</a></div>
     </div>
   </li>
-  <li><a href="/search">Search</a></li>
-  <li class="has-drop"><a href="/map">Map</a>
+  <li class="has-drop"><a href="/map">Maps</a>
     <div class="drop">
-      <a href="/map">Garages &amp; P+R map</a><a href="/street-map">Street tariff zones</a>
+      <a href="/map">Garages &amp; P+R</a><a href="/street-map">Street tariff zones</a><a href="/ev-charging">EV chargers</a>
     </div>
   </li>
-  <li><a href="/ev-charging">EV charging</a></li>
-  <li><a href="/schiphol">Schiphol</a></li>
   <li class="has-drop"><a href="/free-parking">Guides</a>
-    <div class="drop">
-      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV parking guide</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
-      <div class="drop-div"></div>
-      <a href="/parkbee">ParkBee guide</a>
-      <div class="drop-div"></div>
-      <a href="/belgium-parking">Belgium parking</a><a href="/about">About this site</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/ev-parking">EV parking</a><a href="/parkbee">ParkBee</a><a href="/blog">Blog</a></div>
     </div>
   </li>
-  <li><a href="/blog">Blog</a></li>
-  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
-</div></nav>
+</div>
+</nav>
 
 <header class="hero"><div class="wrap hero-in">
   <div class="tag"><span class="dot"></span> 2026 rates · national register data</div>
@@ -224,6 +209,7 @@
     <input type="text" id="heroQ" placeholder="Where do you need to park? Address, venue or city…" autocomplete="off">
     <button type="submit" class="btn btn-primary">Find parking</button>
   </form>
+  <button type="button" class="hero-near" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&lng='+p.coords.longitude.toFixed(5)+'&q=Near+me'},function(){b.disabled=false;b.textContent='Use my location';location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg> Cheapest parking near me</button>
   <div class="hero-stats">
     <div class="hstat"><div class="n">200+</div><div class="l">Garages &amp; P+R sites with official tariffs</div></div>
     <div class="hstat"><div class="n">14</div><div class="l">Dutch cities covered in depth</div></div>
@@ -256,49 +242,16 @@
     <p>Every Dutch city charges differently. We show you where the money goes - and where it doesn't have to.</p>
   </div>
   <div class="city-grid">
-    <a href="/amsterdam" class="card city-card"><div class="top"><h3>Amsterdam</h3><span class="badge badge-bad">Expensive</span></div><dl><dt>Street (centre)</dt><dd class="price price-hi">€8.05/hr</dd><dt>Cheapest garage</dt><dd class="price">€1.25/hr</dd><dt>P+R (24hr)</dt><dd class="price price-lo">€1.00</dd><dt>Free parking</dt><dd>Very limited</dd></dl><span class="go">View all options <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/schiphol" class="card city-card"><div class="top"><h3>Schiphol</h3><span class="badge badge-bad">High</span></div><dl><dt>Official short stay</dt><dd class="price price-hi">€54/day</dd><dt>Official long stay</dt><dd class="price">€29/day</dd><dt>Off-site + shuttle</dt><dd class="price price-lo">€8/day</dd><dt>P+R hack</dt><dd class="price price-lo">~€6 total</dd></dl><span class="go">Compare Schiphol <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/rotterdam" class="card city-card"><div class="top"><h3>Rotterdam</h3><span class="badge badge-warn">Moderate</span></div><dl><dt>Street (centre)</dt><dd class="price">€4.24/hr</dd><dt>Cheapest garage</dt><dd class="price">€2.00/hr</dd><dt>P+R (24hr)</dt><dd class="price price-lo">€2.50</dd><dt>Free parking</dt><dd>Weekend zones</dd></dl><span class="go">View all options <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/the-hague" class="card city-card"><div class="top"><h3>The Hague</h3><span class="badge badge-warn">Moderate</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.98/hr</dd><dt>Cheapest garage</dt><dd class="price">€2.50/hr</dd><dt>P+R (24hr)</dt><dd class="price price-lo">€2.00</dd><dt>Free parking</dt><dd>Scheveningen off-peak</dd></dl><span class="go">View all options <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/utrecht" class="card city-card"><div class="top"><h3>Utrecht</h3><span class="badge badge-warn">Moderate</span></div><dl><dt>Street (centre)</dt><dd class="price">€5.10/hr</dd><dt>Cheapest garage</dt><dd class="price">€2.50/hr</dd><dt>P+R (24hr)</dt><dd class="price price-lo">€5.00</dd><dt>Free parking</dt><dd>Some outer areas</dd></dl><span class="go">View all options <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/eindhoven" class="card city-card"><div class="top"><h3>Eindhoven</h3><span class="badge badge-ok">Budget</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.30/hr</dd><dt>Cheapest garage</dt><dd class="price price-lo">€1.50/hr</dd><dt>P+R (24hr)</dt><dd class="price price-lo">€3.00</dd><dt>Free parking</dt><dd>Yes, outskirts</dd></dl><span class="go">View all options <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/amsterdam" class="card city-card"><div class="top"><h3>Amsterdam</h3><span class="badge badge-bad">Expensive</span></div><div class="lead"><span class="n">€1.00</span><span class="l">per day at P+R, then transit in</span></div><dl><dt>Street (centre)</dt><dd class="price price-hi">€8.05/hr</dd><dt>Cheapest garage</dt><dd class="price">€1.25/hr</dd></dl><span class="go">Every Amsterdam option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/schiphol" class="card city-card"><div class="top"><h3>Schiphol Airport</h3><span class="badge badge-bad">High</span></div><div class="lead"><span class="n">€8</span><span class="l">per day off-site with shuttle</span></div><dl><dt>Official short stay</dt><dd class="price price-hi">€54/day</dd><dt>P+R trick</dt><dd class="price price-lo">~€6 total</dd></dl><span class="go">Compare Schiphol <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/rotterdam" class="card city-card"><div class="top"><h3>Rotterdam</h3><span class="badge badge-warn">Moderate</span></div><div class="lead"><span class="n">€2.50</span><span class="l">per day at P+R</span></div><dl><dt>Street (centre)</dt><dd class="price">€4.24/hr</dd><dt>Free parking</dt><dd>Weekend zones</dd></dl><span class="go">Every Rotterdam option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/the-hague" class="card city-card"><div class="top"><h3>The Hague</h3><span class="badge badge-warn">Moderate</span></div><div class="lead"><span class="n">€2.00</span><span class="l">per day at P+R</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.98/hr</dd><dt>Free parking</dt><dd>Scheveningen off-peak</dd></dl><span class="go">Every Hague option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/utrecht" class="card city-card"><div class="top"><h3>Utrecht</h3><span class="badge badge-warn">Moderate</span></div><div class="lead"><span class="n">€5.00</span><span class="l">per day at P+R</span></div><dl><dt>Street (centre)</dt><dd class="price">€5.10/hr</dd><dt>Cheapest garage</dt><dd class="price">€2.50/hr</dd></dl><span class="go">Every Utrecht option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/eindhoven" class="card city-card"><div class="top"><h3>Eindhoven</h3><span class="badge badge-ok">Budget</span></div><div class="lead"><span class="n">€1.50</span><span class="l">per hour in the cheapest garage</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.30/hr</dd><dt>Free parking</dt><dd>Yes, outskirts</dd></dl><span class="go">Every Eindhoven option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/ev-charging" class="card city-card card-ev"><div class="top"><h3>EV charging</h3><span class="badge badge-ok">Live map</span></div><div class="lead"><span class="n">€0.41</span><span class="l">median price per kWh, public chargers</span></div><dl><dt>Charge points mapped</dt><dd class="price">201,239</dd><dt>Out of order right now</dt><dd class="price price-hi">1.6%</dd></dl><span class="go">Open the charger map <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/all-cities" class="card city-card"><div class="top"><h3>All 14 cities</h3><span class="badge badge-line">Compare</span></div><div class="lead"><span class="n">€1.40</span><span class="l">to €8.05 per hour on the street</span></div><dl><dt>Cheapest centre</dt><dd class="price price-lo">Zwolle</dd><dt>Free on Sunday</dt><dd>11 of 14</dd></dl><span class="go">Side-by-side table <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
   </div>
-</div></section>
-
-<section class="sec"><div class="wrap">
-  <div class="sec-h">
-    <div class="eyebrow">Quick compare</div>
-    <h2>Street parking rates - all cities</h2>
-    <p>2026 centre-zone peak rates at a glance.</p>
-  </div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>City</th><th>Street rate</th><th>Cheapest garage</th><th>P+R</th><th>Free?</th><th>Paid hours</th></tr></thead>
-    <tbody>
-      <tr><td><a href="/amsterdam" style="font-weight:700;color:var(--ink);text-decoration:none">Amsterdam</a></td><td class="price price-hi">€8.05/hr</td><td class="price">€1.25/hr</td><td>10 locations</td><td><span class="badge badge-bad">Very limited</span></td><td>24/7 centre</td></tr>
-      <tr><td><a href="/utrecht" style="font-weight:700;color:var(--ink);text-decoration:none">Utrecht</a></td><td class="price price-mid">€5.10/hr</td><td class="price">€2.50/hr</td><td>3 locations</td><td><span class="badge badge-warn">Limited</span></td><td>Mon-Sat 9-23</td></tr>
-      <tr><td><a href="/rotterdam" style="font-weight:700;color:var(--ink);text-decoration:none">Rotterdam</a></td><td class="price price-mid">€4.24/hr</td><td class="price price-lo">€2.00/hr</td><td>4 locations</td><td><span class="badge badge-ok">Some zones</span></td><td>Mon-Sat 9-23</td></tr>
-      <tr><td><a href="/the-hague" style="font-weight:700;color:var(--ink);text-decoration:none">The Hague</a></td><td class="price price-mid">€3.98/hr</td><td class="price">€2.50/hr</td><td>3 locations</td><td><span class="badge badge-ok">Some zones</span></td><td>Mon-Sat 9-21</td></tr>
-      <tr><td><a href="/maastricht" style="font-weight:700;color:var(--ink);text-decoration:none">Maastricht</a></td><td class="price">€3.60/hr</td><td class="price price-lo">€2.00/hr</td><td>2 locations</td><td><span class="badge badge-ok">Outskirts</span></td><td>Mon-Sat 9-20</td></tr>
-      <tr><td><a href="/haarlem" style="font-weight:700;color:var(--ink);text-decoration:none">Haarlem</a></td><td class="price">€3.50/hr</td><td class="price price-lo">€2.00/hr</td><td>1 location</td><td><span class="badge badge-warn">Limited</span></td><td>Mon-Sat 9-21</td></tr>
-      <tr><td><a href="/eindhoven" style="font-weight:700;color:var(--ink);text-decoration:none">Eindhoven</a></td><td class="price">€3.30/hr</td><td class="price price-lo">€1.50/hr</td><td>2 locations</td><td><span class="badge badge-ok">Outskirts</span></td><td>Mon-Sat 9-18</td></tr>
-      <tr><td><a href="/delft" style="font-weight:700;color:var(--ink);text-decoration:none">Delft</a></td><td class="price price-lo">€2.90/hr</td><td class="price price-lo">€1.50/hr</td><td>1 location</td><td><span class="badge badge-ok">Outskirts</span></td><td>Mon-Sat 9-21</td></tr>
-    </tbody>
-  </table></div>
-  <p style="margin-top:14px;font-size:13.5px;color:var(--mut)">Need garage-level prices? Browse the <a href="/garage/" style="color:var(--sig);font-weight:600;text-decoration:none">directory of 200+ garages</a> or <a href="/search" style="color:var(--sig);font-weight:600;text-decoration:none">search near an address</a>.</p>
-</div></section>
-
-<section class="sec sec-dark"><div class="wrap">
-  <div class="sec-h">
-    <div class="eyebrow">How it works</div>
-    <h2>Save up to 80% on parking</h2>
-    <p>Most tourists overpay because they don't know the local options.</p>
-  </div>
-  <div class="steps">
-    <div class="step"><h3>Search your destination</h3><p>Type any address or venue into the <a href="/search" style="color:var(--sig);text-decoration:none;font-weight:600">parking search</a> - we rank every option within reach.</p></div>
-    <div class="step"><h3>Compare real tariffs</h3><p>Prices come from the official national parking register, computed for your exact arrival and departure times.</p></div>
-    <div class="step"><h3>Find the free zones</h3><p>Blue zones, Sunday rules, evening cut-offs - the local knowledge tourists never discover.</p></div>
-    <div class="step"><h3>Park &amp; save</h3><p>Arrive knowing exactly what you'll pay. No circling, no €82.00 enforcement surprises.</p></div>
-  </div>
+  <p style="margin-top:16px;font-size:13.5px;color:var(--mut)">Garage-level prices: the <a href="/garage/" style="color:var(--sig);font-weight:600;text-decoration:none">directory of 323 garages</a>, or <a href="/search" style="color:var(--sig);font-weight:600;text-decoration:none">search near an address</a>.</p>
 </div></section>
 
 <div style="padding:34px 24px"><div class="ad-slot">Advertisement</div></div>
@@ -306,16 +259,12 @@
 <section class="sec sec-alt" style="padding-top:64px"><div class="wrap">
   <div class="sec-h">
     <div class="eyebrow">Local knowledge</div>
-    <h2>Tips most tourists miss</h2>
-    <p>Insider knowledge that saves real money.</p>
+    <h2>Two things tourists miss</h2>
+    <p>The rest is in the <a href="/parking-tips-netherlands" style="color:var(--sig);font-weight:600;text-decoration:none">parking tips guide</a>.</p>
   </div>
-  <div class="tips">
-    <div class="card tip"><div class="k">Transit</div><h3>P+R is the cheat code</h3><p>Park for €1/day on the outskirts and ride transit in. Amsterdam has 10 P+R sites. Most tourists park in the centre and pay €50+.</p></div>
-    <div class="card tip"><div class="k">Apps</div><h3>Apps beat meters</h3><p>EasyPark and Yellowbrick charge by the minute. Stop when you leave - saves €2-5 every session versus rounding up at meters.</p></div>
-    <div class="card tip"><div class="k">Timing</div><h3>Timing is everything</h3><p>Many cities don't charge on Sundays or evenings. Rotterdam has free weekend parking in several zones. Always check paid hours first.</p></div>
-    <div class="card tip"><div class="k">Blue zones</div><h3>Blue Zone discs</h3><p>Blue zones give 1-2hr free parking with a disc. Buy one at any petrol station for €2 - pays for itself immediately.</p></div>
-    <div class="card tip"><div class="k">Electric</div><h3>EV discounts exist</h3><p>Electric vehicles get reduced rates in many cities. Some zones offer completely free EV parking with charging - see our <a href="/ev-parking">EV guide</a>.</p></div>
-    <div class="card tip"><div class="k">Enforcement</div><h3>Fines are €82.00+</h3><p>Amsterdam uses plate-scanning cars; foreign plates get fined too. One ticket costs more than a full day of parking. Read the <a href="/parking-fines">fines guide</a> to know your rights.</p></div>
+  <div class="tips" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card tip"><div class="k">Transit</div><h3>P+R is the cheat code</h3><p>Park for €1/day on the outskirts and ride transit in. Amsterdam has 10 P+R sites. Most tourists park in the centre and pay €50+. <a href="/free-parking">Where the P+R sites are</a>.</p></div>
+    <div class="card tip"><div class="k">Enforcement</div><h3>Fines are €82.00+</h3><p>Scan cars photograph every plate, foreign ones included. One ticket costs more than a full day of parking. The <a href="/parking-fines">fines guide</a> covers what you pay and how to appeal.</p></div>
   </div>
 </div></section>
 
@@ -334,7 +283,7 @@
 
 <h3>The smartest parking strategy in the Netherlands</h3>
 <p>For city visits, P+R is almost always the best value. Park at a designated P+R facility on the outskirts, use public transport into the centre, and pay a fraction of what you'd spend on centre parking. Amsterdam's P+R costs just €1 for 24 hours. Rotterdam's is €2.50. The Hague's is €2. For airport visits, Schiphol's official P1 garage charges €54/day - but locals use the P+R Sloterdijk trick to get in and out for around €6 total. This site covers every option across 14 Dutch cities so you always know exactly what to pay - and what to avoid.</p>
-</section>
+</div></section>
 
 <div style="padding:0 24px 34px"><div class="ad-slot">Advertisement</div></div>
 
@@ -365,6 +314,7 @@
       <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
       <p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p>
       <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+      <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
     </div>
     <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
     <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>

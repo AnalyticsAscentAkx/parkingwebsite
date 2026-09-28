@@ -367,3 +367,50 @@ tbody tr:hover{background:#FAFBFC}
   .bc{width:100%}
   .pk{padding:20px}
 }
+
+/* =====================================================================
+   Navigation, second generation: five items, one primary action,
+   grouped dropdowns, and a persistent search bar under the header.
+   ===================================================================== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.nav-links>li>a.nav-find{background:var(--blue);color:#fff;padding:8px 16px;border-radius:8px;margin-right:6px}
+.nav-links>li>a.nav-find:hover{background:var(--blue-2);box-shadow:0 4px 14px -4px rgba(35,55,198,.5)}
+.nav-links .active>a.nav-find{background:var(--blue-2)}
+.drop-wide{display:none;min-width:0;padding:10px 6px 6px;grid-template-columns:1fr 1fr;gap:0 14px}
+.has-drop:hover .drop-wide{display:grid}
+.drop-col{min-width:150px}
+.drop-h{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut-2);padding:6px 12px 4px}
+.drop-foot{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);margin-top:6px;padding-top:6px;display:flex;gap:2px;flex-wrap:wrap}
+.drop-foot a{color:#fff}
+.nav-search{background:var(--ink-2);border-top:1px solid rgba(255,255,255,.06)}
+.nav-search-in{max-width:var(--max);margin:0 auto;padding:8px 24px;display:flex;gap:8px;align-items:center}
+.nav-search input{flex:1;min-width:0;font-family:var(--f-ui);font-size:14px;font-weight:500;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;outline:none;transition:.15s}
+.nav-search input::placeholder{color:rgba(255,255,255,.45)}
+.nav-search input:focus{border-color:var(--blue);background:rgba(255,255,255,.09)}
+.nav-search input::-webkit-search-decoration,.nav-search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.nav-near,.nav-go{font-family:var(--f-ui);font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:.15s;line-height:1.2}
+.nav-near{background:transparent;color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.18)}
+.nav-near:hover{border-color:#fff;color:#fff}
+.nav-near:disabled{opacity:.6;cursor:wait}
+.nav-go{background:var(--sig);color:#fff}
+.nav-go:hover{background:#C2410C}
+.foot-support{font-size:13px;color:#64748B;margin-top:12px}
+.foot-support a{color:var(--sig);font-weight:600}
+@media(max-width:768px){
+  .nav-links>li>a.nav-find{margin:0 0 6px;text-align:center}
+  .drop-wide{display:block}
+  .has-drop .drop-wide{display:block;position:static}
+  .drop-h{color:rgba(255,255,255,.4)}
+  .nav-search-in{padding:8px 16px}
+  .nav-near{display:none}
+}
+
+/* homepage city cards: one number leads, the rest supports */
+.city-card .lead{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
+.city-card .lead .n{font-family:var(--f-mono);font-size:28px;font-weight:600;letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums}
+.city-card .lead .l{font-size:12.5px;color:var(--mut)}
+.city-card dl{font-size:13px}
+.city-card.card-ev .lead .n{color:var(--ok)}
+.hero-near{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13.5px;font-weight:600;color:#94A3B8;background:none;border:1px solid rgba(148,163,184,.3);border-radius:100px;padding:7px 14px;cursor:pointer;font-family:var(--f-ui);transition:.15s}
+.hero-near:hover{color:#fff;border-color:#fff}
+.hero-near:disabled{opacity:.6;cursor:wait}

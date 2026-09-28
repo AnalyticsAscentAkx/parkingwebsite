@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260928b"
+CSS_VERSION = "20260929a"
 SITE_CSS = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 # Colours from the retired palette, mapped onto the design system. These
@@ -64,14 +64,22 @@ def page_url(path: Path) -> str:
     return "/" + rel[: -len(".html")]
 
 
+# Pages whose main content already is the search box do not get the sticky bar.
+NO_NAV_SEARCH = {"/", "/search"}
+NAV_SEARCH_RE = re.compile(r'\s*<form class="nav-search".*?</form>', re.S)
+
+
 def nav_for(url: str) -> str:
-    """Mark the nav item that owns this page as active."""
+    """Mark the nav item that owns this page as active; drop the search bar where redundant."""
+    nav = NAV_SEARCH_RE.sub("", NAV) if url in NO_NAV_SEARCH else NAV
     out = []
-    for li in re.split(r"(?=<li)", NAV):
+    marked = False
+    for li in re.split(r"(?=<li)", nav):
         if li.startswith("<li"):
             hrefs = re.findall(r'href="([^"]+)"', li)
             own = hrefs[:1] == [url] or (li.startswith('<li class="has-drop"') and url in hrefs)
-            if own:
+            if own and not marked:
+                marked = True
                 li = (li.replace('<li class="has-drop">', '<li class="has-drop active">', 1)
                       if li.startswith('<li class="has-drop">') else li.replace("<li>", '<li class="active">', 1))
         out.append(li)
