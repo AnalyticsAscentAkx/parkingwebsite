@@ -1,0 +1,276 @@
+/* Charger map. An application shell, not a document: the frame never scrolls,
+   the map and the list each own their own scroll context.
+   Extends site.css tokens; introduces no new brand colour. */
+
+:root{ --ev-nav:62px; --ev-panel:412px; }
+
+.ev-app{
+  position:relative;
+  height:calc(100vh - var(--ev-nav));
+  min-height:540px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) var(--ev-panel);
+  /* The single row must be pinned to the frame. Left implicit it is sized by
+     content, and a thousand-row list stretches the whole grid instead of
+     scrolling inside it. */
+  grid-template-rows:minmax(0,1fr);
+  background:var(--paper-2);
+  overflow:hidden;
+}
+
+/* ------------------------------------------------------------------ map */
+.ev-mapwrap{position:relative;min-width:0;min-height:0}
+#evmap{position:absolute;inset:0;background:var(--paper-2)}
+.leaflet-container{font-family:var(--f-ui)}
+.leaflet-popup-content{font-size:13px;line-height:1.55;margin:11px 14px}
+.leaflet-popup-content b{color:var(--ink)}
+.leaflet-popup-content-wrapper{border-radius:var(--r);box-shadow:var(--sh-md)}
+
+/* Legend sits on the map because the colours only mean something in context. */
+.ev-legend{
+  position:absolute;left:12px;bottom:18px;z-index:900;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;
+  box-shadow:var(--sh-md);font-size:11.5px;color:var(--mut);max-width:212px
+}
+.ev-legend b{display:block;color:var(--ink);font-size:12px;font-weight:700;margin-bottom:7px}
+.ev-legend div{display:flex;align-items:center;gap:7px;margin-top:4px}
+.ev-legend i{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 1.5px #fff}
+
+.ev-zoomhint{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:900;
+  background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;
+  padding:7px 14px;border-radius:99px;box-shadow:var(--sh-md);
+  pointer-events:none;opacity:0;transition:opacity .25s
+}
+.ev-zoomhint.is-on{opacity:.93}
+
+/* ---------------------------------------------------------------- panel */
+.ev-panel{
+  display:flex;flex-direction:column;min-width:0;min-height:0;
+  background:var(--paper);border-left:1px solid var(--line);
+  box-shadow:-8px 0 24px -18px rgba(11,17,32,.3)
+}
+.ev-phead{padding:16px 18px 0;border-bottom:1px solid var(--line);flex:none}
+.ev-phead h1{font-size:1.2rem;font-weight:800;letter-spacing:-.025em;color:var(--ink);margin:0 0 3px}
+.ev-phead .sub{font-size:12.5px;color:var(--mut);line-height:1.5;margin-bottom:13px}
+
+.ev-stats{display:flex;gap:18px;margin-bottom:14px}
+.ev-stats div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.ev-stats b{font-family:var(--f-mono);font-size:1.02rem;font-weight:600;color:var(--ink);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ev-stats span{font-size:11px;color:var(--mut);white-space:nowrap}
+
+/* search ------------------------------------------------------------- */
+.ev-search{display:flex;gap:7px;margin-bottom:12px}
+.ev-search input{
+  flex:1;min-width:0;font-family:var(--f-ui);font-size:14px;color:var(--ink);
+  padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--paper-2);transition:border-color .15s,box-shadow .15s,background .15s
+}
+.ev-search input::placeholder{color:var(--mut-2)}
+.ev-search input:focus{outline:none;background:var(--paper);border-color:var(--blue);
+  box-shadow:0 0 0 3px var(--blue-soft)}
+.ev-search button{
+  font-family:var(--f-ui);font-size:13.5px;font-weight:600;color:#fff;
+  background:var(--blue);border:none;border-radius:var(--r);padding:0 15px;
+  cursor:pointer;transition:background .15s
+}
+.ev-search button:hover{background:var(--blue-2)}
+.ev-search button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* window ------------------------------------------------------------- */
+.ev-window{margin-bottom:13px}
+.ev-window h2{font-size:12.5px;font-weight:600;color:var(--mut);margin:0 0 7px}
+.ev-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ev-fields .ev-kwhrow{grid-column:1/-1;display:flex;align-items:center;gap:9px}
+.ev-fields .ev-kwhrow label{flex:none;margin:0}
+.ev-fields .ev-kwhrow input{width:78px}
+.ev-fields .ev-kwhrow .hint{font-size:11px;color:var(--mut-2);line-height:1.4}
+.ev-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ev-field label{font-size:11px;color:var(--mut-2)}
+.ev-field input{
+  font-family:var(--f-ui);font-size:12.5px;color:var(--ink);padding:7px 7px;
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);
+  width:100%;transition:border-color .15s,box-shadow .15s
+}
+.ev-field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+#evKwh{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:center}
+
+/* list bar ----------------------------------------------------------- */
+.ev-tbar{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:9px 0 10px;flex-wrap:wrap}
+.ev-mode{display:flex;flex-direction:column;gap:1px;min-width:0}
+.ev-mode b{font-size:12.5px;font-weight:700;color:var(--ink)}
+.ev-mode span{font-size:11.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+.ev-sort{display:flex;gap:3px}
+.ev-sort button{
+  font-family:var(--f-ui);font-size:11.5px;font-weight:600;color:var(--mut);
+  background:transparent;border:1px solid transparent;border-radius:7px;
+  padding:5px 9px;cursor:pointer;transition:color .15s,background .15s
+}
+.ev-sort button:hover{color:var(--ink);background:var(--line-soft)}
+.ev-sort button[aria-pressed="true"]{color:var(--blue);background:var(--blue-soft)}
+.ev-sort button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+
+/* rows --------------------------------------------------------------- */
+.ev-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.ev-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;
+  padding:12px 18px;border-bottom:1px solid var(--line-soft);
+  cursor:pointer;background:var(--paper);transition:background .12s
+}
+.ev-row:last-child{border-bottom:none}
+.ev-row:hover{background:var(--paper-2)}
+.ev-row[aria-selected="true"]{background:var(--blue-soft);box-shadow:inset 3px 0 0 var(--blue)}
+.ev-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.ev-name{font-size:14px;font-weight:650;color:var(--ink);letter-spacing:-.01em;
+  line-height:1.3;overflow-wrap:anywhere}
+.ev-meta{font-size:11.5px;color:var(--mut);margin-top:3px;display:flex;gap:9px;flex-wrap:wrap}
+.ev-kw{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--txt)}
+.ev-price{text-align:right;font-family:var(--f-mono);font-size:.98rem;font-weight:600;
+  color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+.ev-price small{display:block;font-family:var(--f-ui);font-size:10.5px;font-weight:500;
+  color:var(--mut);letter-spacing:0;margin-top:2px}
+.ev-price.is-unpriced{color:var(--mut-2);font-weight:500;font-size:11.5px}
+
+.ev-up{font-family:var(--f-mono);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.ev-up[data-g="ok"]{color:var(--ok)}
+.ev-up[data-g="warn"]{color:var(--warn)}
+.ev-up[data-g="bad"]{color:var(--bad)}
+.ev-up[data-g="none"]{color:var(--mut-2);font-weight:500}
+
+/* 30 days of measured uptime, one bar per day. Hidden until there is
+   history: an empty chart is worse than no chart. */
+.ev-strip{display:flex;gap:1.5px;align-items:flex-end;height:18px;margin-top:6px}
+.ev-strip i{flex:1;min-width:2px;border-radius:1px;background:var(--line);height:100%}
+.ev-strip i[data-g="ok"]{background:var(--ok)}
+.ev-strip i[data-g="warn"]{background:var(--warn)}
+.ev-strip i[data-g="bad"]{background:var(--bad)}
+
+/* states ------------------------------------------------------------- */
+.ev-empty{padding:40px 22px;text-align:center;color:var(--mut);font-size:13px;line-height:1.6}
+.ev-empty b{display:block;color:var(--ink);font-size:14.5px;font-weight:700;margin-bottom:4px}
+
+/* Skeletons rather than a spinner: the shape of the answer appears first,
+   so the panel does not jump when the data lands. */
+.ev-skel{padding:12px 18px;border-bottom:1px solid var(--line-soft)}
+.ev-skel span{display:block;height:9px;border-radius:4px;background:var(--line-soft);
+  animation:evpulse 1.4s ease-in-out infinite}
+.ev-skel span:first-child{width:62%;height:12px;margin-bottom:8px}
+.ev-skel span:last-child{width:38%}
+@keyframes evpulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+.ev-foot{flex:none;padding:10px 18px;border-top:1px solid var(--line);
+  font-size:10.5px;color:var(--mut-2);line-height:1.5;background:var(--paper-2)}
+
+/* mobile: a split screen serves neither half, so it becomes a toggle. */
+.ev-tabs{display:none}
+@media(max-width:900px){
+  :root{ --ev-nav:58px; }
+  .ev-app{grid-template-columns:1fr;height:calc(100vh - var(--ev-nav))}
+  .ev-tabs{
+    display:grid;grid-template-columns:1fr 1fr;gap:4px;
+    padding:8px;background:var(--paper);border-bottom:1px solid var(--line);
+    position:absolute;top:0;left:0;right:0;z-index:600
+  }
+  .ev-tabs button{
+    font-family:var(--f-ui);font-size:13.5px;font-weight:600;padding:9px;
+    border:1px solid var(--line);background:var(--paper);color:var(--mut);
+    border-radius:var(--r);cursor:pointer
+  }
+  .ev-tabs button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+  .ev-mapwrap,.ev-panel{grid-row:1;grid-column:1;padding-top:52px}
+  .ev-panel{border-left:none;box-shadow:none}
+  .ev-app[data-view="map"] .ev-panel{display:none}
+  .ev-app[data-view="list"] .ev-mapwrap{display:none}
+  .ev-legend{bottom:12px;left:8px;max-width:172px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ev-row,.ev-sort button,.ev-field input,.ev-zoomhint{transition:none}
+  .ev-skel span{animation:none}
+}
+
+/* ===================================================================
+   Content below the tool.
+   A map app on its own is invisible to search: almost no crawlable text
+   and nothing to cite. What follows is the substance, built from the
+   figures the pipeline actually measures.
+   =================================================================== */
+
+/* Let the next section peek, so it reads as a page rather than a dead end. */
+.ev-app{height:calc(100vh - var(--ev-nav) - 46px)}
+
+.ev-content{max-width:820px;margin:0 auto;padding:52px 24px 8px}
+.ev-content h2{font-size:clamp(1.3rem,2.4vw,1.75rem);font-weight:800;letter-spacing:-.03em;
+  color:var(--ink);line-height:1.2;margin:46px 0 14px}
+.ev-content h2:first-child{margin-top:0}
+.ev-content h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:28px 0 9px}
+.ev-content p{font-size:16px;line-height:1.7;color:var(--txt);margin-bottom:15px;max-width:72ch}
+.ev-content a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.ev-content a:hover{color:var(--blue-2)}
+.ev-content ul{margin:0 0 16px 20px}
+.ev-content li{font-size:16px;line-height:1.7;color:var(--txt);margin-bottom:7px}
+.ev-content strong{color:var(--ink);font-weight:650}
+
+/* The one number a section is really about, pulled out so it is findable
+   by a reader skimming and quotable by anything reading the page. */
+.ev-figure{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-left:3px solid var(--sig);padding:2px 0 2px 16px;margin:20px 0 22px
+}
+.ev-figure b{font-family:var(--f-mono);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:600;
+  color:var(--ink);letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.ev-figure span{font-size:14px;color:var(--mut);line-height:1.5;max-width:46ch}
+
+.ev-table{width:100%;border-collapse:collapse;margin:18px 0 8px;font-size:14.5px}
+.ev-table caption{text-align:left;font-size:12.5px;color:var(--mut);padding-bottom:9px;line-height:1.5}
+.ev-table th{text-align:left;font-weight:650;color:var(--ink);font-size:13px;
+  padding:9px 12px 9px 0;border-bottom:2px solid var(--line)}
+.ev-table td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line-soft);color:var(--txt)}
+.ev-table td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;
+  text-align:right;padding-right:0;white-space:nowrap}
+.ev-table tr:last-child td{border-bottom:none}
+.ev-table .best td{color:var(--ok);font-weight:600}
+.ev-table .worst td{color:var(--bad);font-weight:600}
+.ev-tablescroll{overflow-x:auto;margin:18px 0}
+
+.ev-citylinks{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 8px}
+.ev-citylinks a{font-size:13.5px;padding:6px 12px;border:1px solid var(--line);
+  border-radius:99px;color:var(--txt);text-decoration:none;transition:border-color .15s,color .15s}
+.ev-citylinks a:hover{border-color:var(--blue);color:var(--blue)}
+
+.ev-faq details{border-bottom:1px solid var(--line-soft);padding:2px 0}
+.ev-faq summary{font-size:15.5px;font-weight:650;color:var(--ink);cursor:pointer;
+  padding:15px 0;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.ev-faq summary::-webkit-details-marker{display:none}
+.ev-faq summary::after{content:"+";font-family:var(--f-mono);font-size:19px;color:var(--mut-2);flex:none}
+.ev-faq details[open] summary::after{content:"\2212"}
+.ev-faq details[open] summary{color:var(--blue)}
+.ev-faq .answer{padding:0 0 16px;max-width:70ch}
+.ev-faq .answer p:last-child{margin-bottom:0}
+
+.ev-method{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:20px 22px;margin:34px 0 10px}
+.ev-method h2{margin-top:0;font-size:1.05rem}
+.ev-method p{font-size:13.5px;color:var(--mut);margin-bottom:9px}
+.ev-method p:last-child{margin-bottom:0}
+
+/* Dutch signage words an English speaker will meet on the street. */
+.ev-glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;margin:18px 0}
+.ev-glossary div{background:var(--paper);padding:13px 15px}
+.ev-glossary dt{font-weight:700;color:var(--ink);font-size:14.5px;margin-bottom:2px}
+.ev-glossary dd{font-size:13px;color:var(--mut);line-height:1.5}
+
+@media(max-width:900px){
+  .ev-app{height:calc(100vh - var(--ev-nav) - 40px)}
+  .ev-content{padding:38px 18px 8px}
+}
+
+/* Leaflet's control panes also sit at z-index 1000, so on a tie the later
+   element in the DOM wins and the map attribution punches through the sticky
+   header while scrolling. The header has to outrank the map furniture. */
+.nav{z-index:1200}
+.leaflet-top,.leaflet-bottom{z-index:700}

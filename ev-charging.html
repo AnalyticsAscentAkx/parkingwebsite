@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV Charging Netherlands: Live Map, Prices &amp; Cost Calculator</title>
+<meta name="description" content="Every public charger in the Netherlands on one live map. Median price EUR 0.41/kWh, 1.6% out of order right now, and what a stop really costs once parking is added.">
+<link rel="canonical" href="https://parkingnetherlands.com/ev-charging">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/ev-map.css">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
+<meta property="og:title" content="EV Charging Netherlands: Live Map, Prices &amp; Cost Calculator">
+<meta property="og:description" content="80,001 public charging locations with live status and the real cost of a stop, charging plus parking. Median price EUR 0.41 per kWh.">
+<meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<script type="application/ld+json">[
+{"@context":"https://schema.org","@type":"WebApplication","name":"EV Charging Map Netherlands","url":"https://parkingnetherlands.com/ev-charging","applicationCategory":"TravelApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"featureList":["Live charge point status for 80,001 public locations","Charging cost plus parking cost for a chosen arrival and departure time","Charge card price comparison","Fast charging filter"],"description":"Interactive map of every public EV charging location in the Netherlands, showing operator-reported live status and the combined cost of charging plus parking for a chosen arrival and departure time."},
+{"@context":"https://schema.org","@type":"Dataset","name":"Dutch public EV charging prices and live status","description":"Prices and operator-reported status for 80,001 public charging locations and 201,239 charge points in the Netherlands, derived from the national charging register and joined to the national parking tariff register.","creator":{"@type":"Organization","name":"Parking Netherlands","url":"https://parkingnetherlands.com"},"spatialCoverage":{"@type":"Place","name":"Netherlands"},"variableMeasured":["price per kWh","charge point status","maximum power in kW","parking tariff per hour"],"license":"https://parkingnetherlands.com/about","isAccessibleForFree":true,"url":"https://parkingnetherlands.com/ev-charging"},
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parkingnetherlands.com/"},{"@type":"ListItem","position":2,"name":"EV charging map","item":"https://parkingnetherlands.com/ev-charging"}]},
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does it cost to charge an electric car in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"The median public charging price in the Netherlands is EUR 0.41 per kWh, and most chargers fall between EUR 0.28 and EUR 0.63 per kWh. Charging a 60 kWh battery from 20 to 80 percent costs roughly EUR 15 at the median price. The operator matters more than the location: Vattenfall InCharge averages EUR 0.32 per kWh while E-Flux by Road averages EUR 0.51, about 60 percent more for the same electricity."}},
+{"@type":"Question","name":"Do you pay for parking while charging in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. A charging bay inside a paid parking zone is still a paid parking space, so the normal hourly tariff applies on top of the electricity. At least 12,667 Dutch charge points sit inside a paid parking area. In central Amsterdam parking can cost more than the electricity itself, so the parking tariff is often the larger half of the bill for a short stop."}},
+{"@type":"Question","name":"What is the cheapest charge card in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"There is no single cheapest card. Each card negotiates its own rate with each operator, so the cheapest card changes depending on whose charger you are standing at. The spread between the cheapest and most expensive card at the same socket commonly reaches 40 to 70 percent. Comparing cards per charger, rather than picking one card for everything, is what actually saves money."}},
+{"@type":"Question","name":"How do I find an EV charger that is actually working?","acceptedAnswer":{"@type":"Answer","text":"About 1.6 percent of Dutch charge points, roughly 3,194 of 201,286, are reported out of order at any moment. Reliability varies enormously by operator: the best large networks report under 1 percent of points faulty while the worst report over 16 percent, a fifteenfold difference. Checking operator-reported live status before you drive is the only reliable way to avoid arriving at a dead charger."}},
+{"@type":"Question","name":"Where can I find fast charging in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"Fast charging is rarer than the headline numbers suggest. Only 2.6 percent of Dutch connectors deliver 150 kW or more, and 94.6 percent are ordinary 11 to 22 kW AC posts meant for parking overnight rather than topping up quickly. Rotterdam and Amsterdam have the most fast chargers, with over 200 each; Leiden has almost none."}},
+{"@type":"Question","name":"Are there free EV charging stations in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"Almost none. Only 52 of roughly 93,000 published tariffs in the national register list a zero price per kWh, and those are typically at hotels, showrooms or workplaces rather than on the street. Free public charging is effectively not a thing in the Netherlands, though parking outside paid hours can make a stop cheaper overall."}},
+{"@type":"Question","name":"How many EV charging points are there in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"The national charging register lists 80,026 public charging locations covering 201,286 individual charge points. That is the densest public charging network in Europe by land area. Rotterdam and Den Haag each have over 3,500 locations, more than Amsterdam."}}]}]</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+<ul class="nav-links" id="navLinks">
+  <li class="has-drop"><a href="/all-cities">Cities</a>
+    <div class="drop">
+      <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a>
+      <div class="drop-div"></div>
+      <a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a>
+      <div class="drop-div"></div>
+      <a href="/all-cities">All cities</a>
+    </div>
+  </li>
+  <li><a href="/search">Search</a></li>
+  <li><a href="/map">Map</a></li>
+  <li><a href="/ev-charging">EV charging</a></li>
+  <li><a href="/schiphol">Schiphol</a></li>
+  <li class="has-drop"><a href="/free-parking">Guides</a>
+    <div class="drop">
+      <a href="/free-parking">Free parking</a><a href="/street-parking">Street parking</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/ev-parking">EV parking guide</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a>
+      <div class="drop-div"></div>
+      <a href="/about">About this site</a>
+    </div>
+  </li>
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" class="nav-cta" target="_blank" rel="noopener">Support</a></li>
+</ul>
+<button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+</div></nav>
+
+<main class="ev-app" id="evApp" data-view="map">
+
+  <div class="ev-tabs" role="group" aria-label="Switch between map and list">
+    <button id="tabMap" aria-pressed="true">Map</button>
+    <button id="tabList" aria-pressed="false">List</button>
+  </div>
+
+  <div class="ev-mapwrap">
+    <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
+    <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <div class="ev-legend" hidden>
+      <b>Charge point status</b>
+      <div><i style="background:#059669"></i> Working, no faults reported</div>
+      <div><i style="background:#DC2626"></i> Reported out of order</div>
+      <div><i style="background:#7C8DB5"></i> Status not published</div>
+    </div>
+  </div>
+
+  <aside class="ev-panel" aria-label="Charger details">
+    <div class="ev-phead">
+      <h1>EV charging in the Netherlands</h1>
+      <p class="sub">Every public charging location, with what a stop actually costs once
+         parking is counted. Set your arrival and departure time to price it.</p>
+
+      <div class="ev-stats">
+        <div><b id="statStations">80,001</b><span>locations</span></div>
+        <div><b id="statCities">2,844</b><span>towns</span></div>
+        <div><b id="statDays">0</b><span>days measured</span></div>
+      </div>
+
+      <div class="ev-search">
+        <input type="search" id="evSearch" placeholder="Find a town, e.g. Utrecht"
+               aria-label="Search for a town" autocomplete="off" spellcheck="false">
+        <button id="evGo" type="button">Find</button>
+      </div>
+
+      <div class="ev-window">
+        <h2>Price a stop</h2>
+        <div class="ev-fields">
+          <div class="ev-field"><label for="evArrive">Arriving</label>
+            <input type="datetime-local" id="evArrive" data-stamp=""></div>
+          <div class="ev-field"><label for="evLeave">Leaving</label>
+            <input type="datetime-local" id="evLeave" data-stamp=""></div>
+          <div class="ev-kwhrow">
+            <label for="evKwh">Energy needed</label>
+            <input type="number" id="evKwh" value="20" min="1" max="150" step="1">
+            <span class="hint">kWh, about 120 km in a typical EV</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-tbar">
+        <div class="ev-mode">
+          <b id="evMode">Towns in view</b>
+          <span id="evCount" aria-live="polite">Loading</span>
+        </div>
+        <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="reliable" aria-pressed="true">Status</button>
+          <button data-sort="cheap" aria-pressed="false">Cost</button>
+          <button data-sort="fast" aria-pressed="false">Power</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-list" id="evRows" role="listbox" aria-label="Charging locations">
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+    </div>
+
+    <p class="ev-foot">
+      Laadpuntdata: NDW / DOT-NL. Parking tariffs from the Dutch national parking register.
+      Prices are indicative and exclude fees your card issuer may add.
+      <a href="/ev-parking" style="color:var(--blue)">Read the EV parking guide</a>
+    </p>
+  </aside>
+</main>
+
+<article class="ev-content">
+
+  <h2>What charging actually costs in the Netherlands</h2>
+  <p>Public charging in the Netherlands is priced per kWh, and the price is set by whoever
+     owns the post rather than by any national tariff. Across the 93,002 published prices in
+     the national register, the middle of the market sits close to 41 cents.</p>
+
+  <div class="ev-figure">
+    <b>&euro;0.41</b>
+    <span>median price per kWh at a public charger. Most chargers fall between
+          &euro;0.28 and &euro;0.63, and the national average is &euro;0.43.</span>
+  </div>
+
+  <p>In practice that means charging a 60 kWh battery from 20 to 80 percent, which is about
+     36 kWh, costs roughly <strong>&euro;15</strong> at the median price. The same charge costs
+     about &euro;10 on the cheapest large network and &euro;18 on the most expensive, before any
+     parking is added.</p>
+
+  <p>The operator matters far more than the town. These are the average prices of the large
+     networks, measured across every one of their locations:</p>
+
+  <div class="ev-tablescroll">
+  <table class="ev-table">
+    <caption>Average price per kWh by operator, networks with more than 300 locations.
+             Prices are the operator's own ad-hoc rate; a charge card may pay more or less.</caption>
+    <thead><tr><th>Operator</th><th class="num">Locations</th><th class="num">Avg &euro;/kWh</th></tr></thead>
+    <tbody>
+      <tr class="best"><td>Vattenfall InCharge</td><td class="num">21,494</td><td class="num">0.319</td></tr>
+      <tr><td>EQUANS</td><td class="num">11,102</td><td class="num">0.365</td></tr>
+      <tr><td>Ubitricity</td><td class="num">1,705</td><td class="num">0.378</td></tr>
+      <tr><td>Eneco</td><td class="num">1,111</td><td class="num">0.383</td></tr>
+      <tr><td>DAEN Mobility</td><td class="num">762</td><td class="num">0.400</td></tr>
+      <tr><td>Pluq</td><td class="num">400</td><td class="num">0.414</td></tr>
+      <tr><td>50five</td><td class="num">5,259</td><td class="num">0.440</td></tr>
+      <tr><td>Allego</td><td class="num">8,605</td><td class="num">0.469</td></tr>
+      <tr><td>Qwello</td><td class="num">6,354</td><td class="num">0.503</td></tr>
+      <tr class="worst"><td>E-Flux by Road</td><td class="num">6,179</td><td class="num">0.511</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Charging on E-Flux costs about <strong>60 percent more per kWh</strong> than charging on
+     Vattenfall InCharge, for identical electricity. Nothing on the post tells you this, which
+     is why the map above prices each location rather than quoting a national average.</p>
+
+  <h2>The parking half of the bill</h2>
+  <p>This is the part almost every charging map leaves out. A charging bay inside a paid
+     parking zone is still a paid parking space. You pay the street tariff for the whole time
+     you are plugged in, on top of the electricity.</p>
+
+  <div class="ev-figure">
+    <b>12,667</b>
+    <span>charge points that sit inside a paid parking area, where the parking tariff is
+          charged on top of the electricity.</span>
+  </div>
+
+  <p>For a short stop in an expensive city centre the parking can cost more than the charge.
+     Two hours in central Amsterdam runs to about &euro;7.50 in parking, against roughly
+     &euro;8 for 20 kWh of electricity. The map above adds both together for the arrival and
+     departure time you choose, because the parking tariff changes with the hour and the day
+     of the week. A stop that starts at 18:00 can be materially cheaper than the same stop at
+     16:00 at the very same bay.</p>
+
+  <p>If you want the parking side in detail, the <a href="/street-parking">street parking guide</a>
+     covers how Dutch zones and tariffs work, and <a href="/free-parking">free parking</a> lists
+     where you pay nothing at all.</p>
+
+  <h2>How many chargers are broken right now</h2>
+  <p>Operators publish the status of every charge point to the national register. Most of the
+     time most of them work, but the failure rate is not evenly spread.</p>
+
+  <div class="ev-figure">
+    <b>1.6%</b>
+    <span>of Dutch charge points are reported out of order at this moment, about 3,194
+          of 201,286.</span>
+  </div>
+
+  <p>The national figure hides the thing that matters. Sorted by the share of their own points
+     currently reported faulty, the gap between the best and worst large networks is about
+     <strong>fifteenfold</strong>:</p>
+
+  <div class="ev-tablescroll">
+  <table class="ev-table">
+    <caption>Share of charge points reporting out of order or inoperative, networks with at
+             least 500 points. This is a live snapshot of operator-reported status, not a
+             long-run uptime average.</caption>
+    <thead><tr><th>Operator</th><th class="num">Charge points</th><th class="num">Reported faulty</th></tr></thead>
+    <tbody>
+      <tr class="worst"><td>DAEN Mobility</td><td class="num">950</td><td class="num">16.2%</td></tr>
+      <tr><td>Laadnet</td><td class="num">5,883</td><td class="num">8.7%</td></tr>
+      <tr><td>E-Flux by Road</td><td class="num">14,753</td><td class="num">2.9%</td></tr>
+      <tr><td>Opcharge</td><td class="num">2,034</td><td class="num">2.4%</td></tr>
+      <tr><td>Tesla</td><td class="num">940</td><td class="num">2.1%</td></tr>
+      <tr><td>Fastned</td><td class="num">1,220</td><td class="num">1.8%</td></tr>
+      <tr><td>Eneco</td><td class="num">8,252</td><td class="num">1.2%</td></tr>
+      <tr><td>Allego</td><td class="num">18,562</td><td class="num">1.1%</td></tr>
+      <tr><td>Vattenfall InCharge</td><td class="num">52,565</td><td class="num">1.1%</td></tr>
+      <tr class="best"><td>50five</td><td class="num">13,918</td><td class="num">1.0%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>A further 5.3 percent of points report no status at all, which is its own kind of answer:
+     an operator that does not publish whether a charger works is not demonstrating that it
+     does. On the map above, red means the operator itself is reporting the point as out of
+     order, so it is worth checking before you drive rather than after you arrive.</p>
+
+  <h2>Fast charging is rarer than it looks</h2>
+  <p>The Netherlands has the densest charging network in Europe by land area, but density is
+     not the same as speed. The overwhelming majority of Dutch posts are ordinary AC chargers
+     built for cars that sit still for hours.</p>
+
+  <div class="ev-figure">
+    <b>2.6%</b>
+    <span>of connectors deliver 150 kW or more. 94.6 percent are 11 to 22 kW AC posts.</span>
+  </div>
+
+  <ul>
+    <li><strong>11 to 22 kW AC</strong>, 190,987 connectors. The standard street post. Adds
+        roughly 60 to 100 km of range per hour.</li>
+    <li><strong>150 kW and above</strong>, 5,342 connectors. Motorway and hub charging,
+        typically Fastned, Tesla, Allego or Shell Recharge.</li>
+    <li><strong>43 to 150 kW DC</strong>, 1,857 connectors. Less common than either extreme.</li>
+    <li><strong>Under 11 kW</strong>, 3,721 connectors. Slow, often older kerbside posts.</li>
+  </ul>
+
+  <p>If you need a genuine fast charge, use the Power sort on the map above. In a city like
+     Leiden, which has 682 charging locations but almost no DC at all, the nearest real fast
+     charger may be a motorway junction away.</p>
+
+  <h2>Charging by city</h2>
+  <p>Rotterdam and Den Haag both have more charging locations than Amsterdam, and the average
+     price differs by city more than most drivers expect. Nijmegen averages &euro;0.34 per kWh
+     against Dordrecht at &euro;0.52, a difference of about half again for the same energy.</p>
+
+  <div class="ev-tablescroll">
+  <table class="ev-table">
+    <caption>Public charging by city: locations, individual charge points, points rated 43 kW
+             or above, and the average price per kWh.</caption>
+    <thead><tr><th>City</th><th class="num">Locations</th><th class="num">Charge points</th><th class="num">Fast (43 kW+)</th><th class="num">Avg &euro;/kWh</th></tr></thead>
+    <tbody>
+      <tr><td>Rotterdam</td><td class="num">3,544</td><td class="num">9,777</td><td class="num">205</td><td class="num">0.378</td></tr>
+      <tr><td>Den Haag</td><td class="num">3,527</td><td class="num">11,821</td><td class="num">104</td><td class="num">0.359</td></tr>
+      <tr><td>Amsterdam</td><td class="num">1,954</td><td class="num">8,464</td><td class="num">213</td><td class="num">0.466</td></tr>
+      <tr><td>Almere</td><td class="num">1,456</td><td class="num">3,489</td><td class="num">82</td><td class="num">0.372</td></tr>
+      <tr><td>Breda</td><td class="num">1,322</td><td class="num">3,111</td><td class="num">71</td><td class="num">0.495</td></tr>
+      <tr><td>Utrecht</td><td class="num">1,309</td><td class="num">4,520</td><td class="num">87</td><td class="num">0.438</td></tr>
+      <tr><td>Eindhoven</td><td class="num">1,291</td><td class="num">3,588</td><td class="num">64</td><td class="num">0.468</td></tr>
+      <tr><td>Tilburg</td><td class="num">1,191</td><td class="num">2,794</td><td class="num">62</td><td class="num">0.469</td></tr>
+      <tr><td>Zwolle</td><td class="num">851</td><td class="num">2,231</td><td class="num">80</td><td class="num">0.389</td></tr>
+      <tr class="best"><td>Nijmegen</td><td class="num">844</td><td class="num">2,008</td><td class="num">14</td><td class="num">0.343</td></tr>
+      <tr class="worst"><td>Dordrecht</td><td class="num">843</td><td class="num">2,047</td><td class="num">80</td><td class="num">0.518</td></tr>
+      <tr><td>Groningen</td><td class="num">712</td><td class="num">1,940</td><td class="num">45</td><td class="num">0.482</td></tr>
+      <tr><td>Leiden</td><td class="num">682</td><td class="num">1,588</td><td class="num">0</td><td class="num">0.508</td></tr>
+      <tr><td>Maastricht</td><td class="num">542</td><td class="num">1,506</td><td class="num">50</td><td class="num">0.370</td></tr>
+      <tr><td>Haarlem</td><td class="num">532</td><td class="num">1,212</td><td class="num">53</td><td class="num">0.404</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Parking guides for the same cities:</p>
+  <div class="ev-citylinks">
+    <a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a>
+    <a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a>
+    <a href="/eindhoven">Eindhoven</a><a href="/groningen">Groningen</a>
+    <a href="/breda">Breda</a><a href="/maastricht">Maastricht</a>
+    <a href="/leiden">Leiden</a><a href="/haarlem">Haarlem</a>
+    <a href="/delft">Delft</a><a href="/nijmegen">Nijmegen</a>
+    <a href="/schiphol">Schiphol</a><a href="/all-cities">All cities</a>
+  </div>
+
+  <h2>Dutch charging words you will meet</h2>
+  <p>Street signs, apps and parking meters are in Dutch. These are the words worth knowing.</p>
+  <dl class="ev-glossary">
+    <div><dt>Laadpaal</dt><dd>Charging post. A <em>laadpaal</em> usually serves two bays.</dd></div>
+    <div><dt>Laadpas</dt><dd>Charge card. The RFID card or app you hold against the post.</dd></div>
+    <div><dt>Snelladen</dt><dd>Fast charging, meaning DC rather than the usual AC post.</dd></div>
+    <div><dt>Laadtarief</dt><dd>The charging tariff, quoted per kWh.</dd></div>
+    <div><dt>Opladen</dt><dd>To charge. <em>Opladen bezig</em> means charging in progress.</dd></div>
+    <div><dt>Storing</dt><dd>Fault or outage. A post showing <em>storing</em> is broken.</dd></div>
+    <div><dt>Bezet</dt><dd>Occupied. <em>Vrij</em> means free and available.</dd></div>
+    <div><dt>Alleen voor opladen</dt><dd>EV charging only. Parking here without charging risks a fine.</dd></div>
+  </dl>
+  <p>Parking at a charging bay without actually charging is a ticketable offence in most
+     municipalities. The <a href="/parking-fines">parking fines guide</a> covers what that costs
+     and how to contest it.</p>
+
+  <h2>Common questions</h2>
+  <div class="ev-faq">
+    <details open>
+      <summary>How much does it cost to charge an electric car in the Netherlands?</summary>
+      <div class="answer">
+        <p>The median public price is <strong>&euro;0.41 per kWh</strong>, with most chargers
+           between &euro;0.28 and &euro;0.63. Charging a 60 kWh battery from 20 to 80 percent
+           costs roughly &euro;15 at the median. The operator matters more than the city:
+           Vattenfall InCharge averages &euro;0.32 per kWh, E-Flux by Road &euro;0.51.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Do I pay for parking while charging?</summary>
+      <div class="answer">
+        <p>Usually yes. At least 12,667 Dutch charge points sit inside a paid parking area, and
+           the normal hourly tariff applies for the whole time you are plugged in. In a city
+           centre the parking can easily exceed the cost of the electricity for a short stop.
+           A handful of municipalities waive it, but that is the exception.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Which charge card is cheapest?</summary>
+      <div class="answer">
+        <p>There is no single answer, which is the whole problem. Each card negotiates its own
+           rate with each operator, so the cheapest card depends on whose post you are standing
+           at. The spread between best and worst card at the same socket commonly reaches 40 to
+           70 percent. The map above shows the cheapest card for each location rather than
+           recommending one card for everything.</p>
+      </div>
+    </details>
+    <details>
+      <summary>How do I avoid arriving at a broken charger?</summary>
+      <div class="answer">
+        <p>Check the operator-reported status before you drive. About 1.6 percent of Dutch
+           charge points are reported out of order at any moment, but that ranges from under
+           1 percent on the best networks to over 16 percent on the worst. Red markers on the
+           map above are points the operator itself is reporting as faulty.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Are there free charging stations in the Netherlands?</summary>
+      <div class="answer">
+        <p>Effectively no. Only 52 of roughly 93,000 published tariffs list a zero price per
+           kWh, and those are mostly at hotels, showrooms and workplaces rather than on the
+           street. Charging outside paid parking hours is the closest thing to a saving, since
+           the parking half of the bill drops to nothing.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Can I charge without a subscription or charge card?</summary>
+      <div class="answer">
+        <p>Yes. Every public charger must offer ad-hoc payment, usually by contactless card or
+           a QR code on the post. Ad-hoc is normally the most expensive way to pay, but for an
+           occasional visitor it avoids a subscription entirely. The prices quoted on this page
+           are the operators' ad-hoc rates.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Where are the fast chargers?</summary>
+      <div class="answer">
+        <p>Only 2.6 percent of Dutch connectors deliver 150 kW or more. Amsterdam and Rotterdam
+           have the most, over 200 points each, and the motorway network is well covered by
+           Fastned, Tesla and Allego. Some sizeable cities, Leiden among them, have essentially
+           none. Use the Power sort on the map to find them.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="ev-method">
+    <h2>Where these numbers come from</h2>
+    <p>Charging locations, connector specifications, prices and status come from the Dutch
+       national charging register, published under the EU alternative fuels rules and refreshed
+       continuously. Parking tariffs come from the national parking register and are matched to
+       each charger by location, within 400 metres.</p>
+    <p>Prices are the operator's own ad-hoc rate per kWh. They exclude session fees, connection
+       fees and whatever margin your charge card adds, all of which vary by card. Status is
+       what the operator reports about its own equipment, so a post that fails without reporting
+       it will still show as working. Figures on this page were computed from a full snapshot of
+       the register and are refreshed as the data is rebuilt.</p>
+    <p>Laadpuntdata: NDW / DOT-NL. This site is independent and is not affiliated with any
+       charge point operator, municipality or charge card issuer.</p>
+  </div>
+
+</article>
+
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking Netherlands</span></a>
+      <p>Independent parking comparison for the Netherlands. Official data, no bookings pushed, no paywall.</p>
+      <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+    </div>
+    <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All cities</a></div>
+    <div class="foot-col"><h4>Tools</h4><a href="/search">Parking search</a><a href="/map">Interactive map</a><a href="/ev-charging">Charger map</a><a href="/garage/">Garage directory</a></div>
+    <div class="foot-col"><h4>Guides</h4><a href="/free-parking">Free parking</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/ev-parking">EV parking</a><a href="/about">About</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span class="foot-pill">LAADPUNTDATA: NDW / DOT-NL</span>
+    <span>Not affiliated with any operator</span>
+  </div>
+</div></footer>
+
+<script src="/ev-map.js" defer></script>
+<script>
+(function(){
+  /* Mobile only: the map and the list compete for the same screen, so they
+     become one view at a time rather than two cramped halves. */
+  var app = document.getElementById('evApp');
+  var m = document.getElementById('tabMap'), l = document.getElementById('tabList');
+  function set(v){
+    app.dataset.view = v;
+    m.setAttribute('aria-pressed', v === 'map');
+    l.setAttribute('aria-pressed', v === 'list');
+    if (v === 'map' && window.__evMap) setTimeout(function(){ window.__evMap.invalidateSize(); }, 60);
+  }
+  m.onclick = function(){ set('map'); };
+  l.onclick = function(){ set('list'); };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: evlayer-db
+    environment:
+      POSTGRES_USER: evlayer
+      POSTGRES_PASSWORD: evlayer
+      POSTGRES_DB: evlayer
+    ports:
+      - "5433:5432"
+    volumes:
+      - evlayer-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evlayer"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  evlayer-pgdata:
