@@ -31,7 +31,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
 CSS_VERSION = "20260929i"
-SITE_CSS = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
+SITE_CSS = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
 
 # Colours from the retired palette, mapped onto the design system. These
 # survive in inline styles and Leaflet marker code on the older pages.
@@ -49,7 +49,7 @@ HEX_RE = re.compile("|".join(re.escape(k) for k in HEX_MAP), re.I)
 NAV_RE = re.compile(r"<nav\b.*?</nav>", re.S)
 FOOTER_RE = re.compile(r"<footer\b.*?</footer>", re.S)
 SHARED_LINK_RE = re.compile(r'\s*<link[^>]+href="/?shared\.css"[^>]*>', re.I)
-SITE_LINK_RE = re.compile(r'<link[^>]+href="/?site\.css(?:\?[^"]*)?"[^>]*>', re.I)
+SITE_LINK_RE = re.compile(r'<link[^>]+href="/?site\.css(?:\?[^"]*)?"[^>]*>(?:\s*<script src="/analytics\.js[^>]*></script>)?', re.I)
 FONT_LINK_RE = re.compile(r'\s*<link[^>]+fonts\.googleapis\.com/css2[^>]*>', re.I)
 PRECONNECT_RE = re.compile(r'\s*<link rel="preconnect" href="https://fonts\.g[^"]+"[^>]*>', re.I)
 IMPORT_FONT_RE = re.compile(r'@import\s+url\([^)]*fonts\.googleapis[^)]*\);?', re.I)

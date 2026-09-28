@@ -23,6 +23,7 @@
   var FAST_KW = 50;
   var PIN_ZOOM = 14;          // from here each priced charger shows its price on the pin
   var $ = function (s) { return document.querySelector(s); };
+  function track(n, p) { if (window.track) window.track(n, p); }
 
   var map, cities = [], tariffs = {}, meta = {};
   var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {}, byId = {};
@@ -531,6 +532,7 @@
       styleMarker(id, 'selected');
       if (!fromMap) map.panTo(markers[id].getLatLng());
     }
+    track('select', { mode: showMode, from: fromMap ? 'map' : 'list' });
     showCard(byId[id]);
     if (narrow()) sheet('hidden');   // the card sits over the map
   }
@@ -579,6 +581,7 @@
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = true;
     card.querySelector('.ev-card-x').onclick = clearSelection;
+    Array.prototype.forEach.call(card.querySelectorAll('a.ev-card-btn'), function (a) { a.onclick = function () { track('directions', { mode: showMode, app: a.textContent.trim() }); }; });
     $('#evCardWindow').onclick = function () {
       var d = $('#evWindow'); if (d) d.open = true;
       if (narrow()) sheet('full');
@@ -632,6 +635,7 @@
   function setShowMode(m, silent) {
     if (m !== 'parking' && m !== 'chargers') return;
     showMode = m;
+    track('mode', { mode: m });
     $('#evApp').dataset.mode = m;
     Array.prototype.forEach.call(document.querySelectorAll('.ev-modes button'), function (b) {
       b.setAttribute('aria-pressed', b.dataset.mode === m ? 'true' : 'false');
@@ -902,6 +906,7 @@
   function searchGo(q) {
     q = (q || '').trim();
     if (!q) return;
+    track('search', { term: q, mode: showMode });
     var hit = matches(q)[0];
     if (hit) {
       map.setView([hit.lat, hit.lon], 13);
@@ -933,6 +938,7 @@
     Array.prototype.forEach.call(sorts, function (btn) {
       btn.onclick = function () {
         sortKey = btn.dataset.sort;
+        track('sort', { sort: sortKey });
         Array.prototype.forEach.call(sorts, function (b2) {
           b2.setAttribute('aria-pressed', b2 === btn ? 'true' : 'false');
         });
@@ -949,6 +955,7 @@
       btn.onclick = function () {
         var f = btn.dataset.f;
         filters[f] = !filters[f];
+        track('filter', { filter: f, on: filters[f] });
         Array.prototype.forEach.call(document.querySelectorAll('.ev-chips button[data-f="' + f + '"]'), function (b2) {
           b2.setAttribute('aria-pressed', filters[f] ? 'true' : 'false');
         });
@@ -1007,6 +1014,7 @@
      it on the visitor and marks where they are. */
   var hereMarker = null;
   function goHere() {
+    track('near_me', { mode: showMode });
     var btn = document.querySelector('.nav-near') || document.getElementById('evNear'), label = btn ? btn.innerHTML : '';
     if (!navigator.geolocation) { searchGo(''); return; }
     if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
