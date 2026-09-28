@@ -451,3 +451,17 @@
   .ev-app[data-sheet="hidden"] .leaflet-bottom,.ev-app[data-sheet="full"] .leaflet-bottom{bottom:0}
 }
 @media(max-width:900px){:root{--ev-nav:104px}}
+
+/* filter chips on the map: cobalt outline so they read as controls, not labels */
+.ev-chips-map button{background:var(--blue-soft);color:var(--blue);border:1.5px solid var(--blue);box-shadow:0 2px 8px rgba(35,55,198,.25);font-weight:700}
+.ev-chips-map button:hover{background:#fff;color:var(--blue-2);border-color:var(--blue-2)}
+.ev-chips-map button[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 2px 10px rgba(35,55,198,.45)}
+.ev-chips-map button[data-f="faulty"]{border-color:var(--bad);color:var(--bad);background:var(--bad-soft);box-shadow:0 2px 8px rgba(220,38,38,.2)}
+.ev-chips-map button[data-f="faulty"][aria-pressed="true"]{background:var(--bad);color:#fff}
+.ev-chips-map button[data-f="free"]{border-color:var(--ok);color:var(--ok);background:var(--ok-soft);box-shadow:0 2px 8px rgba(5,150,105,.2)}
+.ev-chips-map button[data-f="free"][aria-pressed="true"]{background:var(--ok);color:#fff}
+.ev-chips button{border-width:1.5px}
+.ev-chips button[data-f="free"]{border-color:#A7F3D0;color:var(--ok)}
+.ev-chips button[data-f="faulty"]{border-color:#FECACA;color:var(--bad)}
+.ev-chips button[data-f="free"][aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
+.ev-chips button[data-f="faulty"][aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
