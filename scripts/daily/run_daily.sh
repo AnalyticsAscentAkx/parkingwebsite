@@ -85,8 +85,10 @@ step "3d. EV rollup + export"
 if [ -x "$REPO/scripts/ev/.venv/bin/python" ]; then
   ( cd "$REPO/scripts/ev" \
     && ./.venv/bin/python -m evlayer.cli rollup --days 3 >>"$LOG" 2>&1 \
-    && ./.venv/bin/python -c "from evlayer.seo import mapdata; print(mapdata.export())" >>"$LOG" 2>&1 ) \
-    && { git add ev-data; log "ev-data exported"; } \
+    && ./.venv/bin/python -c "from evlayer.seo import mapdata; print(mapdata.export())" >>"$LOG" 2>&1 \
+    && ./.venv/bin/python -c "from evlayer.seo import laadpaal; print(laadpaal.build()['pages'])" >>"$LOG" 2>&1 \
+    && python3 register_pages.py >>"$LOG" 2>&1 ) \
+    && { git add ev-data laadpaal-*.html *-storing.html sitemap.xml _redirects ev-charging.html; log "ev-data exported, Dutch pages rebuilt"; } \
     || log "WARN EV rollup/export failed (continuing)"
 fi
 
