@@ -16,6 +16,7 @@ Generated 2026-09-28 by scripts/compliance/audit.py
 - **PDOK Locatieserver (Kadaster) address and postcode search**: 1 file(s). Licence: Open data (BAG, CC0); PDOK asks for fair use and attribution. Terms: https://www.pdok.nl/voorwaarden
 - **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 370 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/
 - **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 7 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- **Google Analytics 4 (Consent Mode v2: no cookies before consent)**: 1 file(s). Licence: policy. Terms: https://support.google.com/analytics/answer/9976101
 - **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 371 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
 
 ## Findings

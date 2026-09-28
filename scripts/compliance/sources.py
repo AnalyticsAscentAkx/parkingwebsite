@@ -208,6 +208,16 @@ POLICIES = [
         "severity": "HARD",
     },
     {
+        "key": "ga4",
+        "name": "Google Analytics 4 (Consent Mode v2: no cookies before consent)",
+        "terms_url": "https://support.google.com/analytics/answer/9976101",
+        "uses": r"googletagmanager\.com/gtag|GA4_ID = 'G-",
+        "require": [(r"consent'\s*,\s*'default'", "GA4 must set Consent Mode defaults to denied before config")],
+        "forbid": [],
+        "advise": [],
+        "severity": "HARD",
+    },
+    {
         "key": "google_fonts",
         "name": "Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)",
         "terms_url": "https://developers.google.com/fonts/faq/privacy",
