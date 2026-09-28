@@ -530,3 +530,10 @@
   .ev-locate{right:12px;top:64px}
   .ev-jump{padding:0 18px}
 }
+
+/* cobalt + amber on the map: selection amber with dark text, cobalt for controls */
+.ev-search button,.ev-card-btn.is-primary{background:var(--sig);border-color:var(--sig);color:#17243A}
+.ev-search button:hover,.ev-card-btn.is-primary:hover{background:#F5AD1F;border-color:#F5AD1F;color:#17243A}
+.ev-pinwrap.is-sel .ev-pin{background:var(--sig)!important;color:#17243A;border-color:#fff;box-shadow:0 0 0 3px rgba(255,188,66,.45),0 2px 8px rgba(11,17,32,.35)}
+.ev-card{border-top-color:var(--sig)}
+.ev-modes button[data-mode="parking"][aria-pressed="true"]{background:var(--blue)}

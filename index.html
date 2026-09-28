@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929g">
-<link rel="stylesheet" href="/ev-map.css?v=20260929t">
+<link rel="stylesheet" href="/site.css?v=20260929h">
+<link rel="stylesheet" href="/ev-map.css?v=20260929u">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 
 <meta property="og:type" content="website">
@@ -103,6 +103,17 @@
 .hstat:last-child{border-right:none}
 .hstat .n{font-family:var(--f-mono);font-size:26px;font-weight:600;color:#fff;letter-spacing:-.04em}
 .hstat .l{font-size:12.5px;color:#64748B;margin-top:3px}
+
+
+/* --- hero motion: a rotating promise and a soft "sparks" canvas --- */
+.hero{position:relative}
+.hero-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.rotator{display:inline-block;min-width:6.2ch;vertical-align:bottom}
+.rotator.is-out{animation:rotOut .32s ease-in forwards}
+.rotator.is-in{animation:rotIn .38s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes rotOut{to{opacity:0;transform:translateY(-.35em)}}
+@keyframes rotIn{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.rotator.is-out,.rotator.is-in{animation:none}.hero-fx{display:none}}
 
 /* --- city cards --- */
 .city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -197,9 +208,9 @@
 </div>
 </nav>
 
-<header class="hero"><div class="wrap hero-in">
+<header class="hero"><canvas class="hero-fx" id="heroFx" aria-hidden="true"></canvas><div class="wrap hero-in">
   <div class="tag"><span class="dot"></span> 2026 rates · national register data</div>
-  <h1>Every parking price in the Netherlands. <span class="sig">One search.</span></h1>
+  <h1>Every parking price in the Netherlands. <span class="sig rotator" id="heroRot" aria-live="off">One search.</span></h1>
   <p class="sub">Compare 200+ garages, P+R sites and street zones across 14 Dutch cities - priced for your exact stay from official tariff tables. Tourists save €30+ per visit.</p>
   <form class="hero-search" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();if(v)location.href='/search?q='+encodeURIComponent(v);">
     <input type="text" id="heroQ" placeholder="Where do you need to park? Address, venue or city…" autocomplete="off">
@@ -436,7 +447,40 @@
   l.onclick = function(){ set('list'); };
 })();
 </script>
-<script src="/ev-map.js?v=20260929t" defer></script>
+<script>
+(function(){
+  /* rotating promise in the headline; the first word is in the HTML for crawlers */
+  var el=document.getElementById('heroRot');
+  var words=['One search.','Garages.','P+R from \u20ac1.','Chargers.','Street zones.','One search.'];
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(el&&!reduce){var i=0;setInterval(function(){el.classList.add('is-out');setTimeout(function(){i=(i+1)%words.length;el.textContent=words[i];el.classList.remove('is-out');el.classList.add('is-in');setTimeout(function(){el.classList.remove('is-in')},400)},320)},2600)}
+
+  /* soft sparks drifting up the hero, bursting now and then; calm, palette-coloured */
+  var c=document.getElementById('heroFx');
+  if(!c||reduce||!c.getContext)return;
+  var ctx=c.getContext('2d'),W,H,P=[],R=[],run=true,last=0;
+  var cols=['54,95,234','255,188,66','22,132,91'];
+  function size(){var r=c.parentNode.getBoundingClientRect();W=c.width=Math.floor(r.width);H=c.height=Math.floor(r.height)}
+  function spawn(){return{x:Math.random()*W,y:H+10,vy:.25+Math.random()*.55,vx:(Math.random()-.5)*.25,r:1+Math.random()*2,a:.25+Math.random()*.4,c:cols[Math.random()*cols.length|0],life:0,burst:220+Math.random()*420}}
+  size();for(var k=0;k<48;k++){var p=spawn();p.y=Math.random()*H;P.push(p)}
+  window.addEventListener('resize',size);
+  function frame(t){
+    if(!run){requestAnimationFrame(frame);return}
+    if(t-last<33){requestAnimationFrame(frame);return} last=t;
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.vy;p.x+=p.vx;p.life++;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fillStyle='rgba('+p.c+','+p.a+')';ctx.fill();
+      if(p.life>p.burst||p.y<-10){if(p.y>0&&Math.random()<.5)R.push({x:p.x,y:p.y,r:2,c:p.c,a:.5});P[i]=spawn()}}
+    for(var j=R.length-1;j>=0;j--){var q=R[j];q.r+=1.6;q.a-=.018;
+      ctx.beginPath();ctx.arc(q.x,q.y,q.r,0,6.283);ctx.strokeStyle='rgba('+q.c+','+Math.max(q.a,0)+')';ctx.lineWidth=1.2;ctx.stroke();
+      if(q.a<=0)R.splice(j,1)}
+    requestAnimationFrame(frame)}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(e){run=e[0].isIntersecting},{threshold:.05}).observe(c)}
+  document.addEventListener('visibilitychange',function(){run=!document.hidden});
+  requestAnimationFrame(frame);
+})();
+</script>
+<script src="/ev-map.js?v=20260929u" defer></script>
 
 </body>
 </html>

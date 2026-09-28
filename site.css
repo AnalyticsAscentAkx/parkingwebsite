@@ -12,12 +12,12 @@
   --mut:#64748B;         /* slate-500 */
   --mut-2:#94A3B8;       /* slate-400 */
   --txt:#17243A;         /* deep navy text */
-  --sig:#EA580C;         /* signal orange */
-  --blue:#315CCB;        /* clear cobalt: links, controls, selection */
-  --blue-2:#2749A8;
+  --sig:#FFBC42;         /* warm amber: energy, the main action (dark text on it) */
+  --blue:#365FEA;        /* lively cobalt: brand, links, controls, selection */
+  --blue-2:#2A4CC4;
   --blue-soft:#EAF0FB;
-  --sig-soft:#FFF1E8;
-  --ok:#168A68;  --ok-soft:#E6F5F0;   /* teal: available / live */
+  --sig-soft:#FFF4D6;
+  --ok:#16845B;  --ok-soft:#E6F5EE;   /* green: available / live */
   --warn:#D97706; --warn-soft:#FFFBEB;
   --bad:#DC2626; --bad-soft:#FEF2F2;
   --pr:#0891B2;  --pr-soft:#ECFEFF;
@@ -43,7 +43,7 @@ img{max-width:100%;display:block}
 .nav{position:sticky;top:0;z-index:1000;background:rgba(11,17,32,.94);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.07)}
 .nav-in{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{width:32px;height:32px;flex:0 0 32px;background:url('/favicon.svg?v=2') center/contain no-repeat;border-radius:8px}
+.logo-mark{width:32px;height:32px;flex:0 0 32px;background:url('/favicon.svg?v=3') center/contain no-repeat;border-radius:8px}
 .logo-mark::after{content:none}
 .logo-text{display:flex;flex-direction:column;gap:2px;font-weight:700;font-size:14px;color:#fff;letter-spacing:-.02em;line-height:1.05;white-space:nowrap}
 .logo-text small{color:var(--mut-2);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
@@ -508,3 +508,17 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
   .nav-mobile-pair a:first-child{background:var(--blue);border-color:var(--blue)}
   .nav-in .nav-search{order:4}
 }
+
+/* cobalt + amber: amber carries the action with dark text; emphasis in text is cobalt */
+.btn-primary,.nav-go,.bc,.pk-a.pri,.ctaband a.p1,.hero-search .btn{background:var(--sig);color:#17243A}
+.btn-primary:hover,.nav-go:hover,.bc:hover,.pk-a.pri:hover,.ctaband a.p1:hover,.hero-search .btn:hover{background:#F5AD1F;color:#17243A;box-shadow:0 6px 16px -6px rgba(255,188,66,.6)}
+.hero h1 .sig,.ph h1 em,.st em,.map-hero h1 em,body .hero h1 .sig{color:var(--blue)}
+.eyebrow,.sl{color:var(--blue)}
+.abox{border-left-color:var(--sig)}
+.foot-brand .credit a,.foot-support a{color:var(--sig)}
+.nav-links .nav-pair>a.is-on{box-shadow:inset 0 -3px 0 var(--sig)}
+::selection{background:var(--blue);color:#fff}
+.city-card .go,.tip a,.prose a{color:var(--blue)}
+.hero .tag .dot{background:var(--ok)}
+.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.price-hi{color:#B45309}
