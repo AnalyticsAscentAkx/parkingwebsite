@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929h">
+<link rel="stylesheet" href="/site.css?v=20260929i">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does parking cost in Leiden?","acceptedAnswer":{"@type":"Answer","text":"Street parking in Leiden centre costs €3.50/hr in 2026. Garages start from €1.80/hr. P+R parking is €5.00 for 24 hours."}},{"@type":"Question","name":"Where can I park for free in Leiden?","acceptedAnswer":{"@type":"Answer","text":"Leiden is free to park on Sundays in all zones, and most areas are free after 21:00 Mon-Sat. Leiderdorp residential streets are always free."}},{"@type":"Question","name":"Is there a P+R in Leiden?","acceptedAnswer":{"@type":"Answer","text":"Yes, Leiden has 3 P+R locations: Lammermarkt (largest, 600 spots), Haagweg and Leeuwenhoek. All cost €5/24hr with bus to centre."}},{"@type":"Question","name":"Can I park for free near Leiden University?","acceptedAnswer":{"@type":"Answer","text":"The area around the university (Rapenburg canal) is paid parking Mon-Sat. Best to use P+R Lammermarkt and bus in."}}]}</script>
@@ -38,7 +38,7 @@
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking + EV Charging<small>The Netherlands</small></span></a>
 <ul class="nav-links" id="navLinks">
-  <li class="nav-pair"><a href="/search" class="nav-find">Find parking</a><a href="/ev-charging" class="nav-find nav-find-ev">Find a charger</a></li>
+  <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Find parking &amp; charging</a></li>
   <li class="has-drop active"><a href="/all-cities">Cities</a>
     <div class="drop drop-wide">
       <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
@@ -59,7 +59,7 @@
   </li>
   <li><a href="/about">About</a></li>
 </ul>
-<div class="nav-mobile-pair"><a href="/search">Search</a><a href="/ev-charging?mode=parking">Parking</a><a href="/ev-charging">Chargers</a></div>
+<div class="nav-mobile-pair"><a href="/ev-charging">Find parking &amp; charging</a><a href="/ev-charging?mode=parking">Parking only</a></div>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div>
 </nav>

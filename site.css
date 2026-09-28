@@ -522,3 +522,9 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 .hero .tag .dot{background:var(--ok)}
 .field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
 .price-hi{color:#B45309}
+
+/* one product: parking with charging built in */
+.nav-links>li>a.nav-find{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;background:var(--blue)}
+.nav-links>li>a.nav-find svg{color:var(--sig)}
+.nav-links .active>a.nav-find{background:var(--blue-2);box-shadow:inset 0 -3px 0 var(--sig)}
+@media(max-width:768px){.nav-mobile-pair a:first-child{flex:1.4}}
