@@ -401,8 +401,9 @@ tbody tr:hover{background:#FAFBFC}
   .drop-wide{display:block}
   .has-drop .drop-wide{display:block;position:static}
   .drop-h{color:rgba(255,255,255,.4)}
-  .nav-search-in{padding:8px 16px}
-  .nav-near{display:none}
+  .nav-search-in{padding:8px 12px;gap:6px}
+  .nav-near{padding:8px 10px;font-size:12.5px}
+  .nav-go{padding:8px 12px}
 }
 
 /* homepage city cards: one number leads, the rest supports */

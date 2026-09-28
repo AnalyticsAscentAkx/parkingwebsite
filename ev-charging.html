@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929c">
-<link rel="stylesheet" href="/ev-map.css?v=20260929j">
+<link rel="stylesheet" href="/site.css?v=20260929d">
+<link rel="stylesheet" href="/ev-map.css?v=20260929n">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
@@ -102,7 +102,8 @@
     </div>
   </div>
 
-  <aside class="ev-panel" aria-label="Charger details">
+  <aside class="ev-panel" aria-label="Results">
+    <button type="button" class="ev-handle" id="evHandle" aria-label="Show or hide the results list"><i></i><span id="evHandleText">Results</span></button>
     <div class="ev-phead">
       <h1>EV charging in the Netherlands</h1>
       <p class="sub">Search a town, compare the chargers in view, open one for the price of
@@ -465,7 +466,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js?v=20260929j" defer></script>
+<script src="/ev-map.js?v=20260929n" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they

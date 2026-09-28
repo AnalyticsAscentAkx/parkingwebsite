@@ -78,6 +78,15 @@
          : g === 'bad' ? '#DC2626' : '#7C8DB5';
   }
   function narrow() { return window.innerWidth <= 900; }
+  /* On phones the results are a bottom sheet over the map: peek, full, or
+     hidden while a card is open. Desktop ignores the state. */
+  function sheet(state) {
+    var app = $('#evApp');
+    if (!app) return;
+    app.dataset.sheet = state;
+    if (state === 'full' && window.__evMap) setTimeout(function () { window.__evMap.invalidateSize(); }, 300);
+  }
+  function sheetToggle() { sheet($('#evApp').dataset.sheet === 'full' ? 'peek' : 'full'); }
   /* Charging price graded against the national spread: p10-p90 is 0.28-0.63
      around a 0.41 median, so under 0.36 is cheap and over 0.50 is dear. */
   function ppkGrade(ppk) {
@@ -332,7 +341,8 @@
     layer = L.layerGroup();
     markers = {};
     var w = currentWindow(), r = markerRadius();
-    var pills = map.getZoom() >= PIN_ZOOM;
+    /* Price pins only when they can be read: close in, or few in view. */
+    var pills = map.getZoom() >= PIN_ZOOM + 1 || (map.getZoom() >= PIN_ZOOM && rows.length <= 150);
     rows.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
       if (p) {
@@ -488,10 +498,7 @@
       if (!fromMap) map.panTo(markers[id].getLatLng());
     }
     showCard(byId[id]);
-    if (!fromMap && narrow()) {
-      var tab = $('#tabMap');
-      if (tab) tab.click();           // the card sits over the map
-    }
+    if (narrow()) sheet('hidden');   // the card sits over the map
   }
 
   function clearSelection() {
@@ -502,6 +509,7 @@
     $('#evCard').hidden = true;
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = mode !== 'detail';
+    if (narrow()) sheet('peek');
   }
 
   function showCard(st) {
@@ -541,7 +549,7 @@
     card.querySelector('.ev-card-x').onclick = clearSelection;
     $('#evCardWindow').onclick = function () {
       var d = $('#evWindow'); if (d) d.open = true;
-      if (narrow()) { var t = $('#tabList'); if (t) t.click(); }
+      if (narrow()) sheet('full');
       $('#evArrive').focus();
     };
   }
@@ -553,7 +561,7 @@
   function activate(el) {
     if (el.dataset.kind === 'city') {
       var c = rowsShown[+el.dataset.i];
-      if (c) { map.setView([c.lat, c.lon], 13); if (narrow()) { var t = $('#tabMap'); if (t) t.click(); } }
+      if (c) { map.setView([c.lat, c.lon], 13); if (narrow()) sheet('peek'); }
       return;
     }
     select(el.dataset.id, false);
@@ -794,7 +802,7 @@
           .bindTooltip(esc(f.properties.name || q), { direction: 'top' }).addTo(map);
         zoomed = true;
         map.setView(ll, 15);
-        if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
+        if (narrow()) sheet('peek');
       })
       .catch(function () { searchType(q); });
   }
@@ -811,7 +819,7 @@
   }
 
   function updateUrl() {
-    if (!window.history.replaceState || !map) return;
+    if (!window.history.replaceState || !map || $('#evApp').classList.contains('is-embed')) return;
     var c = map.getCenter(), w = currentWindow();
     window.history.replaceState({}, '', location.pathname +
       '?lat=' + c.lat.toFixed(5) + '&lng=' + c.lng.toFixed(5) + '&zoom=' + map.getZoom() +
@@ -857,7 +865,7 @@
       map.setView([hit.lat, hit.lon], 13);
       zoomed = true;
       scheduleRefresh();
-      if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
+      if (narrow()) sheet('peek');
     } else {
       geocode(q);
     }
@@ -892,7 +900,8 @@
     Array.prototype.forEach.call(document.querySelectorAll('.ev-modes button'), function (btn) {
       btn.onclick = function () { setShowMode(btn.dataset.mode); };
     });
-    if (q.get('mode') === 'parking') setShowMode('parking', true);
+    var startMode = q.get('mode') || $('#evApp').dataset.startMode;
+    if (startMode === 'parking') setShowMode('parking', true);
     var chips = document.querySelectorAll('.ev-chips button');
     Array.prototype.forEach.call(chips, function (btn) {
       btn.onclick = function () {
@@ -916,6 +925,10 @@
       if (e.key === 'Escape') { box.value = ''; refresh(); }
     });
     $('#evGo').onclick = function () { searchGo(box.value); };
+    var handle = $('#evHandle');
+    if (handle) { handle.onclick = sheetToggle; sheet('peek'); }
+    /* typing in the sheet's search box needs the sheet open */
+    box.addEventListener('focus', function () { if (narrow()) sheet('full'); });
     $('#evArea').onclick = function () { $('#evArea').hidden = true; refresh(); };
 
     var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng')), zoom = parseInt(q.get('zoom'), 10);
@@ -948,7 +961,7 @@
         .bindTooltip('You are here', { direction: 'top' }).addTo(map);
       zoomed = true;
       map.setView(ll, 15);
-      if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
+      if (narrow()) sheet('peek');
       if (btn) { btn.disabled = false; btn.textContent = label; }
     }, function () {
       if (btn) { btn.disabled = false; btn.textContent = label; }
@@ -957,6 +970,19 @@
   }
 
   function bindHeaderSearch() {
+    /* The homepage hero is a second front door to the same app. */
+    var hero = document.getElementById('heroQ'), heroNear = document.querySelector('.hero-near');
+    if (hero && hero.form) {
+      hero.form.onsubmit = function (e) {
+        e.preventDefault();
+        var v = hero.value.trim();
+        if (!v) { hero.focus(); return; }
+        $('#evSearch').value = v;
+        searchGo(v);
+        $('#evApp').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+    }
+    if (heroNear) heroNear.onclick = function () { goHere(); $('#evApp').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
     var form = document.querySelector('form.nav-search'), near = document.querySelector('.nav-near'), q = document.getElementById('navQ');
     if (form) {
       form.onsubmit = function (e) {
@@ -975,6 +1001,11 @@
     var el = document.getElementById(id);
     if (el) el.textContent = v;
   }
+  (function mirrorCount() {
+    var src = document.getElementById('evCount'), dst = document.getElementById('evHandleText');
+    if (!src || !dst || !window.MutationObserver) return;
+    new MutationObserver(function () { dst.textContent = src.textContent.split('.')[0].split(' ·')[0]; }).observe(src, { childList: true, characterData: true, subtree: true });
+  })();
 
   function json(path) {
     return fetch(DATA + path).then(function (r) {

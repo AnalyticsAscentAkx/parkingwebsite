@@ -10,7 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260929c">
+<link rel="stylesheet" href="/site.css?v=20260929d">
+<link rel="stylesheet" href="/ev-map.css?v=20260929n">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 
 <meta property="og:type" content="website">
@@ -148,11 +149,6 @@
 .support p{color:#94A3B8;font-size:14px;max-width:420px;position:relative}
 .ad-slot{background:var(--paper-2);border:1px dashed var(--line);border-radius:12px;padding:16px;text-align:center;font-family:var(--f-mono);font-size:9.5px;color:var(--mut-2);text-transform:uppercase;letter-spacing:.15em;margin:0 auto;max-width:728px;min-height:90px;display:flex;align-items:center;justify-content:center}
 
-#nlMap{width:100%;height:480px}
-.map-wrap{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh)}
-.map-legend{display:flex;gap:22px;margin-top:14px;flex-wrap:wrap}
-.map-legend span{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--mut);font-family:var(--f-mono)}
-.map-legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
 
 @media(max-width:960px){.city-grid,.tips{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){
@@ -163,8 +159,7 @@
   .hstat{flex-basis:50%;padding:18px 14px}
   .hstat:first-child{padding-left:14px}
   .support{flex-direction:column;text-align:center;padding:36px 24px}
-  #nlMap{height:360px}
-}
+  }
 @media(max-width:600px){.city-grid,.tips,.steps{grid-template-columns:1fr}}
 </style>
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
@@ -218,19 +213,116 @@
   </div>
 </div></header>
 
-<section class="sec"><div class="wrap">
-  <div class="sec-h">
-    <div class="eyebrow">Interactive map</div>
-    <h2>Parking rates across the Netherlands</h2>
-    <p>Click any city for detailed options, rates, and money-saving strategy.</p>
+<section class="sec-tight" id="find"><div class="wrap">
+  <div class="sec-h" style="margin-bottom:22px">
+    <div class="eyebrow">One map</div>
+    <h2>Every price on one map</h2>
+    <p>Garages and P+R for any car, public chargers for an EV, and what your exact stop costs at each. Starts in Amsterdam; search any town or address.</p>
   </div>
-  <div class="map-wrap"><div id="nlMap"></div></div>
-  <div class="map-legend">
-    <span><i style="background:#DC2626"></i> EXPENSIVE €5+/HR</span>
-    <span><i style="background:#D97706"></i> MODERATE €3-5/HR</span>
-    <span><i style="background:#059669"></i> BUDGET &lt;€3/HR</span>
-    <span><i style="background:#7C3AED"></i> AIRPORT</span>
+<main class="ev-app is-embed" id="evApp" data-view="map" data-mode="parking" data-start-mode="parking" aria-label="Find parking or a charger">
+
+  <div class="ev-tabs" role="group" aria-label="Switch between map and list">
+    <button id="tabMap" aria-pressed="true">Map</button>
+    <button id="tabList" aria-pressed="false">List</button>
   </div>
+
+  <div class="ev-mapwrap">
+    <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
+    <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <div class="ev-modes" role="group" aria-label="What to show">
+      <button type="button" data-mode="chargers" aria-pressed="true">Chargers</button>
+      <button type="button" data-mode="parking" aria-pressed="false">Parking</button>
+    </div>
+    <button type="button" class="ev-area" id="evArea" hidden>Search this area</button>
+    <div class="ev-chips ev-chips-map" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+    <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
+    <div class="ev-legend" hidden>
+      <b>Charge point status</b>
+      <div><i style="background:#059669"></i> Working, no faults reported</div>
+      <div><i style="background:#DC2626"></i> Reported out of order</div>
+      <div><i style="background:#7C8DB5"></i> Status not published</div>
+    </div>
+  </div>
+
+  <aside class="ev-panel" aria-label="Results">
+    <button type="button" class="ev-handle" id="evHandle" aria-label="Show or hide the results list"><i></i><span id="evHandleText">Results</span></button>
+    <div class="ev-phead">
+      <h2>Find parking or a charger</h2>
+      <p class="sub">Search a town, compare the chargers in view, open one for the price of
+         your stop with parking counted, then get directions.</p>
+
+      <div class="ev-search">
+        <input type="search" id="evSearch" placeholder="Search a town, e.g. Utrecht"
+               aria-label="Search for a town" autocomplete="off" spellcheck="false">
+        <button id="evGo" type="button">Go</button>
+      </div>
+      <div class="ev-meta" id="evMeta" aria-live="polite">
+        <div class="ev-tile is-lo"><b id="mCheap">–</b><span id="mCheapL">cheapest stop in view</span></div>
+        <div class="ev-tile"><b id="mKwh">–</b><span id="mKwhL">typical price per kWh</span></div>
+        <div class="ev-tile"><b id="mPark">–</b><span id="mParkL">parking for this stop</span></div>
+        <div class="ev-tile is-blue"><b id="mFast">–</b><span id="mFastL">fast chargers, 50 kW+</span></div>
+      </div>
+
+      <details class="ev-window" id="evWindow">
+        <summary>Price a stop</summary>
+        <div class="ev-fields">
+          <div class="ev-field"><label for="evArrive">Arriving</label>
+            <input type="datetime-local" id="evArrive" data-stamp=""></div>
+          <div class="ev-field"><label for="evLeave">Leaving</label>
+            <input type="datetime-local" id="evLeave" data-stamp=""></div>
+          <div class="ev-kwhrow">
+            <label for="evKwh">Energy needed</label>
+            <input type="number" id="evKwh" value="20" min="1" max="150" step="1">
+            <span class="hint">kWh, about 120 km in a typical EV</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="ev-tbar">
+        <div class="ev-mode">
+          <b id="evMode">Towns in view</b>
+          <span id="evCount" aria-live="polite">Loading</span>
+        </div>
+        <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="reliable" aria-pressed="true">Status</button>
+          <button data-sort="cheap" aria-pressed="false">Cost</button>
+          <button data-sort="fast" aria-pressed="false">Power</button>
+        </div>
+      </div>
+      <div class="ev-chips" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+      <p class="ev-session" id="evSession">Estimates assume 20 kWh and a 2 h stop.</p>
+    </div>
+
+    <div class="ev-list" id="evRows" role="listbox" aria-label="Charging locations">
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+    </div>
+
+    <p class="ev-foot">
+      Laadpuntdata: NDW / DOT-NL. Parking tariffs from the Dutch national parking register.
+      Prices are indicative and exclude fees your card issuer may add.
+      <a href="/ev-parking" style="color:var(--blue)">Read the EV parking guide</a>
+    </p>
+  </aside>
+</main>
 </div></section>
 
 <div style="padding:10px 24px 34px"><div class="ad-slot">Advertisement</div></div>
@@ -328,38 +420,22 @@
 </div></footer>
 
 <script>
-const NL=[{n:'Amsterdam',lat:52.3676,lng:4.9041,r:8.05,p:'€8.05/hr',c:'#DC2626',l:'/amsterdam'},{n:'Rotterdam',lat:51.9244,lng:4.4777,r:4.24,p:'€4.24/hr',c:'#D97706',l:'/rotterdam'},{n:'The Hague',lat:52.0705,lng:4.3007,r:3.98,p:'€3.98/hr',c:'#D97706',l:'/the-hague'},{n:'Utrecht',lat:52.0907,lng:5.1214,r:5.10,p:'€5.10/hr',c:'#DC2626',l:'/utrecht'},{n:'Eindhoven',lat:51.4416,lng:5.4697,r:3.30,p:'€3.30/hr',c:'#D97706',l:'/eindhoven'},{n:'Groningen',lat:53.2194,lng:6.5665,r:3.40,p:'€3.40/hr',c:'#D97706',l:'/groningen'},{n:'Haarlem',lat:52.3874,lng:4.6462,r:3.50,p:'€3.50/hr',c:'#D97706',l:'/haarlem'},{n:'Leiden',lat:52.1601,lng:4.497,r:3.50,p:'€3.50/hr',c:'#D97706',l:'/leiden'},{n:'Delft',lat:52.0116,lng:4.3571,r:2.90,p:'€2.90/hr',c:'#059669',l:'/delft'},{n:'Maastricht',lat:50.8514,lng:5.691,r:3.60,p:'€3.60/hr',c:'#D97706',l:'/maastricht'},{n:'Schiphol',lat:52.3105,lng:4.7683,r:6.5,p:'€29-54/day',c:'#7C3AED',l:'/schiphol'},{n:'Breda',lat:51.5719,lng:4.7683,r:2.80,p:'€2.80/hr',c:'#059669',l:'/breda'},{n:'Nijmegen',lat:51.8126,lng:5.8372,r:2.85,p:'€2.85/hr',c:'#059669',l:'/nijmegen'},{n:'Tilburg',lat:51.5606,lng:5.0919,r:2.60,p:'€2.60/hr',c:'#059669',l:'/tilburg'},{n:'Zwolle',lat:52.5168,lng:6.083,r:2.90,p:'€2.90/hr',c:'#059669',l:'/zwolle'}];
 (function(){
-  var loaded=false;
-  function loadMap(){
-    if(loaded)return; loaded=true;
-    var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);
-    var js=document.createElement('script');js.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    js.onload=function(){
-      var map=L.map('nlMap',{scrollWheelZoom:false}).setView([52.15,5.2],8);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',maxZoom:18}).addTo(map);
-      map.on('click',function(){map.scrollWheelZoom.enable();});
-      map.on('mouseout',function(){map.scrollWheelZoom.disable();});
-      var popupHtml=function(c){return '<div style="font-family:sans-serif;min-width:150px;padding:4px 2px"><div style="font-size:15px;font-weight:700;color:#0B1120">'+c.n+'</div><div style="font-size:10px;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin:2px 0 6px">Centre rate</div><div style="font-family:monospace;font-size:18px;font-weight:600;color:#EA580C">'+c.p+'</div><a href="'+c.l+'" style="display:block;margin-top:10px;padding:7px 14px;background:#2337C6;color:#fff;text-align:center;border-radius:7px;text-decoration:none;font-size:12.5px;font-weight:600">View details →</a></div>';};
-      NL.forEach(function(c){
-        // price-scaled heat zones: outer glow + core, radius grows with rate
-        var base=6500+c.r*1400;
-        L.circle([c.lat,c.lng],{radius:base*1.8,color:c.c,weight:0,fillColor:c.c,fillOpacity:.13,interactive:false}).addTo(map);
-        L.circle([c.lat,c.lng],{radius:base,color:c.c,weight:1.5,opacity:.5,fillColor:c.c,fillOpacity:.32})
-          .addTo(map).bindPopup(popupHtml(c));
-        L.marker([c.lat,c.lng],{icon:L.divIcon({className:'',iconSize:[86,30],iconAnchor:[43,15],
-          html:'<div style="text-align:center;pointer-events:none"><div style="display:inline-block;background:rgba(255,255,255,.94);border:1px solid rgba(11,17,32,.10);border-radius:7px;padding:2px 8px;box-shadow:0 1px 4px rgba(11,17,32,.18)"><span style="font-family:\'IBM Plex Mono\',monospace;font-size:11px;font-weight:600;color:'+c.c+'">'+c.p.replace('/hr','')+'</span><br><span style="font-size:9px;font-weight:700;color:#334155;letter-spacing:.03em">'+c.n.toUpperCase()+'</span></div></div>'})})
-          .addTo(map).bindPopup(popupHtml(c));
-      });
-    };
-    document.head.appendChild(js);
+  /* Mobile only: the map and the list compete for the same screen, so they
+     become one view at a time rather than two cramped halves. */
+  var app = document.getElementById('evApp');
+  var m = document.getElementById('tabMap'), l = document.getElementById('tabList');
+  function set(v){
+    app.dataset.view = v;
+    m.setAttribute('aria-pressed', v === 'map');
+    l.setAttribute('aria-pressed', v === 'list');
+    if (v === 'map' && window.__evMap) setTimeout(function(){ window.__evMap.invalidateSize(); }, 60);
   }
-  var el=document.getElementById('nlMap');
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(e){if(e[0].isIntersecting){loadMap();obs.disconnect();}},{rootMargin:'200px'});
-    obs.observe(el);
-  } else loadMap();
+  m.onclick = function(){ set('map'); };
+  l.onclick = function(){ set('list'); };
 })();
 </script>
+<script src="/ev-map.js?v=20260929n" defer></script>
+
 </body>
 </html>
