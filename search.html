@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=20260929j">
 <script src="/analytics.js?v=20260929j" defer></script>
+<link rel="stylesheet" href="/ev-map.css?v=20260929y">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/search">
@@ -134,58 +135,110 @@
 </div>
 </nav>
 
-<header class="tool-hero"><div class="wrap hero-in">
-  <h1>Find the cheapest parking near any address</h1>
-  <p class="sub">Search 200+ garages and P+R sites across 14 Dutch cities. Prices computed for your exact stay from official national register tariff tables. <span class="mono">DATA: NATIONAL PARKING REGISTER (CC0) · UPDATED MONTHLY</span></p>
-  <form class="panel" id="searchPanel" onsubmit="return runSearch(event)">
-    <div class="field ac-wrap">
-      <label for="q">Destination</label>
-      <input type="text" id="q" placeholder="Address, venue or city - e.g. Johan Cruijff ArenA" autocomplete="off" required>
-      <div class="ac" id="ac"></div>
-    </div>
-    <div class="field">
-      <label for="arrive">Arrival</label>
-      <input type="datetime-local" id="arrive" required>
-    </div>
-    <div class="field">
-      <label for="depart">Departure</label>
-      <input type="datetime-local" id="depart" required>
-    </div>
-    <button type="submit" class="btn btn-primary go">Find parking</button>
-  </form>
-</div></header>
+<main class="ev-app" id="evApp" data-view="map" data-mode="parking" data-start-mode="parking">
 
-<section class="results-zone"><div class="wrap">
-  <div id="resultsUI" style="display:none">
-    <div class="rhead">
-      <div class="stat" id="resStat"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <div class="chip-filters">
-          <button type="button" class="chip" id="fPr" onclick="toggleFilter('pr')">P+R only</button>
-          <button type="button" class="chip" id="fEv" onclick="toggleFilter('ev')">EV charging</button>
+  <div class="ev-tabs" role="group" aria-label="Switch between map and list">
+    <button id="tabMap" aria-pressed="true">Map</button>
+    <button id="tabList" aria-pressed="false">List</button>
+  </div>
+
+  <div class="ev-mapwrap">
+    <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
+    <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <div class="ev-modes" role="group" aria-label="What to show">
+      <button type="button" data-mode="parking" data-start-mode="parking" aria-pressed="true">Chargers</button>
+      <button type="button" data-mode="parking" aria-pressed="false">Parking</button>
+    </div>
+    <button type="button" class="ev-area" id="evArea" hidden>Search this area</button>
+    <div class="ev-chips ev-chips-map" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+    <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
+    <button type="button" class="ev-locate" id="evLocate" title="Use my location" aria-label="Use my location"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+    <div class="ev-legend" id="evLegend" hidden></div>
+  </div>
+
+  <aside class="ev-panel" aria-label="Results">
+    <button type="button" class="ev-handle" id="evHandle" aria-label="Show or hide the results list"><i></i><span id="evHandleText">Results</span></button>
+    <div class="ev-phead">
+      <h1>Find the cheapest parking near any address</h1>
+      <p class="sub">Search a town, compare the chargers in view, open one for the price of
+         your stop with parking counted, then get directions.</p>
+
+      <label class="ev-search-label" for="evSearch">Where do you need to park or charge?</label>
+      <div class="ev-search">
+        <svg class="ev-search-ico" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="evSearch" placeholder="Town, address or postcode"
+               aria-label="Search for a town" autocomplete="off" spellcheck="false">
+        <button id="evNear" type="button" class="ev-near" title="Use my location" aria-label="Use my location"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+        <button id="evGo" type="button">Search</button>
+      </div>
+      <div class="ev-meta" id="evMeta" aria-live="polite">
+        <div class="ev-tile is-lo"><b id="mCheap">–</b><span id="mCheapL">cheapest stop in view</span></div>
+        <div class="ev-tile"><b id="mKwh">–</b><span id="mKwhL">typical price per kWh</span></div>
+        <div class="ev-tile"><b id="mPark">–</b><span id="mParkL">parking for this stop</span></div>
+        <div class="ev-tile is-blue"><b id="mFast">–</b><span id="mFastL">fast chargers, 50 kW+</span></div>
+      </div>
+
+      <details class="ev-window" id="evWindow" open>
+        <summary>Price a stop <small>arrival, departure, kWh</small></summary>
+        <div class="ev-fields">
+          <div class="ev-field"><label for="evArrive">Arriving</label>
+            <input type="datetime-local" id="evArrive" data-stamp=""></div>
+          <div class="ev-field"><label for="evLeave">Leaving</label>
+            <input type="datetime-local" id="evLeave" data-stamp=""></div>
+          <div class="ev-kwhrow">
+            <label for="evKwh">Energy needed</label>
+            <input type="number" id="evKwh" value="20" min="1" max="150" step="1">
+            <span class="hint">kWh, about 120 km in a typical EV</span>
+          </div>
         </div>
-        <div class="seg">
-          <button type="button" id="sortDist" class="on" onclick="setSort('dist')">Nearest</button>
-          <button type="button" id="sortPrice" onclick="setSort('price')">Cheapest</button>
+      </details>
+
+      <div class="ev-tbar">
+        <div class="ev-mode">
+          <b id="evMode">Towns in view</b>
+          <span id="evCount" aria-live="polite">Loading</span>
+        </div>
+        <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="near" aria-pressed="false" hidden>Nearest</button>
+          <button data-sort="reliable" aria-pressed="true">Status</button>
+          <button data-sort="cheap" aria-pressed="false">Cost</button>
+          <button data-sort="fast" aria-pressed="false">Power</button>
         </div>
       </div>
+      <div class="ev-chips" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+      <p class="ev-session" id="evSession">Estimates assume 20 kWh and a 2 h stop.</p>
     </div>
-    <div class="rgrid">
-      <div id="resList"></div>
-      <div id="resMap"></div>
+
+    <div class="ev-list" id="evRows" role="listbox" aria-label="Charging locations">
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
     </div>
-  </div>
-  <div id="emptyState" class="empty">
-    <h3>Search any Dutch address, venue or station</h3>
-    <p style="font-size:14px">Try “Museumplein Amsterdam”, “Markthal Rotterdam” or “Johan Cruijff ArenA”.<br>We’ll rank every garage and P+R within reach by distance and price.</p>
-    <div class="citylinks">
-      <a class="btn btn-ghost btn-sm" href="javascript:demo('Amsterdam Centraal')">Amsterdam Centraal</a>
-      <a class="btn btn-ghost btn-sm" href="javascript:demo('Johan Cruijff ArenA')">Johan Cruijff ArenA</a>
-      <a class="btn btn-ghost btn-sm" href="javascript:demo('Markthal Rotterdam')">Markthal Rotterdam</a>
-      <a class="btn btn-ghost btn-sm" href="javascript:demo('Vrijthof Maastricht')">Vrijthof Maastricht</a>
-    </div>
-  </div>
-</div></section>
+
+    <p class="ev-foot">
+      Laadpuntdata: NDW / DOT-NL. Parking tariffs from the Dutch national parking register. Address search: PDOK Locatieserver (Kadaster) and OpenStreetMap.
+      Prices are indicative and exclude fees your card issuer may add.
+      <a href="/ev-parking" style="color:var(--blue)">Read the EV parking guide</a>
+    </p>
+  </aside>
+</main>
 
 <section class="sec"><div class="wrap prose-sec">
   <div class="eyebrow">Methodology</div>
@@ -214,223 +267,6 @@
   </div>
 </div></footer>
 
-<script src="/rdw-data.js"></script>
-<script>
-// ---------- setup ----------
-const ALL = Object.entries(RDW_DATA).flatMap(([city, gs]) => gs.map(g => ({...g, city})));
-const CITY_LABEL = {'amsterdam':'Amsterdam','rotterdam':'Rotterdam','the-hague':'The Hague','utrecht':'Utrecht','eindhoven':'Eindhoven','groningen':'Groningen','maastricht':'Maastricht','leiden':'Leiden','haarlem':'Haarlem','breda':'Breda','delft':'Delft','nijmegen':'Nijmegen','tilburg':'Tilburg','zwolle':'Zwolle'};
-let dest = null, results = [], sortBy = 'dist', filters = {pr:false, ev:false};
-let map = null, markerLayer = null, leafletReady = false;
-
-// default times: arrive in ~1h (rounded), stay 3h
-(function initTimes(){
-  const pad = n => String(n).padStart(2,'0');
-  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:00`;
-  const a = new Date(Date.now() + 60*60*1000), d = new Date(a.getTime() + 3*60*60*1000);
-  document.getElementById('arrive').value = fmt(a);
-  document.getElementById('depart').value = fmt(d);
-})();
-
-// ---------- geocoding (Photon / komoot, CC-BY OSM) ----------
-async function geocode(q){
-  const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=en&bbox=3.2,50.7,7.3,53.6`;
-  const r = await fetch(url);
-  if(!r.ok) throw new Error('geocode failed');
-  const j = await r.json();
-  return (j.features||[]).map(f => ({
-    lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0],
-    label: f.properties.name + (f.properties.city && f.properties.city !== f.properties.name ? ', ' + f.properties.city : (f.properties.state ? ', ' + f.properties.state : ''))
-  }));
-}
-
-// autocomplete
-let acTimer = null, acItems = [];
-document.getElementById('q').addEventListener('input', e => {
-  dest = null;
-  clearTimeout(acTimer);
-  const v = e.target.value.trim();
-  if(v.length < 3){ closeAc(); return; }
-  acTimer = setTimeout(async () => {
-    try{
-      acItems = await geocode(v);
-      const box = document.getElementById('ac');
-      box.innerHTML = acItems.map((it,i) => `<button type="button" onclick="pickAc(${i})">${esc(it.label)}</button>`).join('');
-      box.classList.toggle('open', acItems.length > 0);
-    }catch(_){ closeAc(); }
-  }, 280);
-});
-function pickAc(i){ dest = acItems[i]; document.getElementById('q').value = acItems[i].label; closeAc(); }
-function closeAc(){ document.getElementById('ac').classList.remove('open'); }
-document.addEventListener('click', e => { if(!e.target.closest('.ac-wrap')) closeAc(); });
-function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-// ---------- pricing ----------
-// piecewise-linear through official 1h / 3h / 24h tariff points
-function estCost(g, mins){
-  if(g.rate_hr == null) return null;
-  const h1 = g.rate_hr, h3 = (g.rate_3h != null ? g.rate_3h : h1*3), d1 = (g.rate_day != null ? g.rate_day : h1*24);
-  function upTo24(m){
-    if(m <= 0) return 0;
-    if(m <= 60)  return h1 * (m/60 < .5 ? .5 : m/60);   // sub-hour ≈ pro-rata, min 30 min
-    if(m <= 180) return h1 + (h3-h1) * (m-60)/120;
-    return h3 + (d1-h3) * (m-180)/1260;
-  }
-  if(mins <= 1440) return upTo24(mins);
-  const days = Math.floor(mins/1440), rem = mins % 1440;
-  return days*d1 + Math.min(upTo24(rem), d1);
-}
-function haversine(a, b){
-  const R = 6371, dLa = (b.lat-a.lat)*Math.PI/180, dLo = (b.lng-a.lng)*Math.PI/180;
-  const x = Math.sin(dLa/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLo/2)**2;
-  return 2*R*Math.asin(Math.sqrt(x));
-}
-
-// ---------- search ----------
-async function runSearch(e){
-  if(e) e.preventDefault();
-  const q = document.getElementById('q').value.trim();
-  if(!q) return false;
-  const btn = document.querySelector('.go'); btn.textContent = 'Searching…';
-  try{
-    if(!dest){
-      const hits = await geocode(q);
-      if(!hits.length){ alert('Address not found - try adding the city name.'); btn.textContent='Find parking'; return false; }
-      dest = hits[0];
-    }
-    render();
-    history.replaceState(null,'',`/search?q=${encodeURIComponent(q)}&lat=${dest.lat.toFixed(5)}&lng=${dest.lng.toFixed(5)}`);
-  }catch(err){
-    alert('Search is temporarily unavailable - the geocoding service did not respond. Please try again in a minute.');
-  }
-  btn.textContent = 'Find parking';
-  return false;
-}
-function demo(q){ document.getElementById('q').value = q; dest = null; runSearch(); }
-
-function stayMinutes(){
-  const a = new Date(document.getElementById('arrive').value);
-  const d = new Date(document.getElementById('depart').value);
-  const m = Math.round((d-a)/60000);
-  return (isFinite(m) && m > 0) ? m : 180;
-}
-
-function render(){
-  const mins = stayMinutes();
-  results = ALL
-    .map(g => ({...g, dist: haversine(dest, g), cost: estCost(g, mins)}))
-    .filter(g => g.dist <= 35)
-    .filter(g => !filters.pr || g.pr)
-    .filter(g => !filters.ev || (g.ev_points > 0));
-  results.sort((a,b) => sortBy === 'price'
-    ? ((a.cost ?? 1e9) - (b.cost ?? 1e9)) || (a.dist - b.dist)
-    : a.dist - b.dist);
-  results = results.slice(0, 20);
-
-  document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('resultsUI').style.display = 'block';
-  const hrs = (mins/60).toFixed(mins % 60 ? 1 : 0);
-  document.getElementById('resStat').innerHTML =
-    `<b>${results.length}</b> options near <b>${esc(dest.label || document.getElementById('q').value)}</b> · ${hrs}h stay`;
-
-  document.getElementById('resList').innerHTML = results.length ? results.map((g,i) => `
-    <div class="rcard" id="rc${i}" onclick="focusG(${i})">
-      <div>
-        <div class="rname">${esc(g.name)}</div>
-        <div class="rmeta">
-          <span class="mono">${g.dist < 1 ? Math.round(g.dist*1000)+' m' : g.dist.toFixed(1)+' km'} · ~${Math.max(1,Math.round(g.dist*12))} min walk</span>
-          ${g.capacity ? `<span class="mono">${g.capacity} spaces</span>` : ''}
-          ${g.ev_points ? `<span class="mono" style="color:var(--ok)">⚡ ${g.ev_points} EV</span>` : ''}
-          ${g.max_height_cm ? `<span class="mono">↥ ${(g.max_height_cm/100).toFixed(2)} m</span>` : ''}
-          ${g.pr ? '<span class="badge badge-pr">P+R</span>' : ''}
-        </div>
-      </div>
-      <div class="rprice">
-        ${g.cost != null
-          ? `<span class="amt">€${g.cost.toFixed(2)}</span><span class="per">for ${hrs}h · €${g.rate_hr.toFixed(2)}/h</span>`
-          : '<span class="per">rate not<br>published</span>'}
-      </div>
-      <div class="rlinks">
-        <a class="btn btn-ghost btn-sm" href="/garage/${g.slug}" onclick="event.stopPropagation()">Details</a>
-        ${g.op_url ? `<a class="btn btn-ghost btn-sm" href="${g.op_url}" target="_blank" rel="noopener nofollow" onclick="event.stopPropagation()">${esc((g.op||'Operator').split(' ')[0])} site ↗</a>` : ''}
-        <a class="btn btn-dark btn-sm" target="_blank" rel="noopener" onclick="event.stopPropagation()"
-           href="https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}">Directions</a>
-      </div>
-    </div>`).join('')
-    : `<div class="empty"><h3>No garages within 35 km</h3><p>This tool covers 14 major Dutch cities. Try a destination closer to a city centre.</p></div>`;
-
-  drawMap();
-}
-
-function toggleFilter(k){
-  filters[k] = !filters[k];
-  document.getElementById(k === 'pr' ? 'fPr' : 'fEv').classList.toggle('on', filters[k]);
-  if(dest) render();
-}
-function setSort(s){
-  sortBy = s;
-  document.getElementById('sortDist').classList.toggle('on', s === 'dist');
-  document.getElementById('sortPrice').classList.toggle('on', s === 'price');
-  if(dest) render();
-}
-
-// ---------- map ----------
-function loadLeaflet(cb){
-  if(leafletReady) return cb();
-  const css = document.createElement('link'); css.rel = 'stylesheet';
-  css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
-  const js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  js.onload = () => { leafletReady = true; cb(); }; document.head.appendChild(js);
-}
-function pin(color, letter){
-  return L.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="30" height="38" viewBox="0 0 30 38"><path d="M15 0C6.7 0 0 6.7 0 15c0 11.25 15 23 15 23s15-11.75 15-23C30 6.7 23.3 0 15 0z" fill="${color}"/><circle cx="15" cy="14" r="7.5" fill="white" opacity=".95"/><text x="15" y="18" text-anchor="middle" font-size="9.5" font-weight="bold" fill="${color}" font-family="sans-serif">${letter}</text></svg>`,iconSize:[30,38],iconAnchor:[15,38],popupAnchor:[0,-38],className:''});
-}
-function drawMap(){
-  loadLeaflet(() => {
-    if(!map){
-      map = L.map('resMap', {scrollWheelZoom:false});
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom:18}).addTo(map);
-      map.on('click', () => map.scrollWheelZoom.enable());
-    }
-    if(markerLayer) markerLayer.remove();
-    markerLayer = L.layerGroup().addTo(map);
-    L.marker([dest.lat, dest.lng], {icon: pin('#0B1120','★')}).addTo(markerLayer)
-      .bindPopup(`<b style="font-family:sans-serif">${esc(dest.label || 'Destination')}</b>`);
-    const pts = [[dest.lat, dest.lng]];
-    results.forEach((g,i) => {
-      const m = L.marker([g.lat, g.lng], {icon: pin(g.pr ? '#0891B2' : '#EA580C', String(i+1))}).addTo(markerLayer);
-      m.bindPopup(`<div style="font-family:sans-serif;min-width:170px"><b>${esc(g.name)}</b><br><span style="color:#64748B;font-size:12px">${g.dist.toFixed(1)} km${g.cost != null ? ' · €'+g.cost.toFixed(2)+' for your stay' : ''}</span><br><a href="/garage/${g.slug}" style="font-size:12.5px;font-weight:600;color:#EA580C">Garage details →</a></div>`);
-      m.on('click', () => highlight(i));
-      g._marker = m;
-      pts.push([g.lat, g.lng]);
-    });
-    map.fitBounds(pts, {padding:[36,36], maxZoom:15});
-  });
-}
-function focusG(i){
-  highlight(i);
-  const g = results[i];
-  if(map && g._marker){ map.setView([g.lat, g.lng], 15); g._marker.openPopup(); }
-}
-function highlight(i){
-  document.querySelectorAll('.rcard').forEach(el => el.classList.remove('sel'));
-  const el = document.getElementById('rc'+i);
-  if(el){ el.classList.add('sel'); el.scrollIntoView({block:'nearest', behavior:'smooth'}); }
-}
-
-// ---------- deep link (?q= / ?lat=&lng=) ----------
-(function(){
-  const p = new URLSearchParams(location.search);
-  const q = p.get('q');
-  if(p.get('lat') && p.get('lng')){
-    dest = {lat: parseFloat(p.get('lat')), lng: parseFloat(p.get('lng')), label: q || 'Destination'};
-    if(q) document.getElementById('q').value = q;
-    render();
-  } else if(q){
-    document.getElementById('q').value = q;
-    runSearch();
-  }
-})();
-</script>
+<script src="/ev-map.js?v=20260929y" defer></script>
 </body>
 </html>

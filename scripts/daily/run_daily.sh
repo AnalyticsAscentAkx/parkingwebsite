@@ -80,6 +80,16 @@ else
   BLOCK_PUSH=0
 fi
 
+# --- 3d. EV reliability rollup + map data export (collector runs in ~/ev-collector) ---
+step "3d. EV rollup + export"
+if [ -x "$REPO/scripts/ev/.venv/bin/python" ]; then
+  ( cd "$REPO/scripts/ev" \
+    && ./.venv/bin/python -m evlayer.cli rollup --days 3 >>"$LOG" 2>&1 \
+    && ./.venv/bin/python -c "from evlayer.seo import mapdata; print(mapdata.export())" >>"$LOG" 2>&1 ) \
+    && { git add ev-data; log "ev-data exported"; } \
+    || log "WARN EV rollup/export failed (continuing)"
+fi
+
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------
 step "4. Freshen sitemap for changed pages"
 CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^[a-z0-9-]+\.html$' | sed 's/\.html$//')"

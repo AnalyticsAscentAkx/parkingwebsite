@@ -845,20 +845,28 @@
     $('#evCount').textContent = 'Looking up “' + q + '”…';
     var pc = q.replace(/\s+/g, '').toUpperCase();
     var isPostcode = /^\d{4}[A-Z]{0,2}$/.test(pc);
-    fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fl=weergavenaam,centroide_ll,type&q=' +
-          encodeURIComponent(isPostcode ? pc : q) + (isPostcode ? '&fq=type:(postcode OR adres)' : ''))
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) {
-        var d = j && j.response && j.response.docs && j.response.docs[0];
-        var m = d && /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(d.centroide_ll || '');
-        if (m) return { ll: [parseFloat(m[2]), parseFloat(m[1])], name: d.weergavenaam, zoom: d.type === 'postcode' && pc.length === 4 ? 14 : 15 };
-        return fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(q) + '&limit=1&lang=en&bbox=3.2,50.7,7.3,53.6')
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (p) {
-            var f = p && p.features && p.features[0];
-            return f ? { ll: [f.geometry.coordinates[1], f.geometry.coordinates[0]], name: f.properties.name || q, zoom: 15 } : null;
-          });
-      })
+    var hasNumber = /\d/.test(q);
+    function pdok() {
+      return fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fl=weergavenaam,centroide_ll,type&q=' +
+            encodeURIComponent(isPostcode ? pc : q) + '&fq=type:(' + (isPostcode ? 'postcode OR adres' : 'adres OR postcode OR woonplaats') + ')')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          var d = j && j.response && j.response.docs && j.response.docs[0];
+          var m = d && /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(d.centroide_ll || '');
+          return m ? { ll: [parseFloat(m[2]), parseFloat(m[1])], name: d.weergavenaam, zoom: d.type === 'postcode' && pc.length === 4 ? 14 : d.type === 'woonplaats' ? 13 : 15 } : null;
+        });
+    }
+    function photon() {
+      return fetch('https://photon.komoot.io/api/?q=' + encodeURIComponent(q) + '&limit=1&lang=en&bbox=3.2,50.7,7.3,53.6')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (p) {
+          var f = p && p.features && p.features[0];
+          return f ? { ll: [f.geometry.coordinates[1], f.geometry.coordinates[0]], name: f.properties.name || q, zoom: 15 } : null;
+        });
+    }
+    /* postcodes and house numbers: the Kadaster; place names and venues: OpenStreetMap */
+    var first = (isPostcode || hasNumber) ? pdok : photon, second = first === pdok ? photon : pdok;
+    first().then(function (hit) { return hit || second(); })
       .then(function (hit) {
         if (!hit) { searchType(q); return; }
         var ll = hit.ll, f = { properties: { name: hit.name } };
@@ -1027,6 +1035,20 @@
     updateUrl();
     refresh();
     bindHeaderSearch();
+    /* deep links: garage pages send ?q=&lat=&lng=, the old search sent ?q= */
+    var q0 = (q.get('q') || '').trim();
+    if (!isNaN(lat) && !isNaN(lng) && q0) {
+      setOrigin([lat, lng]);
+      if (geoMarker) map.removeLayer(geoMarker);
+      geoMarker = L.circleMarker([lat, lng], { radius: 9, weight: 3, color: '#fff', fillColor: '#FFBC42', fillOpacity: 1 })
+        .bindTooltip(esc(q0), { direction: 'top' }).addTo(map);
+      $('#evSearch').value = q0;
+    } else if (q0 && q0 !== 'Near me') {
+      $('#evSearch').value = q0;
+      searchGo(q0);
+    } else if (q0 === 'Near me') {
+      goHere();
+    }
   }
 
   /* On this page the header's search bar and Near me act on the charger
