@@ -101,6 +101,10 @@ def registry(force: bool = False) -> dict:
             loc.get("parking_type"),
             db.Json(loc.get("facilities")) if loc.get("facilities") else None,
             now, now,
+            (loc.get("opening_times") or {}).get("twentyfourseven") if loc.get("opening_times") else None,
+            loc.get("charging_when_closed"),
+            (" ".join(d.get("text", "") for d in loc["directions"] if isinstance(d, dict)).strip() or None)
+                if isinstance(loc.get("directions"), list) else (loc.get("directions") or None),
         ))
         for e in loc.get("evses") or []:
             uid = e.get("uid") or e.get("evse_id")
@@ -110,6 +114,7 @@ def registry(force: bool = False) -> dict:
                 uid, loc.get("id"), e.get("physical_reference"),
                 e.get("status"), now,
                 db.Json(e.get("capabilities")) if e.get("capabilities") else None,
+                db.Json(e.get("parking_restrictions")) if e.get("parking_restrictions") else None,
             ))
             for c in e.get("connectors") or []:
                 connectors.append((
@@ -119,18 +124,19 @@ def registry(force: bool = False) -> dict:
 
     db.upsert("station",
               ["station_id", "cpo", "name", "lat", "lon", "address", "postal_code",
-               "city", "access_type", "parking_type", "facilities", "last_seen", "first_seen"],
+               "city", "access_type", "parking_type", "facilities", "last_seen", "first_seen",
+               "open_247", "charging_when_closed", "directions"],
               ["station_id"], stations)
 
     # EVSE status diffs become history before the registry row is overwritten.
     prior = {r["evse_id"]: r["status_current"]
              for r in db.query("SELECT evse_id, status_current FROM evse")}
     transitions = [(uid, statusv, now)
-                   for uid, _sid, _ref, statusv, _ts, _cap in evses
+                   for uid, _sid, _ref, statusv, _ts, _cap, _restr in evses
                    if prior.get(uid) != statusv]
 
     db.upsert("evse",
-              ["evse_id", "station_id", "physical_ref", "status_current", "status_since", "capabilities"],
+              ["evse_id", "station_id", "physical_ref", "status_current", "status_since", "capabilities", "restrictions"],
               ["evse_id"], evses)
     db.upsert("connector",
               ["connector_id", "evse_id", "standard", "format", "power_type", "max_power_kw", "tariff_ids"],

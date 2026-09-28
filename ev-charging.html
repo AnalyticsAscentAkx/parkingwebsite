@@ -12,18 +12,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=20260929j">
 <script src="/analytics.js?v=20260929j" defer></script>
-<link rel="stylesheet" href="/ev-map.css?v=20260929y">
+<link rel="stylesheet" href="/ev-map.css?v=20260930a">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://parkingnetherlands.com/ev-charging">
 <meta property="og:title" content="EV Charging Netherlands: Live Map, Prices &amp; Cost Calculator">
-<meta property="og:description" content="80,001 public charging locations with live status and the real cost of a stop, charging plus parking. Median price EUR 0.41 per kWh.">
+<meta property="og:description" content="78,630 public charging locations with live status and the real cost of a stop, charging plus parking. Median price EUR 0.41 per kWh.">
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <script type="application/ld+json">[
-{"@context":"https://schema.org","@type":"WebApplication","name":"EV Charging Map Netherlands","url":"https://parkingnetherlands.com/ev-charging","applicationCategory":"TravelApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"featureList":["Live charge point status for 80,001 public locations","Charging cost plus parking cost for a chosen arrival and departure time","Charge card price comparison","Fast charging filter"],"description":"Interactive map of every public EV charging location in the Netherlands, showing operator-reported live status and the combined cost of charging plus parking for a chosen arrival and departure time."},
-{"@context":"https://schema.org","@type":"Dataset","name":"Dutch public EV charging prices and live status","description":"Prices and operator-reported status for 80,001 public charging locations and 201,239 charge points in the Netherlands, derived from the national charging register and joined to the national parking tariff register.","creator":{"@type":"Organization","name":"Parking Netherlands","url":"https://parkingnetherlands.com"},"spatialCoverage":{"@type":"Place","name":"Netherlands"},"variableMeasured":["price per kWh","charge point status","maximum power in kW","parking tariff per hour"],"license":"https://parkingnetherlands.com/about","isAccessibleForFree":true,"url":"https://parkingnetherlands.com/ev-charging"},
+{"@context":"https://schema.org","@type":"WebApplication","name":"EV Charging Map Netherlands","url":"https://parkingnetherlands.com/ev-charging","applicationCategory":"TravelApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"featureList":["Live charge point status for 78,630 public locations","Charging cost plus parking cost for a chosen arrival and departure time","Charge card price comparison","Fast charging filter"],"description":"Interactive map of every public EV charging location in the Netherlands, showing operator-reported live status and the combined cost of charging plus parking for a chosen arrival and departure time."},
+{"@context":"https://schema.org","@type":"Dataset","name":"Dutch public EV charging prices and live status","description":"Prices and operator-reported status for 78,630 public charging locations and 196,151 charge points in the Netherlands, derived from the national charging register and joined to the national parking tariff register.","creator":{"@type":"Organization","name":"Parking Netherlands","url":"https://parkingnetherlands.com"},"spatialCoverage":{"@type":"Place","name":"Netherlands"},"variableMeasured":["price per kWh","charge point status","maximum power in kW","parking tariff per hour"],"license":"https://parkingnetherlands.com/about","isAccessibleForFree":true,"url":"https://parkingnetherlands.com/ev-charging"},
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parkingnetherlands.com/"},{"@type":"ListItem","position":2,"name":"EV charging map","item":"https://parkingnetherlands.com/ev-charging"}]},
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"How much does it cost to charge an electric car in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"The median public charging price in the Netherlands is EUR 0.41 per kWh, and most chargers fall between EUR 0.28 and EUR 0.63 per kWh. Charging a 60 kWh battery from 20 to 80 percent costs roughly EUR 15 at the median price. The operator matters more than the location: Vattenfall InCharge averages EUR 0.32 per kWh while E-Flux by Road averages EUR 0.51, about 60 percent more for the same electricity."}},
@@ -83,6 +83,8 @@
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
         <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
         <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
         <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
@@ -145,6 +147,8 @@
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
         <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
         <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
         <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
@@ -461,7 +465,7 @@
   </div>
 </div></footer>
 
-<script src="/ev-map.js?v=20260929y" defer></script>
+<script src="/ev-map.js?v=20260930a" defer></script>
 <script>
 (function(){
   /* Mobile only: the map and the list compete for the same screen, so they

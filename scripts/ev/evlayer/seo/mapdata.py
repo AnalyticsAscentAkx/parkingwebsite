@@ -27,6 +27,21 @@ DATA_DIR = "ev-data"
 NL_BBOX = {"lat0": 50.6, "lat1": 53.8, "lon0": 3.2, "lon1": 7.3}
 
 
+# OCPI parking_type -> one letter for the tile
+_ACCESS = {"ON_STREET": "S", "PARKING_LOT": "L", "PARKING_GARAGE": "G",
+           "UNDERGROUND_GARAGE": "U", "ON_DRIVEWAY": "D", "ALONG_MOTORWAY": "M"}
+_PLUG = {"IEC_62196_T2": "Type 2", "IEC_62196_T2_COMBO": "CCS", "CHADEMO": "CHAdeMO",
+         "IEC_62196_T1": "Type 1", "IEC_62196_T1_COMBO": "CCS1", "DOMESTIC_F": "Schuko",
+         "IEC_60309_2_THREE_32": "CEE 32A", "IEC_60309_2_THREE_16": "CEE 16A"}
+
+
+def _connectors(standards: str | None) -> str | None:
+    if not standards:
+        return None
+    names = sorted({_PLUG.get(x, x) for x in standards.split(",") if x})
+    return ", ".join(names) or None
+
+
 def cell_key(lat: float, lon: float) -> str:
     return f"{math.floor(lon / CELL)}_{math.floor(lat / CELL)}"
 
@@ -50,7 +65,14 @@ def export() -> dict:
                   COUNT(DISTINCT r.day)::int AS days,
                   l.area_id,
                   COUNT(*) FILTER (WHERE e.status_current IN
-                    ('OUTOFORDER','INOPERATIVE'))::int AS down_now
+                    ('OUTOFORDER','INOPERATIVE'))::int AS down_now,
+                  s.parking_type, s.open_247, s.charging_when_closed,
+                  BOOL_OR(e.restrictions ? 'CUSTOMERS') AS customers_only,
+                  BOOL_OR(c.standard IN ('IEC_62196_T2_COMBO','CHADEMO','IEC_62196_T1_COMBO')) AS dc,
+                  BOOL_OR(e.capabilities ? 'CREDIT_CARD_PAYABLE' OR e.capabilities ? 'DEBIT_CARD_PAYABLE'
+                          OR e.capabilities ? 'CONTACTLESS_CARD_SUPPORT') AS card,
+                  BOOL_OR(c.format = 'CABLE') AS cable,
+                  STRING_AGG(DISTINCT c.standard, ',') AS standards
            FROM station s
            JOIN evse e ON e.station_id = s.station_id
            LEFT JOIN connector c ON c.evse_id = e.evse_id
@@ -59,6 +81,7 @@ def export() -> dict:
            LEFT JOIN station_parking_link l ON l.station_id = s.station_id
            WHERE s.lat BETWEEN %(lat0)s AND %(lat1)s
              AND s.lon BETWEEN %(lon0)s AND %(lon1)s
+             AND s.access_type = 'FreePublic'   -- OCPI publish=false: not for public display
            GROUP BY s.station_id, l.area_id""",
         NL_BBOX
     )
@@ -131,6 +154,11 @@ def export() -> dict:
             area,
             r["down_now"] or 0,
             0 if p.get("ppk") else (1 if r["cpo"] in cpo_median else 2),   # price source
+            _ACCESS.get(r["parking_type"]),                                 # 12 where the post stands
+            (1 if r["customers_only"] else 0) | (2 if r["open_247"] is False else 0) |
+            (4 if r["charging_when_closed"] is False and r["open_247"] is False else 0) | (8 if r["dc"] else 0) |
+            (16 if r["card"] else 0) | (32 if r["cable"] else 0),           # 13 access + payment flags
+            _connectors(r["standards"]),                                    # 14 plug types
         ]
         cells[cell_key(lat, lon)].append(rec)
 

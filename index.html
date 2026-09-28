@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=20260929j">
 <script src="/analytics.js?v=20260929j" defer></script>
-<link rel="stylesheet" href="/ev-map.css?v=20260929y">
+<link rel="stylesheet" href="/ev-map.css?v=20260930a">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 
 <meta property="og:type" content="website">
@@ -251,6 +251,8 @@
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
         <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
         <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
         <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
@@ -313,6 +315,8 @@
         <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
         <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
         <button type="button" data-f="fast" aria-pressed="false" data-only="chargers">Fast, 50 kW+</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
         <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
         <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
         <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
@@ -353,7 +357,7 @@
     <a href="/the-hague" class="card city-card"><div class="top"><h3>The Hague</h3><span class="badge badge-warn">Moderate</span></div><div class="lead"><span class="n">€2.00</span><span class="l">per day at P+R</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.98/hr</dd><dt>Free parking</dt><dd>Scheveningen off-peak</dd></dl><span class="go">Every Hague option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
     <a href="/utrecht" class="card city-card"><div class="top"><h3>Utrecht</h3><span class="badge badge-warn">Moderate</span></div><div class="lead"><span class="n">€5.00</span><span class="l">per day at P+R</span></div><dl><dt>Street (centre)</dt><dd class="price">€5.10/hr</dd><dt>Cheapest garage</dt><dd class="price">€2.50/hr</dd></dl><span class="go">Every Utrecht option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
     <a href="/eindhoven" class="card city-card"><div class="top"><h3>Eindhoven</h3><span class="badge badge-ok">Budget</span></div><div class="lead"><span class="n">€1.50</span><span class="l">per hour in the cheapest garage</span></div><dl><dt>Street (centre)</dt><dd class="price">€3.30/hr</dd><dt>Free parking</dt><dd>Yes, outskirts</dd></dl><span class="go">Every Eindhoven option <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <a href="/ev-charging" class="card city-card card-ev"><div class="top"><h3>EV charging</h3><span class="badge badge-ok">Live map</span></div><div class="lead"><span class="n">€0.41</span><span class="l">median price per kWh, public chargers</span></div><dl><dt>Charge points mapped</dt><dd class="price">201,239</dd><dt>Out of order right now</dt><dd class="price price-hi">1.6%</dd></dl><span class="go">Open the charger map <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+    <a href="/ev-charging" class="card city-card card-ev"><div class="top"><h3>EV charging</h3><span class="badge badge-ok">Live map</span></div><div class="lead"><span class="n">€0.41</span><span class="l">median price per kWh, public chargers</span></div><dl><dt>Charge points mapped</dt><dd class="price">196,151</dd><dt>Out of order right now</dt><dd class="price price-hi">1.6%</dd></dl><span class="go">Open the charger map <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
     <a href="/all-cities" class="card city-card"><div class="top"><h3>All 14 cities</h3><span class="badge badge-line">Compare</span></div><div class="lead"><span class="n">€1.40</span><span class="l">to €8.05 per hour on the street</span></div><dl><dt>Cheapest centre</dt><dd class="price price-lo">Zwolle</dd><dt>Free on Sunday</dt><dd>11 of 14</dd></dl><span class="go">Side-by-side table <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
   </div>
   <p style="margin-top:16px;font-size:13.5px;color:var(--mut)">Garage-level prices: the <a href="/garage/" style="color:var(--sig);font-weight:600;text-decoration:none">directory of 323 garages</a>, or <a href="/search" style="color:var(--sig);font-weight:600;text-decoration:none">search near an address</a>.</p>
@@ -481,7 +485,7 @@
   requestAnimationFrame(frame);
 })();
 </script>
-<script src="/ev-map.js?v=20260929y" defer></script>
+<script src="/ev-map.js?v=20260930a" defer></script>
 
 </body>
 </html>

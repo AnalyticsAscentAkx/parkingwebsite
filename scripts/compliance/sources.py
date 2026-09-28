@@ -58,6 +58,8 @@ SOURCES = [
         ),
         "uses": r"ev-data/|ev-map\.js|opendata\.ndw\.nu",
         "require": [(r"NDW", "must credit NDW / DOT-NL for charging point data")],
+        # OCPI publish=false locations are excluded in scripts/ev/evlayer/seo/mapdata.py
+        # (access_type = 'FreePublic'); the export must keep that filter.
         "forbid": [(r'<img[^>]+src="[^"]*ndw[^"]*"', "reuses an NDW image (images are excluded from CC0)")],
         "advise": [],
     },

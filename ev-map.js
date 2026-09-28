@@ -28,7 +28,7 @@
   var map, cities = [], tariffs = {}, meta = {};
   var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {}, byId = {};
   var selected = null, mode = 'overview', sortKey = 'reliable';
-  var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false };
+  var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false, open: false, card: false };
   var showMode = 'chargers', places = null, placeLayer = null;
   var origin = null;          // where the visitor is, or the address they searched
   function distKm(lat, lon) {
@@ -68,7 +68,23 @@
      11 price source: 0 this charger's tariff, 1 operator's usual rate,
         2 national median (operator publishes nothing) */
   var ID = 0, NAME = 1, CPO = 2, LAT = 3, LON = 4, KW = 5,
-      PTS = 6, UP = 7, PPK = 8, AREA = 9, DOWN = 10, SRC = 11;
+      PTS = 6, UP = 7, PPK = 8, AREA = 9, DOWN = 10, SRC = 11,
+      ACC = 12, FLAGS = 13, PLUGS = 14;
+  /* 12 where the post stands (S street, L lot, G garage, U underground,
+     D driveway, M motorway); 13 flags: 1 customers only, 2 not 24/7,
+     4 no charging when closed, 8 DC fast plug, 16 pay by card, 32 cable
+     attached; 14 plug types as text. */
+  var ACCESS_NAME = { S: 'On the street', L: 'In a car park', G: 'In a parking garage', U: 'In an underground garage', D: 'On a driveway', M: 'Along the motorway' };
+  function restricted(st) { return ((st[FLAGS] || 0) & 7) !== 0; }
+  function accessNotes(st) {
+    var f = st[FLAGS] || 0, notes = [];
+    if (f & 1) notes.push('customers only');
+    if (f & 2) notes.push('not open 24/7');
+    if (f & 4) notes.push('no charging when closed');
+    if (st[ACC] === 'G' || st[ACC] === 'U') notes.push('garage, may be behind a barrier');
+    else if (st[ACC] === 'L' && (f & 1)) notes.push('private car park');
+    return notes;
+  }
   function srcNote(st, short) {
     var s = st[SRC] || 0;
     if (s === 1) return short ? 'operator\u2019s usual rate' : 'No tariff is published for this charger; this is the operator\u2019s usual rate elsewhere.';
@@ -332,6 +348,8 @@
     return rows.filter(function (st) {
       if (filters.fast && !(st[KW] >= FAST_KW)) return false;
       if (filters.faulty && !(st[DOWN] > 0)) return false;
+      if (filters.open && restricted(st)) return false;
+      if (filters.card && !((st[FLAGS] || 0) & 16)) return false;
       if (filters.free && !(st._p == null || st._p.park == null || st._p.park === 0)) return false;
       if (filters.cheap && !(st._p && median != null && st._p.total <= median)) return false;
       return true;
@@ -471,6 +489,8 @@
     if (filters.cheap) active.push('low cost');
     if (filters.fast) active.push(FAST_KW + ' kW+');
     if (filters.faulty) active.push('reported faulty');
+    if (filters.open) active.push('open access');
+    if (filters.card) active.push('pay by card');
     $('#evMode').textContent = 'Chargers in view';
     $('#evCount').textContent = rows.length.toLocaleString() +
       (rows.length === 1 ? ' charger' : ' chargers') +
@@ -496,12 +516,14 @@
         '<div class="ev-meta">' + (st._d != null ? '<span class="ev-dist">' + distLabel(st._d) + '</span>' : '') +
         '<span>' + esc(st[CPO] || 'Operator not published') + '</span>' +
         (st[KW] ? '<span class="ev-kw">' + st[KW] + ' kW</span>' : '') +
+        (st[PLUGS] ? '<span>' + esc(st[PLUGS]) + '</span>' : '') +
+        (restricted(st) ? '<span class="ev-access" title="' + esc(accessNotes(st).join(', ')) + '">restricted access</span>' : '') +
         '<span class="ev-up" data-g="' + g + '">' +
           (st[DOWN] > 0 ? st[DOWN] + ' reported out of order'
            : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime') +
         '</span></div>' +
         '</div>' + price + '</div>';
-    }).join('') : empty('No chargers match', filters.fast || filters.faulty || filters.free || filters.cheap
+    }).join('') : empty('No chargers match', filters.fast || filters.faulty || filters.free || filters.cheap || filters.open || filters.card
         ? 'Clear a filter, or pan the map.' : 'Pan the map or zoom out.');
     bindRows();
   }
@@ -574,11 +596,17 @@
         ' · ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + '</div>' +
       '<div class="ev-card-status" data-g="' + g + '"><i></i>' + status +
         '<small>Reported by the operator ' + reportedAt() + '. Occupancy is not published.</small></div>' +
+      '<div class="ev-card-access' + (restricted(st) ? ' is-warn' : '') + '">' +
+        '<b>' + (ACCESS_NAME[st[ACC]] || 'Location type not published') + '</b>' +
+        (accessNotes(st).length ? ' · ' + esc(accessNotes(st).join(' · ')) : (st[ACC] === 'S' ? ' · public access' : '')) +
+        (st[PLUGS] ? '<br>' + esc(st[PLUGS]) + ((st[FLAGS] || 0) & 32 ? ', cable attached' : ', bring your cable') : '') +
+        ((st[FLAGS] || 0) & 16 ? ' · pay by card' : ' · charge card or app') +
+      '</div>' +
       '<div class="ev-card-rows">' + lines +
         (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
       '<div class="ev-card-note">' + (srcNote(st, false) ? srcNote(st, false) + ' ' : '') + 'Estimate for ' + sessionLabel(w, false) +
-        '. Connector types are not in the register; check the operator app before relying on a fast charge.</div>' +
+        '. Plug types, opening hours and barriers are as the operator reported them to the register.</div>' +
       '<div class="ev-card-act">' + directions(st[LAT], st[LON]) +
         '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>' +
       '</div>';
