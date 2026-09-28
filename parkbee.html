@@ -33,15 +33,6 @@
 <body>
 <nav class="nav"><div class="nav-in">
 <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking + EV Charging<small>The Netherlands</small></span></a>
-<form class="nav-search" action="/search" method="get" role="search" onsubmit="var v=this.q.value.trim();if(!v){event.preventDefault();this.q.focus()}">
-  <div class="nav-search-in">
-    <label for="navQ" class="sr-only">Search parking near an address</label>
-    <svg class="nav-search-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input type="search" id="navQ" name="q" placeholder="Address, venue or city" autocomplete="off">
-    <button type="button" class="nav-near" title="Use my location" aria-label="Use my location" onclick="var b=this;b.disabled=true;navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&amp;lng='+p.coords.longitude.toFixed(5)+'&amp;q=Near+me'},function(){b.disabled=false;location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg><span>Near me</span></button>
-    <button type="submit" class="nav-go" aria-label="Search">Go</button>
-  </div>
-</form>
 <ul class="nav-links" id="navLinks">
   <li class="nav-pair"><a href="/search" class="nav-find">Find parking</a><a href="/ev-charging" class="nav-find nav-find-ev">Find a charger</a></li>
   <li class="has-drop"><a href="/all-cities">Cities</a>
