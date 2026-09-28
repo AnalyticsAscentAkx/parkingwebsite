@@ -608,3 +608,13 @@
   .ev-chips{margin:0;padding:6px 0 4px}
 }
 .ev-panel,.ev-resizer,.ev-mapwrap{grid-row:1}
+
+/* fast-charging hubs: operator badge, brand colour, initial */
+.ev-hubwrap{background:none;border:none}
+.ev-hub{position:absolute;left:0;top:0;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;letter-spacing:-.02em;border:2px solid #fff;box-shadow:0 2px 6px rgba(11,17,32,.35);cursor:pointer;font-family:var(--f-ui)}
+.ev-hub.is-faulty{box-shadow:0 0 0 2.5px #DC2626,0 2px 6px rgba(11,17,32,.35)}
+.ev-hubkw{position:absolute;left:0;top:16px;transform:translateX(-50%);white-space:nowrap;font-size:9.5px;font-weight:700;color:#17243A;background:rgba(255,255,255,.92);border-radius:4px;padding:1px 4px;line-height:1.2}
+.ev-hubprice{position:absolute;left:18px;top:0;transform:translateY(-50%);white-space:nowrap;font-size:11px;font-weight:700;color:#17243A;background:#fff;border:1.5px solid #17243A;border-radius:99px;padding:3px 7px;line-height:1.2}
+.ev-hubwrap.is-sel .ev-hub{outline:3px solid var(--sig);outline-offset:1px}
+.ev-hubwrap.is-hover .ev-hub{transform:translate(-50%,-50%) scale(1.12)}
+.ev-legend i.is-hub{width:14px;height:14px;border-radius:4px;background:#FFE500;color:#111;font-style:normal;font-size:9px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;box-shadow:none;border:1px solid #fff}

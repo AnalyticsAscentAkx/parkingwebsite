@@ -30,6 +30,34 @@
   var selected = null, mode = 'overview', sortKey = 'reliable';
   var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false, open: false, card: false };
   var showMode = 'chargers', places = null, placeLayer = null;
+  /* Fast-charging hubs (150 kW+) wear the operator's badge: initial on the
+     brand colour. Names are the operators' own; no logo files are copied. */
+  var hubs = null, hubLayer = null;
+  var BRANDS = [
+    [/fastned/i, 'F', '#FFE500', '#111'], [/tesla/i, 'T', '#E31937', '#fff'],
+    [/shell/i, 'S', '#FBCE07', '#DD1D21'], [/bp pulse|\bbp\b/i, 'bp', '#009900', '#fff'],
+    [/ionity/i, 'I', '#0A0A3C', '#fff'], [/allego/i, 'A', '#0F2E8C', '#fff'],
+    [/total ?energies/i, 'TE', '#E2001A', '#fff'], [/vattenfall/i, 'V', '#2071B5', '#FFDA00'],
+    [/spirii/i, 'Sp', '#1DB5B5', '#fff'], [/powergo/i, 'PG', '#00A651', '#fff'],
+    [/e-?flux/i, 'EF', '#2B2B2B', '#fff'], [/eneco/i, 'E', '#E60012', '#fff'],
+    [/ubitricity/i, 'U', '#0060A8', '#fff'], [/lidl/i, 'L', '#0050AA', '#FFF000'],
+    [/tango/i, 'Ta', '#1E88E5', '#fff'], [/tanx/i, 'Tx', '#7B1FA2', '#fff'],
+    [/nxt/i, 'N', '#333', '#fff'], [/alva/i, 'Al', '#00897B', '#fff'], [/equans/i, 'Eq', '#004B8D', '#fff'],
+    [/qwello/i, 'Q', '#6A1B9A', '#fff'], [/50five/i, '5', '#FF6F00', '#fff'], [/laadnet/i, 'Ln', '#0277BD', '#fff']
+  ];
+  function brand(cpo) {
+    for (var i = 0; i < BRANDS.length; i++) if (BRANDS[i][0].test(cpo || '')) return BRANDS[i];
+    var t = (cpo || '?').replace(/[^A-Za-z0-9 ]/g, '').trim();
+    return [null, (t.split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2) || '?').toUpperCase(), '#17243A', '#fff'];
+  }
+  function hubIcon(cpo, kw, faulty, price) {
+    var b = brand(cpo);
+    return L.divIcon({ className: 'ev-hubwrap', iconSize: null, iconAnchor: [0, 0],
+      html: '<span class="ev-hub' + (faulty ? ' is-faulty' : '') + '" style="background:' + b[2] + ';color:' + b[3] + '" title="' + esc(cpo) + ', up to ' + kw + ' kW">' + esc(b[1]) + '</span>' +
+            (price ? '<span class="ev-hubprice">' + price + '</span>' : '') +
+            '<small class="ev-hubkw">' + kw + ' kW</small>' });
+  }
+  function isHub(st) { return st[KW] >= 150; }
   var origin = null;          // where the visitor is, or the address they searched
   function distKm(lat, lon) {
     if (!origin) return null;
@@ -277,7 +305,7 @@
     var b = map.getBounds();
     mode = map.getZoom() >= DETAIL_ZOOM ? 'detail' : 'overview';
     if (showMode === 'parking') { refreshParking(b); return; }
-    $('#evHint').textContent = 'Each circle is a town; larger circles have more locations. Select a town to zoom in.';
+    $('#evHint').textContent = 'Circles are towns, badges are fast-charging hubs (150 kW+). Select one to zoom in.';
     $('#evHint').classList.toggle('is-on', mode === 'overview');
     var sorts = document.querySelector('.ev-sort');
     if (sorts) sorts.hidden = mode !== 'detail';
@@ -293,6 +321,7 @@
       updateMetaNational();
     } else {
       if (cityLayer) { map.removeLayer(cityLayer); cityLayer = null; }
+      if (hubLayer) { map.removeLayer(hubLayer); hubLayer = null; }
       loadTiles(neededTiles(b), function () { drawStations(map.getBounds()); });
     }
   }
@@ -327,7 +356,29 @@
       cityLayer.addLayer(m);
     });
     cityLayer.addTo(map);
+    drawHubs(b);
     listCities(inView, 'Towns in view');
+  }
+
+  function drawHubs(b) {
+    if (hubLayer) { map.removeLayer(hubLayer); hubLayer = null; }
+    function draw() {
+      hubLayer = L.layerGroup();
+      var z = map.getZoom();
+      hubs.forEach(function (h) {
+        if (!b.contains([h[3], h[4]])) return;
+        // far out, only the real hubs: many points or very high power
+        if (z < 8 && (h[6] || 0) < 8 && h[5] < 350) return;
+        if (z < 10 && (h[6] || 0) < 4 && h[5] < 300) return;
+        var m = L.marker([h[3], h[4]], { icon: hubIcon(h[2], h[5], h[7] > 0, null), riseOnHover: true });
+        m.bindTooltip(esc(h[1]) + ' · ' + esc(h[2]) + ' · ' + h[6] + ' points', { direction: 'top', opacity: .95 });
+        m.on('click', function () { map.setView([h[3], h[4]], 15); });
+        hubLayer.addLayer(m);
+      });
+      hubLayer.addTo(map);
+    }
+    if (hubs) { draw(); return; }
+    json('/hubs.json').then(function (rows) { hubs = rows; if (mode === 'overview') draw(); }).catch(function () { hubs = []; });
   }
 
   function stationRows(b) {
@@ -396,7 +447,10 @@
     var pills = map.getZoom() >= PIN_ZOOM + 1 || (map.getZoom() >= PIN_ZOOM && rows.length <= 150);
     rows.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
-      if (p) {
+      if (isHub(st)) {
+        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0,
+          p ? (p.charge != null ? '\u26A1' + money(p.charge) : '') + (p.park != null ? ' P ' + (p.park === 0 ? 'free' : money(p.park)) : '') : null), riseOnHover: true });
+      } else if (p) {
         m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0), riseOnHover: true });
       } else {
         m = L.circleMarker([st[LAT], st[LON]], {
@@ -745,7 +799,7 @@
     var lg = document.getElementById('evLegend');
     if (!lg) return;
     lg.innerHTML = kind === 'pins'
-      ? '<b>Price for your stop</b><div><i style="background:#168A68"></i> Below typical</div><div><i style="background:#17243A"></i> Around typical</div><div><i style="background:#B45309"></i> Above typical</div><div><i class="is-fault"></i> Red ring: reported out of order</div>'
+      ? '<b>Price for your stop</b><div><i class="is-hub">F</i> Fast hub 150 kW+, operator badge</div><div><i style="background:#168A68"></i> Below typical</div><div><i style="background:#17243A"></i> Around typical</div><div><i style="background:#B45309"></i> Above typical</div><div><i class="is-fault"></i> Red ring: reported out of order</div>'
       : '<b>Charge point status</b><div><i style="background:#168A68"></i> Working, no faults reported</div><div><i style="background:#DC2626"></i> Reported out of order</div><div><i style="background:#7C8DB5"></i> Status not published</div>';
   }
 
@@ -757,6 +811,7 @@
     $('#evArea').hidden = true;
     if (layer) { map.removeLayer(layer); layer = null; }
     if (cityLayer) { map.removeLayer(cityLayer); cityLayer = null; }
+    if (hubLayer) { map.removeLayer(hubLayer); hubLayer = null; }
     loadPlaces(function () { drawPlaces(map.getBounds()); });
   }
 

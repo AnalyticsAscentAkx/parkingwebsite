@@ -176,6 +176,24 @@ def export() -> dict:
         (cells_dir / f"{key}.json").write_text(
             json.dumps(recs, separators=(",", ":"), ensure_ascii=False))
 
+    # Fast-charging hubs (150 kW+) as one small national file, so the
+    # motorway network shows at every zoom with the operator's badge.
+    hubs = []
+    for r in db.query(
+        """SELECT s.station_id, s.name, s.cpo, s.lat, s.lon,
+                  MAX(c.max_power_kw) AS kw, COUNT(DISTINCT e.evse_id)::int AS pts,
+                  COUNT(*) FILTER (WHERE e.status_current IN ('OUTOFORDER','INOPERATIVE'))::int AS down
+           FROM station s JOIN evse e ON e.station_id = s.station_id
+           JOIN connector c ON c.evse_id = e.evse_id
+           WHERE s.access_type = 'FreePublic' AND s.lat BETWEEN %(lat0)s AND %(lat1)s
+             AND s.lon BETWEEN %(lon0)s AND %(lon1)s
+           GROUP BY s.station_id HAVING MAX(c.max_power_kw) >= 150""", NL_BBOX):
+        kw = float(r["kw"])
+        if kw > 1000:   # unit errors in the feed
+            continue
+        hubs.append([r["station_id"], r["name"], r["cpo"] or "", _round(r["lat"]), _round(r["lon"]), int(kw), r["pts"], r["down"]])
+    (root / "hubs.json").write_text(json.dumps(hubs, separators=(",", ":"), ensure_ascii=False))
+
     # Off-street facilities (garages, P+R, terreinen) as a second tile set so
     # the same map can answer "where do I park" for any car. Record:
     # 0 id, 1 name, 2 kind, 3 lat, 4 lon, 5 capacity, 6 area id (tariff key
@@ -240,6 +258,7 @@ def export() -> dict:
         "cells": len(cells),
         "cities": len(city_list),
         "priced_areas": len(used_areas),
+        "hubs": len(hubs),
         "parking_places": sum(len(v) for v in pcells.values()),
         "parking_cells": len(pcells),
         "largest_cell_kb": round(max(sizes) / 1024, 1) if sizes else 0,
