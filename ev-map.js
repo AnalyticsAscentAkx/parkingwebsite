@@ -695,6 +695,45 @@
     map.on('moveend', onMoveEnd);
     updateUrl();
     refresh();
+    bindHeaderSearch();
+  }
+
+  /* On this page the header's search bar and Near me act on the charger
+     map, not the parking search: a town name jumps the map, Near me centres
+     it on the visitor and marks where they are. */
+  var hereMarker = null;
+  function goHere() {
+    var btn = document.querySelector('.nav-near'), label = btn ? btn.textContent : '';
+    if (!navigator.geolocation) { searchGo(''); return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Locating\u2026'; }
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var ll = [pos.coords.latitude, pos.coords.longitude];
+      if (hereMarker) map.removeLayer(hereMarker);
+      hereMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#2337C6', fillOpacity: 1 })
+        .bindTooltip('You are here', { direction: 'top' }).addTo(map);
+      zoomed = true;
+      map.setView(ll, 15);
+      if (narrow()) { var t = $('#tabMap'); if (t) t.click(); }
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+    }, function () {
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+      $('#evCount').textContent = 'Location not available. Search a town instead.';
+    }, { timeout: 8000, maximumAge: 60000 });
+  }
+
+  function bindHeaderSearch() {
+    var form = document.querySelector('form.nav-search'), near = document.querySelector('.nav-near'), q = document.getElementById('navQ');
+    if (form) {
+      form.onsubmit = function (e) {
+        e.preventDefault();
+        var v = (q && q.value || '').trim();
+        if (!v) { if (q) q.focus(); return; }
+        $('#evSearch').value = v;
+        searchGo(v);
+      };
+      if (q) q.placeholder = 'Search a town for chargers, e.g. Utrecht';
+    }
+    if (near) near.onclick = goHere;
   }
 
   function stat(id, v) {
