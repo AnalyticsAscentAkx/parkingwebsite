@@ -414,3 +414,12 @@ tbody tr:hover{background:#FAFBFC}
 .hero-near{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13.5px;font-weight:600;color:#94A3B8;background:none;border:1px solid rgba(148,163,184,.3);border-radius:100px;padding:7px 14px;cursor:pointer;font-family:var(--f-ui);transition:.15s}
 .hero-near:hover{color:#fff;border-color:#fff}
 .hero-near:disabled{opacity:.6;cursor:wait}
+
+/* the two product entries sit together as a pair */
+.nav-pair{display:flex;gap:0;margin-right:8px}
+.nav-links>li.nav-pair>a.nav-find{margin:0;border-radius:8px 0 0 8px}
+.nav-links>li.nav-pair>a.nav-find-ev{background:#4159E8;border-radius:0 8px 8px 0;border-left:1px solid rgba(255,255,255,.25)}
+.nav-links>li.nav-pair>a.nav-find-ev:hover{background:var(--blue-2)}
+.nav-links .active>a.nav-find-ev{background:#4159E8}
+.nav-links .nav-pair>a.is-on{background:var(--blue-2);box-shadow:inset 0 -2px 0 var(--sig)}
+@media(max-width:768px){.nav-pair{margin:0 0 6px}.nav-links>li.nav-pair>a{flex:1;text-align:center}}

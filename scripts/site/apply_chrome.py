@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260929a"
+CSS_VERSION = "20260929b"
 SITE_CSS = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 # Colours from the retired palette, mapped onto the design system. These
@@ -75,16 +75,23 @@ def nav_for(url: str) -> str:
     out = []
     parts = re.split(r"(?=<li)", nav)
     # A direct top-level item wins over a dropdown that also lists the page.
-    direct = any(re.findall(r'href="([^"]+)"', li)[:1] == [url] for li in parts if li.startswith("<li"))
+    def is_direct(li):
+        hrefs = re.findall(r'href="([^"]+)"', li)
+        return hrefs[:1] == [url] or (li.startswith('<li class="nav-pair"') and url in hrefs)
+    direct = any(is_direct(li) for li in parts if li.startswith("<li"))
     marked = False
     for li in parts:
         if li.startswith("<li"):
             hrefs = re.findall(r'href="([^"]+)"', li)
-            own = hrefs[:1] == [url] or (not direct and li.startswith('<li class="has-drop"') and url in hrefs)
+            own = is_direct(li) or (not direct and li.startswith('<li class="has-drop"') and url in hrefs)
             if own and not marked:
                 marked = True
-                li = (li.replace('<li class="has-drop">', '<li class="has-drop active">', 1)
-                      if li.startswith('<li class="has-drop">') else li.replace("<li>", '<li class="active">', 1))
+                if li.startswith('<li class="nav-pair"'):
+                    li = li.replace('<li class="nav-pair">', '<li class="nav-pair active">', 1)
+                    li = li.replace('href="' + url + '" class="nav-find', 'href="' + url + '" class="nav-find is-on', 1)
+                else:
+                    li = (li.replace('<li class="has-drop">', '<li class="has-drop active">', 1)
+                          if li.startswith('<li class="has-drop">') else li.replace("<li>", '<li class="active">', 1))
         out.append(li)
     return "".join(out)
 

@@ -371,3 +371,17 @@
 .ev-pinwrap.is-hover .ev-pin{transform:translate(-50%,calc(-100% - 6px)) scale(1.12)}
 .ev-pinwrap.is-sel .ev-pin{transform:translate(-50%,calc(-100% - 6px)) scale(1.18);border-color:var(--ink);border-width:2px}
 @media(max-width:900px){.ev-panel{order:0}}
+
+/* live cost tiles: the header answers "what does a stop cost here" */
+.ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ev-tile{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;min-width:0}
+.ev-tile b{display:block;font-family:var(--f-mono);font-size:1.15rem;font-weight:600;color:var(--ink);letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.ev-tile span{display:block;font-size:10.5px;color:var(--mut);margin-top:3px;line-height:1.3}
+.ev-tile.is-lo{background:var(--ok-soft);border-color:#A7F3D0}.ev-tile.is-lo b{color:var(--ok)}
+.ev-tile.is-blue{background:var(--blue-soft);border-color:#C7D2FE}.ev-tile.is-blue b{color:var(--blue)}
+.ev-chips-map{position:absolute;top:14px;left:58px;right:200px;z-index:900;padding:0;flex-wrap:nowrap;overflow-x:auto}
+.ev-chips-map button{background:#fff;box-shadow:var(--sh-md);border-color:transparent;white-space:nowrap}
+.ev-chips-map button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.ev-chips-map[hidden]{display:none}
+.ev-zoomhint,.ev-area{top:52px}
+@media(max-width:900px){.ev-chips-map{display:none}.ev-zoomhint,.ev-area{top:60px}}

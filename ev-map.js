@@ -27,7 +27,7 @@
   var map, cities = [], tariffs = {}, meta = {};
   var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {}, byId = {};
   var selected = null, mode = 'overview', sortKey = 'reliable';
-  var filters = { fast: false, faulty: false, priced: false };
+  var filters = { fast: false, faulty: false, free: false, cheap: false };
   var rowsShown = [], moveTimer = null, zoomed = false, hovered = null;
 
   /* Station record is positional, which roughly halves the tile size:
@@ -222,8 +222,7 @@
     $('#evHint').classList.toggle('is-on', mode === 'overview');
     var sorts = document.querySelector('.ev-sort');
     if (sorts) sorts.hidden = mode !== 'detail';
-    var chips = document.querySelector('.ev-chips');
-    if (chips) chips.hidden = mode !== 'detail';
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-chips'), function (c) { c.hidden = mode !== 'detail'; });
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = mode !== 'detail' || !!selected;   // colour only means status up close
     $('#evArea').hidden = true;
@@ -231,6 +230,7 @@
     if (mode === 'overview') {
       if (layer) { map.removeLayer(layer); layer = null; }
       drawCities(b);
+      updateMetaNational();
     } else {
       if (cityLayer) { map.removeLayer(cityLayer); cityLayer = null; }
       loadTiles(neededTiles(b), function () { drawStations(map.getBounds()); });
@@ -271,21 +271,52 @@
   }
 
   function stationRows(b) {
-    var rows = [];
+    var w = currentWindow(), rows = [];
     for (var k in tiles) {
       var t = tiles[k];
       if (!t) continue;
       for (var i = 0; i < t.length; i++) {
         var st = t[i];
         if (!b.contains([st[LAT], st[LON]])) continue;
-        if (filters.fast && !(st[KW] >= FAST_KW)) continue;
-        if (filters.faulty && !(st[DOWN] > 0)) continue;
-        if (filters.priced && st[PPK] == null) continue;
+        st._p = priceOf(st, w);
         rows.push(st);
-        if (rows.length >= MAX_MARKERS) return rows;
+        if (rows.length >= MAX_MARKERS) break;
       }
+      if (rows.length >= MAX_MARKERS) break;
     }
-    return rows;
+    var totals = rows.filter(function (s) { return s._p; }).map(function (s) { return s._p.total; }).sort(function (a, b) { return a - b; });
+    var median = totals.length ? totals[Math.floor(totals.length / 2)] : null;
+    return rows.filter(function (st) {
+      if (filters.fast && !(st[KW] >= FAST_KW)) return false;
+      if (filters.faulty && !(st[DOWN] > 0)) return false;
+      if (filters.free && !(st._p == null || st._p.park == null || st._p.park === 0)) return false;
+      if (filters.cheap && !(st._p && median != null && st._p.total <= median)) return false;
+      return true;
+    });
+  }
+
+  /* The header answers "what does a stop cost around here": live figures for
+     the chargers in view and the chosen session, not national totals. */
+  function updateMeta(rows, w) {
+    var priced = rows.filter(function (s) { return s._p; });
+    var totals = priced.map(function (s) { return s._p.total; }).sort(function (a, b) { return a - b; });
+    var kwhs = rows.filter(function (s) { return s[PPK] != null; }).map(function (s) { return s[PPK]; }).sort(function (a, b) { return a - b; });
+    var parks = rows.filter(function (s) { return s._p && s._p.park != null; }).map(function (s) { return s._p.park; }).sort(function (a, b) { return a - b; });
+    var fast = rows.filter(function (s) { return s[KW] >= FAST_KW; }).length;
+    var freeShare = rows.length ? rows.filter(function (s) { return !s._p || s._p.park == null || s._p.park === 0; }).length / rows.length : 0;
+    stat('mCheap', totals.length ? money(totals[0]) : '–');
+    stat('mKwh', kwhs.length ? money(kwhs[Math.floor(kwhs.length / 2)]) : '–');
+    stat('mPark', !rows.length ? '–' : freeShare >= .5 ? 'Mostly free' : parks.length ? money(parks[Math.floor(parks.length / 2)]) : '–');
+    stat('mFast', rows.length ? String(fast) : '–');
+    var cap = document.querySelector('#evMeta');
+    if (cap) cap.title = 'For the ' + rows.length + ' chargers in view, ' + sessionLabel(w, false);
+  }
+
+  function updateMetaNational() {
+    stat('mCheap', '–');
+    stat('mKwh', '€0.41');
+    stat('mPark', '–');
+    stat('mFast', '–');
   }
 
   function markerRadius() {
@@ -382,11 +413,13 @@
       return (b[UP] == null ? -1 : b[UP]) - (a[UP] == null ? -1 : a[UP]);
     });
     rowsShown = rows;
+    updateMeta(rows, w);
 
     var active = [];
+    if (filters.free) active.push('free parking');
+    if (filters.cheap) active.push('low cost');
     if (filters.fast) active.push(FAST_KW + ' kW+');
     if (filters.faulty) active.push('reported faulty');
-    if (filters.priced) active.push('with a published price');
     $('#evMode').textContent = 'Chargers in view';
     $('#evCount').textContent = rows.length.toLocaleString() +
       (rows.length === 1 ? ' charger' : ' chargers') +
@@ -416,7 +449,7 @@
            : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime') +
         '</span></div>' +
         '</div>' + price + '</div>';
-    }).join('') : empty('No chargers match', filters.fast || filters.faulty || filters.priced
+    }).join('') : empty('No chargers match', filters.fast || filters.faulty || filters.free || filters.cheap
         ? 'Clear a filter, or pan the map.' : 'Pan the map or zoom out.');
     bindRows();
   }
@@ -631,7 +664,9 @@
       btn.onclick = function () {
         var f = btn.dataset.f;
         filters[f] = !filters[f];
-        btn.setAttribute('aria-pressed', filters[f] ? 'true' : 'false');
+        Array.prototype.forEach.call(document.querySelectorAll('.ev-chips button[data-f="' + f + '"]'), function (b2) {
+          b2.setAttribute('aria-pressed', filters[f] ? 'true' : 'false');
+        });
         if (mode === 'detail') drawStations(map.getBounds());
       };
     });
@@ -678,10 +713,7 @@
     Promise.all([json('/cities.json'), json('/tariffs.json'), json('/meta.json')])
       .then(function (res) {
         cities = res[0]; tariffs = res[1]; meta = res[2];
-        stat('statStations', (meta.stations || 0).toLocaleString());
-        stat('statCities', (meta.cities || 0).toLocaleString());
-        stat('statDays', meta.days_measured
-          ? meta.days_measured.toLocaleString() + ' days' : 'Not available');
+        updateMetaNational();
 
         var css = document.createElement('link');
         css.rel = 'stylesheet';
