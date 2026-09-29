@@ -52,6 +52,13 @@
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
   els.forEach(function (el) { io.observe(el); });
+  /* Safety net: a few seconds after load, anything still unseen is revealed
+     anyway, so a stalled observer or an unusual viewport never hides text. */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      els.forEach(function (el) { if (el.classList.contains('rv') && !el.classList.contains('is-in')) { io.unobserve(el); el.classList.add('is-in'); setTimeout(function () { settle(el); }, 1100); } });
+    }, 3500);
+  });
 
   /* 2. Big numbers in stat tiles count up the first time they are seen. */
   var NUM = '.pi-stat b, .hstat .n, .qbv, .ev-figure b, .city-card .lead .n, .counter';
