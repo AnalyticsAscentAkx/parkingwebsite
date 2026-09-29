@@ -152,6 +152,7 @@ def operator_uptime(cpo):
 HEAD = """<!DOCTYPE html>
 <html lang="nl">
 <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
