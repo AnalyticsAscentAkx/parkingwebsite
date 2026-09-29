@@ -13,12 +13,11 @@
    search, near_me, mode (parking/chargers), select (pin or row),
    directions, filter, sort. Everything else is page views. */
 (function () {
-  var GA4_ID = 'G-0L1QGD5D99';
-  /* The GA4 stream above is a destination inside the Analytics Ascent Google
-     tag whose primary id is the Ads id below. Google serves the loader only
-     under that primary id (the G- id answers 404), so the script is fetched
-     with it and GA4 is then configured by its own id. Checked 2026-09-29. */
-  var TAG_LOADER_ID = 'AW-17515074385';
+  /* Analytics Ascent property, web stream "Website 2026" (stream 15873454280),
+     created 2026-09-29 because the original stream's tag was never served by
+     Google (404). Keep this id; never swap in an id from another account. */
+  var GA4_ID = 'G-8HSXXMY89K';
+  var TAG_LOADER_ID = '';   // set only if Google again serves the loader under a different primary id
   var CF_TOKEN = '';      // e.g. '0123456789abcdef0123456789abcdef'
 
   var queue = [];
