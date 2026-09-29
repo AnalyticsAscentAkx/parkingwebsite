@@ -40,7 +40,11 @@ def git_date(path):
                          cwd=ROOT, capture_output=True, text=True).stdout.strip()
     return out or TODAY
 
-DATA_DATE = git_date(ROOT / "scripts/garages.json")
+def data_date():
+    p = ROOT / "scripts/garages.json"
+    dirty = subprocess.run(["git", "status", "--porcelain", "--", str(p)], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    return TODAY if dirty else git_date(p)
+DATA_DATE = data_date()
 
 def esc(s): return html.escape(str(s), quote=True)
 def eur(v): return f"€{v:,.2f}"
@@ -216,7 +220,7 @@ def compare_block(g):
             nl = (f"Voor {name} in {cname} staat geen bruikbaar uurtarief in het nationaal parkeerregister. "
                   + (f"Betaalde garages in {cname} rekenen mediaan {eur(s['med_hr']).replace('.', ',')} per uur." if s.get("med_hr") is not None else ""))
 
-    parts.append(f'<p lang="nl" style="font-size:14px;color:var(--mut);border-left:3px solid var(--line);padding-left:12px"><strong>In het Nederlands:</strong> {esc(nl)}</p>')
+    parts.append(f'<p lang="nl" class="nl-note"><strong>In het Nederlands:</strong> {esc(nl)}</p>')
     faq.append((f"Wat kost parkeren bij {name} in {cname}?", nl))
     return "\n".join(parts), faq
 

@@ -431,7 +431,7 @@ function addRDWMarkers(map, citySlug) {
                 iconSize:[26,34],iconAnchor:[13,34],popupAnchor:[0,-36],className:''
             })
         }).addTo(map);
-        m.bindPopup(`<div style="font-family:sans-serif;min-width:180px;padding:4px"><div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:4px">${g.name}</div>${rdwPrice(g)}<div style="font-size:11px;color:#94a3b8;margin-top:4px">Official national register data (opendata.rdw.nl)</div><a href="/garage/${g.slug}" style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#2337C6;text-decoration:none">Garage details →</a></div>`);
+        m.bindPopup(`<div style="font-family:sans-serif;min-width:180px;padding:4px"><div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:4px">${g.name}</div>${rdwPrice(g)}<div style="font-size:11px;color:#94a3b8;margin-top:4px">Official national parking register (NPR) data, CC0</div><a href="/garage/${g.slug}" style="display:block;margin-top:8px;font-size:12px;font-weight:600;color:#2337C6;text-decoration:none">Garage details →</a></div>`);
         markers.push(m);
     });
     return markers;

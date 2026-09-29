@@ -1139,6 +1139,15 @@
     map.on('moveend', onMoveEnd);
     updateUrl();
     refresh();
+    /* On phones the container is laid out (bottom sheet, dvh units, late
+       Leaflet CSS) after the map is created, so the first bounds are wrong
+       and nothing is drawn until the user zooms. Re-measure once the layout
+       has settled, and again whenever the viewport changes. */
+    function settle() { if (!map) return; map.invalidateSize({ animate: false }); refresh(); }
+    map.whenReady(function () { setTimeout(settle, 60); setTimeout(settle, 400); });
+    window.addEventListener('load', function () { setTimeout(settle, 50); });
+    var rsT; window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(settle, 150); });
+    window.addEventListener('orientationchange', function () { setTimeout(settle, 300); });
     bindHeaderSearch();
     /* deep links: garage pages send ?q=&lat=&lng=, the old search sent ?q= */
     var q0 = (q.get('q') || '').trim();
@@ -1239,6 +1248,7 @@
         var css = document.createElement('link');
         css.rel = 'stylesheet';
         css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        css.onload = function () { if (window.__evMap) setTimeout(function () { window.__evMap.invalidateSize({ animate: false }); }, 30); };
         document.head.appendChild(css);
         var js = document.createElement('script');
         js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
