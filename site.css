@@ -117,7 +117,7 @@ tbody tr:hover{background:#FAFBFC}
 .footer{background:var(--ink);color:#94A3B8;padding:64px 0 32px;font-size:14px}
 .footer a{text-decoration:none;color:#94A3B8;transition:.15s}
 .footer a:hover{color:#fff}
-.foot-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px}
 .foot-brand .logo-text{color:#fff}
 .foot-brand p{font-size:13.5px;line-height:1.7;margin-top:14px;color:#64748B}
 .foot-brand .credit{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);font-size:13px}
@@ -154,6 +154,17 @@ tbody tr:hover{background:#FAFBFC}
   .sec{padding:56px 0}
 }
 @media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+/* register garage lists on the city pages */
+.glist-wrap{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.glist-h{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin:0 0 6px}
+.glist-p{font-size:13.5px;color:var(--mut);margin:0 0 12px;line-height:1.6}
+.glist{list-style:none;padding:0;margin:0;columns:2;column-gap:32px}
+.glist-3{columns:3}
+.glist li{break-inside:avoid;display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px}
+.glist li a{font-weight:600;color:var(--ink);text-decoration:none}.glist li a:hover{color:var(--sig)}
+.glist li em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--sig);margin-left:6px}
+.glist li span{color:var(--mut);font-family:var(--f-mono);font-size:12px;white-space:nowrap;margin-left:auto}
+@media(max-width:760px){.glist,.glist-3{columns:1}}
 
 /* =====================================================================
    Page-family components

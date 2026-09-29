@@ -276,7 +276,7 @@ h2{{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);mar
   <tbody>{nearby_html}</tbody></table></div>
 
   <p style="font-size:12.5px;color:var(--mut);margin:26px 0 60px">
-    Source: the <a href="https://opendata.rdw.nl/browse?q=parkeren" target="_blank" rel="noopener">national parking register (NPR)</a> via RDW open data, CC0 · Page generated {TODAY} ·
+    Source: the national parking register (NPR), CC0 open data · Page generated {TODAY} ·
     Found an error? <a href="/about#contact" style="color:var(--mut)">Let us know</a>.
   </p>
 </div>

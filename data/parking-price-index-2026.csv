@@ -1,0 +1,15 @@
+city,slug,facilities,priced,free,park_and_ride,capacity_listed,ev_points,median_1h_eur,median_3h_eur,median_24h_eur,cheapest_garage,cheapest_1h_eur,cheapest_3h_eur,most_expensive_garage,most_expensive_1h_eur,most_expensive_3h_eur,cheapest_day_garage,cheapest_day_eur
+Amsterdam,amsterdam,80,39,1,11,35503,216,3.0,9.0,92.0,Garage P2 Bomengarage,1.4,1.4,Terrein Oostenburgereiland Touringcar parking,8.0,24.0,Garage Geuzenpoort,24.0
+Rotterdam,rotterdam,48,29,12,16,19077,98,2.0,5.5,42.5,Garage Zoomstraat,1.5,4.0,Garage De Boompjes,5.0,13.0,Garage Zoomstraat,31.5
+The Hague,the-hague,25,17,1,5,9065,20,3.2,9.6,76.8,Terrein Station Leidschenveen Haven,0.9,2.7,Garage Helicon,4.4,13.2,Terrein Station Leidschenveen Haven,21.6
+Utrecht,utrecht,14,8,0,4,8376,12,3.58,10.74,85.92,Garage Grifthoek,2.85,8.55,Garage P5 Vredenburg,6.0,16.0,Garage Grifthoek,68.4
+Eindhoven,eindhoven,19,9,2,4,5420,8,1.5,4.5,36.0,Garage Klokgebouw,1.4,4.2,Garage Hooghuis,2.8,8.4,Garage De Grijze Generaal,33.0
+Groningen,groningen,25,14,0,8,13153,88,2.25,7.0,57.8,Garage Martini-ziekenhuis,3.0,4.0,parkeergarage Forum,4.0,10.0,Garage Martini-ziekenhuis,14.5
+Maastricht,maastricht,8,1,0,6,1300,0,2.17,6.51,52.08,P+R Meersenerstraat,2.17,6.51,P+R Meersenerstraat,2.17,6.51,P+R Meersenerstraat,52.08
+Leiden,leiden,11,8,1,2,3237,22,1.9,5.7,45.6,Garage Haarlemmerstraat,1.55,4.65,Garage Garenmarkt,2.8,8.4,Garage Ringkade,34.5
+Haarlem,haarlem,10,7,2,2,4462,16,3.49,10.47,83.76,Garage Floridastraat,1.2,3.6,Garage De Appelaar,4.0,12.0,Garage Floridastraat,28.8
+Breda,breda,18,3,2,3,3690,0,2.0,6.0,48.0,Terrein Amphia Ziekenhuis locatie Molengracht,1.5,4.5,P+R Station,2.76,8.28,Terrein Amphia Ziekenhuis locatie Molengracht,30.0
+Delft,delft,7,3,2,1,2835,32,3.64,9.64,72.64,Marktgarage,3.64,9.64,Marktgarage,3.64,9.64,Marktgarage,72.64
+Nijmegen,nijmegen,16,9,3,4,4358,14,2.9,8.7,69.6,Garage Dukenburg,1.0,3.0,Terrein Molenpoortdak,3.0,9.0,Garage Dukenburg,24.0
+Tilburg,tilburg,19,7,1,2,5017,0,2.0,6.0,48.0,Parkeergarage 013-Tivoli,2.0,6.0,Parkeergarage Jumbo Foodmarkt Tilburg,2.5,7.5,Parkeergarage 013-Tivoli,48.0
+Zwolle,zwolle,23,21,0,0,3417,48,2.73,7.5,24.0,Zone 4 Schil Bisschop Willebrandlaan Parkeerterrein Aldi,1.0,3.0,Parkeergarage Katwolderplein,2.73,8.18,Zone 2 Centrumschil Albert Cuypstraat Parkeerterrein,22.5

@@ -1,0 +1,13 @@
+# Cloudflare Pages headers. Versioned assets (?v=) can be cached for a year;
+# apply_chrome.py bumps CSS_VERSION whenever site.css or analytics.js change.
+/site.css
+  Cache-Control: public, max-age=31536000, immutable
+/analytics.js
+  Cache-Control: public, max-age=31536000, immutable
+/data/*
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+/zones/*
+  Cache-Control: public, max-age=86400
+/og-image.png
+  Cache-Control: public, max-age=604800
