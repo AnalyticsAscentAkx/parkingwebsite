@@ -273,8 +273,6 @@ def render(target):
 <div class="mli"><div class="mld" style="background:#0A1628"></div> P+R</div>
 </div></div></section>
 
-<div class="ad-wrap w"><div class="ad">- Advertisement -</div></div>
-
 <section class="sec sec-wm"><div class="ct">
 <div class="sl">Parking Garages</div>
 <h2 class="st">Garages near {station}, closest first</h2>
@@ -289,8 +287,6 @@ def render(target):
 <p class="ss" style="margin-top:10px">Know when you're arriving? Pre-booking a spot is often 10-25% cheaper than the drive-in rate and guarantees a space. <a data-aff="parkbee" href="https://www.parkbee.com/" style="color:var(--or);font-weight:600">Pre-book a garage on ParkBee →</a> <span style="color:var(--mut);font-size:12px">(affiliate link)</span></p>
 </div></section>
 
-<div class="ad-wrap wm"><div class="ad">- Advertisement -</div></div>
-
 <section class="sec sec-w"><div class="ct">
 <div class="sl">Best Value</div>
 <h2 class="st">P+R into the centre from {prrate}/24hr</h2>
@@ -298,8 +294,6 @@ def render(target):
 <div class="pg">{_pr_cards(prs)}</div>
 <p class="ss" style="margin-top:16px">See the full <a href="/{city_slug}" style="color:var(--or);font-weight:600">{city} parking guide</a> for every P+R site, street zone and free-parking tip.</p>
 </div></section>
-
-<div class="ad-wrap wm"><div class="ad">- Advertisement -</div></div>
 
 <section class="sec sec-w"><div class="ct prose"><h2>Parking at {station} - the full picture</h2>
 <p>Garages around {station} span <strong>{_eur(cheapest['p1'])} to {_eur(closest['p1'])} per hour</strong> in 2026, and the walk from the cheapest to the closest is short enough that it always pays to check both. The closest garage, <strong>{closest['name']}</strong>, is about a {max(1, round(closest['dist']/80))}-minute walk at {_eur(closest['p1'])}/hr and {_eur(closest['p24'])} for a full day.</p>
@@ -320,7 +314,6 @@ def render(target):
 <div class="sc"><div><h2>Did we save you money?</h2><p>This site is 100% free. No paywalls. If our tips helped, a small tip keeps the rates updated.</p><img src="/paypal-qr.png" alt="Scan to support via PayPal" style="width:110px;height:110px;display:block;margin:12px 0;border-radius:8px"></div>
 <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">\U0001f499 Support via PayPal</a></div>
 </div></section>
-<div class="ad-wrap cr"><div class="ad">- Advertisement -</div></div>
 
 <section class="share-section">
   <h3>Found this useful? Share it</h3>
