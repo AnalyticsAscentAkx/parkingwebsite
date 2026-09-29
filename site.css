@@ -154,6 +154,8 @@ tbody tr:hover{background:#FAFBFC}
   .sec{padding:56px 0}
 }
 @media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+/* garage detail pages: body copy spacing */
+.gwrap p{margin:0 0 12px;line-height:1.6}
 /* register garage lists on the city pages */
 .glist-wrap{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
 .glist-h{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin:0 0 6px}
