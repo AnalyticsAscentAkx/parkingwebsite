@@ -123,11 +123,53 @@
     else if (st[ACC] === 'L' && (f & 1)) notes.push('private car park');
     return notes;
   }
+  /* Where a session is started for each operator: their own site or app.
+     This site never processes a payment; the button hands over. Verified
+     2026-09-30. Operators without a confirmed site fall back to the guide. */
+  var OPERATOR_URL = {
+    'Vattenfall InCharge': 'https://incharge.vattenfall.nl/',
+    'EQUANS': 'https://www.equans.nl/',
+    'TotalEnergies': 'https://services.totalenergies.nl/',
+    'Allego': 'https://www.allego.eu/',
+    'Qwello Benelux BV': 'https://www.qwello.eu/',
+    'E-Flux by Road': 'https://www.e-flux.io/',
+    '50five': 'https://www.50five.nl/',
+    'Ubitricity': 'https://ubitricity.com/nl/',
+    'Laadnet': 'https://laadnet.nl/',
+    'Eneco': 'https://www.eneco-emobility.com/',
+    'Opcharge': 'https://opcharge.nl/',
+    'e-VOLTT': 'https://www.e-voltt.nl/',
+    'Heijmans': 'https://www.heijmans.nl/',
+    'Fastned': 'https://www.fastned.nl/',
+    'Lanova Laadpalen': 'https://lanova.nl/',
+    'Mick-E': 'https://www.mick-e.nl/',
+    'Q-Park Netherlands': 'https://www.q-park.nl/',
+    'ChargePoint': 'https://www.chargepoint.com/',
+    'Shell Recharge': 'https://shellrecharge.com/nl-nl/',
+    'Spirii': 'https://spirii.com/',
+    'IONITY': 'https://ionity.eu/',
+    'Tesla': 'https://www.tesla.com/nl_nl/findus'
+  };
+  function startHtml(st) {
+    var op = st[CPO] || '', url = OPERATOR_URL[op], card = ((st[FLAGS] || 0) & 16) !== 0;
+    var h = card ? '<span class="ev-card-pay">Bank card accepted at the charger</span>' : '';
+    h += url
+      ? '<a class="ev-card-btn is-primary is-start" target="_blank" rel="noopener nofollow" href="' + url + '" data-op="' + esc(op) + '" data-card="' + (card ? 1 : 0) + '">Start with ' + esc(op) + '</a>'
+      : '<a class="ev-card-btn is-primary is-start" href="/ev-parking" data-op="' + esc(op || 'unknown') + '" data-card="' + (card ? 1 : 0) + '">Charge cards &amp; apps</a>';
+    return h;
+  }
+  /* Result counts, so the analytics can tell useful searches from dead ends. */
+  var lastResultsAt = 0;
+  function noteResults(kind, n) {
+    if (n === 0) { track('zero_results', { kind: kind, mode: showMode }); return; }
+    var now = Date.now();
+    if (now - lastResultsAt > 10000) { lastResultsAt = now; track('results_shown', { kind: kind, mode: showMode, count: n }); }
+  }
   function srcNote(st, short) {
     var s = st[SRC] || 0;
     if (s === 1) return short ? 'operator\u2019s usual rate' : 'No tariff is published for this charger; this is the operator\u2019s usual rate elsewhere.';
     if (s === 2) return short ? 'typical NL rate' : 'This operator publishes no tariffs; the national median is used.';
-    return '';
+    return short ? '' : 'Tariff as published by the operator in the national charge point register.';
   }
 
   /* ------------------------------------------------------------ helpers */
@@ -522,6 +564,7 @@
         ? 'Showing the ' + TOWN_ROWS + ' largest of ' + total.toLocaleString() +
           ' towns in view. Type a town name to search all ' + (meta.cities || cities.length).toLocaleString() + '.'
         : total.toLocaleString() + (total === 1 ? ' town' : ' towns'));
+    noteResults('towns', rows.length);
     $('#evRows').innerHTML = rows.length ? rows.map(function (c, i) {
       return '<div class="ev-row" role="option" tabindex="0" data-i="' + i + '" data-kind="city">' +
         '<div><div class="ev-name">' + esc(c.name) + '</div>' +
@@ -566,6 +609,7 @@
     updateSession();
 
     var label = sessionLabel(w, true);
+    noteResults('chargers', rows.length);
     $('#evRows').innerHTML = rows.length ? rows.map(function (st, i) {
       var g = grade(st[UP], st[DOWN]);
       var price = st._p
@@ -672,14 +716,17 @@
       '</div>' +
       '<div class="ev-card-note">' + (srcNote(st, false) ? srcNote(st, false) + ' ' : '') + 'Estimate for ' + sessionLabel(w, false) +
         '. Plug types, opening hours and barriers are as the operator reported them to the register.</div>' +
-      '<div class="ev-card-act">' + directions(st[LAT], st[LON]) +
+      '<div class="ev-card-act">' + startHtml(st) + directions(st[LAT], st[LON]).replace(' is-primary', '') +
         '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>' +
-      '</div>';
+      '</div>' +
+      '<div class="ev-card-note is-handover">Starting and paying for a session happens with the operator or a charge card. This site compares; it does not take payments.</div>';
     card.hidden = false;
+    var sb = card.querySelector('a.is-start');
+    if (sb) sb.onclick = function () { track('start_charging', { operator: sb.dataset.op, pay_card: sb.dataset.card === '1', id: st[ID] }); };
     var lg = document.querySelector('.ev-legend');
     if (lg) lg.hidden = true;
     card.querySelector('.ev-card-x').onclick = clearSelection;
-    Array.prototype.forEach.call(card.querySelectorAll('a.ev-card-btn'), function (a) { a.onclick = function () { track('directions', { mode: showMode, app: a.textContent.trim() }); }; });
+    Array.prototype.forEach.call(card.querySelectorAll('a.ev-card-btn:not(.is-start)'), function (a) { a.onclick = function () { track('directions', { mode: showMode, app: a.textContent.trim() }); }; });
     $('#evCardWindow').onclick = function () {
       var d = $('#evWindow'); if (d) d.open = true;
       if (narrow()) sheet('full');
@@ -888,6 +935,7 @@
     stat('mPark', rows.length ? String(prs.length) : '–');
     stat('mFast', rows.length ? rows.reduce(function (n, g) { return n + (g.cap || 0); }, 0).toLocaleString() : '–');
     var label = sessionLabel(w, true).replace(/est\. \d+ kWh \+ /, 'est. ');
+    noteResults('parking', rows.length);
     $('#evRows').innerHTML = rows.length ? rows.map(function (g, i) {
       var price = g._p
         ? '<span class="ev-price" data-g="' + placeGrade(g, median) + '">' + money(g._p.total) +
@@ -922,11 +970,14 @@
       '<div class="ev-card-rows">' + lines + '</div>' +
       '<div class="ev-card-note">Drive-in estimate through the published 1 h, 3 h and 24 h tariffs for ' + sessionLabel(w, false).replace(/^\d+ kWh and a /, 'a ') +
         '. Pre-booking online is often cheaper.</div>' +
+      '<div class="ev-card-note is-source">Official tariff from the national parking register' + (meta && meta.generated ? ', data refreshed ' + String(meta.generated).slice(0, 10) : '') +
+        '. Occupancy is not published; the register does not say whether spaces are free.</div>' +
       '<div class="ev-card-act">' + directions(g.lat, g.lon) +
         (g.slug ? '<a class="ev-card-btn" href="/garage/' + esc(g.slug) + '">Details &amp; rates</a>' : '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>') +
       '</div>';
     card.hidden = false;
     card.querySelector('.ev-card-x').onclick = clearSelection;
+    Array.prototype.forEach.call(card.querySelectorAll('a.ev-card-btn'), function (a) { a.onclick = function () { track(a.getAttribute('href').indexOf('/garage/') === 0 ? 'garage_details' : 'directions', { mode: showMode, app: a.textContent.trim() }); }; });
     var cw = $('#evCardWindow');
     if (cw) cw.onclick = function () { var d = $('#evWindow'); if (d) d.open = true; $('#evArrive').focus(); };
   }
@@ -1022,7 +1073,7 @@
     listCities(hits, 'Town search', hits.length
       ? hits.length.toLocaleString() + ' of ' + cities.length.toLocaleString() + ' towns match “' + q + '”'
       : 'No town found for “' + q + '”. Try another spelling.');
-    if (!hits.length) $('#evRows').innerHTML = empty('No matching town', 'Try a broader part of the town name.');
+    if (!hits.length) { track('zero_results', { kind: 'town_search', term: q }); $('#evRows').innerHTML = empty('No matching town', 'Try a broader part of the town name.'); }
   }
 
   function searchGo(q) {

@@ -213,14 +213,14 @@
 <header class="hero"><canvas class="hero-fx" id="heroFx" aria-hidden="true"></canvas><div class="wrap hero-in">
   <div class="tag"><span class="dot"></span> 2026 rates · national register data</div>
   <h1>Every parking price in the Netherlands. <span class="sig rotator" id="heroRot" aria-live="off">One search.</span></h1>
-  <p class="sub">Compare 200+ garages, P+R sites and street zones across 14 Dutch cities - priced for your exact stay from official tariff tables. Tourists save €30+ per visit.</p>
+  <p class="sub">Compare 323 register-listed garages and P+R sites, plus every street zone, across 14 Dutch cities, priced for your exact stay from official tariff tables. For a full day in the centre, a P+R instead of a garage saves €30 or more in most cities; for a short stop the comparison shows the real difference.</p>
   <form class="hero-search" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();if(v)location.href='/search?q='+encodeURIComponent(v);">
     <input type="text" id="heroQ" placeholder="Where do you need to park? Address, venue or city…" autocomplete="off">
     <button type="submit" class="btn btn-primary">Find parking</button>
   </form>
   <button type="button" class="hero-near" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/search?lat='+p.coords.latitude.toFixed(5)+'&lng='+p.coords.longitude.toFixed(5)+'&q=Near+me'},function(){b.disabled=false;b.textContent='Use my location';location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg> Cheapest parking near me</button>
   <div class="hero-stats">
-    <div class="hstat"><div class="n">200+</div><div class="l">Garages &amp; P+R sites with official tariffs</div></div>
+    <div class="hstat"><div class="n">323</div><div class="l">Register-listed garages &amp; P+R sites, 175 with a published tariff</div></div>
     <div class="hstat"><div class="n">14</div><div class="l">Dutch cities covered in depth</div></div>
     <div class="hstat"><div class="n">€1</div><div class="l">Cheapest P+R per 24 hours</div></div>
     <div class="hstat"><div class="n">€0</div><div class="l">What this site costs you</div></div>
@@ -387,7 +387,7 @@
 <p>Dutch parking enforcement is automated and aggressive. Scan cars (scanauto's) photograph every plate on every street, every hour. A missed payment results in a <strong>€82.00 fine</strong> plus the unpaid fee - regardless of whether you're Dutch, German, British, or American. Foreign plates are fully tracked through European databases. Always pay via parking meters, the <strong>EasyPark</strong> app, or <strong>Yellowbrick</strong> - whichever covers your city. Both apps charge by the minute and let you stop the session remotely, saving €2-5 per visit compared to rounding up at a machine.</p>
 
 <h3>The smartest parking strategy in the Netherlands</h3>
-<p>For city visits, P+R is almost always the best value. Park at a designated P+R facility on the outskirts, use public transport into the centre, and pay a fraction of what you'd spend on centre parking. Amsterdam's P+R costs just €1 for 24 hours. Rotterdam's is €2.50. The Hague's is €2. For airport visits, Schiphol's official P1 garage charges €54/day - but locals use the P+R Sloterdijk trick to get in and out for around €6 total. This site covers every option across 14 Dutch cities so you always know exactly what to pay - and what to avoid.</p>
+<p>For a full day in the centre, a P+R is usually the cheapest choice if you are happy to take a tram or train for the last stretch; for stops under two hours a nearby garage often wins once you count the transit ticket and the time. Park at a designated P+R facility on the outskirts, use public transport into the centre, and pay a fraction of what you'd spend on centre parking. Amsterdam's P+R costs just €1 for 24 hours. Rotterdam's is €2.50. The Hague's is €2. For airport visits, Schiphol's official P1 garage charges €54/day - but locals use the P+R Sloterdijk trick to get in and out for around €6 total. This site covers every option across 14 Dutch cities so you always know exactly what to pay - and what to avoid.</p>
 </div></section>
 <section class="sec sec-dark"><div class="wrap">
   <div class="sec-h">
