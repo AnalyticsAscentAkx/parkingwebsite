@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260930e">
-<script src="/analytics.js?v=20260930e" defer></script>
+<link rel="stylesheet" href="/site.css?v=20260930f">
+<script src="/analytics.js?v=20260930f" defer></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does parking cost in Nijmegen?","acceptedAnswer":{"@type":"Answer","text":"Street parking in Nijmegen centre costs €3.10/hr in 2026. Garages start from €1.60/hr at Mariënburg parking. P+R is €2.50 for 24 hours at De Goffert."}},{"@type":"Question","name":"Is parking free on Sundays in Nijmegen?","acceptedAnswer":{"@type":"Answer","text":"Yes - all paid zones in Nijmegen are free on Sundays. Most zones are also free after 21:00 on weekdays."}},{"@type":"Question","name":"Where is the cheapest parking in Nijmegen?","acceptedAnswer":{"@type":"Answer","text":"P+R De Goffert offers the cheapest option at €2.50/24hr with a direct bus to the city centre. For garage parking, Mariënburg at €1.60/hr is the best value central option."}},{"@type":"Question","name":"Is Nijmegen the oldest city in the Netherlands?","acceptedAnswer":{"@type":"Answer","text":"Yes - Nijmegen is considered the oldest city in the Netherlands, with Roman origins dating back over 2,000 years. The Valkhof park contains Roman ruins, and the city has a well-preserved historic centre."}}]}</script>
@@ -68,7 +68,8 @@
 <div class="ph"><div class="ct">
 <h1>Parking in <em>Nijmegen</em> - 2026</h1>
 <p class="sub">The oldest city in the Netherlands. Roman history, the Waal river, and Radboud University make it a popular destination. Parking is affordable compared to the Randstad.</p>
-<p class="ev-nl-link"><a href="/laadpaal-nijmegen" hreflang="nl">⚡ Laadpalen in Nijmegen: prijzen per kWh, storingen en snelladers (NL)</a> · <a href="/ev-charging?q=Nijmegen">charger map</a></p>
+<p class="updated">Last reviewed 4 July 2026</p>
+<p class="ev-nl-link"><a href="/laadpaal-nijmegen" hreflang="nl">Laadpalen in Nijmegen: prijzen per kWh, storingen en snelladers (NL)</a> · <a href="/ev-charging?q=Nijmegen">charger map</a></p>
 <div class="qs">
 <div class="qb"><div class="qbl">Street (Centre)</div><div class="qbv h">€3.10/hr</div></div>
 <div class="qb"><div class="qbl">Cheapest Garage</div><div class="qbv">€1.60/hr</div></div>
@@ -81,9 +82,9 @@
 <h2 class="st">Every parking option in Nijmegen</h2>
 <p class="ss">Click markers for prices and details. Toggle layers to filter.</p>
 <div class="map-btns">
-<button class="map-btn" style="background:#0B1120" onclick="toggleL('pr',this)">🔵 P+R Locations</button>
-<button class="map-btn" style="background:var(--or)" onclick="toggleL('gar',this)">🟠 Garages</button>
-<button class="map-btn" style="background:var(--tl)" onclick="toggleL('free',this)">🩵 Free Parking</button>
+<button class="map-btn" style="background:#0B1120" onclick="toggleL('pr',this)">P+R Locations</button>
+<button class="map-btn" style="background:var(--or)" onclick="toggleL('gar',this)">Garages</button>
+<button class="map-btn" style="background:var(--tl)" onclick="toggleL('free',this)">Free Parking</button>
 </div>
 <div class="mw"><div id="cityMap" class="mc"></div></div>
 <div class="ml">
@@ -146,7 +147,7 @@
 <div class="sl" style="color:var(--tl)">Free &amp; Cheap</div>
 <h2 class="st">Where to park free in Nijmegen</h2>
 <p class="ss">Local knowledge on avoiding paid parking.</p>
-<div class="fl"><div class="fi2"><div class="fi2-i">🅿️</div><div><h4>P+R for €2.50/day</h4><p>De Goffert and Winkelsteeg offer €2.50/24hr with direct bus to the centre.</p></div></div><div class="fi2"><div class="fi2-i">☀️</div><div><h4>Sunday free everywhere</h4><p>All paid zones free on Sundays. Ideal for a day trip to the Waalkade or Valkhof.</p></div></div><div class="fi2"><div class="fi2-i">🌙</div><div><h4>Free after 21:00</h4><p>Most zones free in the evenings Mon-Sat. Great for dinner in the Kronenburgpark area.</p></div></div><div class="fi2"><div class="fi2-i">🏘️</div><div><h4>Lent (across the Waal)</h4><p>Free residential parking in Nijmegen-Noord / Lent. Walk over the Waal bridge (~15min) or take a bus.</p></div></div></div>
+<div class="fl"><div class="fi2"><div class="fi2-i">🅿️</div><div><h4>P+R for €2.50/day</h4><p>De Goffert and Winkelsteeg offer €2.50/24hr with direct bus to the centre.</p></div></div><div class="fi2"><div class="fi2-i">01</div><div><h4>Sunday free everywhere</h4><p>All paid zones free on Sundays. Ideal for a day trip to the Waalkade or Valkhof.</p></div></div><div class="fi2"><div class="fi2-i">02</div><div><h4>Free after 21:00</h4><p>Most zones free in the evenings Mon-Sat. Great for dinner in the Kronenburgpark area.</p></div></div><div class="fi2"><div class="fi2-i">03</div><div><h4>Lent (across the Waal)</h4><p>Free residential parking in Nijmegen-Noord / Lent. Walk over the Waal bridge (~15min) or take a bus.</p></div></div></div>
 </div></section>
 
 <section class="sec sec-w"><div class="ct prose"><h2>The complete guide to parking in Nijmegen</h2>
@@ -174,7 +175,7 @@
 
 <section class="sec sec-wm2"><div class="ct">
 <div class="sc"><div><h2>Did we save you money?</h2><p>This site is 100% free. No paywalls. If our tips helped, a small tip keeps the rates updated.</p><img src="/paypal-qr.png" alt="Scan to support via PayPal" style="width:110px;height:110px;display:block;margin:12px 0;border-radius:8px"></div>
-<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">💙 Support via PayPal</a></div>
+<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">Support via PayPal</a></div>
 </div></section>
 <section class="share-section">
   <h3>Found this useful? Share it</h3>

@@ -1129,7 +1129,7 @@
 
     var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng')), zoom = parseInt(q.get('zoom'), 10);
     var start = (isNaN(lat) || isNaN(lng)) ? [52.3731, 4.8926] : [lat, lng];   // Amsterdam unless the link says otherwise
-    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView(start, isNaN(zoom) ? 14 : zoom);
+    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView(start, isNaN(zoom) ? 15 : zoom);
     if (q.get('kwh')) $('#evKwh').value = q.get('kwh');
     window.__evMap = map;                       // the mobile tabs resize it
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

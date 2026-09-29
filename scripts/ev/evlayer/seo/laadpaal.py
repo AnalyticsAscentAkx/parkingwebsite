@@ -148,6 +148,12 @@ def operator_uptime(cpo):
     return r if r and r["days"] else None
 
 
+
+_CLOSINGS = ['Wat laden kost per exploitant, welk deel buiten gebruik is, waar je snel kunt laden en wat parkeren erbij doet.', 'Per exploitant zie je de kWh-prijs, het aandeel storingen en waar de snelladers staan. Parkeerkosten tijdens het laden staan er direct naast.', 'De tarieven per exploitant, hoeveel palen op dit moment niet werken en waar je binnen een half uur vol staat. Inclusief wat parkeren erbij kost.', 'Prijzen per kWh, storingspercentages en snellaadlocaties, uit de nationale laadpuntdata. Plus het parkeertarief dat je tijdens het laden betaalt.', 'Welke exploitant hier goedkoop laadt, welke palen buiten gebruik zijn en waar de snelladers staan. Daarna: wat de parkeerplek zelf kost.']
+def _closing(slug):
+    import hashlib
+    return _CLOSINGS[int(hashlib.md5(("laadpaal-%s.html" % slug).encode()).hexdigest(), 16) % 5]
+
 # --------------------------------------------------------------- template
 HEAD = """<!DOCTYPE html>
 <html lang="nl">
@@ -243,7 +249,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
 <div class="ph"><div class="ct">
 <span class="updated">Bijgewerkt {DATE_NL} · nationaal laadpuntenregister</span>
 <h1>Laadpalen in <em>{esc(city)}</em>: prijzen, storingen en snelladers</h1>
-<p class="sub">{c['stations']} openbare laadlocaties, {c['points']} laadpunten. Wat laden kost per exploitant, welk deel buiten gebruik is, waar je snel kunt laden en wat parkeren erbij doet.</p>
+<p class="sub">{c['stations']} openbare laadlocaties, {c['points']} laadpunten. {_closing(sl)}</p>
 <div class="qs">
 <div class="qb"><div class="qbl">Laadpunten</div><div class="qbv">{c['points']}</div></div>
 <div class="qb"><div class="qbl">Mediaan per kWh</div><div class="qbv">{eur(med_city) if med_city else '–'}</div></div>

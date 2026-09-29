@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260930e">
-<script src="/analytics.js?v=20260930e" defer></script>
+<link rel="stylesheet" href="/site.css?v=20260930f">
+<script src="/analytics.js?v=20260930f" defer></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does parking cost in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Street parking in Amsterdam centre costs \u20ac8.05/hr in 2026 - 24/7, including Sundays. Garages start from \u20ac1.25/hr (\u20ac10/day). P+R parking is \u20ac1.00/24hr including public transport into the centre."}}, {"@type": "Question", "name": "How much does parking cost per day in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "A full day ranges from \u20ac1 to about \u20ac80. Central street parking at \u20ac8.05/hr runs all day and can reach \u20ac80. Garages are roughly \u20ac10/day (Mobihub Rembrandtpark). The cheapest is P+R at \u20ac1/24hr including transit."}}, {"@type": "Question", "name": "What is the cheapest garage in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Mobihub Rembrandtpark at \u20ac1.25/hr and \u20ac10/day in west Amsterdam, about 15 min by tram to the centre. Second cheapest is Mobihub NDSM at \u20ac2/hr in Noord, with a free ferry to the centre."}}, {"@type": "Question", "name": "Can I park in Amsterdam for free on Sunday?", "acceptedAnswer": {"@type": "Answer", "text": "No. Amsterdam paid zones operate 24/7, 365 days a year, so Sundays are not free in the centre. The only near-free options are P+R (\u20ac1/24hr with transit), Noord beyond the paid zone, and outer Nieuw-West in the evenings."}}, {"@type": "Question", "name": "How do I use Amsterdam P+R parking?", "acceptedAnswer": {"@type": "Answer", "text": "Park at a P+R location for \u20ac1/24hr, then tap your OV-chipkaart to take public transport into the centre. The \u20ac1 rate requires checking in and out on public transport at least twice; without it you pay the normal daily rate."}}, {"@type": "Question", "name": "Do Amsterdam parking fines apply to foreign cars?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Scan cars operate 24/7 and foreign plates are tracked through European databases. The \u20ac82 fine is sent to the registered owner abroad, and ignoring it leads to debt collection in your home country."}}, {"@type": "Question", "name": "Is it worth driving to Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "For most visitors, no - the train is faster and cheaper. If you must drive, use P+R Sloterdijk at \u20ac1/24hr, one of the best parking deals in Europe for a city this size."}}]}</script>
@@ -69,7 +69,7 @@
 <h1>Parking in <em>Amsterdam</em> - 2026</h1>
 <p class="sub">Amsterdam has the highest parking rates in the Netherlands. Street parking in the centre is €8.05/hr - 24/7. Here's every option to pay less.</p>
 <p style="font-size:13px;opacity:.72;margin:6px 0 0">Prices verified August 2026 · sourced from Amsterdam municipality + national parking register open data.</p>
-<p class="ev-nl-link"><a href="/laadpaal-amsterdam" hreflang="nl">⚡ Laadpalen in Amsterdam: prijzen per kWh, storingen en snelladers (NL)</a> · <a href="/ev-charging?q=Amsterdam">charger map</a></p>
+<p class="ev-nl-link"><a href="/laadpaal-amsterdam" hreflang="nl">Laadpalen in Amsterdam: prijzen per kWh, storingen en snelladers (NL)</a> · <a href="/ev-charging?q=Amsterdam">charger map</a></p>
 <div class="qs">
 <div class="qb"><div class="qbl">Street (Centre)</div><div class="qbv h">€8.05/hr</div></div>
 <div class="qb"><div class="qbl">Cheapest Garage</div><div class="qbv">€1.25/hr</div></div>
@@ -82,9 +82,9 @@
 <h2 class="st">Every parking option in Amsterdam</h2>
 <p class="ss">Click markers for prices and details. Toggle layers to filter.</p>
 <div class="map-btns">
-<button class="map-btn" style="background:#0B1120" onclick="toggleL('pr',this)">🔵 P+R Locations</button>
-<button class="map-btn" style="background:var(--or)" onclick="toggleL('gar',this)">🟠 Garages</button>
-<button class="map-btn" style="background:var(--tl)" onclick="toggleL('free',this)">🩵 Free Parking</button>
+<button class="map-btn" style="background:#0B1120" onclick="toggleL('pr',this)">P+R Locations</button>
+<button class="map-btn" style="background:var(--or)" onclick="toggleL('gar',this)">Garages</button>
+<button class="map-btn" style="background:var(--tl)" onclick="toggleL('free',this)">Free Parking</button>
 </div>
 <div class="mw"><div id="cityMap" class="mc"></div></div>
 <div class="ml">
@@ -164,7 +164,7 @@
 <div class="sl" style="color:var(--tl)">Free &amp; Cheap</div>
 <h2 class="st">Where to park free in Amsterdam</h2>
 <p class="ss">Free options locals know about.</p>
-<div class="fl"><div class="fi2"><div class="fi2-i">🆓</div><div><h4>Mobility Hubs - free with bike</h4><p>Rembrandtpark, NDSM, Cruquius: free or €10/day parking with bike rental.</p></div></div><div class="fi2"><div class="fi2-i">🅿️</div><div><h4>P+R for €1/day</h4><p>€1 for 24hrs at 10 locations. Check in/out with OV-chipkaart on transit.</p></div></div><div class="fi2"><div class="fi2-i">🏘️</div><div><h4>Amsterdam Noord - free streets</h4><p>Beyond paid zones in northern Noord. Free ferry from Centraal (7 min).</p></div></div><div class="fi2"><div class="fi2-i">🌙</div><div><h4>Evening parking, outer zones</h4><p>Nieuw-West and parts of Noord: free after 21:00 until morning.</p></div></div></div>
+<div class="fl"><div class="fi2"><div class="fi2-i">🆓</div><div><h4>Mobility Hubs - free with bike</h4><p>Rembrandtpark, NDSM, Cruquius: free or €10/day parking with bike rental.</p></div></div><div class="fi2"><div class="fi2-i">🅿️</div><div><h4>P+R for €1/day</h4><p>€1 for 24hrs at 10 locations. Check in/out with OV-chipkaart on transit.</p></div></div><div class="fi2"><div class="fi2-i">01</div><div><h4>Amsterdam Noord - free streets</h4><p>Beyond paid zones in northern Noord. Free ferry from Centraal (7 min).</p></div></div><div class="fi2"><div class="fi2-i">02</div><div><h4>Evening parking, outer zones</h4><p>Nieuw-West and parts of Noord: free after 21:00 until morning.</p></div></div></div>
 </div></section>
 
 <section class="sec sec-w"><div class="ct prose"><h2>The complete guide to parking in Amsterdam</h2>
@@ -182,12 +182,12 @@
 <h2 class="st">Parking near Amsterdam landmarks</h2>
 <p class="ss">Where to park for each major attraction, sorted by best value.</p>
 <div class="tg">
-<div class="tc2"><div class="te te-o">🖼️</div><h3>Near Rijksmuseum &amp; Van Gogh</h3><p><strong>Best:</strong> P+R Olympisch Stadion (1 euro/24hr) + Metro to Museumplein.<br><strong>If driving close:</strong> Q-Park Museumplein (5.50 euro/hr). Pre-book for 15% off.</p></div>
-<div class="tc2"><div class="te te-t">🚉</div><h3>Near Amsterdam Centraal</h3><p><strong>Best:</strong> P+R Sloterdijk (1 euro/24hr) - 1 stop by train to Centraal.<br><strong>If driving close:</strong> Centrum Oosterdok (5 euro/hr). 5 min walk to Centraal.<br><a href="/parking-amsterdam-centraal" style="color:var(--or);font-weight:600">Full guide: parking near Amsterdam Centraal →</a></p></div>
-<div class="tc2"><div class="te te-g">🌷</div><h3>Near Anne Frank House</h3><p><strong>Best:</strong> P+R Noord (1 euro/24hr) + Ferry. Jordaan is 8.05 euro/hr street, 24/7. Use P+R - there is no good cheap nearby garage.</p></div>
-<div class="tc2"><div class="te te-o">🔬</div><h3>Near NEMO Science Museum</h3><p><strong>Best:</strong> Parking Piet Hein (4.50 euro/hr) - walking distance.<br><strong>Alt:</strong> Centrum Oosterdok - 10min walk, slightly cheaper.</p></div>
-<div class="tc2"><div class="te te-t">🛍️</div><h3>Near Kalverstraat Shopping</h3><p><strong>Best:</strong> Any P+R + Metro/Tram to Dam Square.<br><strong>Must drive:</strong> APCOA Euro Parking (6 euro/hr) is 5min walk and cheapest nearby.</p></div>
-<div class="tc2"><div class="te te-g">🎭</div><h3>Near Concertgebouw &amp; Vondelpark</h3><p><strong>Best:</strong> Mobihub Rembrandtpark (1.25 euro/hr / 10 euro day) - 15min walk or tram 2. Cheapest proper garage in Amsterdam. Book ahead.</p></div>
+<div class="tc2"><div class="te te-o">01</div><h3>Near Rijksmuseum &amp; Van Gogh</h3><p><strong>Best:</strong> P+R Olympisch Stadion (1 euro/24hr) + Metro to Museumplein.<br><strong>If driving close:</strong> Q-Park Museumplein (5.50 euro/hr). Pre-book for 15% off.</p></div>
+<div class="tc2"><div class="te te-t">02</div><h3>Near Amsterdam Centraal</h3><p><strong>Best:</strong> P+R Sloterdijk (1 euro/24hr) - 1 stop by train to Centraal.<br><strong>If driving close:</strong> Centrum Oosterdok (5 euro/hr). 5 min walk to Centraal.<br><a href="/parking-amsterdam-centraal" style="color:var(--or);font-weight:600">Full guide: parking near Amsterdam Centraal →</a></p></div>
+<div class="tc2"><div class="te te-g">03</div><h3>Near Anne Frank House</h3><p><strong>Best:</strong> P+R Noord (1 euro/24hr) + Ferry. Jordaan is 8.05 euro/hr street, 24/7. Use P+R - there is no good cheap nearby garage.</p></div>
+<div class="tc2"><div class="te te-o">04</div><h3>Near NEMO Science Museum</h3><p><strong>Best:</strong> Parking Piet Hein (4.50 euro/hr) - walking distance.<br><strong>Alt:</strong> Centrum Oosterdok - 10min walk, slightly cheaper.</p></div>
+<div class="tc2"><div class="te te-t">05</div><h3>Near Kalverstraat Shopping</h3><p><strong>Best:</strong> Any P+R + Metro/Tram to Dam Square.<br><strong>Must drive:</strong> APCOA Euro Parking (6 euro/hr) is 5min walk and cheapest nearby.</p></div>
+<div class="tc2"><div class="te te-g">06</div><h3>Near Concertgebouw &amp; Vondelpark</h3><p><strong>Best:</strong> Mobihub Rembrandtpark (1.25 euro/hr / 10 euro day) - 15min walk or tram 2. Cheapest proper garage in Amsterdam. Book ahead.</p></div>
 </div>
 </div></section>
 
@@ -211,10 +211,10 @@
 <div class="sl">Seasonal Tips</div>
 <h2 class="st">Amsterdam parking by season</h2>
 <div class="tg">
-<div class="tc2"><div class="te te-o">❄️</div><h3>Winter (Nov-Feb)</h3><p>Quietest period. P+R locations rarely fill. Even Sloterdijk has space by 10am. Garages are less crowded. Best time to drive if you must.</p></div>
-<div class="tc2"><div class="te te-t">🌸</div><h3>Spring (Mar-May)</h3><p>Tulip season brings high volumes. P+R fills early on weekends - arrive before 09:00. King's Day (27 April): do not drive to Amsterdam.</p></div>
-<div class="tc2"><div class="te te-g">☀️</div><h3>Summer (Jun-Aug)</h3><p>Peak tourist season. P+R Arena and Sloterdijk fill by 10:30 on weekends. Pre-book a garage or arrive before 09:00 for guaranteed P+R space.</p></div>
-<div class="tc2"><div class="te te-o">🍂</div><h3>Autumn (Sep-Oct)</h3><p>ADE in October is the hardest period after King's Day. Otherwise manageable. P+R usually has space until 10:30 on weekdays.</p></div>
+<div class="tc2"><div class="te te-o">07</div><h3>Winter (Nov-Feb)</h3><p>Quietest period. P+R locations rarely fill. Even Sloterdijk has space by 10am. Garages are less crowded. Best time to drive if you must.</p></div>
+<div class="tc2"><div class="te te-t">08</div><h3>Spring (Mar-May)</h3><p>Tulip season brings high volumes. P+R fills early on weekends - arrive before 09:00. King's Day (27 April): do not drive to Amsterdam.</p></div>
+<div class="tc2"><div class="te te-g">09</div><h3>Summer (Jun-Aug)</h3><p>Peak tourist season. P+R Arena and Sloterdijk fill by 10:30 on weekends. Pre-book a garage or arrive before 09:00 for guaranteed P+R space.</p></div>
+<div class="tc2"><div class="te te-o">10</div><h3>Autumn (Sep-Oct)</h3><p>ADE in October is the hardest period after King's Day. Otherwise manageable. P+R usually has space until 10:30 on weekdays.</p></div>
 </div>
 </div></section>
 
@@ -252,15 +252,15 @@
 <p class="ss">Deep dives on specific Amsterdam parking topics.</p>
 <div class="tg">
 <div class="tc2"><div class="te te-t">🅿️</div><h3><a href="/amsterdam-pr-guide" style="color:inherit;text-decoration:none">Amsterdam P+R Complete Guide</a></h3><p>All 8 Park and Ride locations compared. Which one to use, how the OV-chipkaart works, and journey times to the centre.</p><a href="/amsterdam-pr-guide" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
-<div class="tc2"><div class="te te-o">👋</div><h3><a href="/amsterdam-parking-tourist" style="color:inherit;text-decoration:none">First Time Parking in Amsterdam</a></h3><p>What tourists don't know before they arrive. The three mistakes that lead to fines and what actually works for first-time visitors.</p><a href="/amsterdam-parking-tourist" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
-<div class="tc2"><div class="te te-g">📅</div><h3><a href="/weekend-parking-amsterdam" style="color:inherit;text-decoration:none">Weekend Parking in Amsterdam</a></h3><p>Saturday and Sunday parking isn't cheaper in Amsterdam. Here's the honest breakdown of what a weekend costs and the best options.</p><a href="/weekend-parking-amsterdam" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
-<div class="tc2"><div class="te te-t">💰</div><h3><a href="/amsterdam-cheap-parking" style="color:inherit;text-decoration:none">Cheapest Parking in Amsterdam</a></h3><p>All cheap options ranked - P+R €1/day, Mobihub from €1.25/hr, free outer zones, and the park-outside-and-train strategy.</p><a href="/amsterdam-cheap-parking" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
+<div class="tc2"><div class="te te-o">11</div><h3><a href="/amsterdam-parking-tourist" style="color:inherit;text-decoration:none">First Time Parking in Amsterdam</a></h3><p>What tourists don't know before they arrive. The three mistakes that lead to fines and what actually works for first-time visitors.</p><a href="/amsterdam-parking-tourist" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
+<div class="tc2"><div class="te te-g">12</div><h3><a href="/weekend-parking-amsterdam" style="color:inherit;text-decoration:none">Weekend Parking in Amsterdam</a></h3><p>Saturday and Sunday parking isn't cheaper in Amsterdam. Here's the honest breakdown of what a weekend costs and the best options.</p><a href="/weekend-parking-amsterdam" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
+<div class="tc2"><div class="te te-t">13</div><h3><a href="/amsterdam-cheap-parking" style="color:inherit;text-decoration:none">Cheapest Parking in Amsterdam</a></h3><p>All cheap options ranked - P+R €1/day, Mobihub from €1.25/hr, free outer zones, and the park-outside-and-train strategy.</p><a href="/amsterdam-cheap-parking" style="display:inline-block;margin-top:12px;color:var(--or);font-weight:600;font-size:13px">Read guide →</a></div>
 </div>
 </div></section>
 
 <section class="sec sec-wm2"><div class="ct">
 <div class="sc"><div><h2>Did we save you money?</h2><p>This site is 100% free. No paywalls. If our tips helped, a small tip keeps the rates updated.</p><img src="/paypal-qr.png" alt="Scan to support via PayPal" style="width:110px;height:110px;display:block;margin:12px 0;border-radius:8px"></div>
-<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">💙 Support via PayPal</a></div>
+<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">Support via PayPal</a></div>
 </div></section>
 <section class="share-section">
   <h3>Found this useful? Share it</h3>

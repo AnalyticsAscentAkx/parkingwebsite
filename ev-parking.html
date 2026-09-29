@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260930e">
-<script src="/analytics.js?v=20260930e" defer></script>
+<link rel="stylesheet" href="/site.css?v=20260930f">
+<script src="/analytics.js?v=20260930f" defer></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -65,6 +65,7 @@
 <div class="ph"><div class="ct">
 <h1><em>EV Charging</em> & Parking Netherlands - 2026</h1>
 <p class="sub">The Netherlands has one of the densest EV charging networks in Europe. Here is everything you need to know about charging and parking with an electric car in the Netherlands.</p>
+<p class="updated">Last reviewed 19 June 2026</p>
 <div class="qs">
 <div class="qb"><div class="qbl">Charging Points</div><div class="qbv c">100,000+</div></div>
 <div class="qb"><div class="qbl">Best Network</div><div class="qbv">Fastned</div></div>
@@ -79,8 +80,8 @@
 <h2 class="st">EV charging stations near Dutch parking garages</h2>
 <p class="ss">Blue markers = parking garages with EV charging (national register data). Click any marker for details. Use the layer toggle to filter.</p>
 <div class="map-btns">
-<button class="map-btn" style="background:#6366F1" onclick="toggleEV('rdw',this)">🔵 EV-Friendly Garages</button>
-<button class="map-btn" style="background:#10B981" onclick="toggleEV('ocm',this)">🟢 Public Chargers (OpenChargeMap)</button>
+<button class="map-btn" style="background:#6366F1" onclick="toggleEV('rdw',this)">EV-Friendly Garages</button>
+<button class="map-btn" style="background:#10B981" onclick="toggleEV('ocm',this)">Public Chargers (OpenChargeMap)</button>
 </div>
 <div class="mw"><div id="evMap" style="width:100%;height:500px"></div></div>
 <div class="ml">
@@ -109,12 +110,12 @@
 <div class="sl">By City</div>
 <h2 class="st">EV charging &amp; parking by city</h2>
 <div class="tg">
-<div class="tc2"><div class="te te-o">🔌</div><h3><a href="/amsterdam" style="color:inherit">Amsterdam</a></h3><p>10,000+ public charging points. Many parking garages have EV bays. Mobihub locations have dedicated EV charging. Zero-emission zones incoming 2025-2030.</p></div>
-<div class="tc2"><div class="te te-t">⚡</div><h3><a href="/rotterdam" style="color:inherit">Rotterdam</a></h3><p>5,000+ charging points. The Markthal garage has EV bays. Rotterdam is building the most EV infrastructure per capita of any Dutch city outside Amsterdam.</p></div>
-<div class="tc2"><div class="te te-g">🚗</div><h3><a href="/the-hague" style="color:inherit">The Hague</a></h3><p>4,000+ charging points. Government quarter has many EV spots. Scheveningen beach parking includes charging bays for summer visitors.</p></div>
-<div class="tc2"><div class="te te-o">🔋</div><h3><a href="/utrecht" style="color:inherit">Utrecht</a></h3><p>3,500+ charging points. Hoog Catharijne garage has 50+ EV bays. Utrecht aims for full EV parking integration by 2026.</p></div>
-<div class="tc2"><div class="te te-t">⚡</div><h3><a href="/eindhoven" style="color:inherit">Eindhoven</a></h3><p>3,000+ points. ASML and Philips offices have large EV infrastructure. City centre garages are increasingly EV-equipped. Fastned on A2 nearby.</p></div>
-<div class="tc2"><div class="te te-g">🔌</div><h3><a href="/schiphol" style="color:inherit">Schiphol</a></h3><p>EV parking available at P3 and P4. Dedicated EV bays with 22kW charging. Pre-book EV spots via Schiphol app. Airport EV target: 100% by 2030.</p></div>
+<div class="tc2"><div class="te te-o">01</div><h3><a href="/amsterdam" style="color:inherit">Amsterdam</a></h3><p>10,000+ public charging points. Many parking garages have EV bays. Mobihub locations have dedicated EV charging. Zero-emission zones incoming 2025-2030.</p></div>
+<div class="tc2"><div class="te te-t">02</div><h3><a href="/rotterdam" style="color:inherit">Rotterdam</a></h3><p>5,000+ charging points. The Markthal garage has EV bays. Rotterdam is building the most EV infrastructure per capita of any Dutch city outside Amsterdam.</p></div>
+<div class="tc2"><div class="te te-g">03</div><h3><a href="/the-hague" style="color:inherit">The Hague</a></h3><p>4,000+ charging points. Government quarter has many EV spots. Scheveningen beach parking includes charging bays for summer visitors.</p></div>
+<div class="tc2"><div class="te te-o">04</div><h3><a href="/utrecht" style="color:inherit">Utrecht</a></h3><p>3,500+ charging points. Hoog Catharijne garage has 50+ EV bays. Utrecht aims for full EV parking integration by 2026.</p></div>
+<div class="tc2"><div class="te te-t">05</div><h3><a href="/eindhoven" style="color:inherit">Eindhoven</a></h3><p>3,000+ points. ASML and Philips offices have large EV infrastructure. City centre garages are increasingly EV-equipped. Fastned on A2 nearby.</p></div>
+<div class="tc2"><div class="te te-g">06</div><h3><a href="/schiphol" style="color:inherit">Schiphol</a></h3><p>EV parking available at P3 and P4. Dedicated EV bays with 22kW charging. Pre-book EV spots via Schiphol app. Airport EV target: 100% by 2030.</p></div>
 </div>
 </div></section>
 
@@ -130,7 +131,7 @@
 </div></section>
 <section class="sec sec-wm2"><div class="ct">
 <div class="sc"><div><h2>Did we save you money?</h2><p>This site is 100% free. No paywalls. If our tips helped, a small tip keeps the rates updated.</p><img src="/paypal-qr.png" alt="Scan to support via PayPal" style="width:110px;height:110px;display:block;margin:12px 0;border-radius:8px"></div>
-<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">💙 Support via PayPal</a></div>
+<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">Support via PayPal</a></div>
 </div></section>
 <section class="share-section">
   <h3>Found this useful? Share it</h3>
@@ -189,10 +190,10 @@ document.addEventListener('DOMContentLoaded', function() {
     amsGarages.forEach(g => {
         var evPts = parseInt(g.ev_points || '0');
         if (evPts > 0) {
-            var m = L.marker([g.lat, g.lng], {icon: mkEvIcon('#6366F1', '⚡')}).addTo(map);
+            var m = L.marker([g.lat, g.lng], {icon: mkEvIcon('#6366F1', '')}).addTo(map);
             m.bindPopup(`<div style="font-family:DM Sans,sans-serif;min-width:180px;padding:4px">
                 <div style="font-family:Instrument Serif,serif;font-size:16px;color:#0B1120;margin-bottom:4px">${g.name}</div>
-                <div style="font-size:12px;color:#6366F1;font-weight:700;margin-bottom:6px">⚡ EV Charging Available</div>
+                <div style="font-size:12px;color:#6366F1;font-weight:700;margin-bottom:6px">EV Charging Available</div>
                 <div style="font-size:13px;color:#334155"><strong>${evPts}</strong> charging point(s)</div>
                 ${g.capacity ? `<div style="font-size:12px;color:#64748B">Capacity: ${g.capacity} spots</div>` : ''}
                 ${g.max_height_cm ? `<div style="font-size:12px;color:#64748B">Max height: ${g.max_height_cm}cm</div>` : ''}

@@ -97,10 +97,10 @@ NAV = '''<nav class="nav"><div class="nav-in">
   </li>
   <li><a href="/search">Search \U0001f50d</a></li>
   <li><a href="/map">Map \U0001f5fa️</a></li>
-  <li><a href="/schiphol">Schiphol ✈</a></li>
+  <li><a href="/schiphol">Schiphol</a></li>
   <li class="has-drop"><a href="/free-parking">Guides ▾</a>
     <div class="drop">
-      <a href="/free-parking">\U0001f193 Free Parking</a><a href="/street-parking">\U0001f6e3️ Street Parking</a><a href="/long-term-parking">\U0001f550 Long-Term Parking</a><a href="/parking-tips-netherlands">\U0001f4a1 Parking Tips</a><a href="/ev-parking">⚡ EV Charging</a><a href="/parking-apps">\U0001f4f1 Parking Apps</a><a href="/parking-fines">⚠️ Fines Guide</a>
+      <a href="/free-parking">\U0001f193 Free Parking</a><a href="/street-parking">\U0001f6e3️ Street Parking</a><a href="/long-term-parking">\U0001f550 Long-Term Parking</a><a href="/parking-tips-netherlands">\U0001f4a1 Parking Tips</a><a href="/ev-parking"> EV Charging</a><a href="/parking-apps">\U0001f4f1 Parking Apps</a><a href="/parking-fines"> Fines Guide</a>
       <div class="drop-div"></div>
       <a href="/parkbee">\U0001f17f️ ParkBee Guide</a><a href="/belgium-parking">\U0001f1e7\U0001f1ea Belgium Parking</a>
       <div class="drop-div"></div>
@@ -116,7 +116,7 @@ NAV = '''<nav class="nav"><div class="nav-in">
 FOOTER = '''<footer class="footer"><div class="ct">
 <div class="fg">
 <div class="fb2"><a href="/" class="logo"><div class="lm">P</div><span class="lt">Parking Netherlands</span></a><p>Independent parking comparison. Helping tourists, expats, and locals park smarter across the Netherlands.</p><div class="fbu">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank">Analytics Ascent</a></div></div>
-<div class="fc"><h4>Major Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol ✈</a></div>
+<div class="fc"><h4>Major Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
 <div class="fc"><h4>More Cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
 <div class="fc"><h4>Guides</h4><a href="/parking-apps">Parking Apps</a><a href="/parking-fines">Fines Guide</a><a href="/free-parking">Free Parking</a><a href="/street-parking">Street Parking</a><a href="/long-term-parking">Long-Term Parking</a><a href="/parking-tips-netherlands">Parking Tips</a><a href="/ev-parking">EV Parking</a><a href="/about">About</a></div>
 </div>
