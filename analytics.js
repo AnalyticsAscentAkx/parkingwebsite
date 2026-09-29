@@ -14,6 +14,11 @@
    directions, filter, sort. Everything else is page views. */
 (function () {
   var GA4_ID = 'G-0L1QGD5D99';
+  /* The GA4 stream above is a destination inside the Analytics Ascent Google
+     tag whose primary id is the Ads id below. Google serves the loader only
+     under that primary id (the G- id answers 404), so the script is fetched
+     with it and GA4 is then configured by its own id. Checked 2026-09-29. */
+  var TAG_LOADER_ID = 'AW-17515074385';
   var CF_TOKEN = '';      // e.g. '0123456789abcdef0123456789abcdef'
 
   var queue = [];
@@ -40,7 +45,7 @@
     gtag('config', GA4_ID, { anonymize_ip: true, send_page_view: true });
     var g = document.createElement('script');
     g.async = true;
-    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + (TAG_LOADER_ID || GA4_ID);
     document.head.appendChild(g);
     window.track = function (name, params) { gtag('event', name, params || {}); };
     queue.forEach(function (q) { window.track(q[0], q[1]); });
