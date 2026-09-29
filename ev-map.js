@@ -103,13 +103,23 @@
      4 no charging when closed, 8 DC fast plug, 16 pay by card, 32 cable
      attached; 14 plug types as text. */
   var ACCESS_NAME = { S: 'On the street', L: 'In a car park', G: 'In a parking garage', U: 'In an underground garage', D: 'On a driveway', M: 'Along the motorway' };
-  function restricted(st) { return ((st[FLAGS] || 0) & 7) !== 0; }
+  /* A garage or underground post is treated as behind a barrier: the register
+     records where the post stands, not whether the gate needs a ticket. */
+  function restricted(st) { return ((st[FLAGS] || 0) & 7) !== 0 || st[ACC] === 'G' || st[ACC] === 'U'; }
+  function accessState(st) {
+    var f = st[FLAGS] || 0, a = st[ACC];
+    if (f & 1) return { k: 'restricted', t: 'Customers only' };
+    if (f & 6) return { k: 'restricted', t: 'Limited hours' };
+    if (a === 'G' || a === 'U') return { k: 'barrier', t: 'Barrier likely' };
+    if (a === 'S' || a === 'L' || a === 'M' || a === 'D') return { k: 'open', t: 'No barrier' };
+    return { k: 'unknown', t: 'Access not published' };
+  }
   function accessNotes(st) {
     var f = st[FLAGS] || 0, notes = [];
     if (f & 1) notes.push('customers only');
     if (f & 2) notes.push('not open 24/7');
     if (f & 4) notes.push('no charging when closed');
-    if (st[ACC] === 'G' || st[ACC] === 'U') notes.push('garage, may be behind a barrier');
+    if (st[ACC] === 'G' || st[ACC] === 'U') notes.push('garage: expect a barrier, the register does not say whether entry needs a ticket');
     else if (st[ACC] === 'L' && (f & 1)) notes.push('private car park');
     return notes;
   }
@@ -544,7 +554,7 @@
     if (filters.cheap) active.push('low cost');
     if (filters.fast) active.push(FAST_KW + ' kW+');
     if (filters.faulty) active.push('reported faulty');
-    if (filters.open) active.push('open access');
+    if (filters.open) active.push('no barrier');
     if (filters.card) active.push('pay by card');
     $('#evMode').textContent = 'Chargers in view';
     $('#evCount').textContent = rows.length.toLocaleString() +
@@ -572,7 +582,7 @@
         '<span>' + esc(st[CPO] || 'Operator not published') + '</span>' +
         (st[KW] ? '<span class="ev-kw">' + st[KW] + ' kW</span>' : '') +
         (st[PLUGS] ? '<span>' + esc(st[PLUGS]) + '</span>' : '') +
-        (restricted(st) ? '<span class="ev-access" title="' + esc(accessNotes(st).join(', ')) + '">restricted access</span>' : '') +
+        (function () { var s = accessState(st); return s.k === 'unknown' ? '' : '<span class="ev-access" data-a="' + s.k + '" title="' + esc(accessNotes(st).join(', ') || (ACCESS_NAME[st[ACC]] || '')) + '">' + s.t + '</span>'; })() +
         '<span class="ev-up" data-g="' + g + '">' +
           (st[DOWN] > 0 ? st[DOWN] + ' reported out of order'
            : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime') +
@@ -652,8 +662,8 @@
       '<div class="ev-card-status" data-g="' + g + '"><i></i>' + status +
         '<small>Reported by the operator ' + reportedAt() + '. Occupancy is not published.</small></div>' +
       '<div class="ev-card-access' + (restricted(st) ? ' is-warn' : '') + '">' +
-        '<b>' + (ACCESS_NAME[st[ACC]] || 'Location type not published') + '</b>' +
-        (accessNotes(st).length ? ' · ' + esc(accessNotes(st).join(' · ')) : (st[ACC] === 'S' ? ' · public access' : '')) +
+        '<b>' + accessState(st).t + '</b> · ' + (ACCESS_NAME[st[ACC]] || 'location type not published').toLowerCase() +
+        (accessNotes(st).length ? ' · ' + esc(accessNotes(st).join(' · ')) : '') +
         (st[PLUGS] ? '<br>' + esc(st[PLUGS]) + ((st[FLAGS] || 0) & 32 ? ', cable attached' : ', bring your cable') : '') +
         ((st[FLAGS] || 0) & 16 ? ' · pay by card' : ' · charge card or app') +
       '</div>' +
