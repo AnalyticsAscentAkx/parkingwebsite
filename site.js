@@ -264,6 +264,6 @@
   var a = document.createElement('a');
   a.className = 'nav-lang'; a.href = alt.getAttribute('href'); a.hreflang = here === 'nl' ? 'en' : 'nl';
   a.textContent = here === 'nl' ? 'EN' : 'NL'; a.title = here === 'nl' ? 'This page in English' : 'Deze pagina in het Nederlands';
-  var btn = navIn.querySelector('.menu-btn');
-  navIn.insertBefore(a, btn || null);
+  var ul = navIn.querySelector('#navLinks'), li = document.createElement('li'); li.appendChild(a);
+  if (ul) ul.appendChild(li); else navIn.insertBefore(a, navIn.querySelector('.menu-btn') || null);
 })();
