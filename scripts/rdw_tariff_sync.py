@@ -354,6 +354,14 @@ def main():
             elif key not in code_by_reg and covers_afternoon:
                 code_by_reg[key] = code
 
+        # every active time frame per regulation: weekday -> [start, end, code]
+        frames_by_reg = {}
+        for f in frames:
+            if not active(f, "enddatetimeframe") or not f.get("farecalculationcode"):
+                continue
+            frames_by_reg.setdefault(f["regulationid"], []).append(
+                [f.get("daytimeframe", ""), int(f.get("starttimetimeframe") or 0), int(f.get("endtimetimeframe") or 2400), f["farecalculationcode"]])
+
         for g in garages.values():
             if g["amid"] != amid or "rate_hr" in g:
                 continue
@@ -364,6 +372,12 @@ def main():
                     g["rate_hr"] = fare_cost(fp, 60)
                     g["rate_3h"] = fare_cost(fp, 180)
                     g["rate_day"] = fare_cost(fp, 1440)
+                    # paid windows and the first-hour / 24-hour cost that applies in each
+                    win = {}
+                    for day, start, end, c in sorted(frames_by_reg.get(regid, [])):
+                        if c not in parts_by_code: continue
+                        win.setdefault(day, []).append([start, end, round(fare_cost(parts_by_code[c], 60), 2), round(fare_cost(parts_by_code[c], 1440), 2)])
+                    if win: g["windows"] = win
                     break
 
     # --- national dynamic parking register (npropendata.rdw.nl) ---
@@ -397,7 +411,7 @@ def main():
     by_city = {}
     for g in result:
         rec = {"name": g["name"], "slug": g["slug"], "lat": g["lat"], "lng": g["lng"]}
-        for k in ("capacity", "ev_points", "max_height_cm", "rate_hr", "rate_3h", "rate_day", "op", "op_url"):
+        for k in ("capacity", "ev_points", "max_height_cm", "rate_hr", "rate_3h", "rate_day", "op", "op_url", "windows"):
             if g.get(k) is not None:
                 rec[k] = g[k]
         if g["is_pr"]:

@@ -254,20 +254,21 @@
   });
 })();
 
-/* ---- Language switch: pages that declare a translation get a small NL/EN
-   pill in the header, pointing at the alternate. Nothing on pages without one. */
+/* ---- Language switch: pages that declare translations get a small menu in
+   the header listing every version of the page. Nothing on pages without one. */
 (function () {
   var here = (document.documentElement.lang || 'en').slice(0, 2);
-  var alt = document.querySelector('link[rel="alternate"][hreflang="' + (here === 'nl' ? 'en' : 'nl') + '"]');
-  var navIn = document.querySelector('nav.nav .nav-in');
-  if (!alt || !navIn || document.querySelector('.nav-lang')) return;
-  var a = document.createElement('a');
-  a.className = 'nav-lang'; a.href = alt.getAttribute('href'); a.hreflang = here === 'nl' ? 'en' : 'nl';
-  a.textContent = here === 'nl' ? 'EN' : 'NL'; a.title = here === 'nl' ? 'This page in English' : 'Deze pagina in het Nederlands';
-  var ul = navIn.querySelector('#navLinks'), li = document.createElement('li'); li.appendChild(a);
-  if (ul) ul.appendChild(li); else navIn.insertBefore(a, navIn.querySelector('.menu-btn') || null);
+  var alts = [].slice.call(document.querySelectorAll('link[rel="alternate"][hreflang]')).filter(function (l) { return l.getAttribute('hreflang') !== 'x-default' && l.getAttribute('hreflang') !== here; });
+  var ul = document.querySelector('nav.nav #navLinks');
+  if (!alts.length || !ul || document.querySelector('.nav-lang')) return;
+  var NAMES = { en: 'English', nl: 'Nederlands', de: 'Deutsch', fr: 'Français' };
+  var li = document.createElement('li'); li.className = 'has-drop nav-lang-li';
+  var a = document.createElement('a'); a.className = 'nav-lang'; a.href = alts[0].getAttribute('href'); a.textContent = here.toUpperCase();
+  a.title = { nl: 'Andere talen', de: 'Andere Sprachen', fr: 'Autres langues' }[here] || 'Other languages';
+  var drop = document.createElement('div'); drop.className = 'drop';
+  alts.forEach(function (l) { var x = document.createElement('a'); var code = l.getAttribute('hreflang'); x.href = l.getAttribute('href'); x.hreflang = code; x.lang = code; x.textContent = NAMES[code] || code.toUpperCase(); drop.appendChild(x); });
+  li.appendChild(a); li.appendChild(drop); ul.appendChild(li);
 })();
-
 
 /* ---- Menus: on a mouse, panels open on hover and stay open for a moment
    after the pointer leaves, so a diagonal move never closes them. On touch

@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260930q"
+CSS_VERSION = "20260930r"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>')
 
@@ -46,6 +46,35 @@ HEX_MAP = {
     "#FFDD00": "#EA580C",   # legacy yellow CTA  -> signal orange
 }
 HEX_RE = re.compile("|".join(re.escape(k) for k in HEX_MAP), re.I)
+
+sys.path.insert(0, str(ROOT / "scripts"))
+from i18n.strings import CHROME, HREF, city_url, LANGS  # noqa: E402
+CITY_SLUGS = ["amsterdam","rotterdam","the-hague","utrecht","eindhoven","groningen","maastricht","leiden","haarlem","breda","delft","nijmegen","tilburg","zwolle"]
+
+def lang_of(url: str) -> str:
+    m = re.match(r"^/(nl|de|fr)(/|$)", url)
+    return m.group(1) if m else "en"
+
+_LOC_CACHE = {}
+def localize(html: str, lang: str) -> str:
+    """Chrome in the page's language: labels from the table, city links to the
+    localized city pages where they exist, other links to localized twins."""
+    if lang == "en": return html
+    key = (lang, hash(html))
+    if key in _LOC_CACHE: return _LOC_CACHE[key]
+    out = html
+    for en, loc in sorted(CHROME[lang].items(), key=lambda kv: -len(kv[0])):
+        out = out.replace(">" + en + "<", ">" + loc + "<")
+    for slug in CITY_SLUGS:
+        target = city_url(lang, slug)
+        if (ROOT / (target.strip("/") + ".html")).exists():
+            out = re.sub(r'href="/' + re.escape(slug) + '"', 'href="' + target + '"', out)
+    for en, loc in HREF.get(lang, {}).items():
+        if (ROOT / (loc.split("#")[0].strip("/") + ".html")).exists():
+            out = out.replace('href="' + en + '"', 'href="' + loc + '"')
+    out = out.replace('<a href="/" class="logo">', '<a href="/' + lang + '/" class="logo">') if (ROOT / lang / "index.html").exists() else out
+    _LOC_CACHE[key] = out
+    return out
 
 NAV_RE = re.compile(r"<nav\b.*?</nav>", re.S)
 FOOTER_RE = re.compile(r"<footer\b.*?</footer>", re.S)
@@ -73,6 +102,7 @@ NAV_SEARCH_RE = re.compile(r'\s*<form class="nav-search".*?</form>', re.S)
 def nav_for(url: str) -> str:
     """Mark the nav item that owns this page as active; drop the search bar where redundant."""
     nav = NAV_SEARCH_RE.sub("", NAV) if url in NO_NAV_SEARCH else NAV
+    nav = localize(nav, lang_of(url))
     out = []
     parts = re.split(r"(?=<li)", nav)
     # A direct top-level item wins over a dropdown that also lists the page.
@@ -102,12 +132,13 @@ def apply(html: str, url: str) -> str:
     html, n = NAV_RE.subn(lambda m: nav_for(url), html, count=1)
     if n == 0:
         html = html.replace("<body>", "<body>\n" + nav_for(url), 1)
+    footer = localize(FOOTER, lang_of(url))
     if FOOTER_RE.search(html):
         # replace the last footer only
         last = list(FOOTER_RE.finditer(html))[-1]
-        html = html[: last.start()] + FOOTER + html[last.end():]
+        html = html[: last.start()] + footer + html[last.end():]
     else:
-        html = html.replace("</body>", FOOTER + "\n</body>", 1)
+        html = html.replace("</body>", footer + "\n</body>", 1)
 
     # 2. one stylesheet, one font stack
     head_end = html.find("</head>")

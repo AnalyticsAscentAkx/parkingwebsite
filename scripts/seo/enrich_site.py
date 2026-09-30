@@ -565,13 +565,17 @@ def do_sitemap():
     have = set(re.findall(r"<loc>([^<]+)</loc>", sm2))
     skip = {"privacy", "garage/index", "404", "index"}
     add = []
-    for p in sorted(ROOT.glob("*.html")):
-        if p.stem in skip: continue
-        u = f"{SITE}/{p.stem}"
-        if u not in have and (u + "/") not in have: add.append(u)
+    pages = [p for p in ROOT.rglob("*.html") if not any(part in ("scripts", "node_modules", ".git") for part in p.parts)]
+    for p in sorted(pages):
+        rel = p.relative_to(ROOT).as_posix()
+        if p.stem in skip and "/" not in rel: continue
+        if rel.endswith("/index.html"): u = f"{SITE}/{rel[:-len('index.html')]}"
+        elif rel == "index.html": continue
+        else: u = f"{SITE}/{rel[:-5]}"
+        if u not in have and (u.rstrip("/") + "/") not in have and u.rstrip("/") not in have: add.append(u)
     for u in add:
         sm2 = sm2.replace("</urlset>", f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>")
-    if add: print("sitemap: added", add)
+    if add: print("sitemap: added", len(add), "urls, e.g.", add[:3])
     sm_path.write_text(sm2, "utf-8")
     print(f"sitemap: {changed} lastmod values rewritten from git history")
 
