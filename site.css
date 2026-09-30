@@ -41,13 +41,13 @@ img{max-width:100%;display:block}
 
 /* ---------- nav ---------- */
 .nav{position:sticky;top:0;z-index:1000;background:rgba(11,17,32,.94);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.07)}
-.nav-in{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-in{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:flex-start;height:60px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-mark{width:32px;height:32px;flex:0 0 32px;background:url('/favicon.svg?v=3') center/contain no-repeat;border-radius:8px}
 .logo-mark::after{content:none}
 .logo-text{display:flex;flex-direction:column;gap:2px;font-weight:700;font-size:14px;color:#fff;letter-spacing:-.02em;line-height:1.05;white-space:nowrap}
 .logo-text small{color:var(--mut-2);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.nav-links{display:flex;gap:2px;list-style:none;align-items:center}
+.nav-links{display:flex;gap:2px;list-style:none;align-items:center;margin-left:auto}
 .nav-links>li>a{text-decoration:none;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.6);padding:7px 12px;border-radius:8px;transition:.15s;display:block}
 .nav-links>li>a:hover{color:#fff;background:rgba(255,255,255,.08)}
 .nav-links .active>a{color:#fff}
@@ -653,7 +653,7 @@ tbody tr{transition:background .15s ease}
 .sec-nv::before,.sec-dk::before{display:none}
 
 /* ---- language switcher, far right of the header ---- */
-.nav-lang-wrap{position:relative;margin-left:auto;flex:none}
+.nav-lang-wrap{position:relative;flex:none;margin-left:10px}
 .nav-lang{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:6px 10px;text-decoration:none;transition:.15s;cursor:pointer}
 .nav-lang::after{content:"";width:5px;height:5px;margin-top:-3px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:.6;transition:transform .2s ease}
 .nav-lang-wrap.is-open .nav-lang::after{transform:rotate(-135deg);margin-top:1px}
@@ -670,3 +670,12 @@ tbody tr{transition:background .15s ease}
 .affbox p{font-size:15px;line-height:1.65;color:var(--ink);margin:0 0 16px;max-width:760px}
 .affbox-act{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .affbox-note{font-size:12.5px;color:var(--mut);line-height:1.5;max-width:520px}
+
+/* ---- headline accent and the rotating word, shared by every hero ---- */
+h1 .sig,.lh h1 .sig,.ch h1 .sig,.fine-hero h1 .sig{color:var(--blue)}
+.rotator{display:inline-block;min-width:6.2ch;vertical-align:bottom}
+.rotator.is-out{animation:rotOut .32s ease-in forwards}
+.rotator.is-in{animation:rotIn .38s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes rotOut{to{opacity:0;transform:translateY(-.35em)}}
+@keyframes rotIn{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.rotator.is-out,.rotator.is-in{animation:none}}

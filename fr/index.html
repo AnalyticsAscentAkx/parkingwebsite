@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20261001b">
-<script src="/analytics.js?v=20261001b" defer></script>
-<script src="/site.js?v=20261001b" defer></script>
-<script src="/affiliates.js?v=20261001b" defer></script>
+<link rel="stylesheet" href="/site.css?v=20261001c">
+<script src="/analytics.js?v=20261001c" defer></script>
+<script src="/site.js?v=20261001c" defer></script>
+<script src="/affiliates.js?v=20261001c" defer></script>
 <meta property="og:type" content="website"><meta property="og:url" content="https://parkingnetherlands.com/fr/"><meta property="og:title" content="Recharge et stationnement aux Pays-Bas 2026 : combien coûte votre arrêt ?"><meta property="og:description" content="Chaque borne publique et chaque parking enregistré aux Pays-Bas  au prix de votre arrêt. 196 538 points de charge  médiane 0.37 par kWh  323 parkings. Gratuit"><meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta name="robots" content="index, follow"><meta name="author" content="Analytics Ascent">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebSite", "name": "Charge + Park", "url": "https://parkingnetherlands.com/fr/", "inLanguage": "fr", "publisher": {"@type": "Organization", "name": "Parking Netherlands", "url": "https://parkingnetherlands.com"}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://parkingnetherlands.com/fr/"}]}]</script>
@@ -88,7 +88,7 @@
 </nav>
 <header class="lh"><div class="lh-in">
   <div class="tag"><i></i> En direct · 78 743 sites de recharge · 323 parkings · données ouvertes</div>
-  <h1>Combien coûte vraiment votre arrêt ?</h1>
+  <h1>Combien coûte vraiment votre arrêt ? <span class="sig rotator" id="heroRot" aria-live="off">Recharge.</span></h1>
   <p class="sub">Chaque borne publique et chaque parking enregistré aux Pays-Bas  au prix exact de votre arrêt : l&#x27;électricité  le stationnement sous la borne et l&#x27;alternative la moins chère à pied. Conçu pour les 2 023 337 voitures électriques immatriculées aux Pays-Bas  et pour tous ceux qui cherchent simplement une place.</p>
   <div class="hero-seg" role="group"><button type="button" data-m="chargers" aria-pressed="true">Recharge + stationnement</button><button type="button" data-m="parking" aria-pressed="false">Stationnement seul</button></div>
   <form class="lh-search" id="heroForm" data-m="chargers" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();var m=this.dataset.m;if(v)location.href=(m==='parking'?'/search?q=':'/ev-charging?q=')+encodeURIComponent(v);">
@@ -111,7 +111,12 @@
   <p class="glangs">Cette page dans d&#x27;autres langues: <a href="/" hreflang="en" lang="en">English</a> · <a href="/nl/" hreflang="nl" lang="nl">Nederlands</a> · <a href="/de/" hreflang="de" lang="de">Deutsch</a></p>
   <p style="font-size:12.5px;color:var(--mut);margin:14px 0 60px">Sources : registre national du stationnement (NPR, CC0), registre national des bornes (NDW / DOT-NL), CBS. Mis à jour le 2026-09-30.</p>
 </div>
-<script>(function(){var f=document.getElementById('heroForm');var PH={chargers:"O\u00f9 allez-vous\u00a0? Adresse, lieu ou ville",parking:"O\u00f9 voulez-vous vous garer\u00a0? Adresse, lieu ou ville"};
+<script>(function(){
+var el=document.getElementById('heroRot'),words=["Recharge.", "Stationnement.", "Les deux, prix total.", "Recharge."],i=0;
+if(el&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+  setInterval(function(){el.classList.add('is-out');setTimeout(function(){i=(i+1)%words.length;el.textContent=words[i];el.classList.remove('is-out');el.classList.add('is-in');setTimeout(function(){el.classList.remove('is-in')},400)},320)},2600);
+}
+var f=document.getElementById('heroForm');var PH={chargers:"O\u00f9 allez-vous\u00a0? Adresse, lieu ou ville",parking:"O\u00f9 voulez-vous vous garer\u00a0? Adresse, lieu ou ville"};
 Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(b){b.onclick=function(){f.dataset.m=b.dataset.m;Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.getElementById('heroQ').placeholder=PH[b.dataset.m];}});})();</script>
 <footer class="footer"><div class="wrap">
   <div class="foot-grid">

@@ -11,10 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20261001b">
-<script src="/analytics.js?v=20261001b" defer></script>
-<script src="/site.js?v=20261001b" defer></script>
-<script src="/affiliates.js?v=20261001b" defer></script>
+<link rel="stylesheet" href="/site.css?v=20261001c">
+<script src="/analytics.js?v=20261001c" defer></script>
+<script src="/site.js?v=20261001c" defer></script>
+<script src="/affiliates.js?v=20261001c" defer></script>
 <meta property="og:type" content="website"><meta property="og:url" content="https://parkingnetherlands.com/de/"><meta property="og:title" content="Laden und Parken in den Niederlanden 2026: was kostet Ihr Stopp?"><meta property="og:description" content="Jede öffentliche Ladesäule und jedes registrierte Parkhaus in den Niederlanden. mit dem Preis für Ihren Stopp. 196.538 Ladepunkte. im Median 0.37 pro kWh. 323"><meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta name="robots" content="index, follow"><meta name="author" content="Analytics Ascent">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebSite", "name": "Charge + Park", "url": "https://parkingnetherlands.com/de/", "inLanguage": "de", "publisher": {"@type": "Organization", "name": "Parking Netherlands", "url": "https://parkingnetherlands.com"}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://parkingnetherlands.com/de/"}]}]</script>
@@ -88,7 +88,7 @@
 </nav>
 <header class="lh"><div class="lh-in">
   <div class="tag"><i></i> Live · 78.743 Ladestandorte · 323 Parkhäuser · offene Daten</div>
-  <h1>Was kostet Ihr Stopp wirklich?</h1>
+  <h1>Was kostet Ihr Stopp wirklich? <span class="sig rotator" id="heroRot" aria-live="off">Laden.</span></h1>
   <p class="sub">Jede öffentliche Ladesäule und jedes registrierte Parkhaus in den Niederlanden. mit dem Preis für genau Ihren Stopp: der Strom. das Parken unter der Säule und die günstigste Alternative in Gehweite. Gebaut für die 2.023.337 Elektroautos mit niederländischem Kennzeichen. und für alle anderen. die einfach einen Platz brauchen.</p>
   <div class="hero-seg" role="group"><button type="button" data-m="chargers" aria-pressed="true">Laden + Parken</button><button type="button" data-m="parking" aria-pressed="false">Nur Parken</button></div>
   <form class="lh-search" id="heroForm" data-m="chargers" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();var m=this.dataset.m;if(v)location.href=(m==='parking'?'/search?q=':'/ev-charging?q=')+encodeURIComponent(v);">
@@ -111,7 +111,12 @@
   <p class="glangs">Diese Seite in anderen Sprachen: <a href="/" hreflang="en" lang="en">English</a> · <a href="/nl/" hreflang="nl" lang="nl">Nederlands</a> · <a href="/fr/" hreflang="fr" lang="fr">Français</a></p>
   <p style="font-size:12.5px;color:var(--mut);margin:14px 0 60px">Quellen: nationales Parkregister (NPR, CC0), nationales Ladesäulenregister (NDW / DOT-NL), CBS. Aktualisiert 2026-09-30.</p>
 </div>
-<script>(function(){var f=document.getElementById('heroForm');var PH={chargers:"Wohin fahren Sie? Adresse, Ort oder Stadt",parking:"Wo m\u00f6chten Sie parken? Adresse, Ort oder Stadt"};
+<script>(function(){
+var el=document.getElementById('heroRot'),words=["Laden.", "Parken.", "Beides, zusammen gerechnet.", "Laden."],i=0;
+if(el&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+  setInterval(function(){el.classList.add('is-out');setTimeout(function(){i=(i+1)%words.length;el.textContent=words[i];el.classList.remove('is-out');el.classList.add('is-in');setTimeout(function(){el.classList.remove('is-in')},400)},320)},2600);
+}
+var f=document.getElementById('heroForm');var PH={chargers:"Wohin fahren Sie? Adresse, Ort oder Stadt",parking:"Wo m\u00f6chten Sie parken? Adresse, Ort oder Stadt"};
 Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(b){b.onclick=function(){f.dataset.m=b.dataset.m;Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.getElementById('heroQ').placeholder=PH[b.dataset.m];}});})();</script>
 <footer class="footer"><div class="wrap">
   <div class="foot-grid">
