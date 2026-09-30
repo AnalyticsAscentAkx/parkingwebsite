@@ -2,7 +2,7 @@
 
 Generated 2026-09-30 by scripts/compliance/audit.py
 
-**6 hard findings** across 5 files, **1208 warnings** across 442 files.
+**0 hard findings** across 0 files, **1208 warnings** across 442 files.
 
 ## Sources in use
 
@@ -20,19 +20,6 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 - **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 439 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
 
 ## Findings
-
-### [HARD] adsense_consent: page must link a privacy/cookie notice
-1 file(s): parking-price-index.html
-
-### [HARD] adsense_consent: page must offer a 'privacy choices' control that reopens the consent message
-1 file(s): parking-price-index.html
-
-### [HARD] ndw: must credit NDW / DOT-NL for charging point data
-1 file(s): ev-adoption.js
-
-### [HARD] rdw: names RDW as the data source (forbidden by RDW's CC0 bijsluiter)
-3 file(s): elektrische-autos-per-gemeente.html, ev-adoption.html, laadpalen.html
-> e.g. `ev-adoption.html`: …", "elektrische auto's per gemeente", "laadpunten", "CBS", "RDW"], "inLanguage": "en", "creator": {"@type": "Organization",…
 
 ### [WARN] adsense_consent: confirm the GDPR consent message is PUBLISHED in AdSense > Privacy & messaging; without it personalised ads in the EEA breach Google's policy and the AVG
 439 file(s): 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html, breda.html ... +427 more
