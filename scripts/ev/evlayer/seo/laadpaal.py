@@ -63,6 +63,28 @@ def national() -> dict:
       WHERE s.access_type = 'FreePublic'""")
 
 
+def fit_title(t, limit=62):
+    """Google shows about 60 characters of a title. Anything past that is
+    cut, so the tail is wasted, and the operator pages were running to 86."""
+    t = " ".join(t.split())
+    if len(t) <= limit:
+        return t
+    return t[:t[:limit].rfind(" ")].rstrip(" ,;:(-")
+
+
+def fit_desc(d, limit=158):
+    """Cut at a sentence or word boundary, never mid-word. Same rule as
+    build_home.py and build_garages.py."""
+    d = " ".join(d.split())
+    if len(d) <= limit:
+        return d
+    cut = d[:limit]
+    stop = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
+    if stop > 80:
+        return cut[:stop + 1]
+    return cut[:cut.rfind(" ")].rstrip(" ,;:-") + "."
+
+
 def cities():
     return db.query("""
       SELECT s.city, COUNT(DISTINCT s.station_id)::int AS stations, COUNT(DISTINCT e.evse_id)::int AS points,
@@ -208,7 +230,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
     fault_vs = ("hoger dan" if c["fault_pct"] and nat["fault_pct"] and float(c["fault_pct"]) > float(nat["fault_pct"])
                 else "lager dan of gelijk aan")
     en = EN_SLUG.get(sl, sl)
-    title = f"Laadpalen {city}: prijzen per kWh, storingen en snelladers ({TODAY.year})"
+    title = fit_title(f"Laadpalen {city}: prijzen, storingen en snelladers {TODAY.year}")
     desc = (f"{c['stations']:,} openbare laadlocaties en {c['points']:,} laadpunten in {city}. "
             f"Mediaan {eur(med_city) if med_city else 'n.b.'} per kWh, {pct(c['fault_pct'] or 0)} buiten gebruik, "
             f"{c['fast']} snellaadlocaties. Live kaart met prijs van laden én parkeren.").replace(",", ".") if False else (
@@ -299,7 +321,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
 <p style="margin-top:22px;font-size:13px;color:var(--mut)">Laadpuntdata: NDW / DOT-NL, stand {DATE_NL}. Parkeertarieven uit het Nationaal Parkeer Register. Prijzen zijn de door exploitanten gepubliceerde ad-hoctarieven; je laadpas kan een opslag rekenen.</p>
 </div></section>
 """
-    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates="") + body + FOOT
+    html = HEAD.format(title=esc(fit_title(title)), desc=esc(fit_desc(desc)), path=path, ld=ld, alternates="") + body + FOOT
     return path, html
 
 
@@ -307,7 +329,9 @@ def operator_page(o, nat, have_pages=frozenset()) -> tuple[str, str]:
     cpo = o["cpo"]; sl = slug(cpo); path = f"{sl}-storing"
     cities_ = operator_cities(cpo); up = operator_uptime(cpo); days = history_days()
     vs = float(o["fault_pct"] or 0) / float(nat["fault_pct"]) if nat["fault_pct"] else None
-    title = f"{cpo} storing: {pct(o['fault_pct'] or 0)} van de laadpunten buiten gebruik ({DATE_NL})"
+    # Kept deliberately short. The old form ran to 86 characters and Google
+    # cut it at "buiten", leaving a title that read as an error.
+    title = fit_title(f"{cpo} storing: {pct(o['fault_pct'] or 0)} buiten gebruik {TODAY.year}")
     desc = (f"{o['down']} van de {o['points']} openbare {cpo}-laadpunten staan nu als buiten gebruik gemeld, "
             f"{pct(o['fault_pct'] or 0)} tegen {pct(nat['fault_pct'])} landelijk. Per stad, elk half uur bijgewerkt.")
     qa = [
@@ -369,14 +393,14 @@ def operator_page(o, nat, have_pages=frozenset()) -> tuple[str, str]:
 <p style="margin-top:22px;font-size:13px;color:var(--mut)">Statusmeldingen: NDW / DOT-NL, zoals door de exploitant aangeleverd. Buiten gebruik = OUTOFORDER of INOPERATIVE in het register. Deze site is onafhankelijk en niet verbonden aan {esc(cpo)}.</p>
 </div></section>
 """
-    html = HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates="") + body + FOOT
+    html = HEAD.format(title=esc(fit_title(title)), desc=esc(fit_desc(desc)), path=path, ld=ld, alternates="") + body + FOOT
     return path, html
 
 
 def hub_page(nat, cs, ops) -> tuple[str, str]:
     """/laadpalen: the Dutch front door to every city and operator page."""
     path = "laadpalen"
-    title = f"Laadpalen in Nederland: prijzen, storingen en snelladers per stad ({TODAY.year})"
+    title = fit_title(f"Laadpalen Nederland: prijzen, storingen en snelladers {TODAY.year}")
     desc = (f"{nat['stations']} openbare laadlocaties, {nat['points']} laadpunten, mediaan {eur(nat['med_kwh'])} per kWh, "
             f"{pct(nat['fault_pct'])} buiten gebruik. Per stad en per exploitant, elk half uur bijgewerkt, met de prijs van laden én parkeren.")
     qa = [
@@ -431,7 +455,7 @@ def hub_page(nat, cs, ops) -> tuple[str, str]:
 </div></section>
 """
     alts='<link rel="alternate" hreflang="nl" href="https://parkingnetherlands.com/laadpalen">\n<link rel="alternate" hreflang="en" href="https://parkingnetherlands.com/ev-charging">\n<link rel="alternate" hreflang="x-default" href="https://parkingnetherlands.com/ev-charging">'
-    return path, HEAD.format(title=esc(title), desc=esc(desc), path=path, ld=ld, alternates=alts) + body + FOOT
+    return path, HEAD.format(title=esc(fit_title(title)), desc=esc(fit_desc(desc)), path=path, ld=ld, alternates=alts) + body + FOOT
 
 
 def build() -> dict:
