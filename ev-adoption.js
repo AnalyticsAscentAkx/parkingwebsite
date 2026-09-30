@@ -31,8 +31,9 @@
     legend();
   }
   function boot() {
-    map = L.map('eamap', { scrollWheelZoom: false, zoomSnap: 0.25 }).setView([52.2, 5.3], 7);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}{r}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; CARTO · CBS/PDOK · charge points: NDW / DOT-NL', maxZoom: 12 }).addTo(map);
+    /* No street basemap: a national choropleth reads best as shapes on a plain ground. */
+    map = L.map('eamap', { scrollWheelZoom: false, zoomSnap: 0.25, attributionControl: false }).setView([52.2, 5.3], 7);
+    L.control.attribution({ prefix: false }).addAttribution('Boundaries: CBS via PDOK · EV share: CBS · charge points: NDW / DOT-NL').addTo(map);
     fetch('/ev-data/gemeenten-ev.json').then(function (r) { return r.json(); }).then(function (g) { geo = g; draw(); map.fitBounds(layer.getBounds(), { padding: [6, 6] }); });
     Array.prototype.forEach.call(document.querySelectorAll('.ea-ctl button'), function (b) {
       b.onclick = function () {
