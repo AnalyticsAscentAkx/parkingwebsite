@@ -637,7 +637,12 @@
 .ev-card-name{font-size:16px}
 .ev-card-meta,.ev-card-status,.ev-card-row{font-size:13px}
 /* start-charging hand-over */
-.ev-card-pay{display:block;font-size:12px;font-weight:700;color:#168A68;margin:0 0 8px}
+.ev-pay{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:700;letter-spacing:.02em}
+.ev-pay[data-card='1']{color:#168A68}
+.ev-pay[data-card='0']{color:var(--mut)}
 .ev-card-btn.is-start{background:#168A68;border-color:#168A68;color:#fff}
 .ev-card-btn.is-start:hover{background:#0F6E52;border-color:#0F6E52}
-.ev-card-note.is-handover,.ev-card-note.is-source{margin-top:8px;font-size:11.5px;color:var(--mut)}
+.ev-card-note.is-handover,.ev-card-note.is-source{margin-top:6px;font-size:11.5px;color:var(--mut)}
+.ev-card-act{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.ev-card-act .ev-card-btn{flex:0 1 auto;white-space:nowrap}
+.ev-card-act .ev-card-btn.is-start{flex:1 1 100%;justify-content:center}

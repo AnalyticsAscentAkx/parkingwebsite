@@ -203,7 +203,9 @@ POLICIES = [
         "terms_url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
         "uses": r"affiliates\.js|rel=\"sponsored|parkos\.|bol\.com/|awin1\.com|tradedoubler",
         "require": [
-            (r"commission|affiliate link|we may earn|compensat", "affiliate placement without a visible disclosure"),
+            # the disclosure must be in the page's own language
+            (r"commission|commissie|provision|affiliate link|partner link|partnerlink|liens? partenaires?|we may earn|compensat",
+             "affiliate placement without a visible disclosure"),
         ],
         "forbid": [],
         "advise": [],

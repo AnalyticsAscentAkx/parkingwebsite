@@ -102,6 +102,15 @@
      D driveway, M motorway); 13 flags: 1 customers only, 2 not 24/7,
      4 no charging when closed, 8 DC fast plug, 16 pay by card, 32 cable
      attached; 14 plug types as text. */
+  /* Some operators report power in watts, a few report nonsense. A car cannot
+     take more than ~400 kW, so scale an obvious watt value and drop the rest. */
+  function kwOf(st) {
+    var k = st[KW];
+    if (!k || k <= 0) return null;
+    if (k > 1000 && k / 1000 <= 400) k = k / 1000;
+    if (k > 400) return null;
+    return Math.round(k * 10) / 10;
+  }
   var ACCESS_NAME = { S: 'On the street', L: 'In a car park', G: 'In a parking garage', U: 'In an underground garage', D: 'On a driveway', M: 'Along the motorway' };
   /* A garage or underground post is treated as behind a barrier: the register
      records where the post stands, not whether the gate needs a ticket. */
@@ -152,8 +161,7 @@
   };
   function startHtml(st) {
     var op = st[CPO] || '', url = OPERATOR_URL[op], card = ((st[FLAGS] || 0) & 16) !== 0;
-    var h = card ? '<span class="ev-card-pay">Bank card accepted at the charger</span>' : '';
-    h += url
+    var h = url
       ? '<a class="ev-card-btn is-primary is-start" target="_blank" rel="noopener nofollow" href="' + url + '" data-op="' + esc(op) + '" data-card="' + (card ? 1 : 0) + '">Start with ' + esc(op) + '</a>'
       : '<a class="ev-card-btn is-primary is-start" href="/ev-parking" data-op="' + esc(op || 'unknown') + '" data-card="' + (card ? 1 : 0) + '">Charge cards &amp; apps</a>';
     return h;
@@ -624,7 +632,7 @@
         '<div><div class="ev-name">' + esc(st[NAME]) + '</div>' +
         '<div class="ev-meta">' + (st._d != null ? '<span class="ev-dist">' + distLabel(st._d) + '</span>' : '') +
         '<span>' + esc(st[CPO] || 'Operator not published') + '</span>' +
-        (st[KW] ? '<span class="ev-kw">' + st[KW] + ' kW</span>' : '') +
+        (kwOf(st) ? '<span class="ev-kw">' + kwOf(st) + ' kW</span>' : '') +
         (st[PLUGS] ? '<span>' + esc(st[PLUGS]) + '</span>' : '') +
         (function () { var s = accessState(st); return s.k === 'unknown' ? '' : '<span class="ev-access" data-a="' + s.k + '" title="' + esc(accessNotes(st).join(', ') || (ACCESS_NAME[st[ACC]] || '')) + '">' + s.t + '</span>'; })() +
         '<span class="ev-up" data-g="' + g + '">' +
@@ -701,7 +709,7 @@
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(st[NAME]) + '</div>' +
       '<div class="ev-card-meta">' + (st._d != null ? distLabel(st._d) + ' · ' : '') + esc(st[CPO] || 'Operator not published') +
-        (st[KW] ? ' · up to ' + st[KW] + ' kW' : ' · power not published') +
+        (kwOf(st) ? ' · up to ' + kwOf(st) + ' kW' : ' · power not published') +
         ' · ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + '</div>' +
       '<div class="ev-card-status" data-g="' + g + '"><i></i>' + status +
         '<small>Reported by the operator ' + reportedAt() + '. Occupancy is not published.</small></div>' +
@@ -709,17 +717,17 @@
         '<b>' + accessState(st).t + '</b> · ' + (ACCESS_NAME[st[ACC]] || 'location type not published').toLowerCase() +
         (accessNotes(st).length ? ' · ' + esc(accessNotes(st).join(' · ')) : '') +
         (st[PLUGS] ? '<br>' + esc(st[PLUGS]) + ((st[FLAGS] || 0) & 32 ? ', cable attached' : ', bring your cable') : '') +
-        ((st[FLAGS] || 0) & 16 ? ' · pay by card' : ' · charge card or app') +
+        '<br><span class="ev-pay" data-card="' + (((st[FLAGS] || 0) & 16) ? 1 : 0) + '">' +
+          (((st[FLAGS] || 0) & 16) ? 'Bank card accepted' : 'Charge card or app needed') + '</span>' +
       '</div>' +
       '<div class="ev-card-rows">' + lines +
         (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
-      '<div class="ev-card-note">' + (srcNote(st, false) ? srcNote(st, false) + ' ' : '') + 'Estimate for ' + sessionLabel(w, false) +
-        '. Plug types, opening hours and barriers are as the operator reported them to the register.</div>' +
+      '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) + '.' + (srcNote(st, true) ? ' Price: ' + srcNote(st, true) + '.' : '') + '</div>' +
       '<div class="ev-card-act">' + startHtml(st) + directions(st[LAT], st[LON]).replace(' is-primary', '') +
         '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>' +
       '</div>' +
-      '<div class="ev-card-note is-handover">Starting and paying for a session happens with the operator or a charge card. This site compares; it does not take payments.</div>';
+      '<div class="ev-card-note is-handover">We compare prices. The operator takes the payment.</div>';
     card.hidden = false;
     var sb = card.querySelector('a.is-start');
     if (sb) sb.onclick = function () { track('start_charging', { operator: sb.dataset.op, pay_card: sb.dataset.card === '1', id: st[ID] }); };

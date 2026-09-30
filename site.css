@@ -605,9 +605,6 @@ tbody tr{transition:background .15s ease}
 .fx-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
 
 /* ---- language pill ---- */
-.nav-links>li>a.nav-lang{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:5px 22px 5px 10px;margin-left:6px;transition:.15s}
-.nav-lang-li .drop{min-width:150px;right:0;left:auto}
-.nav-links>li>a.nav-lang:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
 
 /* ---- homepage: mode switch inside the hero search ---- */
 .hero-seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:100px;padding:3px;margin:0 0 12px;box-shadow:var(--sh)}
@@ -654,3 +651,22 @@ tbody tr{transition:background .15s ease}
 .sec-nv .fqa p,.sec-dk .fqa p{color:var(--mut)}
 .sec-nv .fqi,.sec-dk .fqi{border-color:var(--line)}
 .sec-nv::before,.sec-dk::before{display:none}
+
+/* ---- language switcher, far right of the header ---- */
+.nav-lang-wrap{position:relative;margin-left:auto;flex:none}
+.nav-lang{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:6px 10px;text-decoration:none;transition:.15s;cursor:pointer}
+.nav-lang::after{content:"";width:5px;height:5px;margin-top:-3px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:.6;transition:transform .2s ease}
+.nav-lang-wrap.is-open .nav-lang::after{transform:rotate(-135deg);margin-top:1px}
+.nav-lang:hover,.nav-lang-wrap.is-open .nav-lang{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
+.nav-lang-drop{display:none;right:0;left:auto;min-width:160px}
+.nav-lang-wrap.is-open .nav-lang-drop{display:block}
+.nav-lang-drop a[aria-current]{color:#fff;background:rgba(255,255,255,.08)}
+@media(max-width:768px){.nav-lang-wrap{margin-left:auto;margin-right:10px}}
+
+/* ---- partner blocks (affiliates.js) ---- */
+.affbox{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 28px}
+.affbox-k{font-family:var(--f-mono);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mut)}
+.affbox h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:6px 0 10px}
+.affbox p{font-size:15px;line-height:1.65;color:var(--ink);margin:0 0 16px;max-width:760px}
+.affbox-act{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.affbox-note{font-size:12.5px;color:var(--mut);line-height:1.5;max-width:520px}

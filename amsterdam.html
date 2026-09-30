@@ -11,9 +11,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260930s">
-<script src="/analytics.js?v=20260930s" defer></script>
-<script src="/site.js?v=20260930s" defer></script>
+<link rel="stylesheet" href="/site.css?v=20261001a">
+<script src="/analytics.js?v=20261001a" defer></script>
+<script src="/site.js?v=20261001a" defer></script>
+<script src="/affiliates.js?v=20261001a" defer></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does parking cost in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Street parking in Amsterdam centre costs \u20ac8.05/hr in 2026 - 24/7, including Sundays. Garages start from \u20ac1.25/hr (\u20ac10/day). P+R parking is \u20ac1.00/24hr including public transport into the centre."}}, {"@type": "Question", "name": "How much does parking cost per day in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "A full day ranges from \u20ac1 to about \u20ac80. Central street parking at \u20ac8.05/hr runs all day and can reach \u20ac80. Garages are roughly \u20ac10/day (Mobihub Rembrandtpark). The cheapest is P+R at \u20ac1/24hr including transit."}}, {"@type": "Question", "name": "What is the cheapest garage in Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "Mobihub Rembrandtpark at \u20ac1.25/hr and \u20ac10/day in west Amsterdam, about 15 min by tram to the centre. Second cheapest is Mobihub NDSM at \u20ac2/hr in Noord, with a free ferry to the centre."}}, {"@type": "Question", "name": "Can I park in Amsterdam for free on Sunday?", "acceptedAnswer": {"@type": "Answer", "text": "No. Amsterdam paid zones operate 24/7, 365 days a year, so Sundays are not free in the centre. The only near-free options are P+R (\u20ac1/24hr with transit), Noord beyond the paid zone, and outer Nieuw-West in the evenings."}}, {"@type": "Question", "name": "How do I use Amsterdam P+R parking?", "acceptedAnswer": {"@type": "Answer", "text": "Park at a P+R location for \u20ac1/24hr, then tap your OV-chipkaart to take public transport into the centre. The \u20ac1 rate requires checking in and out on public transport at least twice; without it you pay the normal daily rate."}}, {"@type": "Question", "name": "Do Amsterdam parking fines apply to foreign cars?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Scan cars operate 24/7 and foreign plates are tracked through European databases. The \u20ac82 fine is sent to the registered owner abroad, and ignoring it leads to debt collection in your home country."}}, {"@type": "Question", "name": "Is it worth driving to Amsterdam?", "acceptedAnswer": {"@type": "Answer", "text": "For most visitors, no - the train is faster and cheaper. If you must drive, use P+R Sloterdijk at \u20ac1/24hr, one of the best parking deals in Europe for a city this size."}}]}</script>
@@ -44,9 +45,9 @@
   <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Price my stop</a></li>
   <li class="has-drop"><a href="/ev-charging">Charging</a>
     <div class="drop drop-wide">
-      <div class="drop-col"><div class="drop-h">Live</div><a href="/ev-charging">Charger map, priced with parking</a><a href="/laadpalen" hreflang="nl">Laadpalen per stad (NL)</a><a href="/laadpalen#storingen" hreflang="nl">Storingen per exploitant (NL)</a></div>
+      <div class="drop-col"><div class="drop-h">Live</div><a href="/ev-charging">Charger map, priced with parking</a></div>
       <div class="drop-col"><div class="drop-h">Data &amp; guides</div><a href="/ev-adoption">EV adoption by municipality</a><a href="/ev-parking">EV parking rules</a><a href="/ev-charging#prices">What charging costs</a><a href="/ev-charging#fast-charging">Fast charging</a></div>
-      <div class="drop-foot"><a href="/ev-charging">Open the map</a><a href="/elektrische-autos-per-gemeente" hreflang="nl">Elektrische auto's per gemeente</a></div>
+      <div class="drop-foot"><a href="/ev-charging">Open the map</a></div>
     </div>
   </li>
   <li class="has-drop"><a href="/search">Parking</a>
@@ -75,7 +76,7 @@
 <h1>Parking in <em>Amsterdam</em> - 2026</h1>
 <p class="sub">Amsterdam has the highest parking rates in the Netherlands. Street parking in the centre is €8.05/hr - 24/7. Here's every option to pay less.</p>
 <p style="font-size:13px;opacity:.72;margin:6px 0 0">Prices verified August 2026 · sourced from Amsterdam municipality + national parking register open data.</p>
-<p class="ev-nl-link"><a href="/laadpaal-amsterdam" hreflang="nl">Laadpalen in Amsterdam: prijzen per kWh, storingen en snelladers (NL)</a> · <a href="/ev-charging?q=Amsterdam">charger map</a></p>
+<p class="ev-nl-link"><a href="/ev-charging?q=Amsterdam">Charging in Amsterdam: price per kWh, live faults and fast chargers</a> · <a href="/laadpaal-amsterdam" hreflang="nl" lang="nl">Laadpalen per exploitant (in Dutch)</a></p>
 <div class="qs">
 <div class="qb"><div class="qbl">Street (Centre)</div><div class="qbv h">€8.05/hr</div></div>
 <div class="qb"><div class="qbl">Cheapest Garage</div><div class="qbv">€1.25/hr</div></div>
@@ -295,7 +296,7 @@
       <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
       <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
     </div>
-    <div class="foot-col"><h4>Charging</h4><a href="/ev-charging">Charger map</a><a href="/laadpalen" hreflang="nl">Laadpalen per stad</a><a href="/laadpalen#storingen" hreflang="nl">Storingen</a><a href="/ev-adoption">EV adoption map</a><a href="/elektrische-autos-per-gemeente" hreflang="nl">Elektrische auto's per gemeente</a><a href="/ev-parking">EV parking rules</a></div>
+    <div class="foot-col"><h4>Charging</h4><a href="/ev-charging">Charger map</a><a href="/ev-adoption">EV adoption map</a><a href="/ev-parking">EV parking rules</a></div>
     <div class="foot-col"><h4>Parking</h4><a href="/search">Parking search</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a><a href="/free-parking">Free parking</a><a href="/parking-fines">Fines guide</a><a href="/parking-apps">Parking apps</a><a href="/long-term-parking">Long-term parking</a></div>
     <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/groningen">Groningen</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All 14 cities</a><a href="/belgium-parking">Belgium</a></div>
     <div class="foot-col"><h4>Stations &amp; site</h4><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/link-to-us">Link to us</a><a href="/privacy">Privacy &amp; cookies</a></div>
@@ -303,7 +304,7 @@
   <div class="foot-bottom">
     <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
     <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
-    <span>Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
+    <span>Some links are partner links: we may earn a commission at no extra cost to you · Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
   </div>
 </div></footer>
 

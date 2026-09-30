@@ -254,20 +254,54 @@
   });
 })();
 
-/* ---- Language switch: pages that declare translations get a small menu in
-   the header listing every version of the page. Nothing on pages without one. */
+/* ---- Language switch: every page offers all four languages. A page with a
+   real translation links straight to it (declared by its hreflang links);
+   otherwise the visitor lands on that language's home page. Sits at the far
+   right of the header, before the menu button. */
 (function () {
-  var here = (document.documentElement.lang || 'en').slice(0, 2);
-  var alts = [].slice.call(document.querySelectorAll('link[rel="alternate"][hreflang]')).filter(function (l) { return l.getAttribute('hreflang') !== 'x-default' && l.getAttribute('hreflang') !== here; });
-  var ul = document.querySelector('nav.nav #navLinks');
-  if (!alts.length || !ul || document.querySelector('.nav-lang')) return;
+  var LANGS = ['en', 'nl', 'de', 'fr'];
   var NAMES = { en: 'English', nl: 'Nederlands', de: 'Deutsch', fr: 'Français' };
-  var li = document.createElement('li'); li.className = 'has-drop nav-lang-li';
-  var a = document.createElement('a'); a.className = 'nav-lang'; a.href = alts[0].getAttribute('href'); a.textContent = here.toUpperCase();
-  a.title = { nl: 'Andere talen', de: 'Andere Sprachen', fr: 'Autres langues' }[here] || 'Other languages';
-  var drop = document.createElement('div'); drop.className = 'drop';
-  alts.forEach(function (l) { var x = document.createElement('a'); var code = l.getAttribute('hreflang'); x.href = l.getAttribute('href'); x.hreflang = code; x.lang = code; x.textContent = NAMES[code] || code.toUpperCase(); drop.appendChild(x); });
-  li.appendChild(a); li.appendChild(drop); ul.appendChild(li);
+  var HOME = { en: '/', nl: '/nl/', de: '/de/', fr: '/fr/' };
+  var here = (document.documentElement.lang || 'en').slice(0, 2);
+  if (LANGS.indexOf(here) === -1) here = 'en';
+  var navIn = document.querySelector('nav.nav .nav-in');
+  if (!navIn || document.querySelector('.nav-lang-wrap')) return;
+
+  var twin = {};
+  [].forEach.call(document.querySelectorAll('link[rel="alternate"][hreflang]'), function (l) {
+    var code = l.getAttribute('hreflang');
+    if (LANGS.indexOf(code) !== -1) twin[code] = l.getAttribute('href');
+  });
+
+  var wrap = document.createElement('div');
+  wrap.className = 'nav-lang-wrap';
+  var btn = document.createElement('a');
+  btn.className = 'nav-lang'; btn.href = twin[here] || HOME[here];
+  btn.textContent = here.toUpperCase();
+  btn.setAttribute('aria-haspopup', 'true'); btn.setAttribute('aria-expanded', 'false');
+  btn.title = { nl: 'Kies een taal', de: 'Sprache wählen', fr: 'Choisir une langue' }[here] || 'Choose a language';
+  var drop = document.createElement('div');
+  drop.className = 'drop nav-lang-drop';
+  LANGS.forEach(function (code) {
+    var a = document.createElement('a');
+    a.href = twin[code] || HOME[code];
+    a.hreflang = code; a.lang = code;
+    a.textContent = NAMES[code];
+    if (code === here) a.setAttribute('aria-current', 'true');
+    a.addEventListener('click', function () { if (window.track) window.track('language_switch', { from: here, to: code, exact: !!twin[code] }); });
+    drop.appendChild(a);
+  });
+  wrap.appendChild(btn); wrap.appendChild(drop);
+  navIn.insertBefore(wrap, navIn.querySelector('.menu-btn') || null);
+
+  function open(on) { wrap.classList.toggle('is-open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+  var t;
+  wrap.addEventListener('mouseenter', function () { clearTimeout(t); open(true); });
+  wrap.addEventListener('mouseleave', function () { t = setTimeout(function () { open(false); }, 260); });
+  btn.addEventListener('click', function (e) { e.preventDefault(); open(!wrap.classList.contains('is-open')); });
+  btn.addEventListener('focus', function () { open(true); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.nav-lang-wrap')) open(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
 })();
 
 /* ---- Menus: on a mouse, panels open on hover and stay open for a moment

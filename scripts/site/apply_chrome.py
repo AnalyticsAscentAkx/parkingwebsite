@@ -30,9 +30,10 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260930s"
+CSS_VERSION = "20261001a"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
-            f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>')
+            f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>'
+            f'\n<script src="/affiliates.js?v={CSS_VERSION}" defer></script>')
 
 # Colours from the retired palette, mapped onto the design system. These
 # survive in inline styles and Leaflet marker code on the older pages.
@@ -56,13 +57,19 @@ def lang_of(url: str) -> str:
     return m.group(1) if m else "en"
 
 _LOC_CACHE = {}
+LANG_LINK_RE = re.compile(r'<a\b[^>]*\bdata-lang="([a-z]{2})"[^>]*>.*?</a>', re.S)
+
 def localize(html: str, lang: str) -> str:
-    """Chrome in the page's language: labels from the table, city links to the
-    localized city pages where they exist, other links to localized twins."""
-    if lang == "en": return html
+    """Chrome in the page's language: links written for one language only are
+    dropped elsewhere, labels come from the table, and city links point at the
+    localized city pages where they exist."""
     key = (lang, hash(html))
     if key in _LOC_CACHE: return _LOC_CACHE[key]
-    out = html
+    # a link tagged for another language has no business on this page
+    out = LANG_LINK_RE.sub(lambda m: m.group(0) if m.group(1) == lang else "", html)
+    if lang == "en":
+        _LOC_CACHE[key] = out
+        return out
     for en, loc in sorted(CHROME[lang].items(), key=lambda kv: -len(kv[0])):
         out = out.replace(">" + en + "<", ">" + loc + "<")
     for slug in CITY_SLUGS:
@@ -79,7 +86,7 @@ def localize(html: str, lang: str) -> str:
 NAV_RE = re.compile(r"<nav\b.*?</nav>", re.S)
 FOOTER_RE = re.compile(r"<footer\b.*?</footer>", re.S)
 SHARED_LINK_RE = re.compile(r'\s*<link[^>]+href="/?shared\.css"[^>]*>', re.I)
-SITE_LINK_RE = re.compile(r'<link[^>]+href="/?site\.css(?:\?[^"]*)?"[^>]*>(?:\s*<script src="/analytics\.js[^>]*></script>)?(?:\s*<script src="/site\.js[^>]*></script>)?', re.I)
+SITE_LINK_RE = re.compile(r'<link[^>]+href="/?site\.css(?:\?[^"]*)?"[^>]*>(?:\s*<script src="/analytics\.js[^>]*></script>)?(?:\s*<script src="/site\.js[^>]*></script>)?(?:\s*<script src="/affiliates\.js[^>]*></script>)?', re.I)
 FONT_LINK_RE = re.compile(r'\s*<link[^>]+fonts\.googleapis\.com/css2[^>]*>', re.I)
 PRECONNECT_RE = re.compile(r'\s*<link rel="preconnect" href="https://fonts\.g[^"]+"[^>]*>', re.I)
 IMPORT_FONT_RE = re.compile(r'@import\s+url\([^)]*fonts\.googleapis[^)]*\);?', re.I)
