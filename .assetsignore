@@ -1,0 +1,12 @@
+# Files here are never uploaded to the edge, so they cannot be served at all.
+#
+# This is the right tool for keeping the build scripts off the web. The first
+# attempt used a _redirects rule returning 404, which Cloudflare rejects:
+# static assets only accept 200, 301, 302, 303, 307 and 308, so every deploy
+# failed with "Invalid _redirects configuration" and three hours of fixes sat
+# unshipped behind it.
+#
+# /data/ is deliberately NOT here: the dataset pages fetch their csv and json
+# from it at runtime.
+scripts/
+.git/
