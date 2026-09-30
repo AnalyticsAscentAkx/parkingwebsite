@@ -2,7 +2,7 @@
  "name": "Netherlands Parking Price Index 2026",
  "source": "https://parkingnetherlands.com/parking-price-index",
  "license": "https://creativecommons.org/licenses/by/4.0/",
- "register_snapshot": "2026-09-29",
+ "register_snapshot": "2026-09-30",
  "published": "2026-09-30",
  "national": {
   "garages": 323,

@@ -30,6 +30,38 @@ SNAP = git_date(ROOT / "scripts/garages.json")
 DAYS = [("MAANDAG", "d_mon"), ("DINSDAG", "d_tue"), ("WOENSDAG", "d_wed"), ("DONDERDAG", "d_thu"), ("VRIJDAG", "d_fri"), ("ZATERDAG", "d_sat"), ("ZONDAG", "d_sun")]
 
 def esc(s): return H.escape(str(s), quote=True)
+def _clip(name, room):
+    if len(name) <= room: return name
+    cut = name[:max(room, 12)]
+    if " " in cut[8:]: cut = cut[:cut.rfind(" ")]
+    return cut.rstrip(" ,.-")
+
+_TITLE_NAME = {}
+def title_name(g, room):
+    """Google truncates around 60 characters, so long register names are cut at
+    a word boundary. Two facilities in one city must never end up with the same
+    title, so a clipped name grows back word by word until it is unique."""
+    key = (g["city"], room)
+    if key not in _TITLE_NAME:
+        names = {o["slug"]: short(o) for o in STATS[g["city"]]["all"]}
+        clipped = {s: _clip(n, room) for s, n in names.items()}
+        seen = {}
+        for s, c in clipped.items(): seen.setdefault(c, []).append(s)
+        for c, slugs in seen.items():
+            if len(slugs) == 1: continue
+            for s in slugs:                       # grow back until distinct
+                full, out = names[s], c
+                while out != full and len([x for x in slugs if clipped[x] == out]) > 1:
+                    nxt = full[:len(out) + 1]
+                    sp = full.find(" ", len(out) + 1)
+                    out = full[:sp] if sp != -1 else full
+                    clipped[s] = out
+                clipped[s] = out
+        _TITLE_NAME[key] = clipped
+    return _TITLE_NAME[key].get(g["slug"], _clip(short(g), room))
+
+def fit_title(g, name, suffix, limit=62):
+    return title_name(g, limit - len(suffix)) + suffix
 def short(g): return g["name"].rsplit(" (", 1)[0]
 def priced(g): return g.get("rate_hr") is not None
 def is_free(g): return priced(g) and g["rate_hr"] == 0 and (g.get("rate_day") or 0) == 0
@@ -205,13 +237,13 @@ var s=document.getElementById('dur');s.addEventListener('input',function(){{docu
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(T["g_title"].format(name=name, city=cname, year=YEAR))}</title>
+<title>{esc(fit_title(g, name, T["g_suffix"].format(city=cname, year=YEAR)))}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">
 {alts}
 <link rel="stylesheet" href="/site.css">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<meta property="og:type" content="place"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(T["g_title"].format(name=name, city=cname, year=YEAR))}"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:type" content="place"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(fit_title(g, name, T["g_suffix"].format(city=cname, year=YEAR)))}"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{SITE}/og-image.png">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">{ld}</script>
 <style>
