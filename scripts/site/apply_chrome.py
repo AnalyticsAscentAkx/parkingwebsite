@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20261001a"
+CSS_VERSION = "20261001b"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/affiliates.js?v={CSS_VERSION}" defer></script>')
@@ -91,6 +91,36 @@ FONT_LINK_RE = re.compile(r'\s*<link[^>]+fonts\.googleapis\.com/css2[^>]*>', re.
 PRECONNECT_RE = re.compile(r'\s*<link rel="preconnect" href="https://fonts\.g[^"]+"[^>]*>', re.I)
 IMPORT_FONT_RE = re.compile(r'@import\s+url\([^)]*fonts\.googleapis[^)]*\);?', re.I)
 
+
+
+# French typography puts a space before ? ! ; : and inside guillemets. A plain
+# space lets the browser break the line there, which strands the punctuation on
+# the next line, so French pages get a no-break space instead. Text and the few
+# attributes a reader sees are touched; script and style blocks never are.
+_FR_BEFORE = re.compile(r"[ \u202f\u2009]([?!;:\u00bb])")
+_FR_AFTER = re.compile(r"(\u00ab)[ \u202f\u2009]")
+_FR_ATTR = re.compile(r'((?:content|placeholder|title|aria-label|alt)=")([^"]*)(")')
+_TEXT_NODE = re.compile(r">([^<>]*)<")
+_SKIP_BLOCK = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.S | re.I)
+
+
+def _fr(text: str) -> str:
+    return _FR_AFTER.sub("\u00ab\u00a0", _FR_BEFORE.sub("\u00a0\\1", text))
+
+
+def french_spacing(html: str) -> str:
+    out, last = [], 0
+    for m in _SKIP_BLOCK.finditer(html):
+        out.append(_fr_segment(html[last:m.start()]))
+        out.append(m.group(0))
+        last = m.end()
+    out.append(_fr_segment(html[last:]))
+    return "".join(out)
+
+
+def _fr_segment(seg: str) -> str:
+    seg = _TEXT_NODE.sub(lambda m: ">" + _fr(m.group(1)) + "<", seg)
+    return _FR_ATTR.sub(lambda m: m.group(1) + _fr(m.group(2)) + m.group(3), seg)
 
 def page_url(path: Path) -> str:
     rel = path.relative_to(ROOT).as_posix()
@@ -165,6 +195,10 @@ def apply(html: str, url: str) -> str:
 
     # 3. retire the old palette wherever it was hard-coded
     html = HEX_RE.sub(lambda m: HEX_MAP[m.group(0).upper()], html)
+
+    # 4. French punctuation must not wrap onto the next line
+    if lang_of(url) == "fr":
+        html = french_spacing(html)
     return html
 
 

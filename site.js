@@ -209,7 +209,8 @@
    the visitor prefers reduced motion. Density scales with the surface. */
 (function () {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var hosts = [].slice.call(document.querySelectorAll('[data-fx], .pi-hero, .ea-hero, .ghead, .hero, .ev-hero, .city-hero, .page-hero'))
+  var HERO = '[data-fx], .hero, .ph, .lh, .ch, .ghead, .fine-hero, .pi-hero, .ea-hero, .ev-hero, .city-hero, .page-hero';
+  var hosts = [].slice.call(document.querySelectorAll(HERO))
     .filter(function (h) { return !h.querySelector('canvas') && h.getBoundingClientRect().height > 120; });
   if (!hosts.length) return;
 
