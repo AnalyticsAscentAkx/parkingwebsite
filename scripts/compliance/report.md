@@ -11,7 +11,7 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 - **OpenStreetMap public tile server (tile.openstreetmap.org)**: 329 file(s). Licence: Tiles: OSMF Tile Usage Policy; data: ODbL. Terms: https://operations.osmfoundation.org/policies/tiles/
 - **Photon geocoder (photon.komoot.io), OSM data**: 2 file(s). Licence: Fair use; underlying data ODbL (attribution to OpenStreetMap). Terms: https://photon.komoot.io/
 - **Open Charge Map API (api.openchargemap.io)**: 1 file(s). Licence: Data CC BY-SA 4.0 (per OCM; terms page is JS-rendered, re-verify by hand). Terms: https://openchargemap.org/site/about/terms
-- **CBS / Statistics Netherlands**: 4 file(s). Licence: CC BY 4.0. Terms: https://www.cbs.nl/en-gb/about-us/website/copyright
+- **CBS / Statistics Netherlands**: 18 file(s). Licence: CC BY 4.0. Terms: https://www.cbs.nl/en-gb/about-us/website/copyright
 - **Stad Gent open data (data.stad.gent real-time parking)**: 1 file(s). Licence: UNVERIFIED: dataset pages state their own licence (usually Modellicentie Gratis Hergebruik / CC0). Terms: https://data.stad.gent/
 - **PDOK Locatieserver (Kadaster) address and postcode search**: 1 file(s). Licence: Open data (BAG, CC0); PDOK asks for fair use and attribution. Terms: https://www.pdok.nl/voorwaarden
 - **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 439 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/

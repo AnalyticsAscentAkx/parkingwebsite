@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/site.css?v=20260930n">
-<script src="/analytics.js?v=20260930n" defer></script>
-<script src="/site.js?v=20260930n" defer></script>
+<link rel="stylesheet" href="/site.css?v=20260930o">
+<script src="/analytics.js?v=20260930o" defer></script>
+<script src="/site.js?v=20260930o" defer></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is parking near Amsterdam Centraal?", "acceptedAnswer": {"@type": "Answer", "text": "Garages within walking distance of Amsterdam Centraal cost €4.50 to €6.30 per hour and €103 to €151 per 24 hours in 2026. The closest, Garage Amsterdam Centrum on the Oosterdok, is €5/hr and €120/day, a 3-minute walk east of the station. The cheapest option overall is P+R Sloterdijk at €1/24hr, one train stop away."}}, {"@type": "Question", "name": "Where is the closest parking garage to Amsterdam Centraal?", "acceptedAnswer": {"@type": "Answer", "text": "Garage Amsterdam Centrum on the Oosterdok is the closest, about 230 metres (3-minute walk) east of the station, at €5.00/hr and €120 for 24 hours with 434 spaces. Garage IJDock is next, about a 9-minute walk west, also €5.00/hr."}}, {"@type": "Question", "name": "Is there cheap parking near Amsterdam Centraal?", "acceptedAnswer": {"@type": "Answer", "text": "Not on the street or in garages - the central zone is €8.05/hr, 24 hours a day, all week. The only genuinely cheap option is Park and Ride at €1/24hr including public transport. P+R Sloterdijk is a 4-minute train ride from Centraal, making it the best value by far."}}, {"@type": "Question", "name": "Can I park at Amsterdam Centraal overnight?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Nearby garages such as Garage Amsterdam Centrum and Garage IJDock charge about €120 for 24 hours. For anything longer than a day, P+R at €1/24hr is dramatically cheaper."}}, {"@type": "Question", "name": "Is parking near Amsterdam Centraal free on Sunday?", "acceptedAnswer": {"@type": "Answer", "text": "No. Amsterdam's central paid zone operates 24 hours a day, 365 days a year, including Sundays. There is no free Sunday parking near Centraal - the nearest near-free option is P+R at €1/24hr."}}]}</script>
@@ -36,30 +36,34 @@
 </head>
 <body>
 <nav class="nav"><div class="nav-in">
-<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking + EV Charging<small>The Netherlands</small></span></a>
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
 <ul class="nav-links" id="navLinks">
-  <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Find parking &amp; charging</a></li>
-  <li class="has-drop"><a href="/all-cities">Cities</a>
+  <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Price my stop</a></li>
+  <li class="has-drop"><a href="/ev-charging">Charging</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Live</div><a href="/ev-charging">Charger map, priced with parking</a><a href="/laadpalen" hreflang="nl">Laadpalen per stad (NL)</a><a href="/laadpalen#storingen" hreflang="nl">Storingen per exploitant (NL)</a></div>
+      <div class="drop-col"><div class="drop-h">Data &amp; guides</div><a href="/ev-adoption">EV adoption by municipality</a><a href="/ev-parking">EV parking rules</a><a href="/ev-charging#prices">What charging costs</a><a href="/ev-charging#fast-charging">Fast charging</a></div>
+      <div class="drop-foot"><a href="/ev-charging">Open the map</a><a href="/elektrische-autos-per-gemeente" hreflang="nl">Elektrische auto's per gemeente</a></div>
+    </div>
+  </li>
+  <li class="has-drop"><a href="/search">Parking</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Find a space</div><a href="/search">Garages &amp; P+R near an address</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a></div>
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/parkbee">ParkBee</a><a href="/belgium-parking">Belgium</a><a href="/blog">Blog</a></div>
+    </div>
+  </li>
+  <li class="has-drop active"><a href="/all-cities">Cities</a>
     <div class="drop drop-wide">
       <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
       <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
-      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a><a href="/belgium-parking">Belgium</a></div>
-    </div>
-  </li>
-  <li class="has-drop"><a href="/map">Maps</a>
-    <div class="drop">
-      <a href="/map">Garages &amp; P+R</a><a href="/street-map">Street tariff zones</a><a href="/ev-charging">EV chargers</a><a href="/laadpalen" hreflang="nl">Laadpalen &amp; storingen (NL)</a><a href="/ev-adoption">EV adoption by municipality</a>
-    </div>
-  </li>
-  <li class="has-drop"><a href="/free-parking">Guides</a>
-    <div class="drop drop-wide">
-      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
-      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/ev-parking">EV parking</a><a href="/parkbee">ParkBee</a><a href="/blog">Blog</a></div>
+      <div class="drop-col"><div class="drop-h">Stations</div><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a></div>
     </div>
   </li>
   <li><a href="/about">About</a></li>
 </ul>
-<div class="nav-mobile-pair"><a href="/ev-charging">Find parking &amp; charging</a><a href="/ev-charging?mode=parking">Parking only</a></div>
+<div class="nav-mobile-pair"><a href="/ev-charging">Price my stop</a><a href="/search">Parking only</a></div>
 <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
 </div>
 </nav>
@@ -189,15 +193,15 @@
 <footer class="footer"><div class="wrap">
   <div class="foot-grid">
     <div class="foot-brand">
-      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Parking + EV Charging<small>The Netherlands</small></span></a>
-      <p>Independent parking comparison. Helping tourists, expats, and locals park smarter in every Dutch city.</p>
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
+      <p>Every public charger and every register-listed garage in the Netherlands, priced for your exact stop. Independent, free, built on open data.</p>
       <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
       <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
     </div>
-    <div class="foot-col"><h4>Major cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol</a></div>
-    <div class="foot-col"><h4>More cities</h4><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/groningen">Groningen</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
-    <div class="foot-col"><h4>Station parking</h4><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a><a href="/parking-price-index">Price index 2026</a><a href="/link-to-us">Link to us</a></div>
-    <div class="foot-col"><h4>Tools &amp; guides</h4><a href="/search">Parking search</a><a href="/garage/">Garage directory</a><a href="/map">Interactive map</a><a href="/street-map">Street tariff map</a><a href="/ev-charging">Charger map</a><a href="/laadpalen" hreflang="nl">Laadpalen per stad</a><a href="/ev-adoption">EV adoption map</a><a href="/elektrische-autos-per-gemeente" hreflang="nl">Elektrische auto's per gemeente</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/free-parking">Free parking</a><a href="/belgium-parking">Belgium parking</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/privacy">Privacy &amp; cookies</a></div>
+    <div class="foot-col"><h4>Charging</h4><a href="/ev-charging">Charger map</a><a href="/laadpalen" hreflang="nl">Laadpalen per stad</a><a href="/laadpalen#storingen" hreflang="nl">Storingen</a><a href="/ev-adoption">EV adoption map</a><a href="/elektrische-autos-per-gemeente" hreflang="nl">Elektrische auto's per gemeente</a><a href="/ev-parking">EV parking rules</a></div>
+    <div class="foot-col"><h4>Parking</h4><a href="/search">Parking search</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a><a href="/free-parking">Free parking</a><a href="/parking-fines">Fines guide</a><a href="/parking-apps">Parking apps</a><a href="/long-term-parking">Long-term parking</a></div>
+    <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/groningen">Groningen</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All 14 cities</a><a href="/belgium-parking">Belgium</a></div>
+    <div class="foot-col"><h4>Stations &amp; site</h4><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/link-to-us">Link to us</a><a href="/privacy">Privacy &amp; cookies</a></div>
   </div>
   <div class="foot-bottom">
     <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>

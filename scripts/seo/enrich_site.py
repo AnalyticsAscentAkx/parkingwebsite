@@ -262,6 +262,9 @@ def do_garages():
         new = TITLE_RE.sub(lambda m: f"<title>{m.group(1)}, {cname}: Parking Rates &amp; Info {YEAR}</title>", new, count=1)
         new = re.sub(r"<title>(.*?), " + re.escape(cname) + r": Parking Rates &amp; Info \d{4}</title>",
                      lambda m: f"<title>{m.group(1)}, {cname}: Parking Rates &amp; Info {YEAR}</title>", new, count=1)
+        if (g.get("ev_points") or 0) > 0 and "Charge here" not in new:
+            btn = (f'<a class="btn btn-ghost btn-sm" href="/ev-charging?lat={g["lat"]}&lng={g["lng"]}&zoom=17">Charge here: {g["ev_points"]} EV point{"s" if g["ev_points"] != 1 else ""}</a>')
+            new = re.sub(r'(<a class="btn btn-ghost btn-sm" href="/search\?q=[^"]*">Compare nearby</a>)', lambda m: m.group(1) + btn, new, count=1)
         stamp = f"Register snapshot {DATA_DATE} · Page updated {TODAY}"
         new = GEN_RE.sub(stamp, new, count=1); new = SNAP_RE.sub(stamp, new, count=1)
         new = strip_seo_flags(update_faq_jsonld(new, faq))
@@ -307,6 +310,40 @@ def do_cities():
             new = re.sub(r"(<footer\b)", f"<section class=\"sec sec-w\"><div class=\"ct\"><!-- garage-list:start -->\n{block}\n<!-- garage-list:end --></div></section>\n\\1", t, count=1)
         if new != t: p.write_text(new, "utf-8")
         print(f"  {city}: {len(items)} garages listed ({'in garage section' if anchor else 'before footer'})")
+
+
+# ------------------------------------------------------------- city charging strips
+LAADPAAL_SLUG = {"the-hague": "den-haag"}
+CITY_EV_NAME = {"the-hague": "Den Haag"}
+def do_cities_ev():
+    cities = {c["name"]: c for c in json.loads((ROOT / "ev-data/cities.json").read_text("utf-8"))}
+    adoption = {r["name"]: r for r in json.loads((ROOT / "data/ev-adoption-2026.json").read_text("utf-8"))["municipalities"]}
+    for city, cname in CITY_LABEL.items():
+        p = ROOT / f"{city}.html"
+        if not p.exists(): continue
+        lp = ROOT / f"laadpaal-{LAADPAAL_SLUG.get(city, city)}.html"
+        if not lp.exists(): print("  no laadpaal page for", city); continue
+        d = re.search(r'<meta name="description" content="([^"]*)"', lp.read_text("utf-8")).group(1)
+        m = re.search(r"(\d+) openbare laadlocaties en (\d+) laadpunten.*?Mediaan €(\d+,\d+) per kWh, (\d+,\d+)% buiten gebruik, (\d+) snellaadlocaties", d)
+        if not m: print("  could not parse", lp.name, d[:80]); continue
+        locs, pts, med, down, fast = int(m.group(1)), int(m.group(2)), float(m.group(3).replace(",", ".")), float(m.group(4).replace(",", ".")), int(m.group(5))
+        ev_name = CITY_EV_NAME.get(city, cname); a = adoption.get(ev_name, {}); c = cities.get(ev_name) or cities.get(cname)
+        maplink = f"/ev-charging?lat={c['lat']}&lng={c['lon']}&zoom=13" if c else "/ev-charging"
+        share = f'<div class="evs is-ok"><b>{a["share"]:.1f}%</b><span>of private cars electric</span></div>' if a.get("share") else ""
+        per100 = f'<div class="evs"><b>{a["points_per_100_ev"]:.1f}</b><span>public charge points per 100 EVs</span></div>' if a.get("points_per_100_ev") else ""
+        block = (f'<section class="sec-tight ev-strip"><div class="ct">'
+                 f'<div class="evs-head"><h2>Charging in {cname}</h2><div class="evs-links"><a href="{maplink}">Open the charger map in {cname}</a>'
+                 f'<a href="/laadpaal-{LAADPAAL_SLUG.get(city, city)}" hreflang="nl">Prijzen en storingen per exploitant (NL)</a><a href="/ev-adoption">EV adoption map</a></div></div>'
+                 f'<div class="evs-grid"><div class="evs"><b>{pts:,}</b><span>public charge points at {locs:,} locations</span></div>'
+                 f'<div class="evs"><b>€{med:.2f}</b><span>median price per kWh, before parking</span></div>'
+                 f'<div class="evs"><b>{down:.1f}%</b><span>of locations report a fault right now</span></div>'
+                 f'<div class="evs"><b>{fast}</b><span>fast-charging locations, 150 kW+</span></div>'
+                 f'{share}{per100}</div>'
+                 f'<p style="font-size:12.5px;color:var(--mut);margin:10px 0 0">Live status from the national charge point register (NDW / DOT-NL), refreshed every half hour; EV share per CBS, 1 January 2026. Parking under a charger is priced on the map for your stay.</p></div></section>')
+        t = p.read_text("utf-8")
+        new = replace_block(t, "ev-strip", block, r"\n<section\b")
+        if new and new != t: p.write_text(new, "utf-8")
+        print(f"  {city}: {pts} points, €{med:.2f}/kWh, {down}% faulty")
 
 # ------------------------------------------------------------- price index
 def do_index():
@@ -539,6 +576,6 @@ def do_sitemap():
     print(f"sitemap: {changed} lastmod values rewritten from git history")
 
 if __name__ == "__main__":
-    what = sys.argv[1:] or ["garages", "cities", "index", "sitemap"]
+    what = sys.argv[1:] or ["garages", "cities", "cities_ev", "index", "sitemap"]
     for w in what:
-        {"garages": do_garages, "cities": do_cities, "index": do_index, "sitemap": do_sitemap}[w]()
+        {"garages": do_garages, "cities": do_cities, "cities_ev": do_cities_ev, "index": do_index, "sitemap": do_sitemap}[w]()

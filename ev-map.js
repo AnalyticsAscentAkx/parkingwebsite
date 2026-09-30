@@ -782,6 +782,13 @@
     showMode = m;
     track('mode', { mode: m });
     $('#evApp').dataset.mode = m;
+    /* The full map page tells you which door you came through. */
+    var h1 = document.querySelector('#evApp:not(.is-embed) .ev-phead h1');
+    if (h1) {
+      if (!h1.dataset.chargers) { h1.dataset.chargers = h1.textContent; h1.dataset.titleChargers = document.title; }
+      h1.textContent = m === 'parking' ? 'Parking near you, priced for your stay' : h1.dataset.chargers;
+      document.title = m === 'parking' ? 'Parking Search Netherlands: Garages & P+R Priced for Your Stay' : h1.dataset.titleChargers;
+    }
     Array.prototype.forEach.call(document.querySelectorAll('.ev-modes button'), function (b) {
       b.setAttribute('aria-pressed', b.dataset.mode === m ? 'true' : 'false');
     });

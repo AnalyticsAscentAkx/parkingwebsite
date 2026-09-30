@@ -253,3 +253,17 @@
     requestAnimationFrame(frame);
   });
 })();
+
+/* ---- Language switch: pages that declare a translation get a small NL/EN
+   pill in the header, pointing at the alternate. Nothing on pages without one. */
+(function () {
+  var here = (document.documentElement.lang || 'en').slice(0, 2);
+  var alt = document.querySelector('link[rel="alternate"][hreflang="' + (here === 'nl' ? 'en' : 'nl') + '"]');
+  var navIn = document.querySelector('nav.nav .nav-in');
+  if (!alt || !navIn || document.querySelector('.nav-lang')) return;
+  var a = document.createElement('a');
+  a.className = 'nav-lang'; a.href = alt.getAttribute('href'); a.hreflang = here === 'nl' ? 'en' : 'nl';
+  a.textContent = here === 'nl' ? 'EN' : 'NL'; a.title = here === 'nl' ? 'This page in English' : 'Deze pagina in het Nederlands';
+  var btn = navIn.querySelector('.menu-btn');
+  navIn.insertBefore(a, btn || null);
+})();
