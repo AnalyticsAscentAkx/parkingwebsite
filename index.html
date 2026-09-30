@@ -223,6 +223,15 @@
   .hero-act .hero-search{flex:0 0 auto}
   .hero-act .hero-near{align-self:flex-start}
 }
+
+/* The embed was a fixed 600px box. On a normal laptop that is a postage
+   stamp next to the full-page map, and the map is the product. Scale it with
+   the viewport, floor it so short screens stay usable, cap it so tall ones
+   do not hide everything below. */
+.sec-map .is-embed{height:clamp(560px,78vh,880px)}
+@media(max-width:768px){
+  .sec-map .is-embed{height:clamp(480px,72vh,680px)}
+}
 </style>
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -270,7 +279,7 @@
   <div class="hero-act">
   <form class="hero-search" id="heroForm" data-m="chargers" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();var m=this.dataset.m;if(v)location.href=(m==='parking'?'/search?q=':'/ev-charging?q=')+encodeURIComponent(v);">
     <input type="text" id="heroQ" placeholder="Where are you going? Address, venue or town" autocomplete="off">
-    <button type="submit" class="btn btn-primary">Price my stop</button>
+    <button type="submit" class="btn btn-primary">Show prices</button>
   </form>
   <button type="button" class="hero-near" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/ev-charging?lat='+p.coords.latitude.toFixed(5)+'&lng='+p.coords.longitude.toFixed(5)+'&q=Near+me'},function(){b.disabled=false;b.textContent='Use my location';location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg> Cheapest stop near me</button>
   </div>
@@ -278,7 +287,7 @@
 
 <section class="sec-map" id="find"><div class="wrap">
   <h2 class="sr-only">Charging and parking on one map</h2>
-<main class="ev-app is-embed" id="evApp" data-view="map" data-mobile-view="list" data-mode="chargers" data-start-mode="chargers" aria-label="Find parking or a charger">
+<main class="ev-app is-embed" id="evApp" data-view="map" data-mode="chargers" data-start-mode="chargers" aria-label="Find parking or a charger">
 
   <div class="ev-tabs" role="group" aria-label="Switch between map and list">
     <button id="tabMap" aria-pressed="true">Map</button>
@@ -521,16 +530,10 @@
   m.onclick = function(){ set('map'); };
   l.onclick = function(){ set('list'); };
 
-  /* Open on the list on a phone. A map answers nothing until it has been
-     pinched and panned, and 70% of this site's clicks are phones. The list
-     shows the cheapest stops in view straight away, and Map is one tap if
-     someone wants to see where they are. Desktop keeps the map, where the
-     priced pins are the whole argument and there is room to read them.
-     Honoured only once, on load: after that the visitor's choice wins. */
-  try {
-    var want = app.dataset.mobileView;
-    if (want && window.matchMedia('(max-width:768px)').matches) set(want);
-  } catch (e) {}
+  /* No mobile override here. Below 900px ev-map.css deliberately renders the
+     map AND the list together, so forcing data-view="list" only lit the List
+     tab while a map stayed on screen. The component's own mobile layout is
+     already the right one. */
 })();
 </script>
 <script>
