@@ -575,3 +575,20 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 tbody tr{transition:background .15s ease}
 .glist li a,.tbl-wrap a,.prose a{transition:color .15s ease}
 .nl-note{font-size:14px;color:var(--mut);background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;line-height:1.6}
+
+/* ---- data tables (site.js adds .dt) ---- */
+.dt thead th{position:sticky;top:0;z-index:2}
+.dt thead th.dt-sort{cursor:pointer;user-select:none;padding-right:26px;position:sticky;transition:color .15s ease,background .15s ease}
+.dt thead th.dt-sort:hover,.dt thead th.dt-sort:focus-visible{color:var(--ink);background:#EEF2F8;outline:none}
+.dt thead th.dt-sort::after{content:"";position:absolute;right:11px;top:50%;width:6px;height:6px;margin-top:-5px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:.35}
+.dt thead th.dt-sort.is-asc::after{transform:rotate(-135deg);margin-top:-1px;opacity:1;color:var(--sig)}
+.dt thead th.dt-sort.is-desc::after{opacity:1;color:var(--sig)}
+.dt td.dt-num{background:linear-gradient(90deg,rgba(35,55,198,.10) 0,rgba(35,55,198,.10) var(--bar,0%),transparent var(--bar,0%));background-repeat:no-repeat;font-variant-numeric:tabular-nums;transition:background .35s ease}
+.dt td.dt-best{font-weight:800;color:var(--ok)}
+.dt td.dt-best::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:7px;vertical-align:middle}
+.dt tbody tr:hover td{background-color:#F4F6FB}
+.dt tbody tr:hover td.dt-num{background-image:linear-gradient(90deg,rgba(35,55,198,.16) 0,rgba(35,55,198,.16) var(--bar,0%),transparent var(--bar,0%))}
+.dt-filter{display:block;width:100%;max-width:340px;font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);background:#fff;color:var(--ink);margin:0 0 8px}
+.dt-filter:focus{outline:none;border-color:var(--sig);box-shadow:0 0 0 3px rgba(35,55,198,.12)}
+.dt-count{font-size:12.5px;color:var(--mut);min-height:16px;margin:0 0 6px}
+@media(prefers-reduced-motion:reduce){.dt td.dt-num{transition:none}}

@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20260930l"
+CSS_VERSION = "20260930m"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>')
 

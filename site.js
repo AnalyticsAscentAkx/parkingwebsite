@@ -95,3 +95,105 @@
     });
   }
 })();
+
+/* ---- Data tables: sort by clicking a header, in-cell bars, the best value
+   in each column marked, a filter box on long tables, sticky headers.
+   Applies to any table with a header row and at least four body rows.
+   Purely additive: without this script the tables are plain and complete. */
+(function () {
+  var lang = (document.documentElement.lang || 'en').slice(0, 2);
+  var LOW_IS_BEST = /price|prijs|tarief|tariff|cost|kost|rate|median|mediaan|fine|boete|€|eur|per (hour|uur|day|dag|24)|1 h|3 h|24 h|first hour|eerste uur|hours$|uur$|24 hours|24 uur|stay|\bfee\b/i;
+  var SKIP = /^#$|^rank|^order|year|januar|^stay$|^city$|^stad$|^garage$|^name|^naam|^municipality|^gemeente|^operator|^zone|^area|^type|^tip|^pre-book|^hours$|^paid hours|^evening/i;
+
+  function parseNum(txt) {
+    var t = txt.replace(/ /g, ' ').trim();
+    if (!t || /^(n\/a|-|—|free|gratis|none|no |yes|ja|nee)/i.test(t)) return /^(free|gratis)$/i.test(t) ? 0 : null;
+    var m = t.match(/-?[\d.,]+/); if (!m) return null;
+    var s = m[0];
+    if (lang === 'nl') { s = s.replace(/\./g, '').replace(',', '.'); }
+    else { if (/,\d{1,2}$/.test(s) && !/\.\d/.test(s)) s = s.replace(',', '.'); else s = s.replace(/,/g, ''); }
+    var v = parseFloat(s); return isNaN(v) ? null : v;
+  }
+
+  function enhance(table) {
+    var thead = table.tHead, tbody = table.tBodies[0];
+    if (!thead || !tbody || tbody.rows.length < 4) return;
+    var ths = [].slice.call(thead.rows[thead.rows.length - 1].cells);
+    var rows = [].slice.call(tbody.rows).filter(function (r) { return r.cells.length === ths.length; });
+    if (rows.length < 4) return;
+    table.classList.add('dt');
+
+    var cols = ths.map(function (th, i) {
+      var vals = rows.map(function (r) { return parseNum(r.cells[i].textContent); });
+      var n = vals.filter(function (v) { return v !== null; }).length;
+      var numeric = n >= Math.max(3, rows.length * 0.7);
+      var label = th.textContent.trim();
+      var skip = SKIP.test(label) || /^\d{4}$/.test(rows[0].cells[i].textContent.trim());
+      return { i: i, numeric: numeric, skip: skip, lowBest: LOW_IS_BEST.test(label), vals: vals, label: label };
+    });
+
+    /* bars and best marks */
+    cols.forEach(function (c) {
+      if (!c.numeric || c.skip) return;
+      var nums = c.vals.filter(function (v) { return v !== null; });
+      var max = Math.max.apply(null, nums), min = Math.min.apply(null, nums);
+      if (max === min) return;
+      var best = c.lowBest ? min : max;
+      rows.forEach(function (r, k) {
+        var v = c.vals[k], td = r.cells[c.i];
+        if (v === null) return;
+        td.classList.add('dt-num');
+        td.style.setProperty('--bar', (max > 0 ? Math.max(3, v / max * 100) : 0).toFixed(1) + '%');
+        if (v === best) { td.classList.add('dt-best'); td.title = lang === 'nl' ? (c.lowBest ? 'Laagste in deze kolom' : 'Hoogste in deze kolom') : (c.lowBest ? 'Lowest in this column' : 'Highest in this column'); }
+      });
+    });
+
+    /* sortable headers */
+    var order = rows.slice();
+    ths.forEach(function (th, i) {
+      var c = cols[i];
+      th.classList.add('dt-sort'); th.tabIndex = 0; th.setAttribute('role', 'button'); th.setAttribute('aria-sort', 'none');
+      th.title = lang === 'nl' ? 'Klik om te sorteren' : 'Click to sort';
+      var dir = 0;
+      function sort() {
+        dir = dir === 1 ? -1 : 1;
+        ths.forEach(function (o) { if (o !== th) { o.setAttribute('aria-sort', 'none'); o.classList.remove('is-asc', 'is-desc'); } });
+        th.setAttribute('aria-sort', dir === 1 ? 'ascending' : 'descending');
+        th.classList.toggle('is-asc', dir === 1); th.classList.toggle('is-desc', dir === -1);
+        var sorted = order.slice().sort(function (a, b) {
+          var ia = order.indexOf(a), ib = order.indexOf(b);
+          if (c.numeric) {
+            var va = c.vals[ia], vb = c.vals[ib];
+            if (va === null && vb === null) return 0; if (va === null) return 1; if (vb === null) return -1;
+            return (va - vb) * dir;
+          }
+          return a.cells[i].textContent.trim().localeCompare(b.cells[i].textContent.trim(), lang) * dir;
+        });
+        sorted.forEach(function (r) { tbody.appendChild(r); });
+        if (window.track) window.track('table_sort', { column: c.label, dir: dir === 1 ? 'asc' : 'desc', page: location.pathname });
+      }
+      th.addEventListener('click', sort);
+      th.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sort(); } });
+    });
+
+    /* filter box on long tables */
+    if (rows.length >= 12) {
+      var wrap = table.parentNode, box = document.createElement('input');
+      box.type = 'search'; box.className = 'dt-filter'; box.setAttribute('aria-label', lang === 'nl' ? 'Filter rijen' : 'Filter rows');
+      box.placeholder = (lang === 'nl' ? 'Filter ' : 'Filter ') + rows.length + (lang === 'nl' ? ' rijen…' : ' rows…');
+      wrap.parentNode.insertBefore(box, wrap);
+      var count = document.createElement('div'); count.className = 'dt-count'; wrap.parentNode.insertBefore(count, wrap);
+      box.addEventListener('input', function () {
+        var q = box.value.trim().toLowerCase(), shown = 0;
+        rows.forEach(function (r) { var on = !q || r.textContent.toLowerCase().indexOf(q) !== -1; r.hidden = !on; if (on) shown++; });
+        count.textContent = q ? (lang === 'nl' ? shown + ' van ' + rows.length + ' rijen' : shown + ' of ' + rows.length + ' rows') : '';
+      });
+    }
+  }
+
+  function init() {
+    var tables = document.querySelectorAll('.tbl-wrap table, .tw table, .ea-wrap table, .pi-wrap table, .prose table');
+    var seen = []; [].forEach.call(tables, function (t) { if (seen.indexOf(t) === -1) { seen.push(t); try { enhance(t); } catch (e) {} } });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
