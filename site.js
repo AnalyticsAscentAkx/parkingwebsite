@@ -389,3 +389,35 @@
     if (e.matches) shut();
   });
 })();
+
+
+/* ---- "Price my stop" should not leave a page that already has the map.
+   The nav button exists for the roughly three quarters of visitors who land
+   on an article: the fines guide, free parking, a garage page. For them it is
+   the only route to the product and it must navigate.
+
+   On the homepage it was a downgrade dressed as a call to action. It threw
+   away whatever had been typed, cost a page load, and arrived at the same
+   component. Here it scrolls to the map instead, and focuses the search so
+   the next keystroke goes somewhere useful. ---- */
+(function () {
+  if (!document.getElementById('evApp')) return;   // no map on this page
+  var targets = document.querySelectorAll(
+    'a.nav-find[href^="/ev-charging"], .nav-mobile-pair a[href^="/ev-charging"]');
+  if (!targets.length) return;
+  Array.prototype.forEach.call(targets, function (a) {
+    a.addEventListener('click', function (e) {
+      var app = document.getElementById('evApp');
+      if (!app) return;                       // let it navigate
+      e.preventDefault();
+      app.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var q = document.getElementById('heroQ') || document.getElementById('evSearch');
+      // Do not steal focus on a phone: the keyboard would cover the map.
+      if (q && !window.matchMedia('(max-width:768px)').matches) {
+        setTimeout(function () { try { q.focus({ preventScroll: true }); } catch (x) {} }, 420);
+      }
+      var links = document.getElementById('navLinks');
+      if (links) links.classList.remove('open');
+    });
+  });
+})();
