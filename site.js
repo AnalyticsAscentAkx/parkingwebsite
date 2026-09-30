@@ -267,3 +267,32 @@
   var ul = navIn.querySelector('#navLinks'), li = document.createElement('li'); li.appendChild(a);
   if (ul) ul.appendChild(li); else navIn.insertBefore(a, navIn.querySelector('.menu-btn') || null);
 })();
+
+
+/* ---- Menus: on a mouse, panels open on hover and stay open for a moment
+   after the pointer leaves, so a diagonal move never closes them. On touch
+   and narrow screens the top item toggles its panel like an accordion; a
+   second tap on an already open item follows its link. */
+(function () {
+  var items = [].slice.call(document.querySelectorAll('nav.nav .has-drop'));
+  if (!items.length) return;
+  var narrow = function () { return window.matchMedia('(max-width: 768px)').matches; };
+  var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  var timers = new Map();
+  function open(li) { items.forEach(function (o) { if (o !== li) close(o); }); li.classList.add('is-open'); li.querySelector('a').setAttribute('aria-expanded', 'true'); }
+  function close(li) { li.classList.remove('is-open'); li.querySelector('a').setAttribute('aria-expanded', 'false'); }
+  items.forEach(function (li) {
+    var a = li.querySelector(':scope > a'); a.setAttribute('aria-haspopup', 'true'); a.setAttribute('aria-expanded', 'false');
+    li.addEventListener('mouseenter', function () { if (narrow()) return; clearTimeout(timers.get(li)); open(li); });
+    li.addEventListener('mouseleave', function () { if (narrow()) return; timers.set(li, setTimeout(function () { close(li); }, 260)); });
+    li.addEventListener('focusin', function () { if (!narrow()) open(li); });
+    li.addEventListener('focusout', function (e) { if (!narrow() && !li.contains(e.relatedTarget)) close(li); });
+    a.addEventListener('click', function (e) {
+      if (!(narrow() || coarse)) return;               /* mouse users: the tab is a link */
+      if (li.classList.contains('is-open')) return;   /* second tap follows the link */
+      e.preventDefault(); open(li);
+    });
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('nav.nav')) items.forEach(close); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') items.forEach(close); });
+})();
