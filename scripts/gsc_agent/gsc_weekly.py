@@ -279,6 +279,28 @@ def main():
             best_impr[q] = r["impressions"]
             page_for_query[q] = r["page"]
 
+    def site_totals(a, b):
+        """True site totals.
+
+        These MUST come from a query with no dimensions. Summing the
+        ["query"] rows undercounts badly, because Google anonymises rare
+        queries: on this property that subset held 6 of 143 clicks and
+        3,081 of 14,410 impressions. The per-query worklist below is still
+        built from those rows, which is correct, it is only the headline
+        totals that need the undimensioned call.
+        """
+        rows = query_gsc(service, prop, a, b, [])
+        if not rows:
+            return {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0}
+        r = rows[0]
+        impr = r.get("impressions", 0)
+        return {
+            "clicks": r.get("clicks", 0),
+            "impressions": impr,
+            "ctr": r.get("ctr", 0),
+            "position": r.get("position", 0.0),
+        }
+
     def totals_from(rows):
         clicks = sum(r["clicks"] for r in rows)
         impr = sum(r["impressions"] for r in rows)
@@ -295,11 +317,8 @@ def main():
             "position": wpos,
         }
 
-    totals = totals_from(q_rows)
-    prev_rows = rows_to_dicts(
-        query_gsc(service, prop, prev_start, prev_end, ["query"]), ["query"]
-    )
-    prev_totals = totals_from(prev_rows)
+    totals = site_totals(start, end)
+    prev_totals = site_totals(prev_start, prev_end)
 
     worklist = build_worklist(q_rows, page_q_rows, page_for_query)
 
