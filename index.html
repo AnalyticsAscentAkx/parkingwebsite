@@ -176,6 +176,53 @@
   .support{flex-direction:column;text-align:center;padding:36px 24px}
   }
 @media(max-width:600px){.city-grid,.tips,.steps{grid-template-columns:1fr}}
+
+/* --- hero + map as one unit -------------------------------------------
+   The page used to ask "where are you going?" twice: once in the hero and
+   again 600px lower, above a map that restated the h1. Both boxes drove the
+   same app, so the repetition bought nothing and pushed the only thing that
+   proves the claim, priced pins on a map, below the fold and below four
+   statistics. The hero now runs straight into the map, the second search is
+   hidden because the first one already drives it, and the statistics sit
+   underneath as proof rather than as a toll gate. */
+.hero{padding-bottom:0}
+.sec-map{background:var(--ink);padding:26px 0 0;margin-top:-1px}
+.sec-map .wrap{padding-bottom:30px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+         clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* The hero search already writes into #evSearch and scrolls here, so a second
+   visible input is a decision the visitor should not have to make twice. */
+.sec-map .ev-search-label,.sec-map .ev-search{display:none}
+.sec-proof{background:var(--ink);padding:0 0 10px}
+.proof-stats{margin-top:0;border-top:1px solid rgba(148,163,184,.15)}
+.sec-proof .hstat .n{color:#fff}
+.sec-proof .hstat .l{color:#94A3B8}
+@media(max-width:768px){
+  .sec-map{padding-top:16px}
+  .sec-map .wrap{padding-bottom:18px}
+  /* On a phone the hero search sits directly above the map, so the panel's
+     own heading is noise. */
+  .sec-map .ev-side-h{display:none}
+}
+
+/* The hero was 547px of preamble before the map began, on a 720px screen.
+   Every line here earns its place or goes: the promise, one search, one way
+   to skip typing. The rest moved below the map. */
+.hero{padding-top:44px}
+.hero .tag{margin-bottom:18px}
+.hero .sub{margin:16px 0 22px}
+.hero-act{display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative;z-index:3}
+.hero-act .hero-search{margin:0;flex:1 1 440px}
+.hero-act .hero-near{margin:0;flex:0 0 auto}
+@media(max-width:768px){
+  .hero{padding-top:28px}
+  .hero-act{flex-direction:column;align-items:stretch;gap:10px}
+  /* flex-basis follows the main axis, so the 440px basis set for the desktop
+     row became a 440px TALL search box once the container turned vertical,
+     and pushed the map 266px further down the phone. Reset it here. */
+  .hero-act .hero-search{flex:0 0 auto}
+  .hero-act .hero-near{align-self:flex-start}
+}
 </style>
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -219,30 +266,19 @@
 <header class="hero"><canvas class="hero-fx" id="heroFx" aria-hidden="true"></canvas><div class="wrap hero-in">
   <div class="tag"><span class="dot"></span> Live · 78,630 charging locations · 323 garages · open data</div>
   <h1>What does your stop really cost? <span class="sig rotator" id="heroRot" aria-live="off">Charging.</span></h1>
-  <p class="sub">Every public charger and every register-listed garage in the Netherlands, priced for your exact stop: the electricity, the parking under the charger, and the cheapest alternative within walking distance. Built for the 2,023,337 electric cars on Dutch plates, and for everyone else who just needs a space.</p>
-  <div class="hero-seg" role="group" aria-label="What to price"><button type="button" data-m="chargers" aria-pressed="true">Charging + parking</button><button type="button" data-m="parking" aria-pressed="false">Parking only</button></div>
+  <p class="sub">Every public charger and every register-listed garage, priced for your exact stop: the electricity, the parking underneath, and the cheapest alternative within walking distance.</p>
+  <div class="hero-act">
   <form class="hero-search" id="heroForm" data-m="chargers" onsubmit="event.preventDefault();var v=document.getElementById('heroQ').value.trim();var m=this.dataset.m;if(v)location.href=(m==='parking'?'/search?q=':'/ev-charging?q=')+encodeURIComponent(v);">
     <input type="text" id="heroQ" placeholder="Where are you going? Address, venue or town" autocomplete="off">
     <button type="submit" class="btn btn-primary">Price my stop</button>
   </form>
-  <script>(function(){var f=document.getElementById('heroForm');Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(b){b.onclick=function(){f.dataset.m=b.dataset.m;Array.prototype.forEach.call(document.querySelectorAll('.hero-seg button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});document.getElementById('heroQ').placeholder=b.dataset.m==='parking'?'Where do you need to park? Address, venue or town':'Where are you going? Address, venue or town'}})})();</script>
   <button type="button" class="hero-near" onclick="var b=this;b.disabled=true;b.textContent='Locating…';navigator.geolocation?navigator.geolocation.getCurrentPosition(function(p){location.href='/ev-charging?lat='+p.coords.latitude.toFixed(5)+'&lng='+p.coords.longitude.toFixed(5)+'&q=Near+me'},function(){b.disabled=false;b.textContent='Use my location';location.href='/search'},{timeout:8000}):location.href='/search'"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg> Cheapest stop near me</button>
-  <div class="hero-stats"><!-- home-stats:start -->
-    <div class="hstat"><div class="n">196,151</div><div class="l">Public charge points, live status from the national register</div></div>
-    <div class="hstat"><div class="n">€0.37</div><div class="l">Median public price per kWh, priced with the parking underneath</div></div>
-    <div class="hstat"><div class="n">323</div><div class="l">Register-listed garages &amp; P+R sites with official tariffs</div></div>
-    <div class="hstat"><div class="n">€0</div><div class="l">What this site costs you</div></div>
-  <!-- home-stats:end --></div>
-</div></header>
+  </div>
 </div></header>
 
-<section class="sec-tight" id="find"><div class="wrap">
-  <div class="sec-h" style="margin-bottom:22px">
-    <div class="eyebrow">One map</div>
-    <h2>Charging and parking on one map</h2>
-    <p>Public chargers priced with the parking under them, garages and P+R for any car, and what your exact stop costs at each. Starts in Amsterdam; search any town or address.</p>
-  </div>
-<main class="ev-app is-embed" id="evApp" data-view="map" data-mode="chargers" data-start-mode="chargers" aria-label="Find parking or a charger">
+<section class="sec-map" id="find"><div class="wrap">
+  <h2 class="sr-only">Charging and parking on one map</h2>
+<main class="ev-app is-embed" id="evApp" data-view="map" data-mobile-view="list" data-mode="chargers" data-start-mode="chargers" aria-label="Find parking or a charger">
 
   <div class="ev-tabs" role="group" aria-label="Switch between map and list">
     <button id="tabMap" aria-pressed="true">Map</button>
@@ -351,6 +387,15 @@
     </p>
   </aside>
 </main>
+</div></section>
+
+<section class="sec-proof"><div class="wrap">
+  <div class="hero-stats proof-stats"><!-- home-stats:start -->
+    <div class="hstat"><div class="n">196,151</div><div class="l">Public charge points, live status from the national register</div></div>
+    <div class="hstat"><div class="n">€0.37</div><div class="l">Median public price per kWh, priced with the parking underneath</div></div>
+    <div class="hstat"><div class="n">323</div><div class="l">Register-listed garages &amp; P+R sites with official tariffs</div></div>
+    <div class="hstat"><div class="n">€0</div><div class="l">What this site costs you</div></div>
+  <!-- home-stats:end --></div>
 </div></section>
 <section class="sec" style="padding-top:56px;padding-bottom:56px"><div class="wrap">
   <div class="sec-h" style="margin-bottom:22px">
@@ -475,6 +520,17 @@
   }
   m.onclick = function(){ set('map'); };
   l.onclick = function(){ set('list'); };
+
+  /* Open on the list on a phone. A map answers nothing until it has been
+     pinched and panned, and 70% of this site's clicks are phones. The list
+     shows the cheapest stops in view straight away, and Map is one tap if
+     someone wants to see where they are. Desktop keeps the map, where the
+     priced pins are the whole argument and there is room to read them.
+     Honoured only once, on load: after that the visitor's choice wins. */
+  try {
+    var want = app.dataset.mobileView;
+    if (want && window.matchMedia('(max-width:768px)').matches) set(want);
+  } catch (e) {}
 })();
 </script>
 <script>
