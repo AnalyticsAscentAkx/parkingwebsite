@@ -3,6 +3,7 @@ Allow: /
 Disallow: /*?q=
 Disallow: /admin/
 Disallow: /private/
+Disallow: /scripts/
 
 Sitemap: https://parkingnetherlands.com/sitemap.xml
 

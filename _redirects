@@ -117,3 +117,9 @@
 /stellapower-storing.html      /stellapower-storing      301
 /tesla-storing.html      /tesla-storing      301
 /laadpalen.html      /laadpalen      301
+
+# The build scripts sit in the deployed tree and were being served: the
+# generator source was downloadable and Googlebot was free to spend crawl
+# budget on .py files. /data/ deliberately stays open, the dataset pages
+# fetch their csv and json from there at runtime.
+/scripts/*  /404.html  404
