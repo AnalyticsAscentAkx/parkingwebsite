@@ -15,3 +15,6 @@ scripts/collector/locations_extra.txt
 
 # Daily job logs (regenerable)
 scripts/daily/logs/
+
+# QA agent output: findings are generated, not source
+data/qa/

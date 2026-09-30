@@ -303,7 +303,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
     return path, html
 
 
-def operator_page(o, nat) -> tuple[str, str]:
+def operator_page(o, nat, have_pages=frozenset()) -> tuple[str, str]:
     cpo = o["cpo"]; sl = slug(cpo); path = f"{sl}-storing"
     cities_ = operator_cities(cpo); up = operator_uptime(cpo); days = history_days()
     vs = float(o["fault_pct"] or 0) / float(nat["fault_pct"]) if nat["fault_pct"] else None
@@ -320,8 +320,19 @@ def operator_page(o, nat) -> tuple[str, str]:
          "Meld het bij de storingsdienst op de paal (telefoonnummer op de sticker) en kies op onze kaart een werkend punt in de buurt; de kaart toont de laatst gemelde status per laadpunt."),
     ]
     ld = json.dumps([ld_breadcrumb([("Home", "/"), ("Laadpalen", "/ev-charging"), (f"{cpo} storing", "/" + path)]), ld_faq(qa)], ensure_ascii=False)
+    # An operator's ten biggest cities are not the country's forty biggest, so
+    # some of these have no laadpaal page. Linking them anyway produced eight
+    # live 404s. Keep the row, since the numbers are the point, and only link
+    # the cities that were actually built.
+    def city_cell(x):
+        sl = slug(x["city"])
+        if sl in have_pages:
+            return (f"<a href=\"/laadpaal-{sl}\" style=\"color:var(--blue);"
+                    f"font-weight:600;text-decoration:none\">{esc(x['city'])}</a>")
+        return f"<span style=\"font-weight:600\">{esc(x['city'])}</span>"
+
     rows = "".join(
-        f"<tr><td><a href=\"/laadpaal-{slug(x['city'])}\" style=\"color:var(--blue);font-weight:600;text-decoration:none\">{esc(x['city'])}</a></td>"
+        f"<tr><td>{city_cell(x)}</td>"
         f"<td class=\"num\">{x['points']}</td><td class=\"num\">{x['down']}</td><td class=\"num\">{pct(100.0 * x['down'] / x['points'])}</td></tr>" for x in cities_)
     body = f"""
 <div class="bc-bar"><div class="ct bc-in"><a href="/">Home</a> → <a href="/ev-charging">Laadpalen</a> → <strong>{esc(cpo)} storing</strong></div></div>
@@ -433,8 +444,9 @@ def build() -> dict:
         (root / f"{path}.html").write_text(html, "utf-8")
         written.append(path)
     ops = operators()
+    have_pages = {slug(c["city"]) for c in cs}
     for o in ops:
-        path, html = operator_page(o, nat)
+        path, html = operator_page(o, nat, have_pages)
         (root / f"{path}.html").write_text(html, "utf-8")
         written.append(path)
     path, html = hub_page(nat, cs, ops)

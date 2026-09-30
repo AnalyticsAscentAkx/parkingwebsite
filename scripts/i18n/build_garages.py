@@ -177,13 +177,31 @@ def hours_block(lang, g):
             rows.append(f"<tr><td>{T[lab]}</td><td>{win}</td><td class='price'>{M(h1)}</td><td class='price'>{M(d1)}</td></tr>")
     return (f"<h2>{T['h_hours']}</h2><p>{T['hours_lead']}</p><div class='tbl-wrap'><table><thead><tr><th>{T['th_day']}</th><th>{T['th_window']}</th><th>{T['th_first']}</th><th>{T['th_dayrate']}</th></tr></thead><tbody>" + "".join(rows) + "</tbody></table></div>")
 
+def fit_desc(d, limit=158):
+    """Cut a snippet at a boundary, never mid-word.
+
+    A blunt slice produced live descriptions ending "Bezahlte Alternativen "
+    and "Rang in der Stadt, Alte", the second stopping inside a word. Google
+    truncates snippets itself; the job here is only to stay under the length
+    without leaving a fragment behind. Same rule as build_home.py.
+    """
+    d = " ".join(d.split())
+    if len(d) <= limit:
+        return d
+    cut = d[:limit]
+    stop = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
+    if stop > 80:
+        return cut[:stop + 1]
+    return cut[:cut.rfind(" ")].rstrip(" ,;:\u2013-") + "."
+
+
 def page(lang, g):
     T = S[lang]; city = g["city"]; cname = city_name(lang, CITY_LABEL[city]); name = short(g); M = lambda v: money(lang, v)
     url = SITE + garage_url(lang, g["slug"]); has = priced(g); free = is_free(g)
     if free: price_line = T["price_free"].format(name=name, city=cname); desc = T["g_desc_free"].format(name=name, city=cname)
     elif has: price_line = T["price_paid"].format(name=name, city=cname, h1=M(g["rate_hr"]), h3=M(g["rate_3h"]), day=M(g["rate_day"]), year=YEAR); desc = T["g_desc_paid"].format(name=name, city=cname, h1=M(g["rate_hr"]), h3=M(g["rate_3h"]), day=M(g["rate_day"]), year=YEAR)
     else: price_line = T["price_none"].format(name=name, city=cname); desc = T["g_desc_none"].format(name=name, city=cname)
-    desc = desc[:158]
+    desc = fit_desc(desc)
     cmp_html, cmp_faq = compare(lang, g)
     facility = {"@context": "https://schema.org", "@type": "ParkingFacility", "name": name, "url": url, "geo": {"@type": "GeoCoordinates", "latitude": g["lat"], "longitude": g["lng"]},
                 "address": {"@type": "PostalAddress", "addressLocality": CITY_LABEL[city], "addressCountry": "NL"}, "publicAccess": True, "isAccessibleForFree": bool(free)}
