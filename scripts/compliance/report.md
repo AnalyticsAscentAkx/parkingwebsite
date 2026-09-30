@@ -6,7 +6,7 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 
 ## Sources in use
 
-- **RDW open data (Nationaal Parkeer Register tariffs, garage register)**: 1369 file(s). Licence: Creative Commons Zero (CC0). Terms: https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter
+- **RDW open data (Nationaal Parkeer Register tariffs, garage register)**: 1370 file(s). Licence: Creative Commons Zero (CC0). Terms: https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter
 - **NDW / DOT-NL charging point register (opendata.ndw.nu)**: 6 file(s). Licence: CC0 per ndw.nu/copyright ('tenzij anders vermeld'); attribution kept. Terms: https://www.ndw.nu/copyright
 - **OpenStreetMap public tile server (tile.openstreetmap.org)**: 1298 file(s). Licence: Tiles: OSMF Tile Usage Policy; data: ODbL. Terms: https://operations.osmfoundation.org/policies/tiles/
 - **Photon geocoder (photon.komoot.io), OSM data**: 2 file(s). Licence: Fair use; underlying data ODbL (attribution to OpenStreetMap). Terms: https://photon.komoot.io/

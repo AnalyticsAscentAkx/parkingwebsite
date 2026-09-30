@@ -27,8 +27,8 @@ def is_free(g): return priced(g) and g["rate_hr"] == 0 and (g.get("rate_day") or
 def is_anom(g): return priced(g) and not is_free(g) and (g["rate_hr"] > 15 or g["rate_hr"] == g["rate_day"] or (g["rate_3h"] or 0) > 45)
 
 C = {
-"nl": dict(title="Parkeren in {city} {year}: tarieven, garages en P+R", h1="Parkeren in {city}",
-  desc="Parkeren in {city} in {year}: straattarief centrum {street}, goedkoopste garage {cheap}, P+R {pr}. Alle {n} geregistreerde garages met officiële tarieven, laadpalen en boetes.",
+"nl": dict(title="Goedkoop parkeren in {city} {year}: tarieven en garages", h1="Goedkoop parkeren in {city}",
+  desc="Goedkoop parkeren in {city} {year}: straattarief centrum {street}, goedkoopste garage {cheap}, P+R {pr}. Alle {n} geregistreerde garages met officiële tarieven, laadpalen en boetes.",
   q_street="Straat (centrum)", q_garage="Goedkoopste garage", q_pr="P+R (24 uur)", q_fine="Parkeerboete",
   intro="{city} heeft {n} garages en P+R-terreinen in het nationaal parkeerregister, waarvan {k} met een gepubliceerd tarief. Een betaalde garage kost hier mediaan {medh} per uur en {medd} per 24 uur; op straat in het centrum betaal je {street}. Deze pagina zet alle officiële cijfers op een rij, van het goedkoopste P+R-terrein tot de garage met laadpunten, zodat je voor vertrek weet wat een stop kost.",
   h_garages="Alle garages in {city}, gesorteerd op prijs", p_garages="Officiële dagtarieven uit het nationaal parkeerregister (stand {snap}): eerste uur, 3 uur en 24 uur. Gratis terreinen daarna, voorzieningen zonder gepubliceerd tarief onderaan. Klik op een garage voor de vergelijking met de rest van de stad, betaalde uren en alternatieven.",
@@ -47,8 +47,8 @@ C = {
        ("Wat is de boete voor niet betalen in {city}?", "Maximaal €82,00 aan kosten plus één uur parkeergeld, in het centrum van {city} dus {fine_total}. Bezwaar binnen zes weken bij de gemeente.")],
   langs="Deze pagina in andere talen", src="Bronnen: nationaal parkeerregister (NPR, CC0), stand {snap}; nationaal laadpuntenregister (NDW / DOT-NL); CBS aandeel elektrische auto's 1 januari {year}; gemeentelijke straattarieven. Bijgewerkt {today}.",
 ),
-"de": dict(title="Parken in {city} {year}: Gebühren, Parkhäuser und P+R", h1="Parken in {city}",
-  desc="Parken in {city} {year}: Straßentarif Zentrum {street}, günstigstes Parkhaus {cheap}, P+R {pr}. Alle {n} registrierten Parkhäuser mit offiziellen Tarifen, Ladesäulen und Knöllchen.",
+"de": dict(title="Günstig parken in {city} {year}: Preise und Parkhäuser", h1="Günstig parken in {city}",
+  desc="Günstig parken in {city} {year}: Straßentarif Zentrum {street}, günstigstes Parkhaus {cheap}, P+R {pr}. Alle {n} registrierten Parkhäuser mit offiziellen Tarifen, Ladesäulen und Knöllchen.",
   q_street="Straße (Zentrum)", q_garage="Günstigstes Parkhaus", q_pr="P+R (24 Std.)", q_fine="Knöllchen",
   intro="{city} hat {n} Parkhäuser und P+R-Plätze im nationalen Parkregister, davon {k} mit veröffentlichtem Tarif. Ein bezahltes Parkhaus kostet hier im Median {medh} pro Stunde und {medd} pro 24 Stunden; auf der Straße im Zentrum zahlen Sie {street}. Diese Seite stellt alle offiziellen Zahlen zusammen, vom günstigsten P+R-Platz bis zum Parkhaus mit Ladepunkten, damit Sie vor der Abfahrt wissen, was ein Stopp kostet.",
   h_garages="Alle Parkhäuser in {city}, nach Preis sortiert", p_garages="Offizielle Tarife aus dem nationalen Parkregister (Stand {snap}): erste Stunde, 3 Stunden und 24 Stunden. Kostenlose Plätze danach, Einrichtungen ohne veröffentlichten Tarif am Ende. Klicken Sie ein Parkhaus an für den Vergleich mit der Stadt, gebührenpflichtige Zeiten und Alternativen.",
@@ -67,8 +67,8 @@ C = {
        ("Was kostet ein Knöllchen in {city} mit deutschem Kennzeichen?", "Höchstens 82,00 € Kosten plus eine Stunde Parkgebühr, im Zentrum von {city} also {fine_total}. Für Bußgelder über 70 € übernimmt das Bundesamt für Justiz die Vollstreckung in Deutschland. Einspruch innerhalb von sechs Wochen.")],
   langs="Diese Seite in anderen Sprachen", src="Quellen: nationales Parkregister (NPR, CC0), Stand {snap}; nationales Ladesäulenregister (NDW / DOT-NL); CBS Anteil E-Autos 1. Januar {year}; kommunale Straßentarife. Aktualisiert {today}.",
 ),
-"fr": dict(title="Se garer à {city} {year} : tarifs, parkings et P+R", h1="Se garer à {city}",
-  desc="Stationnement à {city} en {year} : tarif de rue au centre {street}, parking le moins cher {cheap}, P+R {pr}. Les {n} parkings enregistrés avec tarifs officiels, bornes de recharge et amendes.",
+"fr": dict(title="Se garer pas cher à {city} {year} : tarifs et parkings", h1="Se garer pas cher à {city}",
+  desc="Se garer pas cher à {city} en {year} : tarif de rue au centre {street}, parking le moins cher {cheap}, P+R {pr}. Les {n} parkings enregistrés avec tarifs officiels, bornes de recharge et amendes.",
   q_street="Rue (centre)", q_garage="Parking le moins cher", q_pr="P+R (24 h)", q_fine="Amende",
   intro="{city} compte {n} parkings et parcs relais dans le registre national du stationnement, dont {k} avec un tarif publié. Un parking payant coûte ici en médiane {medh} par heure et {medd} par 24 heures ; dans la rue au centre, vous payez {street}. Cette page rassemble tous les chiffres officiels, du parc relais le moins cher au parking équipé de bornes, pour savoir avant de partir ce que coûte un arrêt.",
   h_garages="Tous les parkings de {city}, classés par prix", p_garages="Tarifs officiels du registre national du stationnement (état au {snap}) : première heure, 3 heures et 24 heures. Sites gratuits ensuite, sans tarif publié en fin de liste. Cliquez sur un parking pour la comparaison avec la ville, les heures payantes et les alternatives.",
