@@ -108,7 +108,7 @@
 (function () {
   var lang = (document.documentElement.lang || 'en').slice(0, 2);
   var LOW_IS_BEST = /price|prijs|tarief|tariff|cost|kost|rate|median|mediaan|fine|boete|€|eur|per (hour|uur|day|dag|24)|1 h|3 h|24 h|first hour|eerste uur|hours$|uur$|24 hours|24 uur|stay|\bfee\b/i;
-  var SKIP = /^#$|^rank|^order|year|januar|^stay$|^city$|^stad$|^garage$|^name|^naam|^municipality|^gemeente|^operator|^zone|^area|^type|^tip|^pre-book|^hours$|^paid hours|^evening/i;
+  var SKIP = /^#$|^rank|^order|year|januar|^stay$|^city$|^stad$|^garage$|^name|^naam|^municipality|^gemeente|^operator|^zone|^area|^type|^tip|^pre-book|^hours$|^paid hours|^evening|window|venster|gebührenpflichtig|plage|^day$|^dag$|^tag$|^jour$|^parkhaus$|^parking$|heures/i;
 
   function parseNum(txt) {
     var t = txt.replace(/ /g, ' ').trim();

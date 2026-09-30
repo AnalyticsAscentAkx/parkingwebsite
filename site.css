@@ -639,3 +639,18 @@ tbody tr{transition:background .15s ease}
 .evs.is-ok b{color:var(--ok)}
 @media(max-width:900px){.evs-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.evs-grid{grid-template-columns:1fr 1fr}}
+
+/* ---- dark sections lost their ground in the light palette; text follows the ground ---- */
+.sec-dark{background:var(--paper-2);color:var(--ink)}
+.sec-dark .sec-h h2,.sec-dark h2,.sec-dark h3{color:var(--ink)}
+.sec-dark .sec-h p,.sec-dark p{color:var(--mut)}
+.sec-dark .faq-q{color:var(--ink)}
+.sec-dark .faq-a p{color:var(--mut)}
+.sec-dark .faq-item{border-bottom-color:var(--line)}
+.sec-nv,.sec-dk{background:var(--paper-2);color:var(--ink)}
+.sec-nv .st,.sec-dk .st,.sec-nv h2,.sec-dk h2{color:var(--ink)!important}
+.sec-nv .ss,.sec-dk .ss,.sec-nv p,.sec-dk p{color:var(--mut)}
+.sec-nv .fqq,.sec-dk .fqq{color:var(--ink)}
+.sec-nv .fqa p,.sec-dk .fqa p{color:var(--mut)}
+.sec-nv .fqi,.sec-dk .fqi{border-color:var(--line)}
+.sec-nv::before,.sec-dk::before{display:none}
