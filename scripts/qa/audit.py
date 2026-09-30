@@ -264,7 +264,12 @@ def deploy_integrity():
         issues.append((
             "HARD", "deploy",
             f"live site serves asset version {live}, repo expects {want}: "
-            f"the last commits are not deployed, so fixes are not live"))
+            f"the last commits are not deployed, so fixes are not live. "
+            f"Read the BUILD LOG, not this check, for the reason: "
+            f"dash.cloudflare.com -> Workers & Pages -> parking -> "
+            f"Deployments -> Build history. On 2026-09-30 a single invalid "
+            f"_redirects line (status 404, which static assets reject) failed "
+            f"ten deploys in a row while this check could only see the symptom"))
     return issues
 
 
