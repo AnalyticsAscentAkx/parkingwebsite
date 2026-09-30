@@ -999,6 +999,44 @@
 
   /* Addresses go to Photon (OpenStreetMap data) when no town matches. */
   var geoMarker = null;
+
+  /* The searched place needs to be findable in one glance. The old marker was
+     an 18px amber circle, which is the same colour family as the hundreds of
+     price pills it sits among, so on a busy city it simply vanished: a user
+     searched a postcode and reported that nothing appeared to happen.
+
+     This is a cobalt pin, a colour the price pills never use, drawn in its
+     own pane above every other layer, with a permanent label naming what was
+     searched and a ring that pulses once so the eye catches the change. */
+  function searchPin(ll, label) {
+    if (!map.getPane('searchPane')) {
+      map.createPane('searchPane');
+      map.getPane('searchPane').style.zIndex = 1000;   // above markerPane (600)
+    }
+    if (geoMarker) map.removeLayer(geoMarker);
+    geoMarker = L.marker(ll, {
+      pane: 'searchPane',
+      zIndexOffset: 10000,
+      icon: L.divIcon({
+        className: 'ev-searchpin',
+        iconSize: [30, 40],
+        iconAnchor: [15, 38],
+        html: '<span class="ev-searchpin-ring"></span>'
+            + '<svg width="30" height="40" viewBox="0 0 24 32" aria-hidden="true">'
+            + '<path d="M12 0C5.4 0 0 5.3 0 11.9 0 20.6 12 32 12 32s12-11.4 12-20.1'
+            + 'C24 5.3 18.6 0 12 0z" fill="#2337C6" stroke="#fff" stroke-width="2.4"/>'
+            + '<circle cx="12" cy="11.6" r="4.2" fill="#fff"/></svg>'
+      })
+    }).addTo(map);
+    if (label) {
+      geoMarker.bindTooltip(esc(label), {
+        permanent: true, direction: 'top', offset: [0, -38],
+        className: 'ev-searchpin-label'
+      }).openTooltip();
+    }
+    return geoMarker;
+  }
+
   /* Dutch postcodes and addresses go to PDOK's Locatieserver (Kadaster, keyless,
      authoritative for NL); anything it does not know falls back to Photon. */
   function geocode(q) {
@@ -1013,7 +1051,7 @@
         .then(function (j) {
           var d = j && j.response && j.response.docs && j.response.docs[0];
           var m = d && /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(d.centroide_ll || '');
-          return m ? { ll: [parseFloat(m[2]), parseFloat(m[1])], name: d.weergavenaam, zoom: d.type === 'postcode' && pc.length === 4 ? 14 : d.type === 'woonplaats' ? 13 : 15 } : null;
+          return m ? { ll: [parseFloat(m[2]), parseFloat(m[1])], name: d.weergavenaam, zoom: d.type === 'postcode' ? (pc.length >= 6 ? 16 : 14) : d.type === 'woonplaats' ? 13 : 16 } : null;
         });
     }
     function photon() {
@@ -1031,9 +1069,7 @@
         if (!hit) { searchType(q); return; }
         var ll = hit.ll, f = { properties: { name: hit.name } };
         setOrigin(ll);
-        if (geoMarker) map.removeLayer(geoMarker);
-        geoMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#FFBC42', fillOpacity: 1 })
-          .bindTooltip(esc(f.properties.name || q), { direction: 'top' }).addTo(map);
+        searchPin(ll, f.properties.name || q);
         zoomed = true;
         map.setView(ll, hit.zoom);
         if (narrow()) sheet('peek');
@@ -1229,9 +1265,7 @@
     var q0 = (q.get('q') || '').trim();
     if (!isNaN(lat) && !isNaN(lng) && q0) {
       setOrigin([lat, lng]);
-      if (geoMarker) map.removeLayer(geoMarker);
-      geoMarker = L.circleMarker([lat, lng], { radius: 9, weight: 3, color: '#fff', fillColor: '#FFBC42', fillOpacity: 1 })
-        .bindTooltip(esc(q0), { direction: 'top' }).addTo(map);
+      searchPin([lat, lng], 'Your search');
       $('#evSearch').value = q0;
     } else if (q0 && q0 !== 'Near me') {
       $('#evSearch').value = q0;

@@ -646,3 +646,23 @@
 .ev-card-act{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
 .ev-card-act .ev-card-btn{flex:0 1 auto;white-space:nowrap}
 .ev-card-act .ev-card-btn.is-start{flex:1 1 100%;justify-content:center}
+
+/* --- the searched location -------------------------------------------
+   Has to win against a screen full of price pills. Cobalt is the one brand
+   colour those pills never use, the pin is bigger than any of them, and the
+   label says what was searched so there is no doubt which dot is "you". */
+.ev-searchpin{background:none;border:0}
+.ev-searchpin svg{position:relative;z-index:2;filter:drop-shadow(0 3px 6px rgba(11,17,32,.45))}
+.ev-searchpin-ring{position:absolute;left:50%;bottom:0;width:22px;height:22px;margin-left:-11px;
+  border-radius:50%;background:rgba(35,55,198,.35);transform:translate(0,50%) scale(.4);
+  animation:evPinPulse 2.4s ease-out 3}
+@keyframes evPinPulse{
+  0%{transform:translate(0,50%) scale(.4);opacity:.9}
+  70%{transform:translate(0,50%) scale(2.6);opacity:0}
+  100%{transform:translate(0,50%) scale(2.6);opacity:0}
+}
+.ev-searchpin-label.leaflet-tooltip{background:#2337C6;border:0;color:#fff;font-weight:700;
+  font-size:12.5px;padding:5px 10px;border-radius:8px;box-shadow:0 6px 18px -6px rgba(11,17,32,.6);
+  white-space:nowrap}
+.ev-searchpin-label.leaflet-tooltip::before{border-top-color:#2337C6}
+@media(prefers-reduced-motion:reduce){.ev-searchpin-ring{animation:none;opacity:0}}
