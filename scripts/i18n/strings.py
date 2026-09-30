@@ -9,8 +9,29 @@ CITY_NAME = {  # display names where they differ from English
 }
 CITY_SLUG_WORD = {"nl": "parkeren", "de": "parken", "fr": "stationnement"}   # /nl/parkeren-amsterdam
 
+# The market a page is about, which is not the language it is written in: a
+# German page about Antwerp is de + be. Until a second country ships, every
+# city is Dutch and the url stays flat, which keeps the indexed urls stable.
+# Adding a country then means passing country= here, not reworking the site.
+HOME_COUNTRY = "nl"
+COUNTRY_SLUG = {                      # market -> path segment, per language
+    "be": {"en": "belgium", "nl": "belgie", "de": "belgien", "fr": "belgique"},
+    "de": {"en": "germany", "nl": "duitsland", "de": "deutschland", "fr": "allemagne"},
+    "fr": {"en": "france", "nl": "frankrijk", "de": "frankreich", "fr": "france"},
+    "at": {"en": "austria", "nl": "oostenrijk", "de": "oesterreich", "fr": "autriche"},
+    "ch": {"en": "switzerland", "nl": "zwitserland", "de": "schweiz", "fr": "suisse"},
+    "it": {"en": "italy", "nl": "italie", "de": "italien", "fr": "italie"},
+}
+
 def city_name(lang, en_name): return CITY_NAME.get(lang, {}).get(en_name, en_name)
-def city_url(lang, slug): return f"/{slug}" if lang == "en" else f"{PREFIX[lang]}/{CITY_SLUG_WORD[lang]}-{slug}"
+
+def city_url(lang, slug, country=HOME_COUNTRY):
+    """Url of a city page. The home market keeps the flat url it is indexed
+    under; every other market gets its own segment so the two never collide."""
+    if country == HOME_COUNTRY:
+        return f"/{slug}" if lang == "en" else f"{PREFIX[lang]}/{CITY_SLUG_WORD[lang]}-{slug}"
+    seg = COUNTRY_SLUG[country][lang]
+    return f"/{seg}/{slug}" if lang == "en" else f"{PREFIX[lang]}/{seg}/{slug}"
 def garage_url(lang, slug): return f"{PREFIX[lang]}/garage/{slug}"
 
 def money(lang, v):
