@@ -145,7 +145,8 @@ CSS = """
 .ea-hero .lead{font-size:17px;color:var(--mut);max-width:780px;line-height:1.6}
 .ea-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0}
 .ea-stat{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh)}
-.ea-stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.ea-stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.ea-stat b.txt{font-size:19px;line-height:1.2;padding-top:4px}
 .ea-stat span{font-size:12.5px;color:var(--mut)}
 .ea-wrap h2{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 12px}
 .ea-wrap p{line-height:1.65}
@@ -314,7 +315,10 @@ def page(lang, rows, fleet, nat, total_share):
     stats = [(pc(total_share), T("of private cars electric, national", "van de particuliere auto's elektrisch")), (num(yr['electric']), T(f"cars with electric drive, 1 Jan {yr['year']}", f"auto's met elektrische aandrijving, 1 jan {yr['year']}")),
              ("+" + pc(nat['growth_pct']), T("growth in one year", "groei in één jaar")), (t1['name'], T(f"highest share, {pc(t1['share'])}", f"hoogste aandeel, {pc(t1['share'])}")),
              (tl['name'], T(f"lowest share, {pc(tl['share'])}", f"laagste aandeel, {pc(tl['share'])}")), (dec(nat['points_per_100_ev']), T("public charge points per 100 EVs", "publieke laadpunten per 100 EV's"))]
-    stats_html = "".join(f'<div class="ea-stat"><b>{esc(a)}</b><span>{esc(b)}</span></div>' for a, b in stats)
+    def tile(a, b):
+        cls = "" if re.match(r"^[+0-9]", a) else ' class="txt"'
+        return '<div class="ea-stat"><b' + cls + '>' + esc(a) + '</b><span>' + esc(b) + '</span></div>'
+    stats_html = "".join(tile(a, b) for a, b in stats)
     ld_json = json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")
     labels = json.dumps({"share": T("EV share of private cars", "Aandeel elektrisch (particulier)"), "ratio": T("Public charge points per 100 EVs", "Publieke laadpunten per 100 EV's"),
                          "evs": T("Estimated EVs", "Geschat aantal EV's"), "points": T("Public charge points", "Publieke laadpunten"), "pop": T("Residents", "Inwoners"), "na": T("no data", "geen data"),
