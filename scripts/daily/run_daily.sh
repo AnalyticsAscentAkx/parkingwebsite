@@ -16,7 +16,11 @@
 set -u
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
-REPO="/Users/aakash.chavash/Documents/Personal Script/parking_website "
+# The repo this job builds. launchd cannot read ~/Documents on this Mac (TCC),
+# so the scheduled run uses an automation clone outside it and sets PARKING_REPO.
+REPO="${PARKING_REPO:-/Users/aakash.chavash/Documents/Personal Script/parking_website }"
+# Python that can reach the charge-point database. Overridable for the clone.
+EV_PY="${EV_PY:-$REPO/scripts/ev/.venv/bin/python}"
 DAILY="$REPO/scripts/daily"
 LOGDIR="$DAILY/logs"
 mkdir -p "$LOGDIR"
@@ -32,7 +36,15 @@ log "###### DAILY RUN $(date) ######"
 # --- 0. sync ----------------------------------------------------------------
 step "0. Sync with origin"
 git rev-parse --abbrev-ref HEAD | grep -qx "$BRANCH" || { log "not on $BRANCH; abort"; exit 0; }
-git pull --ff-only origin "$BRANCH" >>"$LOG" 2>&1 && log "pulled" || log "WARN pull failed (continuing)"
+if [ -n "${PARKING_REPO:-}" ]; then
+  # dedicated clone: generated output only, so match origin exactly and never diverge
+  git fetch --quiet origin "$BRANCH" >>"$LOG" 2>&1 \
+    && git reset --hard "origin/$BRANCH" >>"$LOG" 2>&1 \
+    && git clean -fd -e '*.env' >>"$LOG" 2>&1 \
+    && log "reset to origin/$BRANCH" || log "WARN could not sync with origin (continuing)"
+else
+  git pull --ff-only origin "$BRANCH" >>"$LOG" 2>&1 && log "pulled" || log "WARN pull failed (continuing)"
+fi
 
 # --- 1. refresh demand data (gitignored output) -----------------------------
 step "1. Refresh demand data (collector)"
@@ -82,15 +94,26 @@ fi
 
 # --- 3d. EV reliability rollup + map data export (collector runs in ~/ev-collector) ---
 step "3d. EV rollup + export"
-if [ -x "$REPO/scripts/ev/.venv/bin/python" ]; then
+if [ -x "$EV_PY" ]; then
   ( cd "$REPO/scripts/ev" \
-    && ./.venv/bin/python -m evlayer.cli rollup --days 3 >>"$LOG" 2>&1 \
-    && ./.venv/bin/python -c "from evlayer.seo import mapdata; print(mapdata.export())" >>"$LOG" 2>&1 \
-    && ./.venv/bin/python -c "from evlayer.seo import laadpaal; print(laadpaal.build()['pages'])" >>"$LOG" 2>&1 \
+    && "$EV_PY" -m evlayer.cli rollup --days 3 >>"$LOG" 2>&1 \
+    && "$EV_PY" -c "from evlayer.seo import mapdata; print(mapdata.export())" >>"$LOG" 2>&1 \
+    && "$EV_PY" -c "from evlayer.seo import laadpaal; print(laadpaal.build()['pages'])" >>"$LOG" 2>&1 \
     && python3 register_pages.py >>"$LOG" 2>&1 ) \
     && { git add ev-data laadpaal-*.html *-storing.html sitemap.xml _redirects ev-charging.html; log "ev-data exported, Dutch pages rebuilt"; } \
     || log "WARN EV rollup/export failed (continuing)"
 fi
+
+# --- 3e. rebuild everything generated from the refreshed data ----------------
+step "3e. Rebuild generated pages (4 languages)"
+( python3 "$REPO/scripts/i18n/build_garages.py" >>"$LOG" 2>&1 \
+  && python3 "$REPO/scripts/i18n/build_cities.py" >>"$LOG" 2>&1 \
+  && python3 "$REPO/scripts/i18n/build_home.py" >>"$LOG" 2>&1 \
+  && python3 "$REPO/scripts/seo/enrich_site.py" garages cities_ev index >>"$LOG" 2>&1 ) \
+  && log "generators rebuilt" || log "WARN generators failed (continuing)"
+python3 "$REPO/scripts/site/apply_chrome.py" >>"$LOG" 2>&1 || true
+python3 "$REPO/scripts/seo/enrich_site.py" sitemap >>"$LOG" 2>&1 || true
+git add -A >>"$LOG" 2>&1 || true
 
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------
 step "4. Freshen sitemap for changed pages"
