@@ -495,7 +495,7 @@ pre.cite{{white-space:pre-wrap;background:#fff;border:1px solid var(--line);bord
   <h2>Questions</h2>
   {faq_html}
 
-  <p style="font-size:12.5px;color:var(--mut);margin:30px 0 60px">Published {TODAY} by <a href="/about">Analytics Ascent</a>. Register snapshot {DATA_DATE}. Underlying data: national parking register (NPR), CC0. Related: <a href="/all-cities">all cities compared</a>, <a href="/garage/">garage directory</a>, <a href="/street-map">street tariff map</a>, <a href="/parking-fines">fines guide</a>.</p>
+  <p style="font-size:12.5px;color:var(--mut);margin:30px 0 60px">Published {TODAY} by <a href="/about">Analytics Ascent</a>. Register snapshot {DATA_DATE}. Underlying data: national parking register (NPR), CC0. Related: <a href="/all-cities">all cities compared</a>, <a href="/garage/">garage directory</a>, <a href="/street-map">street tariff map</a>, <a href="/ev-adoption">EV adoption per municipality</a>, <a href="/parking-fines">fines guide</a>.</p>
 </div>
 </body>
 </html>"""
@@ -525,8 +525,16 @@ def do_sitemap():
         if new != m.group(0): changed += 1
         return new
     sm2 = re.sub(r"<loc>([^<]+)</loc>(\s*)<lastmod>[^<]+</lastmod>", fix, sm)
-    if f"{SITE}/parking-price-index" not in urls:
-        sm2 = sm2.replace("</urlset>", f"  <url>\n    <loc>{SITE}/parking-price-index</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.9</priority>\n  </url>\n</urlset>")
+    have = set(re.findall(r"<loc>([^<]+)</loc>", sm2))
+    skip = {"privacy", "garage/index", "404", "index"}
+    add = []
+    for p in sorted(ROOT.glob("*.html")):
+        if p.stem in skip: continue
+        u = f"{SITE}/{p.stem}"
+        if u not in have and (u + "/") not in have: add.append(u)
+    for u in add:
+        sm2 = sm2.replace("</urlset>", f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>")
+    if add: print("sitemap: added", add)
     sm_path.write_text(sm2, "utf-8")
     print(f"sitemap: {changed} lastmod values rewritten from git history")
 
