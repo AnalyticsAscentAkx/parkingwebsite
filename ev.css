@@ -1,0 +1,169 @@
+/* EV charger reliability + cost layer.
+   Extends site.css tokens. Defines no new brand colours: cobalt and orange
+   carry over, and the reliability ramp reuses the existing semantic set. */
+
+.evwrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------------------------------------------------------------- masthead */
+.ev-head{padding:26px 0 20px;border-bottom:1px solid var(--line)}
+.ev-crumb{font-size:13px;color:var(--mut)}
+.ev-crumb a{color:var(--mut);text-decoration:none}
+.ev-crumb a:hover{color:var(--blue)}
+.ev-head h1{font-size:clamp(1.75rem,3.4vw,2.6rem);font-weight:800;letter-spacing:-.035em;
+  color:var(--ink);line-height:1.1;margin:10px 0 10px}
+.ev-lede{color:var(--mut);font-size:15.5px;max-width:64ch;line-height:1.55}
+
+/* Measurement provenance. The history is the product, so how long we have
+   been watching is a headline fact, not fine print. */
+.ev-since{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px}
+.ev-since div{display:flex;flex-direction:column;gap:2px}
+.ev-since b{font-family:var(--f-mono);font-size:1.35rem;font-weight:600;
+  color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ev-since span{font-size:12.5px;color:var(--mut)}
+
+/* ------------------------------------------------------------ split layout */
+.ev-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:28px;align-items:start;padding:24px 0 48px}
+.ev-mapcol{position:sticky;top:78px}
+#evmap{height:min(72vh,660px);border-radius:var(--r-lg);border:1px solid var(--line);
+  box-shadow:var(--sh-md);background:var(--paper-2)}
+.ev-maphint{font-size:12.5px;color:var(--mut);padding:9px 2px 0}
+
+/* -------------------------------------------------------- window control */
+.ev-window{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--paper);
+  padding:16px 18px;box-shadow:var(--sh);margin-bottom:16px}
+.ev-window h2{font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin:0 0 3px}
+.ev-window p{font-size:13px;color:var(--mut);margin:0 0 13px}
+.ev-fields{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+.ev-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.ev-field label{font-size:12.5px;color:var(--mut);font-weight:500}
+.ev-field input,.ev-field select{font-family:var(--f-ui);font-size:14px;color:var(--ink);
+  padding:9px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);
+  width:100%;transition:border-color .15s,box-shadow .15s}
+.ev-field input:focus,.ev-field select:focus{outline:none;border-color:var(--blue);
+  box-shadow:0 0 0 3px var(--blue-soft)}
+.ev-kwh{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ------------------------------------------------------------------ table */
+.ev-tablewrap{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--paper);box-shadow:var(--sh)}
+.ev-tbar{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.ev-count{font-size:13px;color:var(--mut);font-variant-numeric:tabular-nums}
+.ev-sort{display:flex;gap:4px}
+.ev-sort button{font-family:var(--f-ui);font-size:12.5px;font-weight:600;color:var(--mut);
+  background:transparent;border:1px solid transparent;border-radius:7px;padding:5px 10px;
+  cursor:pointer;transition:color .15s,background .15s}
+.ev-sort button:hover{color:var(--ink);background:var(--line-soft)}
+.ev-sort button[aria-pressed="true"]{color:var(--blue);background:var(--blue-soft)}
+.ev-scroll{max-height:calc(min(72vh,660px) - 46px);overflow-y:auto}
+
+.ev-row{display:grid;grid-template-columns:1fr auto;gap:10px 14px;padding:13px 16px;
+  border-bottom:1px solid var(--line-soft);cursor:pointer;
+  transition:background .12s;background:var(--paper)}
+.ev-row:last-child{border-bottom:none}
+.ev-row:hover{background:var(--paper-2)}
+.ev-row[aria-selected="true"]{background:var(--blue-soft);
+  box-shadow:inset 3px 0 0 var(--blue)}
+.ev-row:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.ev-name{font-size:14.5px;font-weight:650;color:var(--ink);letter-spacing:-.01em;
+  line-height:1.3;overflow-wrap:anywhere}
+.ev-name a{text-decoration:none;color:inherit}
+.ev-name a:hover{color:var(--blue)}
+.ev-meta{font-size:12.5px;color:var(--mut);margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
+.ev-kw{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--txt)}
+.ev-price{text-align:right;font-family:var(--f-mono);font-size:1.02rem;font-weight:600;
+  color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+.ev-price small{display:block;font-family:var(--f-ui);font-size:11.5px;font-weight:500;
+  color:var(--mut);letter-spacing:0;margin-top:2px}
+.ev-price.is-unpriced{color:var(--mut-2);font-weight:500;font-size:.9rem}
+
+/* --------------------------------------------------- the 30-day strip */
+/* The one loud element on the page. Each bar is one day of measured uptime,
+   so the shape of a charger's record is legible before any number is read. */
+.ev-strip{display:flex;gap:1.5px;align-items:flex-end;height:22px;margin-top:7px}
+.ev-strip i{flex:1;min-width:2px;border-radius:1px;background:var(--line);
+  height:100%;transform-origin:bottom}
+.ev-strip i[data-g="ok"]{background:var(--ok)}
+.ev-strip i[data-g="warn"]{background:var(--warn)}
+.ev-strip i[data-g="bad"]{background:var(--bad)}
+.ev-strip i[data-g="none"]{background:var(--line)}
+.ev-striplab{display:flex;justify-content:space-between;font-size:11px;color:var(--mut-2);
+  margin-top:4px;font-variant-numeric:tabular-nums}
+
+.ev-up{font-family:var(--f-mono);font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.ev-up[data-g="ok"]{color:var(--ok)}
+.ev-up[data-g="warn"]{color:var(--warn)}
+.ev-up[data-g="bad"]{color:var(--bad)}
+.ev-up[data-g="none"]{color:var(--mut-2);font-weight:500}
+
+/* ------------------------------------------------------- station detail */
+.ev-detail{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:30px;
+  align-items:start;padding:26px 0 48px}
+.ev-panel{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--paper);
+  padding:20px 22px;box-shadow:var(--sh);margin-bottom:18px}
+.ev-panel h2{font-size:1.12rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:0 0 4px}
+.ev-panel .note{font-size:13px;color:var(--mut);margin:0 0 15px;line-height:1.5}
+
+.ev-bill{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);
+  border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.ev-bill div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:12px 15px;background:var(--paper);font-size:14px;color:var(--txt)}
+.ev-bill div b{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.ev-bill div.total{background:var(--blue-soft);padding:15px}
+.ev-bill div.total span{font-weight:700;color:var(--ink);font-size:15px}
+.ev-bill div.total b{font-size:1.4rem;color:var(--blue);letter-spacing:-.03em}
+.ev-billnote{font-size:12.5px;color:var(--mut);margin-top:10px;line-height:1.5}
+
+.ev-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ev-facts div{background:var(--paper);padding:12px 14px}
+.ev-facts dt{font-size:12px;color:var(--mut);margin-bottom:3px}
+.ev-facts dd{font-family:var(--f-mono);font-size:15px;font-weight:600;color:var(--ink);
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* ------------------------------------------------------------- busyness */
+.ev-heat{display:grid;grid-template-columns:34px repeat(24,1fr);gap:2px;align-items:center}
+.ev-heat span{font-size:10.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+.ev-heat i{aspect-ratio:1;border-radius:2px;background:var(--line-soft);display:block}
+.ev-heatscale{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--mut);margin-top:11px}
+.ev-heatscale i{width:15px;height:9px;border-radius:2px;display:block}
+
+/* --------------------------------------------------------------- states */
+.ev-empty{padding:46px 22px;text-align:center;color:var(--mut);font-size:14px;line-height:1.6}
+.ev-empty b{display:block;color:var(--ink);font-size:15.5px;font-weight:700;margin-bottom:5px}
+
+/* A page whose data is too young to publish says so, rather than showing an
+   empty chart. Honest beats padded, and it keeps the page out of the index. */
+.ev-young{border:1px solid var(--warn);background:var(--warn-soft);border-radius:var(--r);
+  padding:14px 16px;font-size:13.5px;color:#7c4a02;line-height:1.55;margin-bottom:18px}
+
+.ev-src{font-size:12px;color:var(--mut-2);padding:16px 0 0;border-top:1px solid var(--line-soft);
+  margin-top:26px;line-height:1.6}
+
+/* ---------------------------------------------------------------- mobile */
+@media(max-width:940px){
+  .ev-split,.ev-detail{grid-template-columns:1fr;gap:20px}
+  .ev-mapcol{position:static}
+  #evmap{height:300px}
+  .ev-scroll{max-height:none}
+  .ev-fields{grid-template-columns:1fr 1fr}
+  .ev-heat{grid-template-columns:28px repeat(24,1fr)}
+}
+@media(max-width:560px){
+  .evwrap{padding:0 16px}
+  .ev-since{gap:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ev-row,.ev-sort button,.ev-field input{transition:none}
+}
+
+/* ------------------------------------------------------------- pagination */
+.ev-pager{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  flex-wrap:wrap;padding:14px 2px 0;font-size:13px;color:var(--mut)}
+.ev-pager div{display:flex;gap:4px;flex-wrap:wrap}
+.ev-pager a{min-width:30px;text-align:center;padding:5px 8px;border-radius:7px;
+  border:1px solid var(--line);color:var(--txt);text-decoration:none;font-size:13px;
+  font-variant-numeric:tabular-nums;transition:border-color .15s,color .15s}
+.ev-pager a:hover{border-color:var(--blue);color:var(--blue)}
+.ev-pager a.is-on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
