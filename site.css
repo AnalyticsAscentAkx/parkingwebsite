@@ -592,3 +592,7 @@ tbody tr{transition:background .15s ease}
 .dt-filter:focus{outline:none;border-color:var(--sig);box-shadow:0 0 0 3px rgba(35,55,198,.12)}
 .dt-count{font-size:12.5px;color:var(--mut);min-height:16px;margin:0 0 6px}
 @media(prefers-reduced-motion:reduce){.dt td.dt-num{transition:none}}
+
+/* ---- sparks host (site.js) ---- */
+.fx-host{position:relative;isolation:isolate}
+.fx-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}

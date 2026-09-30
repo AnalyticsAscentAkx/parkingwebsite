@@ -1,6 +1,11 @@
-/* Shared motion and small interactions for every page.
+/* The site's motion and interaction layer, one file, five parts:
+     1. reveal     sections, cards and tables ease in on scroll, siblings staggered
+     2. count-up   big numbers in stat tiles count once when first seen
+     3. header     shadow once the page has scrolled
+     4. tables     click-to-sort, in-cell bars, best value marked, filter box
+     5. sparks     the homepage motes, behind every hero surface
    Progressive: without JavaScript, or with "reduce motion" on, nothing is
-   ever hidden and nothing moves. The map pages are left alone. */
+   ever hidden and nothing moves. The live map pages keep parts 1 and 2 off. */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var nav = document.querySelector('nav.nav');
@@ -196,4 +201,55 @@
     var seen = []; [].forEach.call(tables, function (t) { if (seen.indexOf(t) === -1) { seen.push(t); try { enhance(t); } catch (e) {} } });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+/* ---- Sparks: the homepage's drifting motes, as a shared component.
+   Any hero-like surface gets a canvas behind its content. Palette-coloured,
+   ~30 fps, paused when off-screen or in a hidden tab, skipped entirely when
+   the visitor prefers reduced motion. Density scales with the surface. */
+(function () {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var hosts = [].slice.call(document.querySelectorAll('[data-fx], .pi-hero, .ea-hero, .ghead, .hero, .ev-hero, .city-hero, .page-hero'))
+    .filter(function (h) { return !h.querySelector('canvas') && h.getBoundingClientRect().height > 120; });
+  if (!hosts.length) return;
+
+  function luminance(el) {
+    var bg = getComputedStyle(el).backgroundColor, m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(bg);
+    if (!m || /rgba\(0, 0, 0, 0\)/.test(bg)) { var p = el.parentNode; return p && p !== document ? luminance(p) : 1; }
+    return (0.2126 * m[1] + 0.7152 * m[2] + 0.0722 * m[3]) / 255;
+  }
+
+  hosts.forEach(function (host) {
+    var dark = luminance(host) < 0.5;
+    var cols = dark ? ['54,95,234', '255,188,66', '22,132,91'] : ['35,55,198', '234,88,12', '22,132,91'];
+    var alpha = dark ? [0.25, 0.4] : [0.10, 0.22];
+    host.classList.add('fx-host');
+    var c = document.createElement('canvas'); c.className = 'fx-canvas'; c.setAttribute('aria-hidden', 'true');
+    host.insertBefore(c, host.firstChild);
+    var ctx = c.getContext('2d'); if (!ctx) return;
+    var W, H, P = [], R = [], run = true, last = 0, N = 24;
+    function size() { var r = host.getBoundingClientRect(); W = c.width = Math.max(1, Math.floor(r.width)); H = c.height = Math.max(1, Math.floor(r.height)); N = Math.max(14, Math.min(60, Math.round(W * H / 9000))); }
+    function spawn() { return { x: Math.random() * W, y: H + 10, vy: .2 + Math.random() * .5, vx: (Math.random() - .5) * .22, r: 1 + Math.random() * 2, a: alpha[0] + Math.random() * (alpha[1] - alpha[0]), c: cols[Math.random() * cols.length | 0], life: 0, burst: 220 + Math.random() * 420 }; }
+    size(); for (var k = 0; k < N; k++) { var p0 = spawn(); p0.y = Math.random() * H; P.push(p0); }
+    var rs; window.addEventListener('resize', function () { clearTimeout(rs); rs = setTimeout(size, 120); });
+    function frame(t) {
+      requestAnimationFrame(frame);
+      if (!run || t - last < 33) return; last = t;
+      ctx.clearRect(0, 0, W, H);
+      while (P.length < N) P.push(spawn());
+      for (var i = 0; i < P.length; i++) {
+        var p = P[i]; p.y -= p.vy; p.x += p.vx; p.life++;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = 'rgba(' + p.c + ',' + p.a + ')'; ctx.fill();
+        if (p.life > p.burst || p.y < -10) { if (p.y > 0 && Math.random() < .5) R.push({ x: p.x, y: p.y, r: 2, c: p.c, a: dark ? .5 : .28 }); P[i] = spawn(); }
+      }
+      for (var j = R.length - 1; j >= 0; j--) {
+        var q = R[j]; q.r += 1.6; q.a -= .018;
+        ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 6.283); ctx.strokeStyle = 'rgba(' + q.c + ',' + Math.max(q.a, 0) + ')'; ctx.lineWidth = 1.2; ctx.stroke();
+        if (q.a <= 0) R.splice(j, 1);
+      }
+    }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { run = e[0].isIntersecting && !document.hidden; }, { threshold: .05 }).observe(c);
+    document.addEventListener('visibilitychange', function () { run = !document.hidden; });
+    requestAnimationFrame(frame);
+  });
 })();
