@@ -88,10 +88,17 @@ NUM = r"([0-9][0-9.  ]*(?:,[0-9]{1,2})?)"
 
 PATTERNS = {
     # "Kosten € 292.348,-: 5.200 = € 56,20 per naheffingsaanslag"
+    # Order matters, and the loose middle pattern is gone. Many decisions read
+    # "De kosten per naheffingsaanslag worden als volgt berekend: ...
+    #  Kosten EUR 1.471.163,76 : 1.500 = EUR 98,08". A pattern anchored on the
+    # phrase alone grabbed the TOTAL sitting beside it and reported a
+    # per-ticket cost of 1.4 million euro on 16 of 98 rows. Only accept a
+    # figure that follows the division or is bound to "per naheffingsaanslag".
     "cost_per_ticket_eur": [
-        rf"=\s*€\s*{NUM}\s*per\s+naheffingsaanslag",
-        rf"kosten\s+per\s+naheffingsaanslag[^0-9€]{{0,40}}€?\s*{NUM}",
+        rf"=\s*€?\s*{NUM}\s*per\s+naheffingsaanslag",
         rf"€\s*{NUM}\s*per\s+naheffingsaanslag",
+        rf"=\s*€\s*{NUM}\s*(?=[\s.;,]|$)",
+        rf"kosten\s+per\s+naheffingsaanslag\s*(?:bedraag\w*|is|van)?\s*€\s*{NUM}",
     ],
     # "Aantal naheffingsaanslagen 5.200"
     "budgeted_ticket_count": [
@@ -185,6 +192,11 @@ def extract(rec):
             break
         else:
             out[field] = None
+    c = out.get("cost_per_ticket_eur")
+    if c is not None and not (20.0 <= c <= 400.0):
+        out["flag_cost_implausible"] = True
+        found -= 1
+
     out["fields_found"] = found
     out["confidence"] = round(found / len(PATTERNS), 2)
     return out
