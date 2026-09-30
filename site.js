@@ -332,3 +332,60 @@
   document.addEventListener('click', function (e) { if (!e.target.closest('nav.nav')) items.forEach(close); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') items.forEach(close); });
 })();
+
+
+/* ---- Mobile menu: make it closeable by more than one target.
+   The panel is absolutely positioned inside the sticky header, so any
+   positioning slip paints it over the button that closes it and the visitor
+   is stuck with a menu they cannot dismiss. That happened. The css is fixed,
+   but one fragile tap target is a bad single point of failure on a phone, so
+   the menu now also closes on an outside tap, on Escape, on following a link,
+   and when the viewport grows back to desktop.
+
+   The button keeps its inline onclick: it is baked into 1,458 pages and still
+   does the toggling. This only adds ways out. ---- */
+(function () {
+  var panel = document.getElementById('navLinks');
+  var btn = document.querySelector('.menu-btn');
+  if (!panel || !btn) return;
+
+  function shut() {
+    if (!panel.classList.contains('open')) return;
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.setAttribute('aria-expanded', panel.classList.contains('open') ? 'true' : 'false');
+  // The inline handler flips the class; mirror it for screen readers.
+  btn.addEventListener('click', function () {
+    setTimeout(function () {
+      btn.setAttribute('aria-expanded',
+        panel.classList.contains('open') ? 'true' : 'false');
+    }, 0);
+  });
+
+  // Tapping anywhere off the header closes it.
+  document.addEventListener('click', function (e) {
+    if (!panel.classList.contains('open')) return;
+    if (e.target.closest('.menu-btn')) return;
+    if (!e.target.closest('#navLinks')) shut();
+  });
+
+  // Following a link should not leave the menu open behind it, which matters
+  // for in-page anchors where no navigation repaints the header.
+  panel.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a && !a.closest('.has-drop > a')) shut();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') shut();
+  });
+
+  // Rotating to landscape can cross the breakpoint and strand the open class.
+  var mq = window.matchMedia('(min-width:769px)');
+  (mq.addEventListener ? mq.addEventListener.bind(mq, 'change')
+                       : mq.addListener.bind(mq))(function (e) {
+    if (e.matches) shut();
+  });
+})();

@@ -148,7 +148,7 @@ tbody tr:hover{background:#FAFBFC}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(11,17,32,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px;gap:2px;box-shadow:var(--sh-md);max-height:calc(100vh - 60px);overflow-y:auto;-webkit-overflow-scrolling:touch;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(11,17,32,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px;gap:2px;box-shadow:var(--sh-md);max-height:calc(100dvh - 120px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
   .nav-links.open{display:flex}
   .nav-links li{width:100%}
   .nav-links>li>a{padding:11px 14px;font-size:15px}
@@ -477,9 +477,9 @@ tbody tr:hover{background:#FAFBFC}
   .nav-in .logo{order:1}.nav-in .menu-btn{order:2;margin-left:auto}
   .nav-in .nav-search{order:3;flex-basis:100%;max-width:none}
   .nav-in .nav-go{display:inline-flex}
-  .nav-links{top:auto;position:absolute;left:0;right:0}
+  .nav-links{top:100%;position:absolute;left:0;right:0}
 }
-@media(max-width:768px){.nav-links{order:4;top:auto}}
+@media(max-width:768px){.nav-links{order:4;top:100%}}
 
 /* =====================================================================
    Bright, calm surface. Navy stays on the header, footer and text; page
@@ -566,7 +566,7 @@ body .hero-near:hover{background:var(--blue-soft);color:var(--blue-2);border-col
 .drop a{font-size:14px;padding:9px 12px}
 .drop-h{font-size:10.5px}
 .menu-btn{width:42px;height:42px;font-size:19px}
-@media(max-width:768px){.nav-in{height:auto}.nav-links{top:auto}}
+@media(max-width:768px){.nav-in{height:auto}.nav-links{top:100%}}
 .ev-nl-link{font-size:13.5px;margin:-8px 0 18px}.ev-nl-link a{color:var(--blue);font-weight:600;text-decoration:none}.ev-nl-link a:hover{text-decoration:underline}
 
 /* ---- motion (site.js adds .rv; without it nothing is hidden) ---- */
