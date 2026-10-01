@@ -227,6 +227,24 @@ def stratify(urls, n):
     return out
 
 
+def recheck(bad, method="HEAD"):
+    """Re-test failures one at a time before believing them.
+
+    The concurrent sweep runs 12 to 16 requests at once and Cloudflare
+    sometimes drops one, which surfaces as status 0. The first scheduled run
+    reported 22 dead pages that were all serving 200 when asked politely.
+    A daily report that cries wolf teaches the reader to ignore it, so a
+    failure only counts if it fails again on its own, with a pause.
+    """
+    confirmed = []
+    for url, st in bad:
+        time.sleep(0.4)
+        st2, _, _ = fetch(url, method)
+        if st2 not in (200, 301, 302, 308):
+            confirmed.append((url, st2 or st))
+    return confirmed
+
+
 def check_availability(urls, workers=16):
     """HEAD everything. Cheap, and it is the check that finds dead pages."""
     bad, slow = [], []
@@ -362,6 +380,7 @@ def main():
 
     if not a.skip_availability:
         bad, slow = check_availability(urls)
+        bad = recheck(bad)
         for u, st in bad:
             issues.append(("HARD", u, f"in sitemap but returns {st}"))
         for u, s in slow[:10]:
@@ -387,10 +406,13 @@ def main():
                 assets.add(n)
     if assets:
         alist = sorted(assets)
+        abad = []
         with cf.ThreadPoolExecutor(12) as ex:
             for u, (st, _, _) in zip(alist, ex.map(lambda x: fetch(x, "HEAD"), alist)):
                 if st != 200:
-                    issues.append(("HARD", u, f"referenced asset returns {st}"))
+                    abad.append((u, st))
+        for u, st in recheck(abad):
+            issues.append(("HARD", u, f"referenced asset returns {st}"))
         print(f"  assets: {len(assets)} checked")
 
     # Internal links, deduped across the sample.
@@ -402,10 +424,13 @@ def main():
                 links.add(n)
     if links:
         llist = sorted(links)
+        lbad = []
         with cf.ThreadPoolExecutor(14) as ex:
             for u, (st, _, _) in zip(llist, ex.map(lambda x: fetch(x, "HEAD"), llist)):
                 if st not in (200, 301, 302, 308):
-                    issues.append(("HARD", u, f"internal link target returns {st}"))
+                    lbad.append((u, st))
+        for u, st in recheck(lbad):
+            issues.append(("HARD", u, f"internal link target returns {st}"))
         print(f"  links: {len(links)} checked")
 
     # Duplicate titles across the sample.
