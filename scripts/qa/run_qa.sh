@@ -57,9 +57,10 @@ fi
 
 # 4. Analytics. Optional: needs the service account added to the GA4 property
 #    and google-analytics-data installed. Absent, the rest still runs.
-if [ -n "${GA4_PROPERTY_ID:-}" ] && [ -f "$REPO/scripts/qa/ga4.py" ]; then
+GA4_PROPERTY_ID="${GA4_PROPERTY_ID:-503850038}"
+if [ -n "$GA4_PROPERTY_ID" ] && [ -f "$REPO/scripts/qa/ga4.py" ]; then
   say "4. ga4"
-  "$PY" "$REPO/scripts/qa/ga4.py" >>"$LOG" 2>&1 || say "   ga4 failed, see log"
+  GA4_PROPERTY_ID="$GA4_PROPERTY_ID" "$PY" "$REPO/scripts/qa/ga4.py" >>"$LOG" 2>&1 || say "   ga4 failed, see log"
 else
   say "4. ga4 SKIPPED, GA4_PROPERTY_ID not set"
 fi
