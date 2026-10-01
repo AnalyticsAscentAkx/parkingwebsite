@@ -49,5 +49,71 @@
     window.track = function (name, params) { gtag('event', name, params || {}); };
     queue.forEach(function (q) { window.track(q[0], q[1]); });
     queue = [];
+
+    /* ---- Consent.
+
+       Without this the tag denied its own consent forever and nothing ever
+       granted it: measured over 3 to 28 September 2026, Search Console
+       counted 58 clicks and GA4 recorded 1 session. Analytics saw 2% of real
+       visits. Cookieless pings alone only feed Google's modelling, which
+       needs roughly a thousand daily users before it reports anything, and
+       this site gets about two clicks a day.
+
+       Refusing is exactly as easy as accepting, which the ePrivacy rules
+       require and which is also the only honest way to ask. The choice is
+       remembered for six months. Cloudflare Web Analytics keeps counting
+       either way: it is cookieless and needs no permission, so declining
+       costs the site nothing it truly needs. ---- */
+    var KEY = 'pn_consent_v1', MAXAGE = 15552000000;  // six months
+
+    function apply(granted) {
+      gtag('consent', 'update', {
+        analytics_storage: granted ? 'granted' : 'denied',
+        ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'
+      });
+    }
+
+    function remember(granted) {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({ g: granted, t: Date.now() }));
+      } catch (e) {}
+    }
+
+    var saved = null;
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var o = JSON.parse(raw);
+        if (o && typeof o.g === 'boolean' && Date.now() - (o.t || 0) < MAXAGE) saved = o.g;
+      }
+    } catch (e) {}
+
+    if (saved !== null) { apply(saved); }
+    else { document.addEventListener('DOMContentLoaded', ask); }
+
+    function ask() {
+      var b = document.createElement('div');
+      b.className = 'pn-consent';
+      b.setAttribute('role', 'dialog');
+      b.setAttribute('aria-label', 'Cookie choice');
+      b.innerHTML =
+        '<p>We count visits with a cookieless tool that needs no permission. '
+        + 'May we also use Google Analytics, which sets a cookie, to see which '
+        + 'pages actually help you? <a href="/privacy">How we handle data</a>.</p>'
+        + '<div class="pn-consent-btns">'
+        + '<button type="button" data-a="no">No thanks</button>'
+        + '<button type="button" data-a="yes" class="pn-yes">Allow</button>'
+        + '</div>';
+      b.addEventListener('click', function (e) {
+        var t = e.target.closest('button[data-a]');
+        if (!t) return;
+        var yes = t.dataset.a === 'yes';
+        apply(yes); remember(yes);
+        b.classList.add('pn-consent-out');
+        setTimeout(function () { b.remove(); }, 260);
+      });
+      document.body.appendChild(b);
+      requestAnimationFrame(function () { b.classList.add('pn-consent-in'); });
+    }
   }
 })();
