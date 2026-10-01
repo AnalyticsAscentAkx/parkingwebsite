@@ -1,8 +1,8 @@
 # Data-licence compliance report
 
-Generated 2026-09-30 by scripts/compliance/audit.py
+Generated 2026-10-01 by scripts/compliance/audit.py
 
-**0 hard findings** across 0 files, **4211 warnings** across 1459 files.
+**0 hard findings** across 0 files, **4212 warnings** across 1460 files.
 
 ## Sources in use
 
@@ -15,9 +15,9 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 - **Stad Gent open data (data.stad.gent real-time parking)**: 1 file(s). Licence: UNVERIFIED: dataset pages state their own licence (usually Modellicentie Gratis Hergebruik / CC0). Terms: https://data.stad.gent/
 - **PDOK Locatieserver (Kadaster) address and postcode search**: 1 file(s). Licence: Open data (BAG, CC0); PDOK asks for fair use and attribution. Terms: https://www.pdok.nl/voorwaarden
 - **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 1456 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/
-- **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 1457 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 1458 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
 - **Google Analytics 4 (Consent Mode v2: no cookies before consent)**: 1 file(s). Licence: policy. Terms: https://support.google.com/analytics/answer/9976101
-- **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 1456 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
+- **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 1457 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
 
 ## Findings
 
@@ -26,7 +26,7 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 > e.g. `never-pay-parking-amsterdam.html`: …async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous">…
 
 ### [WARN] google_fonts: fonts are fetched from Google on every visit; self-hosting removes the transfer
-1456 file(s): 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html, breda.html ... +1444 more
+1457 file(s): 404.html, 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html ... +1445 more
 > e.g. `never-pay-parking-amsterdam.html`: …ay-parking-amsterdam"> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" c…
 
 ### [WARN] osm_tiles: site is ad-funded and serves 330+ map pages from the volunteer OSM tile server; the policy allows this but can cut access without notice. Consider CARTO basemaps or self-hosted tiles.
@@ -36,6 +36,21 @@ Generated 2026-09-30 by scripts/compliance/audit.py
 ### [WARN] photon: geocoder appears to fire on every keystroke without a debounce; be fair to the free service (>=300 ms debounce, min 3 chars)
 1 file(s): ev-map.js
 > e.g. `ev-map.js`: …l.addEventListener('change', syncWindow); $('#evKwh').addEventListener('input', repriceAll); updateSession(); if (narrow()) { var d = $('#evWin…
+
+## Terms pages
+
+- rdw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter)
+- ndw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.ndw.nu/copyright)
+- osm_tiles: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://operations.osmfoundation.org/policies/tiles/)
+- photon: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://photon.komoot.io/)
+- ocm: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://openchargemap.org/site/about/terms)
+- cbs: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)> (https://www.cbs.nl/en-gb/about-us/website/copyright)
+- gent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://data.stad.gent/)
+- pdok: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.pdok.nl/voorwaarden)
+- adsense_consent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.google.com/about/company/user-consent-policy/)
+- affiliate_disclosure: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
+- ga4: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://support.google.com/analytics/answer/9976101)
+- google_fonts: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/fonts/faq/privacy)
 
 ## What each source allows
 
