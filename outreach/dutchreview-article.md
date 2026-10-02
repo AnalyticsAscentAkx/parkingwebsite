@@ -6,6 +6,13 @@ with the link can view", and put that link in the form.
 
 Only three things are yours: your name, your email, and the author photo.
 
+**Fix this first.** The homepage says the median public charging price is €0.37
+per kWh. The EV charging page says €0.41, with a range of €0.28 to €0.63 and a
+national average of €0.43. Both are live right now. The article uses €0.41,
+because that page states its range and average and reads as the sourced one, but
+the two pages must agree before a journalist checks them. That is exactly the
+sort of thing that gets spotted.
+
 ---
 
 ## Field 1: Your name
@@ -18,24 +25,32 @@ The Analytics Ascent address, not the enviolo one.
 
 ## Field 3: Pitch a headline
 
-> Sorry Amsterdam, Utrecht is now the most expensive place to park in the Netherlands
+> I kept being surprised by my charging bill, so I worked out what is actually
+> going on: you are paying for parking too
+
+Alternative, if they prefer a number in the headline:
+
+> Nobody tells you this: parking is up to 47% of the cost of charging your car
 
 ## Field 4: What's your article about?
 
-> I compile the official parking tariffs for every register-listed garage in the
-> Netherlands, and the 2026 figures threw up two surprises.
+> I drive an EV and I kept getting charging bills that did not match what the
+> app quoted. It turned out the electricity was only part of it. A charging bay
+> inside a paid parking zone is still a paid parking space, so the hourly tariff
+> runs on top, and nothing tells you that at the moment you plug in.
 >
-> First, Amsterdam is not the worst place to park any more. Utrecht is, at a median
-> €10.74 for three hours against Amsterdam's €9.00.
+> So I started tracking it, then I built a free tool that prices both halves
+> together, and now anyone can use it.
 >
-> Second, and far more useful to anyone who actually drives here: the price gap
-> between garages inside one city is much bigger than the gap between cities. In
-> Amsterdam the same three hour stay costs €1.40 at one garage and €24.00 at
-> another. Walking five extra minutes beats driving to a different city.
+> The findings: across 14 Dutch cities, parking is between 27% and 47% of the
+> total cost of a typical two hour, 20 kWh stop. In Delft it is almost half. On
+> top of that the electricity itself ranges from €0.28 to €0.63 per kWh
+> depending purely on which operator owns the post. At least 12,667 Dutch charge
+> points sit inside a paid parking area.
 >
-> The piece is about 950 words, has the city-by-city table, and ends with the
-> practical bit. Every figure comes from the national parking register and the
-> dataset is public under CC BY 4.0, so your readers can check my homework.
+> About 950 words, personal, with the city table and practical advice. All
+> figures come from the national charging register and the national parking
+> register, and the tool is free with no sign-up.
 
 ## Field 5: Link to your article
 
@@ -44,14 +59,13 @@ Put that link here.
 
 ## Field 6: Author bio
 
-> [Your name] runs parkingnetherlands.com, which turns the Dutch national parking
-> register and the public charge point register into numbers normal people can
-> actually compare. He spends more time reading municipal tariff decisions than
-> anyone should, so you do not have to. Based in the Netherlands, permanently
-> annoyed by paying €24 to park when €1.40 was available two streets away.
+> [Your name] drives an electric car in the Netherlands and got tired of being
+> surprised by the bill, so he started compiling the national charging register
+> and the national parking register into one place. The result is
+> parkingnetherlands.com, which is free, has no sign-up, and exists mainly
+> because he wanted to stop overpaying by accident.
 
-Adjust the pronoun and the last line to taste. DutchReview explicitly ask for
-personality, so resist the urge to make it corporate.
+Adjust the pronoun. DutchReview explicitly ask for personality, so keep it human.
 
 ## Field 7: Author image
 
@@ -61,108 +75,110 @@ Yours. Any clear headshot.
 
 # THE ARTICLE
 
-## Sorry Amsterdam, Utrecht is now the most expensive place to park in the Netherlands
+## I kept being surprised by my charging bill, so I worked out what is actually going on
 
-Ask anyone in this country where parking hurts most and they will say Amsterdam.
-It is the national reflex, somewhere between "the trains are late again" and
-"this bread is not real bread".
+The first time it happened I assumed I had misread something.
 
-They are wrong, and I have the receipts.
+I plugged in somewhere in central Amsterdam, went off for a couple of hours, came
+back, and the total was noticeably more than the kWh price had led me to expect.
+Not catastrophically more. Just enough to be irritating, and just vague enough
+that I could not be bothered to work out why.
 
-I spend an unreasonable amount of time compiling the official tariffs for every
-register-listed parking garage in the Netherlands. Not estimates, not an app's
-guess, the actual rates municipalities publish. The 2026 figures are in, and
-Amsterdam has lost its crown.
+The second time, I worked out why.
 
-### The league table nobody asked for
+### The bit nobody mentions
 
-Here is what three hours in a garage costs, taking the median across every
-register-listed garage in each city.
+A charging bay inside a paid parking zone is still a paid parking space.
 
-| City | 3 hours | 1 hour | 24 hours |
+That is it. That is the whole trick. The electricity is metered and priced and
+shown to you in the app. The ground the car is standing on while it charges is
+also being charged for, at the normal municipal hourly tariff, and absolutely
+nothing at the charge point tells you that.
+
+I started keeping track, mostly out of spite. Then it became a spreadsheet. Then
+the spreadsheet became unmanageable, because the Netherlands has 196,151 public
+charge points and the parking tariffs sit in separate municipal decisions, one
+per city, published as PDFs that were plainly never meant to be compared.
+
+So I built the thing I wanted to exist, and put it online for free.
+
+### What the numbers say
+
+Here is a normal stop: 20 kWh of electricity over two hours, which is roughly
+topping up a mid-size EV while you do something else.
+
+Electricity at the national median of €0.41 per kWh comes to €8.20, wherever you
+are. The parking is what changes.
+
+| City | Parking, 2 hours | Total | Parking's share |
 |---|---|---|---|
-| Utrecht | €10.74 | €3.58 | €85.92 |
-| Haarlem | €10.47 | €3.49 | €83.76 |
-| Delft | €9.64 | €3.64 | €72.64 |
-| The Hague | €9.60 | €3.20 | €76.80 |
-| Amsterdam | €9.00 | €3.00 | €92.00 |
-| Nijmegen | €8.70 | €2.90 | €69.60 |
-| Zwolle | €7.50 | €2.73 | €24.00 |
-| Groningen | €7.00 | €2.25 | €57.80 |
-| Maastricht | €6.51 | €2.17 | €52.08 |
-| Breda | €6.00 | €2.00 | €48.00 |
-| Tilburg | €6.00 | €2.00 | €48.00 |
-| Leiden | €5.70 | €1.90 | €45.60 |
-| Rotterdam | €5.50 | €2.00 | €42.50 |
-| Eindhoven | €4.50 | €1.50 | €36.00 |
+| Delft | €7.28 | €15.48 | 47% |
+| Utrecht | €7.16 | €15.36 | 47% |
+| Haarlem | €6.98 | €15.18 | 46% |
+| The Hague | €6.40 | €14.60 | 44% |
+| Amsterdam | €6.00 | €14.20 | 42% |
+| Nijmegen | €5.80 | €14.00 | 41% |
+| Zwolle | €5.46 | €13.66 | 40% |
+| Groningen | €4.50 | €12.70 | 35% |
+| Maastricht | €4.34 | €12.54 | 35% |
+| Rotterdam | €4.00 | €12.20 | 33% |
+| Breda | €4.00 | €12.20 | 33% |
+| Tilburg | €4.00 | €12.20 | 33% |
+| Leiden | €3.80 | €12.00 | 32% |
+| Eindhoven | €3.00 | €11.20 | 27% |
 
-Utrecht costs 2.4 times what Eindhoven does for exactly the same three hours.
-Haarlem, a city whose entire personality is being a nicer smaller Amsterdam,
-has out-charged Amsterdam at being Amsterdam.
+In Delft and Utrecht, almost half of what you pay to charge your car is not
+electricity at all. Across these fourteen cities the average is 38%.
 
-Amsterdam does claw back its dignity in one column. Leave your car there for a
-full day and it is €92, the worst in the country. So if your ambition is to be
-fleeced thoroughly rather than quickly, the capital still delivers.
+At least 12,667 Dutch charge points sit inside a paid parking area. That is not
+a loophole anyone is exploiting. It is just two separate systems, each working
+exactly as designed, billing you independently and never introducing themselves.
 
-### The number that actually matters
+### And then there is the electricity itself
 
-Here is the thing the league table hides, and it is the reason I bothered
-writing this.
+While I was at it I found the other half of the problem.
 
-The difference between cities is small. The difference between garages inside
-one city is enormous.
+The median is €0.41 per kWh, but most chargers land anywhere between €0.28 and
+€0.63. Same electricity, same grid, same country. The difference is which company
+owns the post.
 
-In Amsterdam, three hours costs **€1.40** at one register-listed garage and
-**€24.00** at another. Same city. Same day. Same three hours. Seventeen times
-the price.
+Vattenfall InCharge averages €0.32 per kWh. E-Flux by Road averages €0.51. That
+is roughly 60% more for an identical electron, decided by a logo you probably did
+not look at.
 
-The Hague runs from €2.70 to €13.20. Rotterdam from €4.00 to €13.00. Haarlem
-from €3.60 to €12.00.
+So you have two hidden variables that multiply: an operator price you cannot see
+until you are connected, and a parking tariff nobody mentions at all. A €20 stop
+and an €11 stop can look completely identical from the driver's seat.
 
-Put another way: driving from Utrecht to Eindhoven to save on parking is a
-deeply Dutch thing to consider, and it would save you about six euros. Walking
-four minutes further in Amsterdam can save you twenty-two.
+### What I did about it
 
-### Why is it such a mess?
+I put all of it in one place: every public charge point in the country, its
+operator's price, and the parking tariff for the ground underneath it, added
+together for the length of stop you actually want.
 
-Because there is no such thing as "the parking price". Every garage sets its own
-tariff, and those tariffs live in separate municipal decisions, published
-separately, in Dutch, in PDFs that were clearly not designed to be compared.
+It is free. There is no sign-up, no app, and no account. I am not selling
+anything, which I mention only because it is a reasonable thing to wonder about
+a website offering you a free tool.
 
-Nobody has an incentive to put them side by side. The garages certainly do not.
-The result is a market where the person who checks pays a third of what the
-person who does not pays, and almost nobody checks, because until recently
-checking was genuinely hard.
+You can use it here:
+[parkingnetherlands.com](https://parkingnetherlands.com)
 
-This is not a conspiracy. It is just what happens when 342 municipalities each
-solve the same problem alone. Very Dutch, in its way: locally optimised,
-nationally baffling.
+### Three things worth knowing even if you never use it
 
-### What to actually do about it
+**Check whether the bay is in a paid zone before you plug in.** This is the
+single biggest avoidable cost, and it takes five seconds.
 
-Three things, in order of how much they save you.
+**The operator matters more than the city.** Driving to a cheaper town saves you
+very little. Picking a different post can save you 60% on the electricity.
 
-**Check before you drive, not after you park.** The expensive garage is usually
-the obvious one, the one signposted from the ring road with a big P. The cheap
-one is often four minutes away with no signage at all.
-
-**Look at P+R if you are staying more than two hours.** The maths flips fast.
-Dutch P+R is priced to make you use it, and in most cities it genuinely does.
-
-**Never guess the daily rate from the hourly rate.** Zwolle charges €2.73 an
-hour but €24.00 for a full day, which is under nine hours' worth. Amsterdam
-charges €3.00 an hour and €92.00 a day, which is over thirty hours' worth. There
-is no logic connecting the two. There is only the tariff table.
+**For anything over two hours, look at P+R.** The combined maths flips quickly,
+and Dutch P+R is deliberately priced to make you use it.
 
 ### Check my homework
 
-All of this comes from the national parking register: 323 register-listed
-garages across 14 cities, 175 of them with published tariffs, snapshot taken on
-30 September 2026.
+The charging data comes from the national charge point register via NDW and
+DOT-NL. The parking tariffs come from the national parking register, covering 323
+register-listed garages across 14 cities, snapshot 30 September 2026.
 
-I publish the whole dataset openly under a CC BY 4.0 licence, so you are welcome
-to download it, argue with it, or find the mistake I have inevitably made:
-[parkingnetherlands.com/parking-price-index](https://parkingnetherlands.com/parking-price-index)
-
-If you find your own city is cheaper than I say, congratulations, and please tell
-me which garage. I will add it.
+Both datasets are published openly on the site, and if you find my arithmetic is
+wrong I would genuinely like to know, because at this point it is my bill too.
