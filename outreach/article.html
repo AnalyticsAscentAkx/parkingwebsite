@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Why your charging bill is bigger than the app said</title>
+<style>
+  @page { size: A4; margin: 18mm 20mm; }
+  body { font: 11.3pt/1.55 Georgia, "Times New Roman", serif; color:#1a1a1a; }
+  h1 { font-size: 19pt; line-height:1.25; margin:0 0 4px; }
+  .sub { color:#555; font-size:10pt; margin:0 0 26px; font-style:italic; }
+  h2 { font-size:12.5pt; margin:20px 0 7px; page-break-after:avoid; }
+  p { margin:0 0 10px; }
+  table { border-collapse:collapse; width:100%; margin:12px 0 14px; font-size:9.8pt; }
+  thead { display:table-header-group; }
+  tr { page-break-inside:avoid; }
+  th,td { text-align:left; padding:3px 8px; border-bottom:1px solid #eee; }
+  th { border-bottom:1.5px solid #333; font-size:9.5pt; text-transform:uppercase; letter-spacing:.04em; }
+  td.n, th.n { text-align:right; }
+  .note { font-size:9.5pt; color:#555; border-top:1px solid #ddd; padding-top:10px; margin-top:26px; }
+  a { color:#1a4fd6; }
+</style></head><body>
+
+<h1>Why your charging bill is bigger than the app said</h1>
+<p class="sub">By [your name]</p>
+
+<p>The first time it happened I assumed I'd misread the app.</p>
+
+<p>I plugged in on a side street off the Overtoom, went for lunch, came back about
+two hours later and the total was a few euros more than I'd worked out in my head.
+Not a disaster. Just annoying, and vague enough that I couldn't be bothered to
+chase it.</p>
+
+<p>Then it happened in Utrecht. Then in Haarlem, where it was worse.</p>
+
+<h2>What I eventually figured out</h2>
+
+<p>A charging bay inside a paid parking zone is still a paid parking space.</p>
+
+<p>That's the whole thing. The electricity is metered, priced, and shown to you.
+The ground your car is standing on while it charges is billed seperately at the
+normal municipal hourly rate, and nothing at the charge point says so. Two systems,
+neither of them knows the other exists.</p>
+
+<p>I started writing it down. Date, location, kWh, what the app said, what actually
+came off the card. After a few months I had a spreadsheet and a fairly clear idea
+that I was not imagining it.</p>
+
+<p>The spreadsheet got out of hand. There are 196,151 public charge points in this
+country and the parking tariffs live in separate municipal decisions, one per
+city, published as PDFs that nobody ever intended anyone to compare. So I stopped
+keeping a spreadsheet and built the thing properly instead.</p>
+
+<h2>The numbers</h2>
+
+<p>Take a normal stop. Twenty kWh over two hours, which is a top-up while you do
+something else, not a full charge.</p>
+
+<p>The electricity costs €8.20 at the national median of €0.41 per kWh. That part
+barely moves. The parking is what changes, and it changes a lot.</p>
+
+<table>
+<thead>
+<tr><th>City</th><th class="n">Parking, 2 hrs</th><th class="n">Total</th><th class="n">Parking's share</th></tr>
+</thead>
+<tbody>
+<tr><td>Delft</td><td class="n">€7.28</td><td class="n">€15.48</td><td class="n">47%</td></tr>
+<tr><td>Utrecht</td><td class="n">€7.16</td><td class="n">€15.36</td><td class="n">47%</td></tr>
+<tr><td>Haarlem</td><td class="n">€6.98</td><td class="n">€15.18</td><td class="n">46%</td></tr>
+<tr><td>The Hague</td><td class="n">€6.40</td><td class="n">€14.60</td><td class="n">44%</td></tr>
+<tr><td>Amsterdam</td><td class="n">€6.00</td><td class="n">€14.20</td><td class="n">42%</td></tr>
+<tr><td>Nijmegen</td><td class="n">€5.80</td><td class="n">€14.00</td><td class="n">41%</td></tr>
+<tr><td>Zwolle</td><td class="n">€5.46</td><td class="n">€13.66</td><td class="n">40%</td></tr>
+<tr><td>Groningen</td><td class="n">€4.50</td><td class="n">€12.70</td><td class="n">35%</td></tr>
+<tr><td>Maastricht</td><td class="n">€4.34</td><td class="n">€12.54</td><td class="n">35%</td></tr>
+<tr><td>Rotterdam</td><td class="n">€4.00</td><td class="n">€12.20</td><td class="n">33%</td></tr>
+<tr><td>Breda</td><td class="n">€4.00</td><td class="n">€12.20</td><td class="n">33%</td></tr>
+<tr><td>Tilburg</td><td class="n">€4.00</td><td class="n">€12.20</td><td class="n">33%</td></tr>
+<tr><td>Leiden</td><td class="n">€3.80</td><td class="n">€12.00</td><td class="n">32%</td></tr>
+<tr><td>Eindhoven</td><td class="n">€3.00</td><td class="n">€11.20</td><td class="n">27%</td></tr>
+</tbody>
+</table>
+
+<p>So in Delft nearly half of what you pay to charge your car isn't electricity.
+Haarlem was worse than Amsterdam, which explains that trip.</p>
+
+<p>At least 12,667 Dutch charge points sit inside a paid parking area. Nobody is
+doing anything wrong here. It's just two billing systems running in parallel,
+both working exactly as intended.</p>
+
+<h2>The other half of it</h2>
+
+<p>While I was digging I found the bit that annoyed me more.</p>
+
+<p>The median is €0.41 per kWh. But most chargers land somewhere between €0.28 and
+€0.63. Same grid, same electricity. The only variable is whose logo is on the
+post.</p>
+
+<p>Vattenfall InCharge averages €0.32. E-Flux by Road averages €0.51. That's about
+60% more for an identical electron, and you find out after you've connected.</p>
+
+<p>Two invisible variables, stacked. An eleven euro stop and a twenty euro stop
+look exactly the same from the driver's seat.</p>
+
+<h2>So I built a thing</h2>
+
+<p>Every public charge point in the country, what its operator charges, and the
+parking tariff for the ground underneath it. Added together, for however long you
+actually plan to stay.</p>
+
+<p>It's free. No sign-up, no app, no account. I'm not selling anything, which I
+only mention because it's a fair thing to wonder about.</p>
+
+<p><a href="https://parkingnetherlands.com">parkingnetherlands.com</a></p>
+
+<p>If you never use it, fine. But check whether the bay is in a paid zone before
+you plug in. It takes five seconds and it's the single biggest avoidable cost
+here. And don't drive to a cheaper city, it saves you almost nothing. Picking a
+different post saves you far more.</p>
+
+<p class="note">Charging data: national charge point register via NDW and DOT-NL.
+Parking tariffs: national parking register, 323 register-listed garages across 14
+cities, snapshot 30 September 2026. Both datasets are published openly on the site.
+If my arithmetic is wrong I'd like to know, it's my bill too.</p>
+
+</body></html>
