@@ -1,8 +1,8 @@
 # Data-licence compliance report
 
-Generated 2026-10-01 by scripts/compliance/audit.py
+Generated 2026-10-02 by scripts/compliance/audit.py
 
-**0 hard findings** across 0 files, **4212 warnings** across 1460 files.
+**0 hard findings** across 0 files, **4216 warnings** across 1462 files.
 
 ## Sources in use
 
@@ -14,19 +14,19 @@ Generated 2026-10-01 by scripts/compliance/audit.py
 - **CBS / Statistics Netherlands**: 62 file(s). Licence: CC BY 4.0. Terms: https://www.cbs.nl/en-gb/about-us/website/copyright
 - **Stad Gent open data (data.stad.gent real-time parking)**: 1 file(s). Licence: UNVERIFIED: dataset pages state their own licence (usually Modellicentie Gratis Hergebruik / CC0). Terms: https://data.stad.gent/
 - **PDOK Locatieserver (Kadaster) address and postcode search**: 1 file(s). Licence: Open data (BAG, CC0); PDOK asks for fair use and attribution. Terms: https://www.pdok.nl/voorwaarden
-- **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 1456 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/
-- **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 1458 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
+- **Google AdSense on EU visitors: consent + privacy notice (AVG/ePrivacy, Google EU user consent policy)**: 1458 file(s). Licence: policy. Terms: https://www.google.com/about/company/user-consent-policy/
+- **Affiliate links must be disclosed (Reclamecode Social Media & Influencer Marketing, Google rel=sponsored)**: 1460 file(s). Licence: policy. Terms: https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links
 - **Google Analytics 4 (Consent Mode v2: no cookies before consent)**: 1 file(s). Licence: policy. Terms: https://support.google.com/analytics/answer/9976101
-- **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 1457 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
+- **Google Fonts loaded from Google servers (IP transfer; German courts have fined this under GDPR)**: 1459 file(s). Licence: policy. Terms: https://developers.google.com/fonts/faq/privacy
 
 ## Findings
 
 ### [WARN] adsense_consent: confirm the GDPR consent message is PUBLISHED in AdSense > Privacy & messaging; without it personalised ads in the EEA breach Google's policy and the AVG
-1456 file(s): 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html, breda.html ... +1444 more
+1458 file(s): 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html, breda.html ... +1446 more
 > e.g. `never-pay-parking-amsterdam.html`: …async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous">…
 
 ### [WARN] google_fonts: fonts are fetched from Google on every visit; self-hosting removes the transfer
-1457 file(s): 404.html, 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html ... +1445 more
+1459 file(s): 404.html, 50five-storing.html, about.html, all-cities.html, allego-storing.html, amsterdam-cheap-parking.html, amsterdam-parking-tourist.html, amsterdam-pr-guide.html, amsterdam.html, belgium-parking.html, blog.html, bp-pulse-storing.html ... +1447 more
 > e.g. `never-pay-parking-amsterdam.html`: …ay-parking-amsterdam"> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" c…
 
 ### [WARN] osm_tiles: site is ad-funded and serves 330+ map pages from the volunteer OSM tile server; the policy allows this but can cut access without notice. Consider CARTO basemaps or self-hosted tiles.
