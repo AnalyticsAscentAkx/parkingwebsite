@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Why your charging bill is bigger than the app said</title>
+<title>You pay twice to charge a car here, and nothing shows you both</title>
 <style>
   @page { size: A4; margin: 18mm 20mm; }
   body { font: 11.3pt/1.55 Georgia, "Times New Roman", serif; color:#1a1a1a; }
-  h1 { font-size: 19pt; line-height:1.25; margin:0 0 4px; }
-  .sub { color:#555; font-size:10pt; margin:0 0 26px; font-style:italic; }
+  h1 { font-size: 18.5pt; line-height:1.25; margin:0 0 4px; }
+  .sub { color:#555; font-size:10pt; margin:0 0 24px; font-style:italic; }
   h2 { font-size:12.5pt; margin:20px 0 7px; page-break-after:avoid; }
   p { margin:0 0 10px; }
   table { border-collapse:collapse; width:100%; margin:12px 0 14px; font-size:9.8pt; }
@@ -14,47 +14,48 @@
   th,td { text-align:left; padding:3px 8px; border-bottom:1px solid #eee; }
   th { border-bottom:1.5px solid #333; font-size:9.5pt; text-transform:uppercase; letter-spacing:.04em; }
   td.n, th.n { text-align:right; }
-  .note { font-size:9.5pt; color:#555; border-top:1px solid #ddd; padding-top:10px; margin-top:26px; }
+  .note { font-size:9.5pt; color:#555; border-top:1px solid #ddd; padding-top:10px; margin-top:24px; }
   a { color:#1a4fd6; }
 </style></head><body>
 
-<h1>Why your charging bill is bigger than the app said</h1>
-<p class="sub">By [your name]</p>
+<h1>You pay twice to charge a car here, and nothing shows you both</h1>
+<p class="sub">By Dr Aakash Chavan Ravindranath</p>
 
-<p>The first time it happened I assumed I'd misread the app.</p>
+<p>Charging an electric car in the Netherlands involves two separate payments,
+and most of us only ever think about one of them.</p>
 
-<p>I plugged in on a side street off the Overtoom, went for lunch, came back about
-two hours later and the total was a few euros more than I'd worked out in my head.
-Not a disaster. Just annoying, and vague enough that I couldn't be bothered to
-chase it.</p>
+<p>The electricity goes through your charge card. You hold the card against the
+post, the kWh are metered, and that bill comes from whoever issued the card.
+Straightforward enough.</p>
 
-<p>Then it happened in Utrecht. Then in Haarlem, where it was worse.</p>
+<p>The parking is the other one. A charging bay inside a paid parking zone is
+still a paid parking space. The street tariff runs for the whole time you are
+plugged in, you pay it through a completely different app or meter, and nothing
+at the charge point mentions it.</p>
 
-<h2>What I eventually figured out</h2>
+<p>Two bills, two companies, no connection between them. Which means when you
+are deciding where to go, you can see one number and not the other.</p>
 
-<p>A charging bay inside a paid parking zone is still a paid parking space.</p>
+<h2>What I was actually trying to do</h2>
 
-<p>That's the whole thing. The electricity is metered, priced, and shown to you.
-The ground your car is standing on while it charges is billed seperately at the
-normal municipal hourly rate, and nothing at the charge point says so. Two systems,
-neither of them knows the other exists.</p>
+<p>I wanted to find a cheap charger with cheap parking. That is the entire
+question, and I could not find anywhere that answers it.</p>
 
-<p>I started writing it down. Date, location, kWh, what the app said, what actually
-came off the card. After a few months I had a spreadsheet and a fairly clear idea
-that I was not imagining it.</p>
+<p>There are plenty of apps that show charger prices. There are plenty that
+handle parking. I could not find one that puts them together, which seems odd,
+because the two costs are completely entangled and you cannot avoid either.</p>
 
-<p>The spreadsheet got out of hand. There are 196,151 public charge points in this
-country and the parking tariffs live in separate municipal decisions, one per
-city, published as PDFs that nobody ever intended anyone to compare. So I stopped
-keeping a spreadsheet and built the thing properly instead.</p>
+<p>So I went and got the data instead. The national charge point register has
+every public post in the country. The national parking register has the tariffs.
+Both are public. As far as I could tell nobody had joined them, so I did.</p>
 
-<h2>The numbers</h2>
+<h2>What the join shows</h2>
 
-<p>Take a normal stop. Twenty kWh over two hours, which is a top-up while you do
-something else, not a full charge.</p>
+<p>Take an ordinary stop. Twenty kWh over two hours, a top-up while you do
+something else rather than a full charge.</p>
 
-<p>The electricity costs €8.20 at the national median of €0.41 per kWh. That part
-barely moves. The parking is what changes, and it changes a lot.</p>
+<p>The electricity comes to €8.20 at the national median of €0.41 per kWh, and
+that figure barely moves around the country. The parking is what changes.</p>
 
 <table>
 <thead>
@@ -78,46 +79,48 @@ barely moves. The parking is what changes, and it changes a lot.</p>
 </tbody>
 </table>
 
-<p>So in Delft nearly half of what you pay to charge your car isn't electricity.
-Haarlem was worse than Amsterdam, which explains that trip.</p>
+<p>In Delft and Utrecht nearly half of what a charging stop costs you is not
+electricity. Across these fourteen cities the average is 38%.</p>
 
 <p>At least 12,667 Dutch charge points sit inside a paid parking area. Nobody is
-doing anything wrong here. It's just two billing systems running in parallel,
-both working exactly as intended.</p>
+doing anything underhand. It is two systems that were built seperately and have
+no particular reason to talk to each other.</p>
 
-<h2>The other half of it</h2>
+<h2>The variables you cannot see</h2>
 
-<p>While I was digging I found the bit that annoyed me more.</p>
+<p>The electricity is not one price either. The median is €0.41 per kWh, but
+most posts land somewhere between €0.28 and €0.63. Same grid, same electricity.
+The variable is whose logo is on the post. Vattenfall InCharge averages €0.32,
+E-Flux by Road averages €0.51.</p>
 
-<p>The median is €0.41 per kWh. But most chargers land somewhere between €0.28 and
-€0.63. Same grid, same electricity. The only variable is whose logo is on the
-post.</p>
+<p>Then there is the card. Each charge card negotiates its own rate with each
+operator, so the cheapest card is a different card at different posts. At one
+socket the gap between the best and worst card commonly runs 40 to 70 percent.</p>
 
-<p>Vattenfall InCharge averages €0.32. E-Flux by Road averages €0.51. That's about
-60% more for an identical electron, and you find out after you've connected.</p>
+<p>Operator, card, parking. Three things moving at once, none of which you can
+compare while standing on a pavement.</p>
 
-<p>Two invisible variables, stacked. An eleven euro stop and a twenty euro stop
-look exactly the same from the driver's seat.</p>
+<h2>What I built</h2>
 
-<h2>So I built a thing</h2>
+<p>Every public charge point in the country, what the electricity costs there,
+and the parking tariff for the ground underneath it, added together for however
+long you actually intend to stay.</p>
 
-<p>Every public charge point in the country, what its operator charges, and the
-parking tariff for the ground underneath it. Added together, for however long you
-actually plan to stay.</p>
-
-<p>It's free. No sign-up, no app, no account. I'm not selling anything, which I
-only mention because it's a fair thing to wonder about.</p>
+<p>It is free, there is no sign-up and no app, and I am not selling anything. I
+mention that because it is a fair thing to wonder about.</p>
 
 <p><a href="https://parkingnetherlands.com">parkingnetherlands.com</a></p>
 
-<p>If you never use it, fine. But check whether the bay is in a paid zone before
-you plug in. It takes five seconds and it's the single biggest avoidable cost
-here. And don't drive to a cheaper city, it saves you almost nothing. Picking a
-different post saves you far more.</p>
+<p>Even if you never use it, the habit worth having is checking whether the bay
+sits in a paid zone before you plug in. It takes seconds and it is the largest
+avoidable cost here. Driving to a cheaper city saves you very little, the gap
+between two posts on the same street can be much bigger.</p>
 
-<p class="note">Charging data: national charge point register via NDW and DOT-NL.
-Parking tariffs: national parking register, 323 register-listed garages across 14
-cities, snapshot 30 September 2026. Both datasets are published openly on the site.
-If my arithmetic is wrong I'd like to know, it's my bill too.</p>
+<p class="note">Charging data: the national charge point register via NDW and
+DOT-NL. Parking tariffs: the national parking register, 323 register-listed
+garages across 14 cities, snapshot 30 September 2026. Both datasets are
+published openly on the site. The figures above use median tariffs, so an
+individual stop will differ; if you find an error in the arithmetic I would like
+to hear about it.</p>
 
 </body></html>
