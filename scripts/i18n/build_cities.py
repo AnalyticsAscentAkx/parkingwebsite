@@ -20,6 +20,24 @@ LAADPAAL = {"the-hague": "den-haag"}; EV_NAME = {"the-hague": "Den Haag"}
 GARAGES = json.loads((ROOT / "scripts/garages.json").read_text("utf-8"))
 CITIES_EV = {c["name"]: c for c in json.loads((ROOT / "ev-data/cities.json").read_text("utf-8"))}
 ADOPTION = {r["name"]: r for r in json.loads((ROOT / "data/ev-adoption-2026.json").read_text("utf-8"))["municipalities"]}
+def fit_desc(d, limit=158):
+    """Cut a snippet at a boundary, never mid-word.
+
+    A blunt slice left live German city pages ending "Alle 10 registrierten
+    Parkhäuser mit offiziellen " and the French ones mid-word too. Same rule
+    as build_home.py and build_garages.py; this generator was the one that
+    still had the raw slice.
+    """
+    d = " ".join(d.split())
+    if len(d) <= limit:
+        return d
+    cut = d[:limit]
+    stop = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
+    if stop > 80:
+        return cut[:stop + 1]
+    return cut[:cut.rfind(" ")].rstrip(" ,;:\u2013-") + "."
+
+
 def esc(s): return H.escape(str(s), quote=True)
 def short(g): return g["name"].rsplit(" (", 1)[0]
 def priced(g): return g.get("rate_hr") is not None
@@ -183,12 +201,12 @@ def build(lang, slug):
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{esc(F("title"))}</title>
-<meta name="description" content="{esc(F("desc")[:158])}">
+<meta name="description" content="{esc(fit_desc(F("desc")))}">
 <link rel="canonical" href="{url}">
 {alts}
 <link rel="stylesheet" href="/site.css">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<meta property="og:type" content="article"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(F("title"))}"><meta property="og:description" content="{esc(F("desc")[:158])}"><meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:type" content="article"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(F("title"))}"><meta property="og:description" content="{esc(fit_desc(F("desc")))}"><meta property="og:image" content="{SITE}/og-image.png">
 <meta name="robots" content="index, follow"><meta name="author" content="Analytics Ascent">
 <script type="application/ld+json">{ld_json}</script>
 <style>
