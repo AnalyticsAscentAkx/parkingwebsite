@@ -787,6 +787,7 @@
       '<div class="ev-card-rows">' + lines +
         (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
+      (p && st[AREA] ? cheaperLater(st[AREA], w, p.park) : '') +
       (st[AREA] ? tariffSchedule(st[AREA]) : '') +
       '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) + '.' + (srcNote(st, true) ? ' Price: ' + srcNote(st, true) + '.' : '') + '</div>' +
       '<div class="ev-card-act">' + startHtml(st) + directions(st[LAT], st[LON]).replace(' is-primary', '') +
@@ -805,6 +806,39 @@
       if (narrow()) sheet('full');
       $('#evArrive').focus();
     };
+  }
+
+  /* The same stop does not cost the same all day.
+
+     The card prices the window you asked for, which is correct but static:
+     it cannot tell you that waiting an hour, or coming back this evening,
+     costs nothing. Most Dutch tariffs stop in the evening and many stop on
+     Sunday, so the saving is often the whole parking charge.
+
+     Try the same duration starting at each hour over the next two days,
+     find the cheapest, and only speak up if it beats the chosen window by
+     something worth acting on. Silence when there is no saving is the point;
+     a hint that fires every time is wallpaper. */
+  function cheaperLater(areaId, w, nowCost) {
+    if (!areaId || nowCost == null || nowCost <= 0) return '';
+    var dur = w.l - w.a, best = null;
+    for (var h = 1; h <= 48; h++) {
+      var a = new Date(w.a.getTime() + h * 3600000);
+      a.setMinutes(0, 0, 0);
+      var c = parkCost(areaId, a, new Date(a.getTime() + dur));
+      if (c == null) continue;
+      if (best === null || c < best.c) best = { c: c, a: a };
+      if (c === 0) break;                       // cannot do better than free
+    }
+    if (!best || best.c >= nowCost - 0.5) return '';
+    var saving = nowCost - best.c;
+    var sameDay = best.a.toDateString() === w.a.toDateString();
+    var when = (sameDay ? 'from ' : DOW_SHORT[best.a.getDay() === 0 ? 7 : best.a.getDay()] + ' ')
+             + hhmm(best.a);
+    return '<div class="ev-card-cheaper">'
+         + (best.c === 0 ? 'Free ' : money(best.c) + ' ')
+         + when + ', saving ' + money(saving)
+         + '<small>Same ' + Math.round(dur / 360000) / 10 + ' hour stop, later start.</small></div>';
   }
 
   function row(label, value, g) {
