@@ -717,3 +717,10 @@ h1 .sig,.lh h1 .sig,.ch h1 .sig,.fine-hero h1 .sig{color:var(--blue)}
 @media(prefers-reduced-motion:reduce){
   .pn-consent{transition:none;opacity:1;transform:none}
 }
+
+/* A garage you cannot leave outside opening hours. Rare, 12 of 323, so the
+   warning can be plain and direct without becoming background noise. */
+.g-warn{background:var(--warn-soft);border:1px solid rgba(217,119,6,.3);
+  border-radius:var(--r);padding:11px 13px;margin:14px 0;font-size:13.5px;
+  line-height:1.55;color:var(--txt)}
+.g-warn strong{color:#9a5700}

@@ -161,6 +161,13 @@ def compare(lang, g):
         else:
             ans = (cmp or "") + ((" " + re.sub(r"<[^>]+>", "", T["nearest_priced"].format(url="", alt=short(near[0]), m=f"{near[0]['_d']*1000:.0f}", h1=M(near[0]["rate_hr"]), day=M(near[0]["rate_day"])))) if near else "")
             faq.append((T["faq_q_near"].format(name=short(g)), ans.strip()))
+    # Applies whatever the tariff says, so it goes after every pricing branch
+    # rather than inside one. It was briefly an item in the "Best for" list,
+    # which read as though being unable to collect your car were a feature.
+    if g.get("exit_any_time") is False:
+        parts.append(f'<p class="g-warn"><strong>{esc(T["b_locked"])}.</strong> '
+                     f'{esc(T["access_note"])}</p>')
+
     return "\n".join(parts), faq
 
 def hours_block(lang, g):
@@ -232,6 +239,19 @@ def page(lang, g):
     if g.get("capacity"): facts += f'<tr><td>{T["f_capacity"]}</td><td class="num">{T["f_spaces"].format(n=num(lang, g["capacity"]))}</td></tr>'
     if g.get("ev_points") is not None: facts += f'<tr><td>{T["f_ev"]}</td><td class="num">{g["ev_points"] or T["f_none"]}</td></tr>'
     if g.get("max_height_cm"): facts += f'<tr><td>{T["f_height"]}</td><td class="num">{g["max_height_cm"]/100:.2f} m</td></tr>'
+    # Opening behaviour, from PARKING OPEN and PARKING TOEGANG in the register.
+    # Only stated where the register actually says so: an unmatched garage gets
+    # no row, because "we do not know" and "you can leave whenever" must not
+    # look the same to someone deciding where to leave a car overnight.
+    if g.get("exit_any_time") is not None:
+        ok = g["exit_any_time"]
+        facts += (f'<tr><td>{T["f_exit"]}</td><td>'
+                  f'{T["f_exit_any"] if ok else "<b>" + T["f_exit_no"] + "</b>"}</td></tr>')
+    if g.get("open_all_year") is False:
+        facts += f'<tr><td>{T["f_year"]}</td><td>{T["f_year_no"]}</td></tr>'
+    if g.get("entry_hours"):
+        eh = " · ".join(f"{d} {h}" for d, h in g["entry_hours"].items())
+        facts += f'<tr><td>{T["f_entry"]}</td><td class="num">{esc(eh)}</td></tr>'
     facts += f'<tr><td>{T["f_type"]}</td><td>{T["f_type_pr"] if g.get("is_pr") else T["f_type_garage"]}</td></tr><tr><td>{T["f_coords"]}</td><td class="num">{g["lat"]:.5f}, {g["lng"]:.5f}</td></tr><tr><td>{T["f_code"]}</td><td class="num">{esc(g["areaid"])}</td></tr>'
     nearby = sorted([o for o in STATS[city]["all"] if o["slug"] != g["slug"]], key=lambda o: hav(g, o))[:5]
     near_html = "".join(f'<tr><td><a href="{garage_url(lang, n["slug"])}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short(n))}</a></td><td class="num">{hav(g, n)*1000:.0f} m</td><td class="price">{(M(n["rate_hr"]) + "/h") if n.get("rate_hr") else "-"}</td></tr>' for n in nearby)

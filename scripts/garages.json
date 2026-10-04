@@ -75,7 +75,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_6e422b0b",
@@ -170,7 +172,9 @@
      103.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_ddcdd081",
@@ -223,7 +227,15 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "entry_hours": {
+   "Mon": "09:00-19:00",
+   "Tue": "09:00-19:00",
+   "Wed": "09:00-19:00",
+   "Thu": "09:00-19:00",
+   "Fri": "09:00-19:00",
+   "Sat": "12:00-19:00"
+  }
  },
  {
   "areaid": "GAR043BAN",
@@ -239,7 +251,18 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:30-21:00",
+   "Tue": "07:30-21:00",
+   "Wed": "07:30-21:00",
+   "Thu": "07:30-21:00",
+   "Fri": "07:30-21:00",
+   "Sat": "07:30-21:00",
+   "Sun": "08:00-20:00"
+  }
  },
  {
   "areaid": "GRV021HAL",
@@ -255,7 +278,17 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
+  }
  },
  {
   "areaid": "NPR_0192291b",
@@ -382,7 +415,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_eb79ab5a",
@@ -417,7 +452,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GRV017YOE",
@@ -568,7 +605,9 @@
      103.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GRV004MP",
@@ -584,7 +623,18 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
+  }
  },
  {
   "areaid": "NPR_f4b9fb6b",
@@ -619,7 +669,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GRV014ODE",
@@ -635,7 +687,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_6fd23205",
@@ -747,7 +801,9 @@
      128.88
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_AREN",
@@ -825,7 +881,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_PLAZ",
@@ -903,7 +961,9 @@
      58.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR029P10",
@@ -919,7 +979,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_HES",
@@ -997,7 +1059,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR030P18",
@@ -1013,7 +1077,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_BOME",
@@ -1083,7 +1149,9 @@
      26.6
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "NPR_c6158c5f",
@@ -1177,7 +1245,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_VIL4",
@@ -1255,6 +1325,17 @@
      72.0
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "08:00-22:00",
+   "Tue": "08:00-22:00",
+   "Wed": "08:00-22:00",
+   "Thu": "08:00-22:00",
+   "Fri": "08:00-22:00",
+   "Sat": "08:00-22:00",
+   "Sun": "08:00-22:00"
   }
  },
  {
@@ -1271,7 +1352,18 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "08:00-22:00",
+   "Tue": "08:00-22:00",
+   "Wed": "08:00-22:00",
+   "Thu": "08:00-22:00",
+   "Fri": "08:00-22:00",
+   "Sat": "08:00-22:00",
+   "Sun": "08:00-22:00"
+  }
  },
  {
   "areaid": "363_VIL5",
@@ -1349,7 +1441,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_PATH",
@@ -1427,7 +1521,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_7f71b2b8",
@@ -1462,7 +1558,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_92871f2d",
@@ -1497,7 +1595,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR070SGR",
@@ -1591,7 +1691,9 @@
      151.2
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_a63813f7",
@@ -1723,7 +1825,9 @@
      151.2
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR065OPG",
@@ -1739,7 +1843,17 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "08:00-22:00",
+   "Tue": "08:00-22:00",
+   "Wed": "08:00-22:00",
+   "Thu": "08:00-22:00",
+   "Fri": "08:00-22:00",
+   "Sat": "08:00-22:00",
+   "Sun": "08:00-22:00"
+  }
  },
  {
   "areaid": "363_PRAR",
@@ -1817,7 +1931,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "363_PRBO",
@@ -1955,7 +2071,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "GAR042PRN",
@@ -2109,7 +2227,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_PRRAI",
@@ -2246,7 +2366,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_PRSL",
@@ -2384,7 +2506,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_PRVU",
@@ -2437,7 +2561,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": false,
+  "open_all_year": false
  },
  {
   "areaid": "363_PRZE",
@@ -2575,7 +2701,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR071ZB1",
@@ -2729,7 +2857,9 @@
      1.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR064ZB3",
@@ -2745,7 +2875,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_caa78d3b",
@@ -2779,7 +2911,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_VUP1",
@@ -2795,7 +2929,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_VUP2",
@@ -2811,7 +2947,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_VUP3",
@@ -2827,7 +2965,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_TTA",
@@ -2859,7 +2999,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "363_ARTIS",
@@ -2875,7 +3017,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR059P07",
@@ -2891,7 +3035,9 @@
   "regulations": [
    "GAR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_c022b0e7",
@@ -2988,7 +3134,9 @@
      103.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_71bd7e11",
@@ -3052,7 +3200,9 @@
      12.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_dd4505ae",
@@ -3144,7 +3294,9 @@
   "regulations": [
    "758_CHAS"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "758_BARON",
@@ -3160,7 +3312,9 @@
   "regulations": [
    "758_BARON"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "758_PRIN",
@@ -3176,7 +3330,9 @@
   "regulations": [
    "758_PRIN"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "758_TURF",
@@ -3192,7 +3348,9 @@
   "regulations": [
    "758_TURF"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "758_CONC",
@@ -3208,7 +3366,9 @@
   "regulations": [
    "758_CONC"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": false,
+  "open_all_year": false
  },
  {
   "areaid": "758_PRBRP",
@@ -3285,7 +3445,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_d5565e93",
@@ -3582,7 +3744,9 @@
      72.64
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "503_PRDZU",
@@ -3659,7 +3823,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "503_PHOE",
@@ -3737,7 +3903,9 @@
      30.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "503_PRINS",
@@ -3815,7 +3983,9 @@
      72.64
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "503_ZUID",
@@ -3893,7 +4063,9 @@
      72.64
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "772_CPNUE",
@@ -3909,7 +4081,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_733120f4",
@@ -4213,7 +4387,9 @@
      36.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_049aa9d4",
@@ -4643,7 +4819,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "PENRHAREN",
@@ -4659,7 +4837,9 @@
   "regulations": [
    "PENR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_cf95aa52",
@@ -4691,7 +4871,9 @@
   "regulations": [
    "PENR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "PENRKARD",
@@ -4707,7 +4889,9 @@
   "regulations": [
    "PENR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "PENRMEERS",
@@ -4723,7 +4907,9 @@
   "regulations": [
    "PENR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "PENRREITD",
@@ -4739,7 +4925,9 @@
   "regulations": [
    "PENR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_6e5ad176",
@@ -4886,7 +5074,9 @@
      66.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "CIR",
@@ -4964,7 +5154,9 @@
      58.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "PGD",
@@ -5042,7 +5234,9 @@
      66.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "EUR",
@@ -5120,7 +5314,9 @@
      36.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "FOR",
@@ -5198,7 +5394,9 @@
      80.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "STEUR",
@@ -5276,7 +5474,9 @@
      36.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_CRO",
@@ -5355,7 +5555,9 @@
      38.88
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_APP",
@@ -5434,7 +5636,9 @@
      96.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_KAMP",
@@ -5513,7 +5717,9 @@
      83.76
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_DRE",
@@ -5592,7 +5798,9 @@
      62.88
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_FLO",
@@ -5678,7 +5886,9 @@
      28.8
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_HOUT",
@@ -5757,7 +5967,9 @@
      83.76
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_RAA",
@@ -5836,7 +6048,9 @@
      83.76
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_e2532484",
@@ -5929,7 +6143,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "392_PRSPA",
@@ -6006,7 +6222,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_161cd572",
@@ -6187,6 +6405,17 @@
      24.0
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -6265,6 +6494,16 @@
      67.2
     ]
    ]
+  },
+  "exit_any_time": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -6343,6 +6582,17 @@
      37.2
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "08:00-24:00",
+   "Tue": "08:00-24:00",
+   "Wed": "08:00-24:00",
+   "Thu": "08:00-24:00",
+   "Fri": "08:00-24:00",
+   "Sat": "08:00-24:00",
+   "Sun": "10:00-24:00"
   }
  },
  {
@@ -6463,6 +6713,17 @@
      67.2
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -6559,6 +6820,17 @@
      34.5
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-23:00",
+   "Tue": "07:00-23:00",
+   "Wed": "07:00-23:00",
+   "Thu": "07:00-23:00",
+   "Fri": "07:00-23:00",
+   "Sat": "07:00-23:00",
+   "Sun": "07:00-23:00"
   }
  },
  {
@@ -6637,6 +6909,17 @@
      34.5
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-23:00",
+   "Tue": "07:00-23:00",
+   "Wed": "07:00-23:00",
+   "Thu": "07:00-23:00",
+   "Fri": "07:00-23:00",
+   "Sat": "07:00-23:00",
+   "Sun": "07:00-23:00"
   }
  },
  {
@@ -6715,7 +6998,9 @@
      2230.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_7395d1c9",
@@ -6815,7 +7100,9 @@
   "regulations": [
    "935_PRMNO"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "935_PRMNO2",
@@ -6831,7 +7118,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "935_PRMRA",
@@ -6847,7 +7136,9 @@
   "regulations": [
    "935_PRMRA"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "935_PRMRW",
@@ -6863,7 +7154,9 @@
   "regulations": [
    "935_PRMRW"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_af0b223f",
@@ -6957,7 +7250,9 @@
      7.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "268_CANSPO",
@@ -7043,7 +7338,8 @@
      39.15
     ]
    ]
-  }
+  },
+  "exit_any_time": true
  },
  {
   "areaid": "NPR_76052908",
@@ -7242,6 +7538,17 @@
      12.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "10:00-24:00"
   }
  },
  {
@@ -7420,6 +7727,17 @@
      12.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "05:00-24:00",
+   "Tue": "05:00-24:00",
+   "Wed": "05:00-24:00",
+   "Thu": "05:00-24:00",
+   "Fri": "05:00-24:00",
+   "Sat": "05:45-24:00",
+   "Sun": "06:45-24:00"
   }
  },
  {
@@ -7582,6 +7900,17 @@
      12.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "10:00-24:00"
   }
  },
  {
@@ -7744,6 +8073,17 @@
      12.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "10:00-24:00"
   }
  },
  {
@@ -7839,7 +8179,9 @@
      3.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "268_PRWES",
@@ -7916,7 +8258,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "268_PRLEN",
@@ -7993,7 +8337,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "268_CANIJO",
@@ -8062,6 +8408,15 @@
      42.75
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "09:00-16:30",
+   "Tue": "09:00-16:30",
+   "Wed": "09:00-16:30",
+   "Thu": "09:00-16:30",
+   "Fri": "09:00-16:30"
   }
  },
  {
@@ -8163,6 +8518,17 @@
      72.0
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "10:00-24:00"
   }
  },
  {
@@ -8345,7 +8711,9 @@
      39.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_5516a177",
@@ -8458,7 +8826,9 @@
      39.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "COLWEG",
@@ -8536,7 +8906,9 @@
      39.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "DEBOOMPJES",
@@ -8698,7 +9070,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_83681793",
@@ -8876,7 +9250,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_f3795fbd",
@@ -8989,7 +9365,9 @@
      38.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_8b7e1a23",
@@ -9169,7 +9547,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_5599078d",
@@ -9285,7 +9665,9 @@
      39.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_c8131e4c",
@@ -9382,7 +9764,9 @@
      39.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "MEENT",
@@ -9544,7 +9928,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "MUSEUMPARK",
@@ -9706,7 +10092,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NWBINWG",
@@ -9784,7 +10172,9 @@
      40.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "OUDEHAVE",
@@ -9946,7 +10336,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_PL53",
@@ -9962,7 +10354,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": false
  },
  {
   "areaid": "SCHBP1",
@@ -10040,7 +10434,9 @@
      41.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "SCHBP2",
@@ -10202,7 +10598,9 @@
      50.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_306d589c",
@@ -10299,7 +10697,9 @@
      40.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_6e8f92ee",
@@ -10430,7 +10830,9 @@
      31.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_PRAL",
@@ -10508,7 +10910,9 @@
      42.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_BEVER",
@@ -10585,7 +10989,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_CAPEL",
@@ -10662,7 +11068,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_HOOGPR",
@@ -10739,7 +11147,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_HOOGTU",
@@ -10816,7 +11226,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_HOOGZA",
@@ -10893,7 +11305,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_KRAL",
@@ -10971,7 +11385,9 @@
      42.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_MPLEIN",
@@ -11049,7 +11465,9 @@
      42.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_MELAN",
@@ -11126,7 +11544,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_NESSE",
@@ -11203,7 +11623,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_NOORD",
@@ -11280,7 +11702,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_PERNIS",
@@ -11357,7 +11781,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_32b5007c",
@@ -11450,7 +11876,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_PRSL",
@@ -11528,7 +11956,9 @@
      42.5
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "599_PRLOM",
@@ -11605,7 +12035,9 @@
      0.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_fe96d489",
@@ -11739,7 +12171,9 @@
      105.6
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_2e7daa83",
@@ -11909,6 +12343,15 @@
      84.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "06:00-24:00",
+   "Tue": "06:00-24:00",
+   "Wed": "06:00-24:00",
+   "Thu": "06:00-24:00",
+   "Fri": "06:00-24:00",
+   "Sat": "06:00-24:00",
+   "Sun": "06:00-24:00"
   }
  },
  {
@@ -12024,6 +12467,16 @@
      96.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "entry_hours": {
+   "Mon": "18:00-24:00",
+   "Tue": "18:00-24:00",
+   "Wed": "18:00-24:00",
+   "Thu": "18:00-24:00",
+   "Fri": "18:00-24:00",
+   "Sat": "09:00-24:00",
+   "Sun": "09:30-24:00"
   }
  },
  {
@@ -12102,7 +12555,9 @@
      96.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_2b66d72a",
@@ -12187,7 +12642,9 @@
   "regulations": [
    "PR01"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_fc687c9c",
@@ -12298,6 +12755,14 @@
      5.0
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": false,
+  "entry_hours": {
+   "Mon": "00:00-02:00",
+   "Fri": "18:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -12314,7 +12779,9 @@
   "regulations": [
    "PR01"
   ],
-  "is_pr": true
+  "is_pr": true,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_359187cb",
@@ -12546,6 +13013,16 @@
      72.0
     ]
    ]
+  },
+  "exit_any_time": true,
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -12676,6 +13153,15 @@
      72.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -12754,6 +13240,15 @@
      60.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "07:45-22:30",
+   "Tue": "07:45-22:30",
+   "Wed": "07:45-22:30",
+   "Thu": "07:45-22:30",
+   "Fri": "07:45-22:30",
+   "Sat": "07:45-22:30",
+   "Sun": "08:45-20:30"
   }
  },
  {
@@ -12770,7 +13265,9 @@
   "regulations": [
    "AUTO-NPR"
   ],
-  "is_pr": false
+  "is_pr": false,
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "GAR_KONING",
@@ -12900,6 +13397,15 @@
      72.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -13030,6 +13536,15 @@
      72.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -13160,6 +13675,15 @@
      72.0
     ]
    ]
+  },
+  "entry_hours": {
+   "Mon": "07:00-24:00",
+   "Tue": "07:00-24:00",
+   "Wed": "07:00-24:00",
+   "Thu": "07:00-24:00",
+   "Fri": "07:00-24:00",
+   "Sat": "07:00-24:00",
+   "Sun": "07:00-24:00"
   }
  },
  {
@@ -13305,7 +13829,8 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true
  },
  {
   "areaid": "TER_BOERP",
@@ -13480,7 +14005,9 @@
      72.0
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "CROESELAAN",
@@ -13559,7 +14086,8 @@
      148.8
     ]
    ]
-  }
+  },
+  "exit_any_time": true
  },
  {
   "areaid": "GRIFTHOEK",
@@ -13642,6 +14170,17 @@
      68.4
     ]
    ]
+  },
+  "exit_any_time": false,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "07:00-23:00",
+   "Tue": "07:00-23:00",
+   "Wed": "07:00-23:00",
+   "Thu": "07:00-23:00",
+   "Fri": "07:00-23:00",
+   "Sat": "07:00-23:00",
+   "Sun": "07:00-23:00"
   }
  },
  {
@@ -13725,7 +14264,9 @@
      85.92
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "KRUISSTR",
@@ -13804,7 +14345,9 @@
      109.92
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_200e0f50",
@@ -13960,7 +14503,9 @@
      85.92
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_d9d65c67",
@@ -14062,7 +14607,9 @@
      104.16
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "DE UITHOF",
@@ -14150,7 +14697,9 @@
      104.16
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "WESTRAVEN",
@@ -14238,7 +14787,9 @@
      104.16
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "NPR_809116db",
@@ -14373,6 +14924,17 @@
      31.2
     ]
    ]
+  },
+  "exit_any_time": true,
+  "open_all_year": true,
+  "entry_hours": {
+   "Mon": "09:00-20:00",
+   "Tue": "09:00-20:00",
+   "Wed": "09:00-20:00",
+   "Thu": "09:00-21:00",
+   "Fri": "09:00-20:00",
+   "Sat": "09:00-20:00",
+   "Sun": "13:00-17:00"
   }
  },
  {
@@ -14459,7 +15021,9 @@
      52.8
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_EMMKEL",
@@ -14545,7 +15109,9 @@
      52.8
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_KATW",
@@ -14631,7 +15197,9 @@
      65.45
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_LUBECK",
@@ -14717,7 +15285,9 @@
      31.2
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_NOORD",
@@ -14805,7 +15375,9 @@
      65.45
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_NOORDK",
@@ -14893,7 +15465,9 @@
      65.45
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_DEUX",
@@ -14979,7 +15553,9 @@
      31.2
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "193_HLAND",
@@ -15073,7 +15649,9 @@
      31.2
     ]
    ]
-  }
+  },
+  "exit_any_time": true,
+  "open_all_year": true
  },
  {
   "areaid": "ZN2_ALBC",
