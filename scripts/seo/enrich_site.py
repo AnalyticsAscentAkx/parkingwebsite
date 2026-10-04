@@ -35,6 +35,19 @@ CITY_LABEL = {
 }
 GARAGES = json.loads((ROOT / "scripts/garages.json").read_text("utf-8"))
 
+def fit_desc(d, limit=158):
+    """Cut at a boundary, never mid-word. A blunt slice left the price index
+    page ending "Free CSV, CC B" in the search results."""
+    d = " ".join(d.split())
+    if len(d) <= limit:
+        return d
+    cut = d[:limit]
+    stop = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
+    if stop > 80:
+        return cut[:stop + 1]
+    return cut[:cut.rfind(" ")].rstrip(" ,;:-") + "."
+
+
 def git_date(path):
     out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", str(path)],
                          cwd=ROOT, capture_output=True, text=True).stdout.strip()
@@ -441,8 +454,13 @@ def do_index():
     faq_html = "".join(f"<details class=\"faq-item\"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in faq)
     cite = f"Parking Netherlands ({YEAR}). Netherlands Parking Price Index {YEAR}: median garage tariffs in {nat['cities']} cities from national parking register data. {SITE}/parking-price-index"
     embed = esc(f'<a href="{SITE}/parking-price-index">Netherlands Parking Price Index {YEAR}</a>: {top["city"]} is the most expensive Dutch city for garage parking at a median {eur(top["median_1h_eur"])}/hour; {low["city"]} the cheapest at {eur(low["median_1h_eur"])}/hour (Parking Netherlands, national register data).')
-    desc = f"Median garage parking rates in {nat['cities']} Dutch cities from {nat['priced']} register-listed tariffs: {top['city']} {eur(top['median_1h_eur'])}/h tops the index, {low['city']} {eur(low['median_1h_eur'])}/h is cheapest. Free CSV, CC BY."
-    desc = desc[:158]
+    # Kept short enough to survive the 158-character slice below with its last
+    # sentence intact. The longer version was cut at "Free CSV, CC B".
+    desc = (f"Median garage parking rates in {nat['cities']} Dutch cities from "
+            f"{nat['priced']} register-listed tariffs. {top['city']} tops the index "
+            f"at {eur(top['median_1h_eur'])} an hour, {low['city']} is cheapest "
+            f"at {eur(low['median_1h_eur'])}.")
+    desc = fit_desc(desc)
     ld_json = json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")
     page = f"""<!DOCTYPE html>
 <html lang="en">
