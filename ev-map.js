@@ -257,6 +257,70 @@
     return total;
   }
 
+  var DOW_SHORT = {1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat',7:'Sun'};
+
+  /* When is this spot actually paid?
+
+     Drivers reported prices that looked wrong, and the cause was that a price
+     is only ever true for the window you asked about. 78% of priced areas have
+     uncovered hours between 08:00 and 22:00 and 36% have no Sunday window at
+     all, so outside the paid hours the cost really is zero. That is correct,
+     but a bare number with no hours attached invites people to read it as the
+     price all day.
+
+     So show the schedule. Consecutive days with identical hours are grouped,
+     and a day with no window is named as free rather than left out, because an
+     absent day is the thing people most often get wrong. */
+  function tariffSchedule(areaId) {
+    var t = tariffs[areaId];
+    if (!t || !t.w || !t.w.length) return '';
+    var byDay = {};
+    for (var i = 0; i < t.w.length; i++) {
+      var d = t.w[i][0], code = t.w[i][3];
+      var rate = t.f && t.f[code] ? ladderCost(t.f[code], 60) : null;
+      if (rate === 0) continue;                 // an explicit free window
+      (byDay[d] = byDay[d] || []).push([t.w[i][1], t.w[i][2], rate]);
+    }
+    function label(d) {
+      var iv = byDay[d];
+      if (!iv || !iv.length) return 'free';
+      iv.sort(function (a, b) { return a[0] - b[0]; });
+      var parts = [], cur = iv[0].slice();
+      for (var j = 1; j < iv.length; j++) {
+        if (iv[j][0] <= cur[1]) { cur[1] = Math.max(cur[1], iv[j][1]); }
+        else { parts.push(cur); cur = iv[j].slice(); }
+      }
+      parts.push(cur);
+      return parts.map(function (x) { return min2hhmm(x[0]) + '-' + min2hhmm(x[1]); }).join(', ');
+    }
+    var rows = [], run = null;
+    for (var d = 1; d <= 7; d++) {
+      var l = label(d);
+      if (run && run.l === l) { run.to = d; continue; }
+      if (run) rows.push(run);
+      run = { from: d, to: d, l: l };
+    }
+    if (run) rows.push(run);
+    var html = rows.map(function (r) {
+      var days = r.from === r.to ? DOW_SHORT[r.from]
+               : DOW_SHORT[r.from] + ' to ' + DOW_SHORT[r.to];
+      return '<div class="ev-sched-row"><span>' + days + '</span><b'
+           + (r.l === 'free' ? ' class="is-free"' : '') + '>' + r.l + '</b></div>';
+    }).join('');
+    return '<details class="ev-sched"><summary>When this spot is paid</summary>'
+         + html
+         + '<div class="ev-sched-note">Outside these hours parking here is free. '
+         + 'Times come from the national parking register and can change; '
+         + 'the sign at the bay is what counts.</div></details>';
+  }
+
+  function min2hhmm(m) {
+    m = Math.max(0, Math.min(1440, m));
+    if (m === 1440) return '24:00';
+    var h = Math.floor(m / 60), mm = m % 60;
+    return (h < 10 ? '0' : '') + h + ':' + (mm < 10 ? '0' : '') + mm;
+  }
+
   function parkCost(areaId, arrive, leave) {
     var t = tariffs[areaId];
     if (!t || !t.w || !t.w.length) return null;
@@ -723,6 +787,7 @@
       '<div class="ev-card-rows">' + lines +
         (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
       '</div>' +
+      (st[AREA] ? tariffSchedule(st[AREA]) : '') +
       '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) + '.' + (srcNote(st, true) ? ' Price: ' + srcNote(st, true) + '.' : '') + '</div>' +
       '<div class="ev-card-act">' + startHtml(st) + directions(st[LAT], st[LON]).replace(' is-primary', '') +
         '<button type="button" class="ev-card-btn" id="evCardWindow">Change session</button>' +
@@ -1260,6 +1325,33 @@
     window.addEventListener('load', function () { setTimeout(settle, 50); });
     var rsT; window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(settle, 150); });
     window.addEventListener('orientationchange', function () { setTimeout(settle, 300); });
+
+    /* Two more causes of the "map is blank until I pinch it" reports, both
+       mobile-only and neither of them a window resize.
+
+       On a phone the address bar collapses as you scroll, which changes the
+       container height without firing resize on every browser. A
+       ResizeObserver on the container itself catches that, and every other
+       cause too: the bottom sheet being dragged, the on-screen keyboard
+       opening, a rotation that somehow missed.
+
+       And coming back from another app leaves Safari having thrown away tiles
+       while the tab was hidden, so re-measure on becoming visible again. */
+    if (window.ResizeObserver) {
+      var roT, wrap = document.querySelector('.ev-mapwrap');
+      if (wrap) new ResizeObserver(function () {
+        clearTimeout(roT); roT = setTimeout(settle, 120);
+      }).observe(wrap);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) setTimeout(settle, 120);
+    });
+    /* pageshow fires on back-forward cache restores, where the map object
+       survives but its tiles and size do not. */
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) setTimeout(settle, 120);
+    });
+
     bindHeaderSearch();
     /* deep links: garage pages send ?q=&lat=&lng=, the old search sent ?q= */
     var q0 = (q.get('q') || '').trim();

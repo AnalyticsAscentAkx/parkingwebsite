@@ -666,3 +666,25 @@
   white-space:nowrap}
 .ev-searchpin-label.leaflet-tooltip::before{border-top-color:#2337C6}
 @media(prefers-reduced-motion:reduce){.ev-searchpin-ring{animation:none;opacity:0}}
+
+/* --- when this spot is paid -------------------------------------------
+   A price is only true for the window it was calculated for. Most areas
+   have unpaid hours, so a bare number invites people to read it as the
+   all-day rate. Collapsed by default: it answers a question, it is not the
+   headline. */
+.ev-sched{margin:10px 0 0;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--paper-2);font-size:12.5px}
+.ev-sched>summary{cursor:pointer;padding:8px 11px;font-weight:600;color:var(--txt);
+  list-style:none;display:flex;align-items:center;gap:6px}
+.ev-sched>summary::-webkit-details-marker{display:none}
+.ev-sched>summary::after{content:'';width:6px;height:6px;border-right:2px solid var(--mut);
+  border-bottom:2px solid var(--mut);transform:rotate(45deg);margin-left:auto;
+  transition:transform .15s}
+.ev-sched[open]>summary::after{transform:rotate(-135deg)}
+.ev-sched-row{display:flex;justify-content:space-between;gap:12px;padding:5px 11px;
+  border-top:1px solid var(--line-soft)}
+.ev-sched-row span{color:var(--mut)}
+.ev-sched-row b{font-family:var(--f-mono);font-size:11.5px;color:var(--ink);text-align:right}
+.ev-sched-row b.is-free{color:var(--ok);font-family:var(--f-ui);font-size:12px}
+.ev-sched-note{padding:7px 11px 9px;border-top:1px solid var(--line-soft);
+  color:var(--mut);font-size:11.5px;line-height:1.5}
