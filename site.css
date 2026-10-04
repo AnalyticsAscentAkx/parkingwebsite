@@ -60,9 +60,16 @@ img{max-width:100%;display:block}
 .drop-div{height:1px;background:rgba(255,255,255,.08);margin:5px 8px}
 .has-drop::after{content:'';position:absolute;left:0;right:0;top:100%;height:10px}
 .has-drop:hover .drop,.has-drop.is-open .drop{display:block}
-.has-drop>a{position:relative;padding-right:22px}
-.has-drop>a::after{content:'';position:absolute;right:8px;top:50%;width:5px;height:5px;margin-top:-4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:.55;transition:transform .2s ease}
-.has-drop.is-open>a::after{transform:rotate(-135deg);margin-top:-1px}
+/* Absolute positioning fought the text: the chevron sat at a fixed offset
+   from the link edge, so the gap depended on the word length and the 45deg
+   rotation made it read as touching. The language control next to it never
+   had the problem because it is a flex row with a real gap. Same approach
+   here, which also lets the baseline do the vertical alignment. */
+/* .nav-links>li>a sets display:block and outranks a bare .has-drop>a,
+   so this has to match the same depth or the flex never applies. */
+.nav-links>li.has-drop>a{position:relative;display:inline-flex;align-items:center;gap:7px}
+.has-drop>a::after{content:'';flex:none;width:5px;height:5px;margin-top:-3px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);opacity:.55;transition:transform .2s ease}
+.has-drop.is-open>a::after{transform:rotate(-135deg);margin-top:1px}
 .menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;width:38px;height:38px;color:#fff;font-size:17px;cursor:pointer}
 
 /* ---------- labels / badges ---------- */
@@ -157,7 +164,8 @@ tbody tr:hover{background:#FAFBFC}
   .has-drop .drop{display:none;position:static;box-shadow:none;border:none;background:rgba(255,255,255,.05);margin:4px 0;width:100%}
   .has-drop.is-open .drop{display:block}
   .has-drop::after{display:none}
-  .has-drop>a::after{right:14px;width:7px;height:7px}
+  .nav-links>li.has-drop>a{justify-content:space-between}
+  .has-drop>a::after{width:7px;height:7px}
   .sec{padding:56px 0}
 }
 @media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
