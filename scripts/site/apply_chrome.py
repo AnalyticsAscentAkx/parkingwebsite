@@ -204,8 +204,13 @@ def apply(html: str, url: str) -> str:
 
 def main() -> int:
     check = "--check" in sys.argv
+    # outreach/ holds documents for people, not pages for the web: press
+    # articles that get printed to PDF and pasted into Google Docs. Injecting
+    # the site nav and stylesheets into those puts a navigation bar in the
+    # middle of a PDF going to an editor.
+    SKIP_DIRS = {".git", "scripts", "node_modules", "outreach"}
     pages = sorted(p for p in ROOT.rglob("*.html")
-                   if ".git" not in p.parts and "scripts" not in p.parts and "node_modules" not in p.parts)
+                   if not SKIP_DIRS & set(p.parts))
     changed = []
     for p in pages:
         src = p.read_text("utf-8", errors="surrogateescape")
