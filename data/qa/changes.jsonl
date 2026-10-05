@@ -1,2 +1,6 @@
 {"at": "2026-10-05", "page": "/parking-fines", "what": "title now leads with the amount, EUR 82 or 130 to 500", "window_days": 28, "baseline": {"clicks": 15, "impressions": 902, "ctr": 0.01663, "position": 7.62}}
 {"at": "2026-10-05", "page": "/free-parking-sunday", "what": "baseline only, no change yet", "window_days": 28, "baseline": {"clicks": 5, "impressions": 325, "ctr": 0.01538, "position": 7.12}}
+{"at": "2026-10-05", "page": "/free-parking", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 11, "impressions": 394, "ctr": 0.02792, "position": 10.42}}
+{"at": "2026-10-05", "page": "/free-parking-sunday", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 5, "impressions": 325, "ctr": 0.01538, "position": 7.12}}
+{"at": "2026-10-05", "page": "/street-parking", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 6, "impressions": 324, "ctr": 0.01852, "position": 15.54}}
+{"at": "2026-10-05", "page": "/amsterdam-cheap-parking", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 0, "impressions": 607, "ctr": 0, "position": 70.86}}
