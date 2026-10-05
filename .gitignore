@@ -21,3 +21,6 @@ data/qa/
 
 # Fines research: cached source documents and interim extracts
 data/fines/raw/
+
+# Experiment log: keep it, it is the record of what we tried
+!data/qa/changes.jsonl

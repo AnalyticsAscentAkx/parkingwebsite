@@ -151,6 +151,62 @@ def indexing():
             "key_total": len(canaries)}
 
 
+
+def experiments(gsc_service=None):
+    """Did the changes we made actually work?
+
+    Each entry in changes.jsonl carries the page's numbers from the day it was
+    edited. Here we fetch the same length of window since, and compare. A
+    change gets judged only once enough days have passed, because a title
+    rewrite read over four days is a coin toss.
+
+    CTR is the measure, not clicks, since impressions move for reasons that
+    have nothing to do with the edit. Position is shown alongside because a
+    CTR change is meaningless if the page also moved three places.
+    """
+    from datetime import datetime
+    log = REPO / "data" / "qa" / "changes.jsonl"
+    if not log.is_file():
+        return []
+    from google.oauth2 import service_account
+    from googleapiclient.discovery import build
+    c = service_account.Credentials.from_service_account_file(
+        KEY, scopes=["https://www.googleapis.com/auth/webmasters.readonly"])
+    s = build("searchconsole", "v1", credentials=c, cache_discovery=False)
+    end = date.today() - timedelta(days=LAG)
+    out = []
+    for line in log.read_text().splitlines():
+        if not line.strip():
+            continue
+        e = json.loads(line)
+        made = datetime.fromisoformat(e["at"]).date()
+        # Age in calendar days, but the comparable window has to end at the
+        # lagged date, so usable days are three fewer. Measuring age from the
+        # lagged date instead reported a change made today as "-3d ago".
+        age = (date.today() - made).days
+        usable = (end - made).days
+        # Judge over whatever has elapsed, but never on fewer than 14 days.
+        span = min(e.get("window_days", 28), max(usable, 0))
+        if span < 14:
+            out.append({**e, "age": age, "verdict": "too early",
+                        "needs": max(1, 14 - usable)})
+            continue
+        body = {"startDate": (end - timedelta(days=span - 1)).isoformat(),
+                "endDate": end.isoformat(), "rowLimit": 1,
+                "dimensionFilterGroups": [{"filters": [
+                    {"dimension": "page", "operator": "equals",
+                     "expression": "https://parkingnetherlands.com" + e["page"]}]}]}
+        rows = s.searchanalytics().query(siteUrl=PROP, body=body).execute().get("rows", [])
+        now = rows[0] if rows else {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0}
+        b = e["baseline"]
+        d = (now["ctr"] - b["ctr"]) / b["ctr"] if b["ctr"] else None
+        verdict = ("no change" if d is None or abs(d) < 0.10
+                   else "worked" if d > 0 else "backfired")
+        out.append({**e, "age": age, "span": span, "now": now,
+                    "ctr_change": d, "verdict": verdict})
+    return out
+
+
 def health():
     f = OUT / "issues.json"
     if not f.is_file():
@@ -246,6 +302,29 @@ def main():
                  f"impressions and {w['clicks']:.0f} clicks "
                  f"({w['ctr']*100:.1f}%). Rewrite its title and description "
                  f"before writing anything new.")
+        L.append("")
+
+    try:
+        xs = experiments()
+    except Exception:
+        xs = []
+    if xs:
+        L.append("## Did our changes work")
+        L.append("")
+        for e in xs:
+            if e["verdict"] == "too early":
+                L.append(f"- `{e['page']}` {e['what']} "
+                         f"({e['age']}d ago, judged in {e['needs']} more)")
+                continue
+            b, n2 = e["baseline"], e["now"]
+            L.append(f"- **{e['verdict']}** `{e['page']}` {e['what']}: "
+                     f"CTR {b['ctr']*100:.2f}% to {n2['ctr']*100:.2f}%, "
+                     f"position {b['position']:.1f} to {n2['position']:.1f} "
+                     f"over {e['span']} days")
+        L.append("")
+        L.append("_CTR, not clicks: impressions move for reasons that have "
+                 "nothing to do with the edit. Position is shown because a "
+                 "CTR change means little if the page also moved._")
         L.append("")
 
     if hl:
