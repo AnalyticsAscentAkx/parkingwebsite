@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Dutch Charging Still Falls Short: A Neighbourhood Map</title>
+<meta name="description" content="Public charging power reachable per electric car without a driveway, mapped for every 2 km hexagon in the Netherlands. Nationally 3.36 kW per EV against the EU's 1.3. Between 8 and 70 neighbourhoods fall short.">
+<link rel="canonical" href="https://parkingnetherlands.com/charging-gap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=20261005e">
+<script src="/analytics.js?v=20261005e" defer></script>
+<script src="/site.js?v=20261005e" defer></script>
+<script src="/affiliates.js?v=20261005e" defer></script>
+<link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://parkingnetherlands.com/charging-gap">
+<meta property="og:title" content="Where Dutch charging still falls short">
+<meta property="og:description" content="Public charging power reachable per electric car without a driveway, mapped for every 2 km hexagon in the Netherlands. Nationally 3.36 kW per EV against the EU's 1.3. Between 8 and 70 neighbourhoods fall short.">
+<meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Analytics Ascent">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does the Netherlands have enough public charging?", "acceptedAnswer": {"@type": "Answer", "text": "Nationally, comfortably. There is 4.55 GW of publicly accessible charging power for about 1,351,979 electric cars, which is 3.36 kW each against the 1.3 kW per battery electric vehicle that EU regulation 2023/1804 requires. That is more than twice the legal floor. The shortage, where it exists, is local."}}, {"@type": "Question", "name": "Which places fall short?", "acceptedAnswer": {"@type": "Answer", "text": "Between 8 and 70 neighbourhoods of roughly 1,400, depending on how far you assume somebody will walk to charge. At a one kilometre catchment it is 33, home to 161,720 people. The full range is published on this page rather than a single number, because the choice of walking distance moves the answer more than anything else in the model."}}, {"@type": "Question", "name": "How much would it cost to close the gap?", "acceptedAnswer": {"@type": "Answer", "text": "About 1.5 MW of additional public charging power, which is a few dozen fast chargers or a few hundred kerbside points. The national total is small because the problem is concentrated: most of the country is far above the line and a short list of neighbourhoods is below it."}}, {"@type": "Question", "name": "Why measure per flat-dweller rather than per electric car?", "acceptedAnswer": {"@type": "Answer", "text": "Because roughly four fifths of charging happens at home, and a household with a driveway barely touches the public network. The demand public infrastructure has to carry comes from people who cannot charge where they sleep. The closest thing open data supports is electric cars owned by households in multi-family housing, which makes every figure here a lower bound: a terraced street with no driveway counts as served when it is not."}}, {"@type": "Question", "name": "Is this the same as the official forecasts?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it is not a substitute for them. ElaadNL and the Nationale Agenda Laadinfrastructuur already forecast charging demand per neighbourhood, with real charging transaction data this model does not have. What is not published anywhere we could find is the AFIR power test applied below national level and mapped, which is what this is."}}]}, {"@context": "https://schema.org", "@type": "Dataset", "name": "Dutch public charging accessibility by neighbourhood, 2026", "description": "Public charging power reachable on foot per electric car without home charging, for every two-kilometre hexagon in the Netherlands, measured against the AFIR 1.3 kW per BEV standard.", "url": "https://parkingnetherlands.com/charging-gap", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Analytics Ascent"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://parkingnetherlands.com/data/research/charging-gap-2026.csv"}, {"@type": "DataDownload", "encodingFormat": "application/geo+json", "contentUrl": "https://parkingnetherlands.com/data/research/charging-gap-hexes.json"}]}]</script>
+<style>
+.cg{max-width:1080px;margin:0 auto;padding:0 24px}
+.cg-hero{padding:44px 0 6px}
+.cg-hero h1{font-size:clamp(1.9rem,4vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--ink);margin:10px 0 12px}
+.cg-hero .lead{font-size:17px;color:var(--mut);max-width:780px;line-height:1.6}
+.cg-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0}
+.cg-stat{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh)}
+.cg-stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.cg-stat span{font-size:12.5px;color:var(--mut)}
+.cg h2{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 12px}
+.cg h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:26px 0 6px}
+.cg p{line-height:1.65}
+.cg ul{line-height:1.7;padding-left:20px}
+.cg li{margin-bottom:8px}
+#cgmap{height:clamp(420px,66vh,720px);border-radius:var(--r-lg);border:1px solid var(--line);
+  background:#eef1f6;margin:8px 0 10px}
+.cg-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--mut);margin-bottom:6px}
+.cg-legend i{width:13px;height:13px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-2px}
+.cg-controls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:13.5px;margin:10px 0 2px}
+.cg-controls label{display:flex;gap:7px;align-items:center;cursor:pointer}
+.cite{font-size:13px;color:var(--mut);line-height:1.6}
+.warnbox{background:var(--sig-soft);border-radius:var(--r-lg);padding:18px 20px;margin:22px 0}
+.warnbox p{font-size:14.5px;margin:0 0 8px}
+.warnbox p:last-child{margin:0}
+table td,table th{white-space:nowrap}
+.leaflet-popup-content{font:13.5px/1.5 var(--f);margin:12px 14px}
+.leaflet-popup-content b{font-size:14.5px}
+.leaflet-popup-content dl{display:grid;grid-template-columns:auto auto;gap:3px 12px;margin:8px 0 0}
+.leaflet-popup-content dt{color:var(--mut)}
+.leaflet-popup-content dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
+<ul class="nav-links" id="navLinks">
+  <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Price my stop</a></li>
+  <li class="has-drop"><a href="/ev-charging">Charging</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Live</div><a href="/ev-charging">Charger map, priced with parking</a></div>
+      <div class="drop-col"><div class="drop-h">Data &amp; guides</div><a href="/ev-adoption">EV adoption by municipality</a><a href="/ev-parking">EV parking rules</a><a href="/ev-charging#prices">What charging costs</a><a href="/ev-charging#fast-charging">Fast charging</a></div>
+      <div class="drop-foot"><a href="/ev-charging">Open the map</a></div>
+    </div>
+  </li>
+  <li class="has-drop"><a href="/search">Parking</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Find a space</div><a href="/search">Garages &amp; P+R near an address</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a></div>
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/parkbee">ParkBee</a><a href="/belgium-parking">Belgium</a><a href="/blog">Blog</a></div>
+    </div>
+  </li>
+  <li class="has-drop"><a href="/all-cities">Cities</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
+      <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+      <div class="drop-col"><div class="drop-h">Stations</div><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a></div>
+    </div>
+  </li>
+  <li><a href="/about">About</a></li>
+</ul>
+<div class="nav-mobile-pair"><a href="/ev-charging">Price my stop</a><a href="/search">Parking only</a></div>
+<button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
+</div>
+</nav>
+<main class="cg">
+<header class="cg-hero">
+<h1>Where Dutch charging still falls short</h1>
+<p class="lead">The Netherlands has more than twice the public charging power the EU requires.
+That is a national average, and national averages are the wrong instrument for a question
+about places. This is the same test applied to every two-kilometre hexagon in the country.</p>
+</header>
+
+<div class="cg-stats">
+<div class="cg-stat"><b>4.55 GW</b><span>public charging power in the register</span></div>
+<div class="cg-stat"><b>3.36 kW</b><span>per electric car, against the EU's 1.3</span></div>
+<div class="cg-stat"><b>33</b><span>neighbourhoods below the line, of 1,396</span></div>
+<div class="cg-stat"><b>1.5 MW</b><span>would close every one of them</span></div>
+</div>
+
+<p>EU regulation 2023/1804, the Alternative Fuels Infrastructure Regulation, obliges member
+states to provide at least 1.3 kW of publicly accessible charging power for every registered
+battery electric car. It is checked per country. The Netherlands passes it at
+3.36 kW per car and is not close to failing.</p>
+
+<p>Underneath that, provision is not even. The map below asks the regulation's own question of
+every neighbourhood: how much charging power can somebody actually reach on foot, per electric
+car in that neighbourhood that has nowhere private to plug in.</p>
+
+<h2>The map</h2>
+<div class="cg-controls">
+  <label><input type="checkbox" id="cgOnlyShort"> Show only the neighbourhoods below 1.3 kW</label>
+  <span class="cite">Click any hexagon for its numbers.</span>
+</div>
+<div class="cg-legend">
+  <span><i style="background:#C2410C"></i>nothing reachable</span>
+  <span><i style="background:#EA580C"></i>below 1.3 kW</span>
+  <span><i style="background:#FDBA74"></i>1.3 to 3</span>
+  <span><i style="background:#93C5FD"></i>3 to 7</span>
+  <span><i style="background:#3B82F6"></i>7 to 15</span>
+  <span><i style="background:#2337C6"></i>15 and above</span>
+</div>
+<div id="cgmap"></div>
+<p class="cite">Hexagons are 2 km across, about 3.5 km&sup2;. Only those with at least fifty
+electric cars without home charging are shaded; the rest are too small a sample for a ratio to
+mean anything. Colour is kilowatts of public charging reachable within one kilometre, shared
+between everyone who can reach it, per electric car without a driveway.</p>
+
+<h2>The number that moves the most is the one nobody measures</h2>
+<p>How far will somebody walk to charge a car overnight? Nothing in the open data answers that,
+and the answer changes the headline more than any other choice in this model. So here is the
+whole curve rather than the single figure that makes the best story.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Assumed walking distance</th><th>Neighbourhoods below 1.3 kW</th>
+<th>With nothing reachable</th><th>Median kW per car</th><th>Worst tenth</th></tr></thead>
+<tbody><tr><td class="num">600 m</td><td class="num">70</td><td class="num">12</td><td class="num">5.83</td><td class="num">2.12</td></tr><tr><td class="num">800 m</td><td class="num">41</td><td class="num">6</td><td class="num">6.63</td><td class="num">2.78</td></tr><tr><td class="num">1,000 m</td><td class="num">33</td><td class="num">4</td><td class="num">7.15</td><td class="num">3.07</td></tr><tr><td class="num">1,250 m</td><td class="num">18</td><td class="num">1</td><td class="num">7.45</td><td class="num">3.4</td></tr><tr><td class="num">1,500 m</td><td class="num">11</td><td class="num">1</td><td class="num">7.8</td><td class="num">3.63</td></tr><tr><td class="num">2,000 m</td><td class="num">8</td><td class="num">0</td><td class="num">8.12</td><td class="num">3.99</td></tr></tbody></table></div>
+<p>At six hundred metres, seventy neighbourhoods fall short. At two kilometres, eight do. The
+honest reading is the part that does not move: the median neighbourhood sits between 5.8 and
+8.1 kW per car without home charging, four to six times the legal floor, whichever distance you
+pick. The country is well supplied. A short, specific list of places is not, and which places
+they are barely changes even though how many does.</p>
+
+<h2>The neighbourhoods furthest below the line</h2>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Municipality</th><th>Residents</th><th>EVs without home charging</th>
+<th>kW reachable per car</th><th>kW inside the hexagon</th><th>Flats</th></tr></thead>
+<tbody><tr><td>Utrecht</td><td class="num">6,995</td><td class="num">185</td><td class="num">0.65</td><td class="num">659</td><td class="num">47.0%</td></tr><tr><td>Amsterdam</td><td class="num">20,855</td><td class="num">895</td><td class="num">1.19</td><td class="num">940</td><td class="num">87.3%</td></tr><tr><td>Eijsden-Margraten</td><td class="num">4,500</td><td class="num">78</td><td class="num">0.0</td><td class="num">60</td><td class="num">19.5%</td></tr><tr><td>Renkum</td><td class="num">4,925</td><td class="num">263</td><td class="num">0.92</td><td class="num">187</td><td class="num">54.3%</td></tr><tr><td>Utrecht</td><td class="num">6,510</td><td class="num">75</td><td class="num">0.0</td><td class="num">112</td><td class="num">15.0%</td></tr><tr><td>Oldambt</td><td class="num">7,890</td><td class="num">231</td><td class="num">0.98</td><td class="num">377</td><td class="num">45.8%</td></tr><tr><td>Alphen aan den Rijn</td><td class="num">1,745</td><td class="num">55</td><td class="num">0.0</td><td class="num">0</td><td class="num">31.0%</td></tr><tr><td>Tubbergen</td><td class="num">1,795</td><td class="num">55</td><td class="num">0.0</td><td class="num">44</td><td class="num">43.0%</td></tr><tr><td>Súdwest-Fryslân</td><td class="num">4,175</td><td class="num">93</td><td class="num">0.54</td><td class="num">209</td><td class="num">44.1%</td></tr><tr><td>Veendam</td><td class="num">7,965</td><td class="num">93</td><td class="num">0.61</td><td class="num">134</td><td class="num">17.0%</td></tr><tr><td>Pekela</td><td class="num">7,690</td><td class="num">58</td><td class="num">0.19</td><td class="num">11</td><td class="num">13.0%</td></tr><tr><td>Tynaarlo</td><td class="num">4,010</td><td class="num">108</td><td class="num">0.71</td><td class="num">11</td><td class="num">26.0%</td></tr><tr><td>Bergen (Noord-Holland)</td><td class="num">3,590</td><td class="num">90</td><td class="num">0.7</td><td class="num">11</td><td class="num">24.8%</td></tr><tr><td>Castricum</td><td class="num">2,150</td><td class="num">67</td><td class="num">0.58</td><td class="num">400</td><td class="num">25.0%</td></tr><tr><td>Beesel</td><td class="num">6,240</td><td class="num">107</td><td class="num">0.86</td><td class="num">177</td><td class="num">20.8%</td></tr><tr><td>Bronckhorst</td><td class="num">2,265</td><td class="num">51</td><td class="num">0.43</td><td class="num">22</td><td class="num">25.6%</td></tr><tr><td>Wijdemeren</td><td class="num">2,325</td><td class="num">67</td><td class="num">0.66</td><td class="num">0</td><td class="num">22.0%</td></tr><tr><td>Wijk bij Duurstede</td><td class="num">2,970</td><td class="num">99</td><td class="num">0.89</td><td class="num">0</td><td class="num">47.1%</td></tr><tr><td>Emmen</td><td class="num">5,940</td><td class="num">77</td><td class="num">0.78</td><td class="num">861</td><td class="num">18.0%</td></tr><tr><td>Renkum</td><td class="num">2,105</td><td class="num">67</td><td class="num">0.76</td><td class="num">114</td><td class="num">30.5%</td></tr><tr><td>Wijk bij Duurstede</td><td class="num">4,130</td><td class="num">50</td><td class="num">0.56</td><td class="num">66</td><td class="num">13.2%</td></tr></tbody></table></div>
+<p class="cite">Several of these have a good deal of charging inside them and still score
+badly, which is the method working rather than failing: a charger is shared with everyone who
+can walk to it, so a hexagon sitting next to a dense neighbourhood is competing for the same
+posts. The column that matters is what a resident can reach, not what happens to stand on
+their side of a line.</p>
+
+<h2>How it is built</h2>
+<p>Four inputs, three of them observed and one modelled, and the modelled one is named as such
+every time it is used.</p>
+<ul>
+<li><b>Charging supply.</b> 4,546,680 kW across about 80,000 public charging
+locations from the national charge point register, the same source behind our
+<a href="/ev-charging">charger map</a>.</li>
+<li><b>Cars per neighbourhood.</b> CBS wijken en buurten 2024, observed, 14,668 neighbourhoods.</li>
+<li><b>Electric share per municipality.</b> CBS fleet statistics, observed, as published on our
+<a href="/ev-adoption">EV adoption page</a>.</li>
+<li><b>Electric cars per neighbourhood.</b> Cars times the municipal electric share.
+<b>Modelled.</b> CBS does not publish electric cars at neighbourhood level.</li>
+<li><b>Cars without home charging.</b> The above times the share of dwellings that are flats,
+also from CBS. <b>Modelled</b>, and deliberately conservative.</li>
+</ul>
+<p>Accessibility is two-step floating catchment area, the standard method in the charging
+desert literature, which shares each charger between everyone who can reach it instead of
+assigning it to whichever polygon it happens to stand in.</p>
+
+<div class="warnbox">
+<p><b>Three things this got wrong before it got them right.</b></p>
+<p>The first version counted only chargers inside each hexagon and announced that the worst
+place in the Netherlands was a Groningen neighbourhood with no charging at all. It has
+sixty-one chargers within two kilometres and the nearest is 1.08 km away. The hexagon was
+measuring its own edges. That is what the catchment method fixed.</p>
+<p>The second version measured distance from the middle of each hexagon, which puts everyone
+living on the rim up to a kilometre from where they actually are. Demand now sits at
+neighbourhood centroids, which are a few hundred metres across rather than two kilometres.</p>
+<p>The third was a sensitivity sweep that returned an identical answer at every walking
+distance, which looked like reassuring robustness and was a bug: the catchment was frozen at
+import and never changed. The real spread is in the table above, and it is wide.</p>
+<p>Each was found by checking one specific claim against the world rather than by reading the
+code. We publish them because a model nobody has tried to break is not evidence.</p>
+</div>
+
+<h2>What this does not tell you</h2>
+<ul>
+<li>Electric cars per neighbourhood are estimated, not counted.</li>
+<li>Flats are a proxy for having nowhere to charge, not a measurement of it. A terraced street
+without driveways reads as well served here.</li>
+<li>Power is not availability. Whether a post is occupied when you arrive is not published by
+anyone, so nothing here accounts for it.</li>
+<li>AFIR sets a national target. Applying it to a neighbourhood is our interpretation, not the
+regulation's, and the regulation would not recognise it.</li>
+<li>Only charging where people live is modelled. Workplace, motorway and destination charging
+answer different questions.</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="fq"><div class="fqi"><button class="fqq">Does the Netherlands have enough public charging?<span class="fqt">+</span></button><div class="fqa"><p>Nationally, comfortably. There is 4.55 GW of publicly accessible charging power for about 1,351,979 electric cars, which is 3.36 kW each against the 1.3 kW per battery electric vehicle that EU regulation 2023/1804 requires. That is more than twice the legal floor. The shortage, where it exists, is local.</p></div></div><div class="fqi"><button class="fqq">Which places fall short?<span class="fqt">+</span></button><div class="fqa"><p>Between 8 and 70 neighbourhoods of roughly 1,400, depending on how far you assume somebody will walk to charge. At a one kilometre catchment it is 33, home to 161,720 people. The full range is published on this page rather than a single number, because the choice of walking distance moves the answer more than anything else in the model.</p></div></div><div class="fqi"><button class="fqq">How much would it cost to close the gap?<span class="fqt">+</span></button><div class="fqa"><p>About 1.5 MW of additional public charging power, which is a few dozen fast chargers or a few hundred kerbside points. The national total is small because the problem is concentrated: most of the country is far above the line and a short list of neighbourhoods is below it.</p></div></div><div class="fqi"><button class="fqq">Why measure per flat-dweller rather than per electric car?<span class="fqt">+</span></button><div class="fqa"><p>Because roughly four fifths of charging happens at home, and a household with a driveway barely touches the public network. The demand public infrastructure has to carry comes from people who cannot charge where they sleep. The closest thing open data supports is electric cars owned by households in multi-family housing, which makes every figure here a lower bound: a terraced street with no driveway counts as served when it is not.</p></div></div><div class="fqi"><button class="fqq">Is this the same as the official forecasts?<span class="fqt">+</span></button><div class="fqa"><p>No, and it is not a substitute for them. ElaadNL and the Nationale Agenda Laadinfrastructuur already forecast charging demand per neighbourhood, with real charging transaction data this model does not have. What is not published anywhere we could find is the AFIR power test applied below national level and mapped, which is what this is.</p></div></div></div>
+
+<h2>Take the data</h2>
+<p>Both files are free to reuse with attribution.
+<a href="/data/research/charging-gap-2026.csv">CSV, one row per hexagon</a> and
+<a href="/data/research/charging-gap-hexes.json">GeoJSON with the geometry</a>. The code that
+builds them is in the repository, and if you find a fourth mistake we would like to hear about
+it: the address is on the <a href="/about">about page</a>.</p>
+<p class="cite">Sources: RDW national parking register and the national charge point register
+for supply; CBS wijken en buurten 2024 and CBS fleet statistics for demand; Regulation (EU)
+2023/1804 Article 3 for the 1.3 kW standard. Method after the two-step floating catchment area
+literature on charging access and charging deserts. Generated 2026-10-05.</p>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  var map = L.map('cgmap', { preferCanvas: true, scrollWheelZoom: false })
+    .setView([52.15, 5.4], 8);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 17, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  map.once('focus', function () { map.scrollWheelZoom.enable(); });
+
+  /* Bands, not a continuous ramp. A ramp invites the eye to read precision
+     that a modelled denominator cannot support. */
+  function colour(v) {
+    if (v <= 0) return '#C2410C';
+    if (v < 1.3) return '#EA580C';
+    if (v < 3) return '#FDBA74';
+    if (v < 7) return '#93C5FD';
+    if (v < 15) return '#3B82F6';
+    return '#2337C6';
+  }
+  var layer = null, data = null, onlyShort = false;
+
+  function style(f) {
+    var p = f.properties;
+    return { fillColor: colour(p.per), fillOpacity: .72, color: '#fff',
+              weight: .4, opacity: .5 };
+  }
+  function keep(f) {
+    var p = f.properties;
+    if (p.dep < 50) return false;         // too small for a ratio to mean anything
+    return onlyShort ? p.per < 1.3 : true;
+  }
+  function popup(f, l) {
+    var p = f.properties;
+    l.bindPopup(
+      '<b>' + (p.city || 'Unnamed area') + '</b>' +
+      '<dl>' +
+      '<dt>Reachable per car without home charging</dt><dd>' + p.per.toFixed(2) + ' kW</dd>' +
+      '<dt>EU minimum</dt><dd>1.30 kW</dd>' +
+      '<dt>Residents</dt><dd>' + p.pop.toLocaleString() + '</dd>' +
+      '<dt>Electric cars (modelled)</dt><dd>' + p.ev.toLocaleString() + '</dd>' +
+      '<dt>Of those, in flats</dt><dd>' + p.dep.toLocaleString() + '</dd>' +
+      '<dt>Charging power inside</dt><dd>' + p.kw.toLocaleString() + ' kW</dd>' +
+      '<dt>Dwellings that are flats</dt><dd>' + p.flats + '%</dd>' +
+      '</dl>');
+  }
+  function draw() {
+    if (layer) map.removeLayer(layer);
+    layer = L.geoJSON(data, { style: style, filter: keep, onEachFeature: popup }).addTo(map);
+  }
+
+  fetch('/data/research/charging-gap-hexes.json')
+    .then(function (r) { return r.json(); })
+    .then(function (j) { data = j; draw(); })
+    .catch(function () {
+      document.getElementById('cgmap').innerHTML =
+        '<p style="padding:20px;color:#555">The map data could not be loaded. ' +
+        'The figures in the tables below are unaffected.</p>';
+    });
+
+  var cb = document.getElementById('cgOnlyShort');
+  if (cb) cb.addEventListener('change', function () {
+    onlyShort = cb.checked;
+    if (data) draw();
+  });
+})();
+</script>
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
+      <p>Every public charger and every register-listed garage in the Netherlands, priced for your exact stop. Independent, free, built on open data.</p>
+      <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+      <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
+    </div>
+    <div class="foot-col"><h4>Charging</h4><a href="/ev-charging">Charger map</a><a href="/ev-adoption">EV adoption map</a><a href="/ev-parking">EV parking rules</a></div>
+    <div class="foot-col"><h4>Parking</h4><a href="/search">Parking search</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a><a href="/free-parking">Free parking</a><a href="/parking-fines">Fines guide</a><a href="/parking-apps">Parking apps</a><a href="/long-term-parking">Long-term parking</a></div>
+    <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/groningen">Groningen</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All 14 cities</a><a href="/belgium-parking">Belgium</a></div>
+    <div class="foot-col"><h4>Stations &amp; site</h4><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a><a href="/blog">Blog</a><a href="/alerts">Price alerts</a><a href="/about">About</a><a href="/link-to-us">Link to us</a><a href="/privacy">Privacy &amp; cookies</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
+    <span>Some links are partner links: we may earn a commission at no extra cost to you · Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
+  </div>
+</div></footer>
+</body>
+</html>
