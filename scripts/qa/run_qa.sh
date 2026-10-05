@@ -69,5 +69,11 @@ fi
 say "5. digest"
 "$PY" "$REPO/scripts/qa/digest.py" >>"$LOG" 2>&1 || say "   digest failed"
 
+# 6. The scorecard: is this getting better, week on week. Runs last because it
+#    reads what every step above wrote.
+say "6. scorecard"
+GA4_PROPERTY_ID="$GA4_PROPERTY_ID" "$PY" "$REPO/scripts/qa/scorecard.py" --quiet \
+  >>"$LOG" 2>&1 || say "   scorecard failed, see log"
+
 say "=== QA run $DAY done. Report: $OUT/daily.md"
 exit 0
