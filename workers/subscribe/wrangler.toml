@@ -1,0 +1,26 @@
+# A separate Worker, deliberately not part of the site deployment.
+#
+# parkingnetherlands.com is served by Cloudflare Workers static assets with no
+# request handler of its own. Putting a handler in front of it to catch one
+# POST would mean that handler is suddenly responsible for serving all 1,459
+# pages, and a mistake there takes the whole site down. This one owns a single
+# hostname and can only break itself.
+name = "pn-subscribe"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# Created with:  npx wrangler kv namespace create SUBS
+# then paste the id below.
+[[kv_namespaces]]
+binding = "SUBS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Optional: serve from alerts.parkingnetherlands.com instead of workers.dev.
+# Uncomment after adding the DNS record, and set ENDPOINT in subscribe.js to match.
+# [[routes]]
+# pattern = "alerts.parkingnetherlands.com/*"
+# custom_domain = true
+
+[vars]
+ALLOWED_ORIGIN = "https://parkingnetherlands.com"

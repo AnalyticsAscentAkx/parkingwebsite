@@ -724,3 +724,29 @@ h1 .sig,.lh h1 .sig,.ch h1 .sig,.fine-hero h1 .sig{color:var(--blue)}
   border-radius:var(--r);padding:11px 13px;margin:14px 0;font-size:13.5px;
   line-height:1.55;color:var(--txt)}
 .g-warn strong{color:#9a5700}
+
+
+/* ---- alert signup ---------------------------------------------------- */
+.sub-form{display:flex;flex-direction:column;gap:14px;max-width:560px}
+.sub-row{display:flex;gap:9px;flex-wrap:wrap}
+.sub-row input[type=email]{flex:1 1 240px;min-width:0;padding:12px 14px;font:inherit;
+  font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line);
+  border-radius:10px}
+.sub-row input[type=email]:focus{outline:none;border-color:var(--blue);
+  box-shadow:0 0 0 3px var(--blue-soft)}
+.sub-row button{flex:0 0 auto;padding:12px 20px;font:inherit;font-size:15px;
+  font-weight:600;color:#fff;background:var(--blue);border:0;border-radius:10px;
+  cursor:pointer}
+.sub-row button:hover{background:var(--blue-2)}
+.sub-row button[disabled]{opacity:.6;cursor:default}
+.sub-topics{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--ink)}
+.sub-topics label{display:flex;gap:7px;align-items:center;cursor:pointer}
+.sub-consent{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;
+  color:var(--mut);line-height:1.55}
+.sub-consent input{margin-top:3px;flex-shrink:0}
+.sub-note{font-size:13.5px;line-height:1.55;min-height:1px}
+.sub-note[data-kind=bad]{color:var(--sig)}
+.sub-done{font-size:15px;line-height:1.6;color:var(--ink);background:var(--ok-soft);
+  border-radius:var(--r-lg);padding:16px 18px}
+.sub-pot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media(max-width:560px){.sub-row button{width:100%}}
