@@ -47,8 +47,15 @@ def pct(v):
 NP = '<span style="color:var(--mut)">niet gepubliceerd</span>'
 
 
+def norm_dash(s):
+    """Feed names carry en dashes. Keep the name, drop the typography."""
+    return s.replace("\u2013", "-").replace("\u2014", "-") if isinstance(s, str) else s
+
+
 def esc(s):
-    return str(s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+    # Everything user-visible goes through here, so the dash
+    # normalisation rides along and no caller has to remember it.
+    return norm_dash(str(s or "")).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
 # ---------------------------------------------------------------- queries
@@ -274,7 +281,7 @@ def city_page(c, nat, all_cities) -> tuple[str, str]:
 <p class="sub">{c['stations']} openbare laadlocaties, {c['points']} laadpunten. {_closing(sl)}</p>
 <div class="qs">
 <div class="qb"><div class="qbl">Laadpunten</div><div class="qbv">{c['points']}</div></div>
-<div class="qb"><div class="qbl">Mediaan per kWh</div><div class="qbv">{eur(med_city) if med_city else '–'}</div></div>
+<div class="qb"><div class="qbl">Mediaan per kWh</div><div class="qbv">{eur(med_city) if med_city else '-'}</div></div>
 <div class="qb"><div class="qbl">Buiten gebruik</div><div class="qbv {'h' if c['fault_pct'] and float(c['fault_pct']) > 3 else 'c'}">{pct(c['fault_pct'] or 0)}</div></div>
 <div class="qb"><div class="qbl">Snelladers 50 kW+</div><div class="qbv">{c['fast']}</div></div>
 </div>
