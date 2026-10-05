@@ -1288,13 +1288,133 @@
     });
 
     var box = $('#evSearch'), typeTimer = null;
+
+    /* Address autocomplete.
+
+       The box did nothing until you pressed Enter, and then it guessed.
+       "Overtoom 10" matches 1,793 addresses in this country and the geocoder
+       quietly took the first one, which is how you end up looking at
+       Zuidermeer when you meant Amsterdam. Listing the candidates with their
+       postcode and town hands that choice back to the person who knows the
+       answer.
+
+       Same source as the geocoder already uses: PDOK Locatieserver, Kadaster,
+       keyless. suggest gives a display name and an id, lookup turns the id
+       into coordinates, so the pin lands on the address the user picked
+       rather than on a re-guess of the text. */
+    var acBox = document.createElement('ul');
+    acBox.className = 'ev-ac';
+    acBox.setAttribute('role', 'listbox');
+    acBox.hidden = true;
+    box.parentNode.appendChild(acBox);
+    box.setAttribute('role', 'combobox');
+    box.setAttribute('aria-expanded', 'false');
+    box.setAttribute('aria-autocomplete', 'list');
+
+    var acItems = [], acAt = -1, acSeq = 0;
+
+    function acClose() {
+      acBox.hidden = true; acItems = []; acAt = -1;
+      box.setAttribute('aria-expanded', 'false');
+      box.removeAttribute('aria-activedescendant');
+    }
+
+    function acMark(i) {
+      acAt = i;
+      Array.prototype.forEach.call(acBox.children, function (li, n) {
+        var on = n === i;
+        li.classList.toggle('is-on', on);
+        li.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) box.setAttribute('aria-activedescendant', li.id);
+      });
+    }
+
+    function acPick(i) {
+      var d = acItems[i];
+      if (!d) return;
+      box.value = d.weergavenaam;
+      acClose();
+      $('#evCount').textContent = 'Looking up \u201c' + d.weergavenaam + '\u201d\u2026';
+      fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?fl=weergavenaam,centroide_ll,type&id=' +
+            encodeURIComponent(d.id))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          var doc = j && j.response && j.response.docs && j.response.docs[0];
+          var m = doc && /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(doc.centroide_ll || '');
+          if (!m) { searchGo(d.weergavenaam); return; }   // lookup failed, fall back to the old path
+          var ll = [parseFloat(m[2]), parseFloat(m[1])];
+          setOrigin(ll);
+          searchPin(ll, doc.weergavenaam);
+          zoomed = true;
+          centreOn(ll, doc.type === 'woonplaats' ? 13 : 16);
+          if (narrow()) sheet('peek');
+          refresh();
+        })
+        .catch(function () { searchGo(d.weergavenaam); });
+    }
+
+    function acShow(docs) {
+      acItems = docs;
+      if (!docs.length) { acClose(); return; }
+      acBox.innerHTML = '';
+      docs.forEach(function (d, n) {
+        var li = document.createElement('li');
+        li.id = 'ev-ac-' + n;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.textContent = d.weergavenaam;
+        /* mousedown, not click: the input's blur would close the list before
+           a click ever landed. */
+        li.addEventListener('mousedown', function (e) { e.preventDefault(); acPick(n); });
+        acBox.appendChild(li);
+      });
+      acBox.hidden = false;
+      box.setAttribute('aria-expanded', 'true');
+      acAt = -1;
+    }
+
+    function acFetch(q) {
+      var seq = ++acSeq;
+      fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?rows=6&q=' +
+            encodeURIComponent(q) + '&fq=type:(adres OR postcode OR woonplaats)')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          if (seq !== acSeq) return;          // a later keystroke already won
+          var docs = (j && j.response && j.response.docs) || [];
+          acShow(docs);
+        })
+        .catch(function () { if (seq === acSeq) acClose(); });
+    }
+
     box.addEventListener('input', function () {
       clearTimeout(typeTimer);
-      typeTimer = setTimeout(function () { searchType(box.value); }, 120);
+      var q = box.value.trim();
+      typeTimer = setTimeout(function () {
+        searchType(box.value);
+        if (q.length >= 3) acFetch(q); else acClose();
+      }, 180);
     });
+
+    box.addEventListener('blur', function () { setTimeout(acClose, 120); });
+
     box.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); searchGo(box.value); }
-      if (e.key === 'Escape') { box.value = ''; refresh(); }
+      var open = !acBox.hidden && acItems.length;
+      if (open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+        e.preventDefault();
+        var n = acItems.length;
+        acMark(((acAt + (e.key === 'ArrowDown' ? 1 : -1)) % n + n) % n);
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (open && acAt >= 0) { acPick(acAt); return; }
+        acClose(); searchGo(box.value);
+        return;
+      }
+      if (e.key === 'Escape') {
+        if (open) { acClose(); return; }
+        box.value = ''; refresh();
+      }
     });
     $('#evGo').onclick = function () { searchGo(box.value); };
     /* desktop: drag the panel edge to make it wider; remembered per browser */
@@ -1405,6 +1525,7 @@
      map, not the parking search: a town name jumps the map, Near me centres
      it on the visitor and marks where they are. */
   var hereMarker = null;
+  var hereCircle = null;
   /* Centre only after re-measuring the container.
 
      Reported symptom: on a phone "find me" lands on the right area but the
@@ -1428,19 +1549,57 @@
     var btn = document.querySelector('.nav-near') || document.getElementById('evNear'), label = btn ? btn.innerHTML : '';
     if (!navigator.geolocation) { searchGo(''); return; }
     if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
-    navigator.geolocation.getCurrentPosition(function (pos) {
+    /* enableHighAccuracy was never set here, so it defaulted to false and the
+       browser answered from wifi and cell towers rather than GPS. That is good
+       to somewhere between a couple of hundred metres and a couple of
+       kilometres, which is how this put a tester a kilometre from his own
+       house. maximumAge of a minute let it hand back a stale coarse fix on top
+       of that.
+
+       Asking once is still not enough, because the first GPS fix is usually
+       wide and tightens over a few seconds. So this watches: the pin moves in
+       as the fix improves, and a circle shows how much the phone actually
+       knows. A confident dot in the wrong place is worse than an honest blob,
+       and the blob is what tells you whether to trust it. */
+    var watchId = null, best = Infinity, hardStop = null;
+
+    function stopLocating() {
+      if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+      if (hardStop) { clearTimeout(hardStop); hardStop = null; }
+      if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
+    }
+
+    function accText(m) {
+      return m < 1000 ? Math.round(m) + ' m' : (m / 1000).toFixed(1) + ' km';
+    }
+
+    function place(pos) {
+      var acc = pos.coords.accuracy || 0;
+      /* Fixes arrive in any order. A later, wider one knows less than what is
+         already on screen, so it is ignored rather than allowed to move the pin
+         back out. */
+      if (acc >= best) return;
+      best = acc;
       var ll = [pos.coords.latitude, pos.coords.longitude];
       setOrigin(ll);
+
+      if (hereMarker) map.removeLayer(hereMarker);
+      if (hereCircle) map.removeLayer(hereCircle);
+      if (!map.getPane('searchPane')) {
+        map.createPane('searchPane');
+        map.getPane('searchPane').style.zIndex = 1000;
+      }
+
       /* Same mistake the search pin had: an 18px circle in the default pane,
          underneath hundreds of price pills, so "find me" appeared to do
          nothing. This one is a dot rather than a teardrop, because that is
          what "you are here" means everywhere else, but it lives in the same
          pane above all the data and says so permanently. */
-      if (hereMarker) map.removeLayer(hereMarker);
-      if (!map.getPane('searchPane')) {
-        map.createPane('searchPane');
-        map.getPane('searchPane').style.zIndex = 1000;
-      }
+      hereCircle = L.circle(ll, {
+        radius: acc, pane: 'searchPane', interactive: false,
+        color: '#2337C6', weight: 1, opacity: .5,
+        fillColor: '#2337C6', fillOpacity: .10
+      }).addTo(map);
       hereMarker = L.marker(ll, {
         pane: 'searchPane',
         zIndexOffset: 10000,
@@ -1451,20 +1610,39 @@
           html: '<span class="ev-herepin-ring"></span><span class="ev-herepin-dot"></span>'
         })
       }).addTo(map);
-      hereMarker.bindTooltip('You are here', {
-        permanent: true, direction: 'top', offset: [0, -14],
-        className: 'ev-herepin-label'
-      }).openTooltip();
+      hereMarker.bindTooltip(
+        acc <= 60 ? 'You are here' : 'You are here, give or take ' + accText(acc),
+        { permanent: true, direction: 'top', offset: [0, -14], className: 'ev-herepin-label' }
+      ).openTooltip();
+
       zoomed = true;
-      /* 15 showed half a district and the dot was lost in it. 17 is a couple
-         of streets, which is what "where am I" actually means. */
-      centreOn(ll, 17);
+      /* Fit the circle rather than hard-zooming to 17. On a good GPS fix that
+         still lands on a couple of streets, and on a poor one it pulls back far
+         enough that the real location is somewhere on screen instead of off
+         the edge. */
+      map.invalidateSize({ animate: false });
+      map.fitBounds(hereCircle.getBounds(), { animate: false, padding: [40, 40], maxZoom: 17 });
       if (narrow()) sheet('peek');
-      if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
-    }, function () {
-      if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
-      $('#evCount').textContent = 'Location not available. Search a town instead.';
-    }, { timeout: 8000, maximumAge: 60000 });
+
+      if (acc <= 50) stopLocating();   // good enough, stop draining the battery
+    }
+
+    watchId = navigator.geolocation.watchPosition(place, function (err) {
+      if (best < Infinity) return;     // already have a fix, a later error is noise
+      stopLocating();
+      $('#evCount').textContent = (err && err.code === 1)
+        ? 'Location permission is off. Search a town instead.'
+        : 'Location not available. Search a town instead.';
+    }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+
+    /* GPS can keep inching for minutes. Whatever it has after fifteen seconds
+       is what the user gets, and the circle already says how good that is. */
+    hardStop = setTimeout(function () {
+      stopLocating();
+      if (best === Infinity) {
+        $('#evCount').textContent = 'Could not get a location fix. Search a town instead.';
+      }
+    }, 15000);
   }
 
   function bindHeaderSearch() {

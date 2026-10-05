@@ -62,7 +62,17 @@
 .ev-stats span{font-size:11px;color:var(--mut);white-space:nowrap}
 
 /* search ------------------------------------------------------------- */
-.ev-search{display:flex;gap:7px;margin-bottom:12px}
+.ev-search{display:flex;gap:7px;margin-bottom:12px;position:relative}
+/* Address suggestions. Anchored to .ev-search rather than the input so it
+   spans the whole row, and above the map panes, which sit in the hundreds. */
+.ev-ac{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:1200;margin:0;
+  padding:4px;list-style:none;background:var(--paper);border:1px solid var(--line);
+  border-radius:10px;box-shadow:0 10px 28px rgba(11,17,32,.16);max-height:272px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ev-ac li{padding:9px 11px;font-size:13.5px;line-height:1.35;color:var(--ink);
+  border-radius:7px;cursor:pointer}
+.ev-ac li.is-on,.ev-ac li:hover{background:var(--blue-soft);color:var(--blue)}
+@media(max-width:900px){.ev-ac li{padding:11px;font-size:14.5px}}
 .ev-search input{
   flex:1;min-width:0;font-family:var(--f-ui);font-size:14px;color:var(--ink);
   padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);

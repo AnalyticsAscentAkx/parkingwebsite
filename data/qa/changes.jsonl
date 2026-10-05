@@ -5,3 +5,4 @@
 {"at": "2026-10-05", "page": "/street-parking", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 6, "impressions": 324, "ctr": 0.01852, "position": 15.54}}
 {"at": "2026-10-05", "page": "/amsterdam-cheap-parking", "what": "now routes to the map; gained inbound internal links", "window_days": 28, "baseline": {"clicks": 0, "impressions": 607, "ctr": 0, "position": 70.86}}
 {"at": "2026-10-05", "page": "/amsterdam", "what": "merged amsterdam-cheap-parking in; was splitting signal and outranking this page at pos 74-83", "window_days": 28, "baseline": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0}}
+{"at": "2026-10-05", "page": "/park-and-ride", "what": "new national P+R page, 68 sites, 18 inbound links", "window_days": 28, "baseline": {"clicks": 0, "impressions": 0, "ctr": 0, "position": 0}}
