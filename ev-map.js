@@ -97,7 +97,7 @@
         2 national median (operator publishes nothing) */
   var ID = 0, NAME = 1, CPO = 2, LAT = 3, LON = 4, KW = 5,
       PTS = 6, UP = 7, PPK = 8, AREA = 9, DOWN = 10, SRC = 11,
-      ACC = 12, FLAGS = 13, PLUGS = 14;
+      ACC = 12, FLAGS = 13, PLUGS = 14, FEE = 15;
   /* 12 where the post stands (S street, L lot, G garage, U underground,
      D driveway, M motorway); 13 flags: 1 customers only, 2 not 24/7,
      4 no charging when closed, 8 DC fast plug, 16 pay by card, 32 cable
@@ -360,8 +360,15 @@
   function priceOf(st, w) {
     var park = st[AREA] ? parkCost(st[AREA], w.a, w.l) : null;
     var charge = st[PPK] != null ? st[PPK] * w.kwh : null;
+    /* A one-off fee for starting the session, charged by the operator at
+       about one station in forty. Null everywhere else, and deliberately not
+       shown as a zero: a row saying "connection fee, 0.00" reads like a fee
+       you avoided rather than one that was never there. */
+    var fee = st[FEE] || null;
     if (park == null && charge == null) return null;
-    return { park: park, charge: charge, total: (park || 0) + (charge || 0) };
+    if (charge == null) fee = null;   // nothing being charged, nothing to connect
+    return { park: park, charge: charge, fee: fee,
+             total: (park || 0) + (charge || 0) + (fee || 0) };
   }
 
   function currentWindow() {
@@ -767,6 +774,7 @@
     var lines = '';
     if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh' + (st[SRC] ? ' (' + srcNote(st, true) + ')' : ''), money(p.charge), ppkGrade(st[PPK]));
     else lines += row('Charging', 'Price not published', 'none');
+    if (p && p.fee) lines += row('Connection fee, once for the session', money(p.fee), 'none');
     if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
     else lines += row('Parking', 'No paid zone at this spot', 'none');
     card.innerHTML =

@@ -159,6 +159,13 @@ def export() -> dict:
             (4 if r["charging_when_closed"] is False and r["open_247"] is False else 0) | (8 if r["dc"] else 0) |
             (16 if r["card"] else 0) | (32 if r["cable"] else 0),           # 13 access + payment flags
             _connectors(r["standards"]),                                    # 14 plug types
+            # 15 connection fee. The operator's own tariff charges one at only
+            # 2,070 of 60,394 priced stations, so this is null almost
+            # everywhere and the card hides the row rather than printing a
+            # confident zero. Where it does exist it runs 0.35 to 5.00, which
+            # on a short top-up is a bigger share of the bill than the
+            # difference between two operators' per-kWh rates.
+            (round(float(p["fee"]), 2) or None) if p.get("fee") else None,
         ]
         cells[cell_key(lat, lon)].append(rec)
 
