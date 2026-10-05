@@ -2,12 +2,27 @@
   "_comment": "Tariffs where the RDW national parking register disagrees with the authority that actually sets the price. The register is authoritative for where a facility is and how big it is; it is not authoritative for what a municipality charges today. Every entry here was read on the source url on the date given. rdw_said records what we are overriding so the correction is auditable and so a future register refresh that happens to agree can be spotted.",
   "overrides": [
     {
-      "match": {"city": "amsterdam", "is_pr": true},
-      "set": {"rate_hr": 6.0, "rate_3h": 6.0, "rate_day": 6.0},
-      "rdw_said": {"rate_hr": 1.0, "rate_3h": 1.0, "rate_day": 1.0},
-      "note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago.",
+      "match": {
+        "city": "amsterdam",
+        "is_pr": true
+      },
+      "set": {
+        "rate_hr": 6.0,
+        "rate_3h": 6.0,
+        "rate_day": 6.0
+      },
+      "rdw_said": {
+        "rate_hr": 1.0,
+        "rate_3h": 1.0,
+        "rate_day": 1.0
+      },
+      "note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00.",
       "source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
-      "checked": "2026-10-05"
+      "checked": "2026-10-05",
+      "remap_windows": {
+        "1.0": 6.0,
+        "8.0": 13.0
+      }
     }
   ]
 }

@@ -1936,7 +1936,7 @@
   "open_all_year": false,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRBO",
@@ -1962,116 +1962,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2079,7 +2079,7 @@
   "open_all_year": false,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "GAR042PRN",
@@ -2101,7 +2101,7 @@
   "rate_day": 6.0,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PROL",
@@ -2127,116 +2127,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2244,7 +2244,7 @@
   "open_all_year": true,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRRAI",
@@ -2269,116 +2269,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2386,7 +2386,7 @@
   "open_all_year": true,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRSL",
@@ -2412,116 +2412,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2529,7 +2529,7 @@
   "open_all_year": true,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRVU",
@@ -2554,32 +2554,32 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      1800,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2587,7 +2587,7 @@
   "open_all_year": false,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRZE",
@@ -2613,116 +2613,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2730,7 +2730,7 @@
   "open_all_year": true,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "GAR071ZB1",
@@ -2752,7 +2752,7 @@
   "rate_day": 6.0,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "363_PRZ2",
@@ -2778,116 +2778,116 @@
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "DONDERDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "MAANDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "VRIJDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "WOENSDAG": [
     [
      0,
      400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ],
     [
      400,
      1000,
-     8.0,
-     8.0
+     13.0,
+     13.0
     ],
     [
      1000,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZATERDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ],
    "ZONDAG": [
     [
      0,
      2400,
-     1.0,
-     1.0
+     6.0,
+     6.0
     ]
    ]
   },
@@ -2895,7 +2895,7 @@
   "open_all_year": true,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "GAR064ZB3",
@@ -2919,7 +2919,7 @@
   "rate_day": 6.0,
   "tariff_source": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
   "tariff_checked": "2026-10-05",
-  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago."
+  "tariff_note": "Amsterdam P+R is a flat 24-hour tariff of 6.00 euro when you enter after 10:00, or 13.00 for the first 24 hours when you enter before 10:00, then 6.00 per 24 hours up to 96 hours. The reduced rate requires checking in and out on public transport with an OV-chipkaart or paper GVB card; OVpay, a bank card or a phone does not qualify. Public transport fares are separate. The register still carries the 1.00 euro rate the city charged years ago. The time-banded windows carry the same stale amounts: 1.00 for the after-10:00 bands and 8.00 for the 04:00-10:00 band, corrected here to 6.00 and 13.00."
  },
  {
   "areaid": "NPR_caa78d3b",

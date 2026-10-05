@@ -25,6 +25,24 @@ def matches(g, m):
     return all(g.get(k) == v for k, v in m.items())
 
 
+def remap_windows(g, mapping):
+    """The time-banded tariff carries the same stale amounts as the flat rate,
+    and it is the one the garage pages print as a table. Each band is
+    [start_hhmm, end_hhmm, first_hour, day]; only the two money columns move,
+    and only from a value we are explicitly correcting."""
+    w = g.get("windows")
+    if not isinstance(w, dict):
+        return 0
+    n = 0
+    for day, bands in w.items():
+        for b in bands:
+            for i in (2, 3):
+                if len(b) > i and b[i] in mapping:
+                    b[i] = mapping[b[i]]
+                    n += 1
+    return n
+
+
 def main():
     garages = json.loads(GARAGES.read_text())
     spec = json.loads(OVERRIDES.read_text())
@@ -34,6 +52,9 @@ def main():
         for g in hit:
             for k, v in ov["set"].items():
                 g[k] = v
+            if ov.get("remap_windows"):
+                wmap = {float(k): v for k, v in ov["remap_windows"].items()}
+                remap_windows(g, wmap)
             g["tariff_source"] = ov["source"]
             g["tariff_checked"] = ov["checked"]
             g["tariff_note"] = ov["note"]
