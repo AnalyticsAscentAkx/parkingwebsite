@@ -697,3 +697,25 @@
   color:var(--ok);font-weight:700;font-size:13px;line-height:1.35}
 .ev-card-cheaper small{display:block;margin-top:2px;font-weight:500;
   color:var(--mut);font-size:11.5px}
+
+/* --- you are here -----------------------------------------------------
+   A dot, not a teardrop: the searched place and your own position mean
+   different things and should not look the same. Lives in searchPane with
+   the search pin, above every price pill. */
+.ev-herepin{background:none;border:0}
+.ev-herepin-dot{position:absolute;left:50%;top:50%;width:16px;height:16px;
+  margin:-8px 0 0 -8px;border-radius:50%;background:#365FEA;
+  border:3px solid #fff;box-shadow:0 2px 8px rgba(11,17,32,.45);z-index:2}
+.ev-herepin-ring{position:absolute;left:50%;top:50%;width:22px;height:22px;
+  margin:-11px 0 0 -11px;border-radius:50%;background:rgba(54,95,234,.3);
+  animation:evHerePulse 2.2s ease-out infinite}
+@keyframes evHerePulse{
+  0%{transform:scale(.5);opacity:.85}
+  70%{transform:scale(2.4);opacity:0}
+  100%{transform:scale(2.4);opacity:0}
+}
+.ev-herepin-label.leaflet-tooltip{background:#0B1120;border:0;color:#fff;
+  font-weight:700;font-size:12px;padding:4px 9px;border-radius:7px;
+  box-shadow:0 6px 18px -6px rgba(11,17,32,.6);white-space:nowrap}
+.ev-herepin-label.leaflet-tooltip::before{border-top-color:#0B1120}
+@media(prefers-reduced-motion:reduce){.ev-herepin-ring{animation:none;opacity:0}}

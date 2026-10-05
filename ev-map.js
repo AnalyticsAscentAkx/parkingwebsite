@@ -1170,7 +1170,7 @@
         setOrigin(ll);
         searchPin(ll, f.properties.name || q);
         zoomed = true;
-        map.setView(ll, hit.zoom);
+        centreOn(ll, hit.zoom);
         if (narrow()) sheet('peek');
       })
       .catch(function () { searchType(q); });
@@ -1232,7 +1232,7 @@
     track('search', { term: q, mode: showMode });
     var hit = matches(q)[0];
     if (hit) {
-      map.setView([hit.lat, hit.lon], 13);
+      centreOn([hit.lat, hit.lon], 13);
       zoomed = true;
       scheduleRefresh();
       if (narrow()) sheet('peek');
@@ -1405,6 +1405,24 @@
      map, not the parking search: a town name jumps the map, Near me centres
      it on the visitor and marks where they are. */
   var hereMarker = null;
+  /* Centre only after re-measuring the container.
+
+     Reported symptom: on a phone "find me" lands on the right area but the
+     pin is nowhere, and appears the moment you pinch. That is Leaflet
+     centring against a stale container size. The map was created before the
+     layout settled, or the address bar has collapsed, or the bottom sheet
+     moved, so setView computes the centre from the wrong dimensions and puts
+     the marker outside the visible box. A zoom forces a recalculation, which
+     is why zooming "fixes" it.
+
+     invalidateSize first, then centre. Cheap, and it makes the position
+     correct the first time instead of after a gesture. */
+  function centreOn(ll, z) {
+    if (!map) return;
+    map.invalidateSize({ animate: false });
+    map.setView(ll, z, { animate: false });
+  }
+
   function goHere() {
     track('near_me', { mode: showMode });
     var btn = document.querySelector('.nav-near') || document.getElementById('evNear'), label = btn ? btn.innerHTML : '';
@@ -1413,11 +1431,34 @@
     navigator.geolocation.getCurrentPosition(function (pos) {
       var ll = [pos.coords.latitude, pos.coords.longitude];
       setOrigin(ll);
+      /* Same mistake the search pin had: an 18px circle in the default pane,
+         underneath hundreds of price pills, so "find me" appeared to do
+         nothing. This one is a dot rather than a teardrop, because that is
+         what "you are here" means everywhere else, but it lives in the same
+         pane above all the data and says so permanently. */
       if (hereMarker) map.removeLayer(hereMarker);
-      hereMarker = L.circleMarker(ll, { radius: 9, weight: 3, color: '#fff', fillColor: '#365FEA', fillOpacity: 1 })
-        .bindTooltip('You are here', { direction: 'top' }).addTo(map);
+      if (!map.getPane('searchPane')) {
+        map.createPane('searchPane');
+        map.getPane('searchPane').style.zIndex = 1000;
+      }
+      hereMarker = L.marker(ll, {
+        pane: 'searchPane',
+        zIndexOffset: 10000,
+        icon: L.divIcon({
+          className: 'ev-herepin',
+          iconSize: [22, 22],
+          iconAnchor: [11, 11],
+          html: '<span class="ev-herepin-ring"></span><span class="ev-herepin-dot"></span>'
+        })
+      }).addTo(map);
+      hereMarker.bindTooltip('You are here', {
+        permanent: true, direction: 'top', offset: [0, -14],
+        className: 'ev-herepin-label'
+      }).openTooltip();
       zoomed = true;
-      map.setView(ll, 15);
+      /* 15 showed half a district and the dot was lost in it. 17 is a couple
+         of streets, which is what "where am I" actually means. */
+      centreOn(ll, 17);
       if (narrow()) sheet('peek');
       if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
     }, function () {
