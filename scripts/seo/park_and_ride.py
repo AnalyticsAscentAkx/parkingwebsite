@@ -1,28 +1,26 @@
 #!/usr/bin/env python3
-"""Build /park-and-ride: every P+R site in the register, and what using one saves.
+"""Build /park-and-ride: every P+R site in the register, and what it really costs.
 
-The demand this site actually receives is "goedkoop parkeren amsterdam" and
-"guenstig parken amsterdam". Cheap parking. The cheapest parking in the country
-by a wide margin is park and ride, and there was no page about it: 68 P+R sites
-sat in the data, each linked exactly once from a 25-item list on its city page,
-where nobody looking for cheap parking would ever find them.
+This page exists in its current form because the first version of it was wrong.
 
-The number that makes the case is the gap. A day in a median Amsterdam garage
-costs 92 euro at register tariffs. P+R Sloterdijk is 1 euro for 24 hours. No
-amount of shopping between garages gets near that, which is the opposite of
-what the rest of the site spends its time helping people do.
+The RDW national parking register carries a tariff for each P+R site. For the
+Amsterdam sites it says 1.00 euro, for one hour, three hours and twenty-four
+hours alike. The municipality's own page says 6.00 euro per 24 hours if you
+arrive after ten in the morning and 13.00 for the first 24 hours if you arrive
+before it, and the reduced rate only applies if you check in and out on public
+transport with an OV-chipkaart. The register figure appears to be the rate
+Amsterdam charged years ago. It is still being published today.
 
-Two sources, because the two numbers come from different places:
+We repeated that 1.00 euro across the site because the register said so and we
+did not check it against the city. That is the whole lesson: a national
+register is a source, not an authority, and a conditional municipal scheme does
+not fit in a single number.
 
-  garages.json                    68 sites flagged is_pr, with capacity,
-                                  EV points and coordinates, from the RDW
-                                  national parking register
-  parking-price-index-2026.json   the median 24 hour garage tariff per city,
-                                  already published on /parking-price-index
-
-The P+R day rate is the one thing neither source has. Municipalities set it
-themselves and it is not in the register, so it is written out below with the
-city page it came from, and the build refuses to run if the two ever disagree.
+So this build will not print a price it has not seen on a municipal page. Rates
+live in VERIFIED below with the URL they came from and the date someone looked.
+A city without an entry gets its sites, capacities and links, and the honest
+statement that we have not checked its tariff yet. No price, no saving, no
+estimate dressed up as a fact.
 
 Usage:
   python3 park_and_ride.py
@@ -33,7 +31,6 @@ import json
 import re
 import statistics
 import sys
-from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -41,24 +38,33 @@ ROOT = HERE.parent.parent
 SITE = "https://parkingnetherlands.com"
 YEAR = 2026
 
-# Municipal P+R day rates. Not in the national register: each municipality
-# publishes its own. Every one of these is already stated on the city page
-# named beside it, and check_rates() below re-reads those pages and aborts the
-# build on any disagreement, so the two can never quietly drift apart.
-PR_RATE = {
-    "amsterdam": (1.00, "amsterdam.html"),
-    "breda": (2.00, "breda.html"),
-    "delft": (2.50, "delft.html"),
-    "eindhoven": (3.00, "eindhoven.html"),
-    "groningen": (2.00, "groningen.html"),
-    "haarlem": (3.00, "haarlem.html"),
-    "leiden": (5.00, "leiden.html"),
-    "maastricht": (4.00, "maastricht.html"),
-    "nijmegen": (2.50, "nijmegen.html"),
-    "rotterdam": (2.50, "rotterdam.html"),
-    "the-hague": (2.00, "the-hague.html"),
-    "tilburg": (2.00, "tilburg.html"),
-    "utrecht": (5.00, "utrecht.html"),
+# Only what has been read on the municipality's own page. Each entry is
+# (headline rate text, full conditions, source url, date checked).
+# Adding a city means opening its page and reading it, not copying ours.
+VERIFIED = {
+    "amsterdam": {
+        "headline": "€6.00 per 24 hours",
+        "detail": (
+            "€6.00 per 24 hours if you enter after 10:00, or €13.00 for the first "
+            "24 hours if you enter before 10:00 and €6.00 per 24 hours after that, up to "
+            "96 hours. The reduced rate only applies if you check in and out on public "
+            "transport with an OV-chipkaart or a paper GVB card. Paying with OVpay, a bank "
+            "card or a phone does not qualify and you lose the discount. Public transport "
+            "fares are separate."),
+        "url": "https://www.amsterdam.nl/parkeren/parkeren-reizen/plaatsen-binnen-stad/pr-sloterdijk/",
+        "checked": "2026-10-05",
+    },
+    "rotterdam": {
+        "headline": "free for 24 hours with onward public transport",
+        "detail": (
+            "Free for up to 24 hours at P+R Kralingse Zoom if you travel on by public or "
+            "shared transport using an OV-chipkaart. Without that it is €0.50 per 18 "
+            "minutes, €17.00 a day. Beyond 24 hours the rate is €0.50 per 13 minutes "
+            "to a maximum of €23.00 a day. Other Rotterdam P+R sites differ: P+R "
+            "Alexander is around €1.77 an hour to a daily maximum of €18.00."),
+        "url": "https://www.rotterdam.nl/pr-kralingse-zoom",
+        "checked": "2026-10-05",
+    },
 }
 
 CITY_NAME = {
@@ -79,36 +85,9 @@ def eur(v):
     return f"€{v:,.2f}"
 
 
-def visible(path):
-    t = Path(path).read_text(errors="ignore")
-    t = re.sub(r'(?s)<(script|style)[^>]*>.*?</\1>', " ", t)
-    return re.sub(r"<[^>]+>", " ", t)
-
-
-def check_rates():
-    """Refuse to publish a rate the city page itself does not agree with."""
-    bad = []
-    for slug, (rate, page) in PR_RATE.items():
-        p = ROOT / page
-        if not p.is_file():
-            bad.append(f"{slug}: {page} is missing")
-            continue
-        v = visible(p)
-        found = {float(m.group(1).replace(",", "."))
-                 for m in re.finditer(r"P\+R[^.€]{0,40}?€\s?([\d]+(?:[.,]\d{1,2})?)", v, re.I)}
-        if rate not in found:
-            bad.append(f"{slug}: script says {rate}, {page} says {sorted(found) or 'nothing'}")
-    if bad:
-        for b in bad:
-            print("  RATE MISMATCH:", b, file=sys.stderr)
-        sys.exit("refusing to build with rates the city pages contradict")
-    print(f"  rates cross-checked against {len(PR_RATE)} city pages: all agree")
-
-
 def clean_name(n, city):
-    """Site names repeat the city in brackets, which reads badly in a list
-    that is already grouped by city."""
-    n = re.sub(r"\s*\((?:" + re.escape(CITY_NAME.get(city, city)) + r")\)\s*$", "", n or "", flags=re.I)
+    n = re.sub(r"\s*\((?:" + re.escape(CITY_NAME.get(city, city)) + r")\)\s*$",
+               "", n or "", flags=re.I)
     return n.strip()
 
 
@@ -116,6 +95,8 @@ def build():
     garages = json.loads((ROOT / "scripts" / "garages.json").read_text())
     index = json.loads((ROOT / "data" / f"parking-price-index-{YEAR}.json").read_text())
     med = {c["slug"]: c.get("median_24h_eur") for c in index["cities"]}
+    med_vals = sorted(v for v in med.values() if v)
+    med_of_med = statistics.median(med_vals)
 
     pr = [g for g in garages if g.get("is_pr")]
     by_city = {}
@@ -124,85 +105,89 @@ def build():
 
     rows = []
     for slug, sites in by_city.items():
-        if slug not in PR_RATE:
+        if slug not in CITY_NAME:
             continue
-        rate = PR_RATE[slug][0]
-        spaces = sum(s.get("capacity") or 0 for s in sites)
-        m = med.get(slug)
         rows.append({
-            "slug": slug, "city": CITY_NAME.get(slug, slug.title()),
-            "sites": sites, "n": len(sites), "spaces": spaces,
-            "rate": rate, "median24": m,
-            "saving": (m - rate) if m else None,
+            "slug": slug, "city": CITY_NAME[slug], "sites": sites,
+            "n": len(sites),
+            "spaces": sum(s.get("capacity") or 0 for s in sites),
+            "median24": med.get(slug),
+            "v": VERIFIED.get(slug),
         })
-    rows.sort(key=lambda r: -(r["saving"] or 0))
-    med_vals = sorted(v for v in med.values() if v)
-    med_of_med = statistics.median(med_vals)
+    rows.sort(key=lambda r: (r["v"] is None, -r["n"]))
 
     n_sites = sum(r["n"] for r in rows)
     n_spaces = sum(r["spaces"] for r in rows)
-    n_ev = sum((s.get("ev_points") or 0) for r in rows for s in r["sites"])
-    best = rows[0]
-    cheapest = min(rows, key=lambda r: r["rate"])
+    n_ver = sum(1 for r in rows if r["v"])
 
-    # ---- main table
     trs = []
     for r in rows:
+        rate = (f'{esc(r["v"]["headline"])}' if r["v"]
+                else '<span style="color:var(--mut)">not verified yet</span>')
+        src = (f'<a href="{esc(r["v"]["url"])}" rel="nofollow noopener" target="_blank">'
+               f'municipality, {r["v"]["checked"]}</a>' if r["v"] else "–")
         trs.append(
             f'<tr id="{r["slug"]}"><td><a href="/{r["slug"]}">{esc(r["city"])}</a></td>'
-            f'<td class="num">{r["n"]}</td>'
-            f'<td class="num">{r["spaces"]:,}</td>'
-            f'<td class="price">{eur(r["rate"])}</td>'
+            f'<td class="num">{r["n"]}</td><td class="num">{r["spaces"]:,}</td>'
+            f'<td>{rate}</td>'
             f'<td class="price">{eur(r["median24"]) if r["median24"] else "n/a"}</td>'
-            f'<td class="price"><strong>{eur(r["saving"]) if r["saving"] else "n/a"}</strong></td></tr>')
+            f'<td style="font-size:12.5px">{src}</td></tr>')
     table = ('<div class="tbl-wrap"><table>\n<thead><tr><th>City</th><th>P+R sites</th>'
-             '<th>Spaces</th><th>P+R per 24 h</th><th>Median garage per 24 h</th>'
-             '<th>Parking saved</th></tr></thead>\n<tbody>' + "\n".join(trs) + "</tbody></table></div>")
+             '<th>Spaces</th><th>P+R tariff</th><th>Median garage per 24 h</th>'
+             '<th>Source</th></tr></thead>\n<tbody>' + "\n".join(trs) + "</tbody></table></div>")
 
-    # ---- per city lists, which is what gives each P+R page a real parent
     secs = []
     for r in rows:
         items = []
         for s in sorted(r["sites"], key=lambda x: -(x.get("capacity") or 0)):
             cap = f'{s["capacity"]:,} spaces' if s.get("capacity") else "capacity not listed"
             ev = f' · {s["ev_points"]} charge points' if s.get("ev_points") else ""
-            items.append(f'<li><a href="/garage/{s["slug"]}">{esc(clean_name(s.get("name"), r["slug"]))}</a>'
+            items.append(f'<li><a href="/garage/{s["slug"]}">'
+                         f'{esc(clean_name(s.get("name"), r["slug"]))}</a>'
                          f'<span>{cap}{ev}</span></li>')
+        if r["v"]:
+            note = (f'<p><b>{esc(r["v"]["headline"])}.</b> {esc(r["v"]["detail"])} '
+                    f'Checked on the <a href="{esc(r["v"]["url"])}" rel="nofollow noopener" '
+                    f'target="_blank">municipal page</a> on {r["v"]["checked"]}.</p>')
+        else:
+            note = ('<p>We have not yet checked this city’s P+R tariff against the '
+                    'municipality, so we are not quoting one. The register’s figure for '
+                    'P+R sites has already proved wrong for Amsterdam, and we would rather '
+                    'say nothing than repeat it. The sites and capacities below are from the '
+                    'register and are reliable.</p>')
         secs.append(
             f'<h3 id="pr-{r["slug"]}">{esc(r["city"])}: {r["n"]} P+R '
-            f'{"site" if r["n"] == 1 else "sites"}, {eur(r["rate"])} per 24 hours</h3>'
-            f'<p>Against a median {eur(r["median24"])} for 24 hours in a '
-            f'{esc(r["city"])} garage, a day on P+R leaves {eur(r["saving"])} in your '
-            f'pocket before you have paid a fare. Full city rates are on the '
-            f'<a href="/{r["slug"]}">{esc(r["city"])} parking page</a>.</p>'
+            f'{"site" if r["n"] == 1 else "sites"}</h3>{note}'
             f'<ul class="glist">{"".join(items)}</ul>')
 
     faqs = [
         ("What is P+R parking in the Netherlands?",
-         "P+R, short for park and ride, is a car park on the edge of a city with a direct "
-         "public transport link into the centre. The municipality subsidises the parking so "
-         "that drivers leave the car outside the centre, which is why a day costs between "
-         f"{eur(cheapest['rate'])} and {eur(max(r['rate'] for r in rows))} instead of the "
-         f"{eur(med_of_med)} a typical city garage charges for the same day."),
-        ("How much does P+R parking cost?",
-         f"Between {eur(cheapest['rate'])} and {eur(max(r['rate'] for r in rows))} for 24 hours, "
-         f"depending on the city. {cheapest['city']} is the cheapest at {eur(cheapest['rate'])}. "
-         "The rate is set by the municipality rather than the operator, so every site in a "
-         "city normally charges the same. Public transport into the centre is extra."),
-        ("Do I have to use public transport to get the P+R rate?",
-         "In most cities yes. The low rate is conditional on checking in and out on public "
-         "transport with an OV-chipkaart, usually at least twice, and in Amsterdam the "
-         "discount is removed entirely if you do not. Without it you pay the ordinary daily "
-         "tariff, which can be several times higher. Check the sign at the barrier."),
-        ("Is P+R cheaper than a garage?",
-         f"In every city here, substantially. The largest gap is {best['city']}, where a "
-         f"median garage day is {eur(best['median24'])} and P+R is {eur(best['rate'])}, a "
-         f"difference of {eur(best['saving'])}. Even after two return fares the saving holds "
-         "for any stay longer than about an hour."),
-        ("Where are the P+R car parks?",
-         f"There are {n_sites} in the national parking register across {len(rows)} cities, "
-         f"{n_spaces:,} spaces in total. They are listed by city on this page, and every one "
-         "of them is on the map with its live position and the tariff for the ground it sits on."),
+         "P+R, park and ride, is a car park on the edge of a city with a direct public "
+         "transport link into the centre. Municipalities subsidise it so that drivers leave "
+         "the car outside the centre, and nearly all of them make the low rate conditional "
+         "on actually travelling on by public transport."),
+        ("How much does P+R cost?",
+         "It depends on the city and on whether you use public transport, and the two Dutch "
+         "schemes we have checked work differently from each other. Amsterdam charges €6.00 "
+         "per 24 hours when you arrive after 10:00, and €13.00 for the first 24 hours when "
+         "you arrive earlier. Rotterdam's Kralingse Zoom is free for 24 hours if you travel on "
+         "with an OV-chipkaart, and €17.00 a day if you do not."),
+        ("Is the price in the national parking register correct?",
+         "For P+R sites, not always. The register lists every Amsterdam P+R at €1.00 for "
+         "one hour, three hours and a full day alike, which was the city's rate some years "
+         "ago and is not what you pay now. We treat the register as authoritative for where "
+         "the sites are and how big they are, and we check tariffs against the municipality."),
+        ("Do I have to use public transport to get the cheap rate?",
+         "In both cities we have checked, yes, and the mechanism matters. Amsterdam requires "
+         "a check-in and check-out on an OV-chipkaart or paper GVB card; paying with OVpay, a "
+         "bank card or a phone does not count and the discount is lost. Rotterdam requires "
+         "onward travel on an OV-chipkaart for the free period. Read the sign at the barrier."),
+        ("Is P+R still cheaper than a city garage?",
+         f"Generally yes, by a wide margin, but less than the register would suggest. A day in "
+         f"a Dutch city garage has a median of {eur(med_of_med)} and reaches {eur(max(med_vals))} "
+         f"in Amsterdam. Against Amsterdam's {eur(6)} P+R rate that is still a saving of around "
+         f"{eur(max(med_vals) - 6)} before fares, rather than the {eur(max(med_vals) - 1)} the "
+         f"register's figure would imply."),
     ]
     faq_html = "".join(
         f'<div class="fqi"><button class="fqq">{esc(q)}<span class="fqt">+</span></button>'
@@ -229,8 +214,8 @@ def build():
     ld_json = json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")
 
     desc = (f"All {n_sites} park and ride sites in the Netherlands, {n_spaces:,} spaces across "
-            f"{len(rows)} cities. From {eur(cheapest['rate'])} per 24 hours against a median "
-            f"garage day of {eur(best['median24'])}.")
+            f"{len(rows)} cities, with tariffs checked against the municipality rather than "
+            f"copied from the register.")
 
     page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -238,7 +223,7 @@ def build():
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Park and Ride Netherlands {YEAR}: All {n_sites} P+R Sites and Prices</title>
+<title>Park and Ride Netherlands {YEAR}: All {n_sites} P+R Sites and Real Prices</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{SITE}/park-and-ride">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -266,61 +251,73 @@ def build():
 .pi-wrap h2{{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 12px}}
 .pi-wrap h3{{font-size:1.05rem;font-weight:700;color:var(--ink);margin:28px 0 6px}}
 .pi-wrap p{{line-height:1.65}}
-table td,table th{{white-space:nowrap}}
 table td a{{color:var(--ink);text-decoration:none;font-weight:600}}
 .cite{{font-size:13px;color:var(--mut);line-height:1.6}}
+.corr{{background:var(--sig-soft);border-radius:var(--r-lg);padding:18px 20px;margin:22px 0}}
+.corr b{{color:var(--ink)}}
+.corr p{{font-size:14.5px;margin:0}}
 </style>
 </head>
 <body>
 <main class="pi-wrap">
 <header class="pi-hero">
 <h1>Park and ride in the Netherlands</h1>
-<p class="lead">Every P+R site in the national parking register, what each city charges for
-24 hours, and what that saves against parking the same day in a garage. {n_sites} sites,
-{n_spaces:,} spaces, {len(rows)} cities.</p>
+<p class="lead">All {n_sites} P+R sites in the national parking register, {n_spaces:,} spaces
+across {len(rows)} cities, with what each one actually costs where we have been able to check
+it against the municipality.</p>
 </header>
+
+<div class="corr">
+<p><b>A correction, and why this page is careful.</b> An earlier version of this page said
+Amsterdam P+R costs {eur(1)} for 24 hours, because that is what the national parking register
+says for every Amsterdam P+R site. The city charges {eur(6)}, or {eur(13)} if you arrive before
+10:00, and only with an OV-chipkaart check-in. The register figure is years out of date and
+still being published. We have removed every price on this page that we have not read on a
+municipal page ourselves, and {n_ver} of {len(rows)} cities are verified so far.</p>
+</div>
 
 <div class="pi-stats">
 <div class="pi-stat"><b>{n_sites}</b><span>P+R sites in the register</span></div>
 <div class="pi-stat"><b>{n_spaces:,}</b><span>spaces across {len(rows)} cities</span></div>
-<div class="pi-stat"><b>{eur(cheapest['rate'])}</b><span>cheapest 24 hours, in {esc(cheapest['city'])}</span></div>
-<div class="pi-stat"><b>{eur(best['saving'])}</b><span>biggest daily saving, in {esc(best['city'])}</span></div>
+<div class="pi-stat"><b>{n_ver}</b><span>cities with a verified tariff</span></div>
+<div class="pi-stat"><b>{eur(med_of_med)}</b><span>median city garage, 24 hours</span></div>
 </div>
 
-<p>The rest of this site exists to help you find a cheaper garage. This page is about the
-option that beats all of them. A day in a city garage, taking the median of every
-register-listed tariff in each city, runs from {eur(min(med_vals))} in the cheapest city to
-{eur(max(med_vals))} in Amsterdam, with {eur(med_of_med)} in the middle. Leaving the car on the
-edge of the same city costs between {eur(cheapest['rate'])} and
-{eur(max(r['rate'] for r in rows))}, because the municipality would rather you did, and pays
-for the difference.</p>
+<p>Park and ride is still the cheapest way to leave a car near a Dutch city, and the gap is
+large enough that it survives being measured honestly. What it is not is a single national
+price. Amsterdam charges a flat {eur(6)} a day with the discount; Rotterdam gives you the first
+24 hours free if you travel on by tram or metro, and {eur(17)} if you do not. Those are two
+different schemes, and the only reliable way to know which one you are standing in is the sign
+at the barrier.</p>
 
-<p>The catch is real and worth stating plainly. In most cities the low rate only applies if
-you actually check in and out on public transport, and the fare is on top. For one person
-that is a few euro return. The saving still holds comfortably, but it is not the whole number
-in the last column.</p>
+<p>Nearly every scheme ties the low rate to actually using public transport, usually through a
+check-in and check-out on an OV-chipkaart. Miss that step and you pay the ordinary daily rate,
+which in Amsterdam is several times higher. The fare into town is on top in every city we
+checked.</p>
 
-<h2>What P+R costs, and what it saves, by city</h2>
+<h2>What P+R costs, by city</h2>
 {table}
-<p class="cite">Sorted by the saving. The P+R rate is the municipal scheme rate for the city.
-The garage figure is the median 24 hour drive-in tariff of every register-listed garage in that
-city, the same number published on the
-<a href="/parking-price-index">Netherlands Parking Price Index</a>. Public transport is not
-included in either column.</p>
+<p class="cite">The tariff column is only filled where we have read the figure on the
+municipality's own page, and the date we read it is in the source column. Where it is blank we
+have not checked yet and are not guessing. Sites and capacities throughout are from the RDW
+national parking register, which is reliable for those. The garage column is the median 24 hour
+drive-in tariff of every register-listed garage in that city, the same figure published on the
+<a href="/parking-price-index">Netherlands Parking Price Index</a>.</p>
 
 <h2>Every P+R site, by city</h2>
-<p>Capacities come from the register and are blank where the operator has not filed one.
-Each site links to its own page with the exact location, height limit and access hours.</p>
 {"".join(secs)}
 
-<h2>How this was put together</h2>
-<p class="cite">P+R sites and capacities: the RDW national parking register, the same source
-behind every garage page on this site. Median garage tariffs: {index.get('register_snapshot', 'register snapshot')},
-{sum(c.get('priced', 0) for c in index['cities'])} priced facilities. P+R day rates are set by
-each municipality and are not in the register, so they are taken from the city pages here and
-the build fails if the two disagree. Rates change; the figure at the barrier wins. If you find
-one of these wrong, the contact address is on the <a href="/about">about page</a> and it gets
-fixed the same week.</p>
+<h2>How this was put together, and what is wrong with it</h2>
+<p class="cite">Locations, names and capacities: the RDW national parking register, the source
+behind every garage page here. Tariffs: read individually on each municipality's own page, with
+the date recorded. Median garage tariffs: {index.get('register_snapshot', 'register snapshot')},
+{sum(c.get('priced', 0) for c in index['cities'])} priced facilities.</p>
+<p class="cite">The known weakness is coverage: {len(rows) - n_ver} of {len(rows)} cities still
+have no verified tariff here, and those sections say so rather than showing a number. The
+register's own tariff field is not used for P+R anywhere on this page, because it is
+demonstrably wrong for Amsterdam and we have no reason to assume Amsterdam is the only one.
+Rates change. The figure at the barrier wins. If you find one of these wrong, the contact
+address is on the <a href="/about">about page</a> and it gets fixed the same week.</p>
 
 <h2>Common questions</h2>
 <div class="fq">{faq_html}</div>
@@ -332,69 +329,22 @@ check the <a href="/free-parking">places that cost nothing at all</a>, or see
 </body>
 </html>
 """
-    build.rows = rows
-    return page, n_sites, n_spaces, len(rows), best
-
-
-PR_START = "<!-- pr-link:start -->"
-PR_END = "<!-- pr-link:end -->"
-
-
-def inject_city_blocks(rows):
-    """Give every city page a route into the P+R page carrying its own figures.
-
-    A block repeated verbatim across thirteen pages is boilerplate and reads
-    like it. Each one here states that city's own site count, rate and saving,
-    so the page says something only that page can say.
-    """
-    n = 0
-    for r in rows:
-        f = ROOT / f"{r['slug']}.html"
-        if not f.is_file():
-            continue
-        t = f.read_text()
-        block = (
-            f'{PR_START}\n<section class="sec"><div class="wrap">'
-            f'<h2>Park and ride in {esc(r["city"])}</h2>'
-            f'<p>{esc(r["city"])} has {r["n"]} park and ride '
-            f'{"site" if r["n"] == 1 else "sites"} in the national register, '
-            f'{r["spaces"]:,} spaces between them, at {eur(r["rate"])} for 24 hours. '
-            f'A day in a median {esc(r["city"])} garage is {eur(r["median24"])}, so the '
-            f'car costs {eur(r["saving"])} less before you add a fare. The low rate '
-            f'normally depends on checking in and out on public transport.</p>'
-            f'<p>All {r["n"]} are listed with capacities on the '
-            f'<a href="/park-and-ride#pr-{r["slug"]}">national park and ride page</a>, '
-            f'alongside the other twelve cities.</p>'
-            f'</div></section>\n{PR_END}'
-        )
-        if PR_START in t:
-            i, j = t.index(PR_START), t.index(PR_END) + len(PR_END)
-            t = t[:i] + block + t[j:]
-        else:
-            anchor = "<!-- free-link:start -->"
-            if anchor in t:
-                t = t.replace(anchor, block + "\n" + anchor, 1)
-            else:
-                continue
-        f.write_text(t, "utf-8")
-        n += 1
-    print(f"  city pages given a P+R block: {n}")
+    return page, n_sites, n_spaces, len(rows), n_ver
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    check_rates()
-    page, n_sites, n_spaces, n_cities, best = build()
+    page, n_sites, n_spaces, n_cities, n_ver = build()
     print(f"  {n_sites} P+R sites, {n_spaces:,} spaces, {n_cities} cities")
-    print(f"  biggest saving: {best['city']} at {eur(best['saving'])} a day")
+    print(f"  cities with a tariff verified against the municipality: {n_ver}")
+    print(f"  cities quoting no price at all: {n_cities - n_ver}")
     if a.dry_run:
         print("  dry run, nothing written")
         return 0
     out = ROOT / "park-and-ride.html"
     out.write_text(page, "utf-8")
-    inject_city_blocks(build.rows)
     print(f"-> {out} ({len(page):,} bytes)")
     return 0
 

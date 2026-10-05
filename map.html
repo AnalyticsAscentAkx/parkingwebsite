@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Netherlands Parking Map 2026</title>
-<meta name="description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €1/day, garages with live rates. Filter by city, type and price.">
+<meta name="description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €6/day, garages with live rates. Filter by city, type and price.">
 <link rel="canonical" href="https://parkingnetherlands.com/map">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Netherlands Parking Map 2026">
 <meta property="og:url" content="https://parkingnetherlands.com/map">
-<meta property="og:description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €1/day, garages with live rates. Filter by city, type and price.">
+<meta property="og:description" content="Interactive parking map of the Netherlands 2026. Free parking zones, P+R locations from €6/day, garages with live rates. Filter by city, type and price.">
 <meta property="og:site_name" content="Parking Netherlands">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Analytics Ascent">
@@ -112,7 +112,7 @@
 
 <div class="map-hero"><div class="ct">
 <h1><em>Parking Map</em> of the Netherlands</h1>
-<p class="sub">Interactive map of curated parking spots - free zones, P+R from €1/day, cheap garages and Blue Zones across every major Dutch city. Filter by type, price or city. No login.</p>
+<p class="sub">Interactive map of curated parking spots - free zones, P+R from €6/day, cheap garages and Blue Zones across every major Dutch city. Filter by type, price or city. No login.</p>
 </div></div>
 
 <section class="sec sec-w"><div class="ct">
@@ -160,7 +160,7 @@
 <p>This map shows <strong>curated parking spots</strong> across the Netherlands. Each marker has type-coded colour, live rate, and tips. Click any marker for the full breakdown and a direct link to the relevant city guide.</p>
 <ul>
   <li><span style="color:var(--gn);font-weight:700">Green</span> = <strong>Free parking</strong> - areas with no charge any day, evenings, or Sundays.</li>
-  <li><span style="color:var(--tl);font-weight:700">Teal</span> = <strong>P+R</strong> - Park &amp; Ride from €1/day with return public transport.</li>
+  <li><span style="color:var(--tl);font-weight:700">Teal</span> = <strong>P+R</strong> - Park &amp; Ride from €6/day with return public transport.</li>
   <li><span style="color:var(--or);font-weight:700">Orange</span> = <strong>Garage</strong> - paid garages with the best day-rate value.</li>
   <li><span style="color:var(--pr);font-weight:700">Purple</span> = <strong>Blue Zone</strong> - free for 1-2 hours with a parking disc (€2 at petrol stations).</li>
 </ul>
@@ -207,11 +207,11 @@
 <script>
 const SPOTS = [
   // AMSTERDAM
-  {n:'P+R Sloterdijk', c:'Amsterdam', t:'pr', lat:52.3893, lng:4.8370, price:'€1/24hr', detail:'10 min train to Centraal. OV-chipkaart entry.', link:'/amsterdam-pr-guide'},
-  {n:'P+R Olympisch Stadion', c:'Amsterdam', t:'pr', lat:52.3437, lng:4.8526, price:'€1/24hr', detail:'15 min tram to centre. Tourist favourite.', link:'/amsterdam-pr-guide'},
-  {n:'P+R ArenA', c:'Amsterdam', t:'pr', lat:52.3140, lng:4.9418, price:'€1/24hr', detail:'Best for east arrivals. Metro to centre 18min.', link:'/amsterdam-pr-guide'},
-  {n:'P+R Zeeburg', c:'Amsterdam', t:'pr', lat:52.3625, lng:4.9650, price:'€1/24hr', detail:'East entry from A1/A10.', link:'/amsterdam-pr-guide'},
-  {n:'P+R Bos en Lommer', c:'Amsterdam', t:'pr', lat:52.3825, lng:4.8475, price:'€1/24hr', detail:'West entry. Tram to centre.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Sloterdijk', c:'Amsterdam', t:'pr', lat:52.3893, lng:4.8370, price:'€6/24hr', detail:'10 min train to Centraal. OV-chipkaart entry.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Olympisch Stadion', c:'Amsterdam', t:'pr', lat:52.3437, lng:4.8526, price:'€6/24hr', detail:'15 min tram to centre. Tourist favourite.', link:'/amsterdam-pr-guide'},
+  {n:'P+R ArenA', c:'Amsterdam', t:'pr', lat:52.3140, lng:4.9418, price:'€6/24hr', detail:'Best for east arrivals. Metro to centre 18min.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Zeeburg', c:'Amsterdam', t:'pr', lat:52.3625, lng:4.9650, price:'€6/24hr', detail:'East entry from A1/A10.', link:'/amsterdam-pr-guide'},
+  {n:'P+R Bos en Lommer', c:'Amsterdam', t:'pr', lat:52.3825, lng:4.8475, price:'€6/24hr', detail:'West entry. Tram to centre.', link:'/amsterdam-pr-guide'},
   {n:'Q-Park De Bijenkorf', c:'Amsterdam', t:'gr', lat:52.3725, lng:4.8930, price:'€7.50/hr · €60/day', detail:'Centre - only if money no object.', link:'/amsterdam'},
   {n:'IJDock Garage', c:'Amsterdam', t:'gr', lat:52.3815, lng:4.8970, price:'€4/hr · €30/day', detail:'Behind Centraal. Cheaper than centre.', link:'/amsterdam'},
   {n:'Free zone Amsterdam Noord', c:'Amsterdam', t:'fr', lat:52.3997, lng:4.9120, price:'FREE', detail:'No paid parking. Ferry to centre.', link:'/free-parking'},
