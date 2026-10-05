@@ -52,10 +52,22 @@ DASHES = re.compile(r"[–—]")
 # legitimate interface glyphs: the hamburger icon, ticks, crosses, arrows. The
 # first run flagged 56 pages for the menu button alone. Allow the ones the
 # design system actually uses and flag the rest, which are true emoji blocks.
-UI_GLYPHS = "\u2630\u2713\u2714\u2715\u2716\u2717\u2718\u2605\u2606\u25b6\u25c0\u2022\u2192\u2190"
+UI_GLYPHS = ("\u2630\u2713\u2714\u2715\u2716\u2717\u2718\u2605\u2606"
+             "\u25b6\u25c0\u25cf\u2022\u2192\u2190")
+# The first version of this started at U+1F300 and missed every emoji that
+# was actually on the site: the squared letters live in the Enclosed
+# Alphanumeric Supplement at U+1F100 (P in a box, FREE in a box, the
+# regional-indicator flags) and the clock faces sit in Miscellaneous
+# Technical at U+23F0. Fifty-two of them survived a run that reported no
+# findings at all. The ranges below cover the pictographic blocks from
+# U+1F000 up, plus the two low blocks that actually bit us, plus the
+# variation selector that trails an emoji presentation form.
 EMOJI = re.compile(
-    "[\U0001F300-\U0001FAFF\U0001F000-\U0001F0FF"
-    "\U00002600-\U000027BF\U0001F900-\U0001F9FF]"
+    "[\U0001F000-\U0001FAFF"      # pictographs, flags, enclosed letters
+    "\u2300-\u23FF"               # clocks, stopwatches, misc technical
+    "\u2600-\u27BF"               # misc symbols and dingbats
+    "\u2B00-\u2BFF"               # arrows and stars
+    "\uFE0F]"                     # emoji variation selector
 )
 
 

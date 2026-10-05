@@ -9,7 +9,7 @@
 /parking-utrecht-centraal.html  /parking-utrecht-centraal  301
 /free-parking.html     /free-parking     301
 /street-parking.html   /street-parking   301
-/amsterdam-cheap-parking.html  /amsterdam-cheap-parking  301
+/amsterdam-cheap-parking.html  /amsterdam  301
 /amsterdam.html        /amsterdam        301
 /rotterdam.html        /rotterdam        301
 /the-hague.html        /the-hague        301
@@ -119,3 +119,9 @@
 /laadpalen.html      /laadpalen      301
 /equans-velian-storing.html      /equans-velian-storing      301
 /we-drive-solar-storing.html      /we-drive-solar-storing      301
+
+# Merged into /amsterdam. Two near-identical 3,000 word English pages on the
+# same topic were splitting the signal and Google was ranking the weaker one:
+# 2 inbound links and no hreflang cluster, at position 74-83 on the queries
+# that carry most of this site's demand.
+/amsterdam-cheap-parking  /amsterdam  301

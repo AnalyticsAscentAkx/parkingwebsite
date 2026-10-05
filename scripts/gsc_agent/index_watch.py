@@ -53,7 +53,6 @@ CANARIES = [
     "https://parkingnetherlands.com/de/",
     "https://parkingnetherlands.com/fr/",
     "https://parkingnetherlands.com/parking-fines",
-    "https://parkingnetherlands.com/amsterdam-cheap-parking",
     "https://parkingnetherlands.com/ev-charging",
     "https://parkingnetherlands.com/about",
 ]
