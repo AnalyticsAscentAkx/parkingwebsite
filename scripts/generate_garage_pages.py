@@ -341,6 +341,7 @@ def index_page(garages):
 <title>Parking Garage Directory Netherlands — {len(garages)} Garages, Official {YEAR} Rates</title>
 <meta name="description" content="Every register-listed parking garage and P+R site in {len(by_city)} Dutch cities: official hourly and daily tariffs, capacity and EV charging points. Free and independent.">
 <link rel="canonical" href="{SITE}/garage/">
+<link rel="alternate" hreflang="en" href="{SITE}/garage/"><link rel="alternate" hreflang="nl" href="{SITE}/nl/garage/"><link rel="alternate" hreflang="de" href="{SITE}/de/garage/"><link rel="alternate" hreflang="fr" href="{SITE}/fr/garage/"><link rel="alternate" hreflang="x-default" href="{SITE}/garage/">
 {HEAD_FONTS}
 <meta name="robots" content="index, follow">
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">

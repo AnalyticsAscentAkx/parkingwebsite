@@ -750,3 +750,7 @@ h1 .sig,.lh h1 .sig,.ch h1 .sig,.fine-hero h1 .sig{color:var(--blue)}
   border-radius:var(--r-lg);padding:16px 18px}
 .sub-pot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 @media(max-width:560px){.sub-row button{width:100%}}
+
+/* Footer line to the same page in the other languages (apply_chrome.add_lang_line) */
+.site-langs{max-width:1180px;margin:0 auto;padding:0 24px 18px;font-size:13px;color:var(--mut)}
+.site-langs a{color:var(--sig);font-weight:600;text-decoration:none;white-space:nowrap}

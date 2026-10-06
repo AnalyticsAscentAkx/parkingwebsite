@@ -134,6 +134,25 @@ def ev_numbers(slug):
     if not m: return None
     return dict(locs=int(m.group(1)), pts=int(m.group(2)), kwh=float(m.group(3).replace(",", ".")), down=float(m.group(4).replace(",", ".")), fast=int(m.group(5)))
 
+# English fragments the zone tables inherit from the English city pages.
+ZONE_WORDS = {
+  "nl": {"Mon": "ma", "Tue": "di", "Wed": "wo", "Thu": "do", "Fri": "vr", "Sat": "za", "Sun": "zo", "Outer zones": "Buitenwijken", "Centre": "Centrum", "Center": "Centrum", "Free": "Gratis", "all day": "hele dag", "24hr": "24 u", "hr": "u"},
+  "de": {"Mon": "Mo", "Tue": "Di", "Wed": "Mi", "Thu": "Do", "Fri": "Fr", "Sat": "Sa", "Sun": "So", "Outer zones": "Außenbezirke", "Centre": "Zentrum", "Center": "Zentrum", "Free": "Kostenlos", "all day": "ganztags", "24hr": "24 Std.", "hr": "Std."},
+  "fr": {"Mon": "lun", "Tue": "mar", "Wed": "mer", "Thu": "jeu", "Fri": "ven", "Sat": "sam", "Sun": "dim", "Outer zones": "Zones périphériques", "Centre": "Centre", "Center": "Centre", "Free": "Gratuit", "all day": "toute la journée", "24hr": "24 h", "hr": "h"},
+}
+def loc_zone_txt(lang, txt):
+    for en, loc in sorted(ZONE_WORDS[lang].items(), key=lambda kv: -len(kv[0])):
+        txt = re.sub(r"\b" + re.escape(en) + r"\b", loc, txt)
+    return txt
+
+def post(lang, slug, t):
+    """French elides 'de' before a vowel: 'parkings d\'Utrecht', not 'de Utrecht'."""
+    if lang == "fr":
+        cname = city_name("fr", CITY_LABEL[slug])
+        if cname[:1] in "AEIOUYÉ":
+            t = re.sub(r"\b([dD])e " + re.escape(cname), lambda m: m.group(1) + "'" + cname, t)
+    return t
+
 def build(lang, slug):
     T = C[lang]; G = S[lang]; en = CITY_LABEL[slug]; cname = city_name(lang, en); M = lambda v: money(lang, v)
     qb, prs, zones = parse_en(slug)
@@ -144,7 +163,7 @@ def build(lang, slug):
         m = re.search(r"€([\d.]+)", txt)
         if not m: return txt
         v = float(m.group(1)); rest = txt[m.end():]
-        rest = rest.replace("/hr", {"nl": "/uur", "de": "/Std.", "fr": "/h"}[lang])
+        rest = rest.replace("/hr", {"nl": "/uur", "de": "/Std.", "fr": "/h"}[lang]).replace("/24hr", {"nl": "/24 u", "de": "/24 Std.", "fr": "/24 h"}[lang])
         return M(v) + rest
     gs = [g for g in GARAGES if g["city"] == slug]; paid = [g for g in gs if priced(g) and not is_free(g) and not is_anom(g)]
     medh = statistics.median(g["rate_hr"] for g in paid) if paid else None; medd = statistics.median(g["rate_day"] for g in paid) if paid else None
@@ -183,7 +202,7 @@ def build(lang, slug):
             for k, v in z.items():
                 if any(w in k for w in words): return v
             return ""
-        zrows = "".join(f'<tr><td><strong>{esc(pick(z, ["zone"]))}</strong></td><td class="price">{esc(loc_money_txt(pick(z, ["rate"])))}</td><td>{esc(pick(z, ["hour", "paid"]))}</td><td class="price">{esc(loc_money_txt(pick(z, ["cost"])))}</td></tr>' for z in zones if pick(z, ["zone"]))
+        zrows = "".join(f'<tr><td><strong>{esc(loc_zone_txt(lang, pick(z, ["zone"])))}</strong></td><td class="price">{esc(loc_money_txt(pick(z, ["rate"])))}</td><td>{esc(loc_zone_txt(lang, pick(z, ["hour", "paid"])))}</td><td class="price">{esc(loc_money_txt(pick(z, ["cost"])))}</td></tr>' for z in zones if pick(z, ["zone"]))
         zone_html = f'<h2>{F("h_zones")}</h2><p>{F("p_zones")}</p><div class="tbl-wrap"><table><thead><tr><th>{T["th_zone"]}</th><th>{T["th_rate"]}</th><th>{T["th_hours"]}</th><th>{T["th_cost"]}</th></tr></thead><tbody>{zrows}</tbody></table></div>'
     ev_html = f'<h2>{F("h_ev")}</h2><p>{F("p_ev")}</p>' if ev else ""
     faqs = [(q.format(**ctx), re.sub(r"<[^>]+>", "", an.format(**ctx))) for q, an in T["faq"]]
@@ -263,7 +282,7 @@ if __name__ == "__main__":
     for lang in langs:
         (ROOT / lang).mkdir(exist_ok=True)
         for slug in CITY_LABEL:
-            (ROOT / (city_url(lang, slug).strip("/") + ".html")).write_text(build(lang, slug), "utf-8")
+            (ROOT / (city_url(lang, slug).strip("/") + ".html")).write_text(post(lang, slug, build(lang, slug)), "utf-8")
         print(lang, "14 city pages")
     for slug in CITY_LABEL: patch_en_hreflang(slug)
     print("hreflang added to 14 English city pages")

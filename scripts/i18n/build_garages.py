@@ -202,6 +202,88 @@ def fit_desc(d, limit=158):
     return cut[:cut.rfind(" ")].rstrip(" ,;:\u2013-") + "."
 
 
+HUB = {
+ "nl": dict(title="Alle parkeergarages in Nederland: tarieven per stad {year}", h1="Elke geregistreerde parkeergarage in Nederland",
+   intro="{n} garages, terreinen en P+R-locaties in {c} steden, rechtstreeks uit het nationaal parkeerregister, met officiële tarieven waar die gepubliceerd zijn. Liever op adres zoeken? Gebruik de <a href=\"/search\">parkeerzoeker</a>.",
+   desc="Alle {n} geregistreerde parkeergarages en P+R-terreinen in {c} Nederlandse steden, met officiële uur- en dagtarieven ({year}).",
+   crumb="Parkeergarages", langs="Deze pagina in andere talen", th=("Locatie", "1 uur", "24 uur", "Plaatsen"), locs="{n} locaties", np="n.b.", jump="Direct naar"),
+ "de": dict(title="Alle Parkhäuser in den Niederlanden: Tarife je Stadt {year}", h1="Jedes registrierte Parkhaus in den Niederlanden",
+   intro="{n} Parkhäuser, Parkplätze und P+R-Anlagen in {c} Städten, direkt aus dem nationalen Parkregister, mit offiziellen Tarifen, wo veröffentlicht. Lieber nach Adresse suchen? Nutzen Sie die <a href=\"/search\">Parkplatzsuche</a>.",
+   desc="Alle {n} registrierten Parkhäuser und P+R-Anlagen in {c} niederländischen Städten, mit offiziellen Stunden- und Tagestarifen ({year}).",
+   crumb="Parkhäuser", langs="Diese Seite in anderen Sprachen", th=("Parkhaus", "1 Std.", "24 Std.", "Plätze"), locs="{n} Standorte", np="k.A.", jump="Direkt zu"),
+ "fr": dict(title="Tous les parkings des Pays-Bas : tarifs par ville {year}", h1="Chaque parking enregistré aux Pays-Bas",
+   intro="{n} parkings, terrains et sites P+R dans {c} villes, directement issus du registre national du stationnement, avec les tarifs officiels lorsqu'ils sont publiés. Vous préférez chercher par adresse ? Utilisez la <a href=\"/search\">recherche de parking</a>.",
+   desc="Les {n} parkings et sites P+R enregistrés dans {c} villes néerlandaises, avec les tarifs officiels à l'heure et à la journée ({year}).",
+   crumb="Parkings", langs="Cette page dans d'autres langues", th=("Parking", "1 h", "24 h", "Places"), locs="{n} sites", np="n.c.", jump="Aller à"),
+}
+
+def hub(lang):
+    """The directory page per language. The English one has 323 outbound links
+    and is what gets EN garage pages crawled; the translations had nothing like
+    it, so each translated garage hung off its city page alone."""
+    T = S[lang]; Hh = HUB[lang]; M = lambda v: money(lang, v)
+    path = PREFIX[lang] + "/garage/"; url = SITE + path
+    cities = sorted(STATS.keys(), key=lambda c: (-len(STATS[c]["all"]), c))
+    n = len(GARAGES)
+    jump = " · ".join(f'<a href="#{c}">{esc(city_name(lang, CITY_LABEL[c]))}</a>' for c in cities)
+    secs = []
+    for c in cities:
+        rows = sorted(STATS[c]["all"], key=lambda g: (0 if priced(g) else 1, g.get("rate_hr") or 0, short(g)))
+        cname = city_name(lang, CITY_LABEL[c])
+        tr = "".join(
+            f'<tr><td><a href="{garage_url(lang, g["slug"])}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short(g))}</a></td>'
+            f'<td class="price">{M(g["rate_hr"]) if priced(g) and (g["rate_hr"] > 0 or not g.get("rate_day")) else Hh["np"]}</td>'
+            f'<td class="price">{M(g["rate_day"]) if priced(g) and g.get("rate_day") is not None else Hh["np"]}</td>'
+            f'<td class="num">{num(lang, g["capacity"]) if g.get("capacity") else ""}</td></tr>' for g in rows)
+        secs.append(f'<h2 id="{c}"><a href="{city_url(lang, c)}" style="color:inherit;text-decoration:none">{esc(cname)}</a> <span class="locs">· {Hh["locs"].format(n=len(rows))}</span></h2>'
+                    f'<div class="tbl-wrap"><table><thead><tr>' + "".join(f"<th>{h}</th>" for h in Hh["th"]) + f'</tr></thead><tbody>{tr}</tbody></table></div>')
+    alts = "".join(f'<link rel="alternate" hreflang="{l}" href="{SITE}{PREFIX[l]}/garage/">' for l in LANGS) + f'<link rel="alternate" hreflang="x-default" href="{SITE}/garage/">'
+    other = " · ".join(f'<a href="{PREFIX[l]}/garage/" hreflang="{l}" lang="{l}">{S[l]["lang_name"]}</a>' for l in LANGS if l != lang)
+    title = Hh["title"].format(year=YEAR); desc = Hh["desc"].format(n=n, c=len(cities), year=YEAR)
+    bc = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": T["home"], "item": SITE + (PREFIX[lang] or "") + "/"},
+        {"@type": "ListItem", "position": 2, "name": Hh["crumb"], "item": url}]}
+    coll = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url, "description": desc, "inLanguage": lang,
+            "publisher": {"@type": "Organization", "name": "Analytics Ascent", "url": "https://analyticascent.com"}}
+    ld = json.dumps([coll, bc], ensure_ascii=False).replace("</", "<\\/")
+    return f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{url}">
+{alts}
+<link rel="stylesheet" href="/site.css">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{ld}</script>
+<style>
+.gwrap{{max-width:1040px;margin:0 auto;padding:0 24px 40px}}
+.crumb{{font-size:13px;color:var(--mut);padding:18px 0 0}}.crumb a{{color:var(--mut);text-decoration:none}}.crumb a:hover{{color:var(--ink)}}
+.gwrap h1{{font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1.12;margin:10px 0 8px}}
+.gwrap .sub{{color:var(--mut);font-size:15.5px;max-width:640px;line-height:1.6}}.gwrap .sub a{{color:var(--sig);font-weight:600}}
+.jump{{font-size:13.5px;color:var(--mut);margin:18px 0 6px;line-height:1.9}}.jump a{{color:var(--sig);font-weight:600;text-decoration:none;white-space:nowrap}}
+.gwrap h2{{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 14px}}.gwrap h2 .locs{{color:var(--mut-2);font-weight:500;font-size:.85em}}
+.glangs{{font-size:13.5px;color:var(--mut);margin:34px 0 0}}.glangs a{{color:var(--sig);font-weight:600;text-decoration:none}}
+</style>
+</head>
+<body>
+<main class="gwrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="{PREFIX[lang] or ''}/">{esc(T["home"])}</a> › {esc(Hh["crumb"])}</nav>
+  <h1>{esc(Hh["h1"])}</h1>
+  <p class="sub">{Hh["intro"].format(n=n, c=len(cities))}</p>
+  <p class="jump">{Hh["jump"]}: {jump}</p>
+  {"".join(secs)}
+  <p class="glangs">{esc(Hh["langs"])}: {other}</p>
+</main>
+</body>
+</html>
+"""
+
 def page(lang, g):
     T = S[lang]; city = g["city"]; cname = city_name(lang, CITY_LABEL[city]); name = short(g); M = lambda v: money(lang, v)
     url = SITE + garage_url(lang, g["slug"]); has = priced(g); free = is_free(g)
@@ -350,11 +432,15 @@ var s=document.getElementById('dur');s.addEventListener('input',function(){{docu
 
 if __name__ == "__main__":
     langs = [a for a in sys.argv[1:] if a in LANGS] or LANGS
+    hubs_only = "hub" in sys.argv[1:]
     n = 0
     for lang in langs:
         out = ROOT / (PREFIX[lang].strip("/") + "/garage" if lang != "en" else "garage")
         out.mkdir(parents=True, exist_ok=True)
-        for g in GARAGES:
-            (out / f"{g['slug']}.html").write_text(page(lang, g), "utf-8"); n += 1
-        print(f"{lang}: {len(GARAGES)} pages -> {out.relative_to(ROOT)}/")
+        if not hubs_only:
+            for g in GARAGES:
+                (out / f"{g['slug']}.html").write_text(page(lang, g), "utf-8"); n += 1
+            print(f"{lang}: {len(GARAGES)} pages -> {out.relative_to(ROOT)}/")
+        if lang != "en":   # the English directory is written by scripts/generate_garage_pages.py
+            (out / "index.html").write_text(hub(lang), "utf-8"); print(f"{lang}: directory -> {out.relative_to(ROOT)}/index.html")
     print("total", n)

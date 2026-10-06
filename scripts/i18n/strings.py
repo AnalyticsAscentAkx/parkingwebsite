@@ -250,7 +250,7 @@ CHROME = {
 }
 # localized page paths that replace the English href when the file exists
 HREF = {
-"nl": {"/parking-fines": "/nl/parkeerboete", "/laadpalen#storingen": "/laadpalen#storingen"},
-"de": {"/parking-fines": "/de/parkstrafe-niederlande"},
-"fr": {"/parking-fines": "/fr/amende-stationnement-pays-bas"},
+"nl": {"/garage/": "/nl/garage/", "/parking-fines": "/nl/parkeerboete", "/laadpalen#storingen": "/laadpalen#storingen"},
+"de": {"/garage/": "/de/garage/", "/parking-fines": "/de/parkstrafe-niederlande"},
+"fr": {"/garage/": "/fr/garage/", "/parking-fines": "/fr/amende-stationnement-pays-bas"},
 }

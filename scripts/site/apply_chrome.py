@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20261005e"
+CSS_VERSION = "20261006f"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/affiliates.js?v={CSS_VERSION}" defer></script>')
@@ -77,7 +77,9 @@ def localize(html: str, lang: str) -> str:
         if (ROOT / (target.strip("/") + ".html")).exists():
             out = re.sub(r'href="/' + re.escape(slug) + '"', 'href="' + target + '"', out)
     for en, loc in HREF.get(lang, {}).items():
-        if (ROOT / (loc.split("#")[0].strip("/") + ".html")).exists():
+        base = loc.split("#")[0]
+        target = ROOT / (base.strip("/") + "/index.html") if base.endswith("/") else ROOT / (base.strip("/") + ".html")
+        if target.exists():
             out = out.replace('href="' + en + '"', 'href="' + loc + '"')
     out = out.replace('<a href="/" class="logo">', '<a href="/' + lang + '/" class="logo">') if (ROOT / lang / "index.html").exists() else out
     _LOC_CACHE[key] = out
@@ -164,6 +166,29 @@ def nav_for(url: str) -> str:
     return "".join(out)
 
 
+SITE_URL = "https://parkingnetherlands.com"
+LANG_LABEL = {"en": "This page in", "nl": "Deze pagina in", "de": "Diese Seite auf", "fr": "Cette page en"}
+LANG_NAME = {"en": "English", "nl": "Nederlands", "de": "Deutsch", "fr": "Français"}
+ALT_RE = re.compile(r'<link rel="alternate" hreflang="([a-z]{2})" href="([^"]+)"')
+
+
+def add_lang_line(html: str, url: str) -> str:
+    """A crawlable line to this page's other languages, at the foot of the footer.
+    hreflang in the head tells Google the pages are twins but is not a link: a
+    crawler walking the English site never reached /nl/, /de/ or /fr/ at all.
+    Pages that already carry their own .glangs line are left alone."""
+    if 'class="glangs"' in html:
+        return html
+    lang = lang_of(url)
+    alts = [(l, h) for l, h in ALT_RE.findall(html) if l != lang and l in LANG_NAME]
+    if not alts:
+        return html
+    links = " · ".join(f'<a href="{h.replace(SITE_URL, "") or "/"}" hreflang="{l}" lang="{l}">{LANG_NAME[l]}</a>' for l, h in alts)
+    line = f'<p class="site-langs">{LANG_LABEL[lang]}: {links}</p>'
+    i = html.rfind("</footer>")
+    return html[:i] + line + "\n" + html[i:] if i > -1 else html
+
+
 def apply(html: str, url: str) -> str:
     # 1. chrome
     html, n = NAV_RE.subn(lambda m: nav_for(url), html, count=1)
@@ -176,6 +201,7 @@ def apply(html: str, url: str) -> str:
         html = html[: last.start()] + footer + html[last.end():]
     else:
         html = html.replace("</body>", footer + "\n</body>", 1)
+    html = add_lang_line(html, url)
 
     # 2. one stylesheet, one font stack
     head_end = html.find("</head>")
