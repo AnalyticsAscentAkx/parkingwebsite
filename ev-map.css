@@ -333,6 +333,21 @@
 .ev-card-row.is-total span{color:var(--ink);font-weight:700}
 .ev-card-row.is-total b{font-size:16px;color:var(--ink)}
 .ev-card-note{font-size:11px;color:var(--mut-2);line-height:1.45;margin:6px 0 12px}
+/* The total leads; the breakdown is one tap away */
+.ev-card-total{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;margin:8px -8px 0;padding:10px 8px;border-radius:8px;background:var(--paper-2)}
+.ev-card-total span{font-size:12.5px;font-weight:700;color:var(--ink)}
+.ev-card-total b{font-family:var(--f-ui);font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.ev-card-total[data-g="lo"]{background:var(--ok-soft)}.ev-card-total[data-g="lo"] b{color:var(--ok)}
+.ev-card-total[data-g="hi"]{background:var(--bad-soft)}.ev-card-total[data-g="hi"] b{color:var(--bad)}
+.ev-card-total small{flex-basis:100%;font-size:11px;font-weight:500;color:var(--mut);line-height:1.4}
+.ev-card-how summary{font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;margin:8px 0 2px;list-style:none}
+.ev-card-how summary::-webkit-details-marker{display:none}
+.ev-card-how summary::before{content:"+ "}
+.ev-card-how[open] summary::before{content:"\2212 "}
+.ev-presets{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.ev-presets button{font-family:var(--f-ui);font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--txt);cursor:pointer}
+.ev-presets button:hover{border-color:var(--blue);color:var(--blue)}
+.ev-presets button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 .ev-card-act{display:flex;gap:8px}
 .ev-card-btn{flex:1;text-align:center;font-family:var(--f-ui);font-size:13px;font-weight:700;padding:9px 12px;
   border-radius:var(--r);border:1px solid var(--line);background:#fff;color:var(--txt);text-decoration:none;cursor:pointer;transition:.15s}
@@ -736,3 +751,7 @@
   box-shadow:0 6px 18px -6px rgba(11,17,32,.6);white-space:nowrap}
 .ev-herepin-label.leaflet-tooltip::before{border-top-color:#0B1120}
 @media(prefers-reduced-motion:reduce){.ev-herepin-ring{animation:none;opacity:0}}
+/* Pins use the legend's three price colours: below, around, above typical */
+.ev-pin[data-g="lo"]{background:#168A68;border-top-color:#168A68}
+.ev-pin[data-g="mid"]{background:#17243A;border-top-color:#17243A}
+.ev-pin[data-g="hi"]{background:#B45309;border-top-color:#B45309}

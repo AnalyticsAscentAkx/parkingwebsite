@@ -381,7 +381,11 @@
 
   function priceOf(st, w) {
     var park = st[AREA] ? parkCost(st[AREA], w.a, w.l) : null;
-    var charge = st[PPK] != null ? st[PPK] * w.kwh : null;
+    /* A post delivers at most its rated power for as long as you stand there.
+       20 kWh asked of an 11 kW post in half an hour is 5.5 kWh billed, not 20. */
+    var hours = Math.max(0, (w.l - w.a) / 3600000), kw = kwOf(st);
+    var kwh = kw ? Math.min(w.kwh, Math.round(kw * hours * 10) / 10) : w.kwh;
+    var charge = st[PPK] != null ? st[PPK] * kwh : null;
     /* A one-off fee for starting the session, charged by the operator at
        about one station in forty. Null everywhere else, and deliberately not
        shown as a zero: a row saying "connection fee, 0.00" reads like a fee
@@ -389,8 +393,22 @@
     var fee = st[FEE] || null;
     if (park == null && charge == null) return null;
     if (charge == null) fee = null;   // nothing being charged, nothing to connect
-    return { park: park, charge: charge, fee: fee,
+    return { park: park, charge: charge, fee: fee, kwh: kwh, capped: kwh < w.kwh,
              total: (park || 0) + (charge || 0) + (fee || 0) };
+  }
+  /* "30 min" or "2 h": the stop length as a person would say it. */
+  function stopLabel(w) {
+    var min = Math.round((w.l - w.a) / 60000);
+    if (min < 60) return min + ' min';
+    var h = Math.round(min / 6) / 10;
+    return (h % 1 === 0 ? h.toFixed(0) : h.toFixed(1)) + ' h';
+  }
+  function splitLabel(p) {
+    var parts = [];
+    if (p.charge != null) parts.push('charging ' + money(p.charge));
+    if (p.fee) parts.push('fee ' + money(p.fee));
+    if (p.park != null) parts.push(p.park === 0 ? 'parking free' : 'parking ' + money(p.park));
+    return parts.join(' + ');
   }
 
   function currentWindow() {
@@ -401,16 +419,22 @@
 
   /* The assumed session, spelled out wherever a price appears. */
   function sessionLabel(w, short) {
-    var hours = Math.round((w.l - w.a) / 360000) / 10;
-    var h = (hours % 1 === 0 ? hours.toFixed(0) : hours.toFixed(1)) + ' h';
+    var h = stopLabel(w);
     if (short) return 'est. ' + w.kwh + ' kWh + ' + h;
-    return w.kwh + ' kWh and a ' + h + ' stop, ' + hhmm(w.a) + ' to ' + hhmm(w.l);
+    return 'up to ' + w.kwh + ' kWh and a ' + h + ' stop, ' + hhmm(w.a) + ' to ' + hhmm(w.l);
   }
 
+  function paintPresets(w) {
+    var min = Math.round((w.l - w.a) / 60000);
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-presets button'), function (b) {
+      b.setAttribute('aria-pressed', parseInt(b.dataset.min, 10) === min ? 'true' : 'false');
+    });
+  }
   function updateSession() {
     var w = currentWindow(), el = $('#evSession'), sm = $('#evSessionSummary');
     if (el) { el.textContent = 'Estimates for ' + sessionLabel(w, true).replace('est. ', '') + ' \u00b7 * operator\u2019s usual rate'; el.title = 'Estimates assume ' + sessionLabel(w, false) + '. An asterisk means no tariff is published for that charger and the operator\u2019s usual rate is used.'; }
-    if (sm) sm.textContent = w.kwh + ' kWh \u00b7 ' + hhmm(w.a) + '\u2013' + hhmm(w.l) + ' \u00b7 change';
+    if (sm) sm.textContent = stopLabel(w) + ' from ' + hhmm(w.a) + ' \u00b7 up to ' + w.kwh + ' kWh \u00b7 change';
+    paintPresets(w);
   }
 
   /* -------------------------------------------------------------- tiles */
@@ -646,8 +670,7 @@
     singles.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
       if (isHub(st)) {
-        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0,
-          p ? (p.charge != null ? '\u26A1' + money(p.charge) : '') + (p.park != null ? ' P ' + (p.park === 0 ? 'free' : money(p.park)) : '') : null), riseOnHover: true });
+        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0, p ? money(p.total) : null), riseOnHover: true });
       } else if (p) {
         m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0), riseOnHover: true });
       } else {
@@ -659,7 +682,7 @@
       m.on('click', function () { select(st[ID], true); });
       m.on('mouseover', function () { hover(st[ID], true); });
       m.on('mouseout', function () { hover(null, true); });
-      m.bindTooltip(esc(st[NAME]) + (p ? ' · ' + money(p.total) + ' total' : ''), { direction: 'top', opacity: .95 });
+      m.bindTooltip(esc(st[NAME]) + (p ? ' · ' + money(p.total) + ' for ' + stopLabel(w) + ' (' + splitLabel(p) + ')' : ''), { direction: 'top', opacity: .95 });
       markers[st[ID]] = m;
       layer.addLayer(m);
     });
@@ -671,12 +694,13 @@
   /* The pin shows the two halves of the bill side by side: charging (bolt,
      coloured by the kWh price grade) and parking (P). One half alone when
      the other is unknown. The total is in the list and the card. */
+  /* One number on the pin: what the stop costs. A reader compared us with
+     the apps and asked why we split it; the split is one tap away in the card
+     and in the tooltip. */
   function pinIcon(p, g, faulty) {
-    var charge = p.charge != null ? '<i class="c" data-g="' + g + '">\u26A1' + money(p.charge) + '</i>' : '';
-    var park = p.park != null ? '<i class="p"' + (p.park === 0 ? ' data-free="1"' : '') + '>P ' + (p.park === 0 ? 'free' : money(p.park)) + '</i>' : '';
     return L.divIcon({
       className: 'ev-pinwrap',
-      html: '<span class="ev-pin ev-pin-split" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + charge + park + '</span>',
+      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b> ' : '') + money(p.total) + '</span>',
       iconSize: null, iconAnchor: [0, 0]
     });
   }
@@ -763,7 +787,7 @@
         ? '<span class="ev-price" data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.total) +
           '<small>' + (st._p.charge != null ? '<i data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.charge) + ' charge' + (st[SRC] ? '*' : '') + '</i>' : '<i data-g="none">no charge price</i>') +
           ' + ' + (st._p.park != null ? '<i data-g="' + parkGrade(st._p) + '">' + (st._p.park === 0 ? 'free parking' : money(st._p.park) + ' parking') + '</i>' : '<i data-g="none">no paid zone on record</i>') +
-          '</small><small>' + label + '</small></span>'
+          '</small><small>est. ' + st._p.kwh + ' kWh + ' + stopLabel(w) + '</small></span>'
         : '<span class="ev-price is-unpriced">No published price</span>';
       return '<div class="ev-row" role="option" tabindex="0" data-i="' + i +
         '" data-kind="station" data-id="' + esc(st[ID]) + '"' +
@@ -840,7 +864,7 @@
       ? st[DOWN] + ' of ' + st[PTS] + ' charge point' + (st[PTS] === 1 ? '' : 's') + ' reported out of order'
       : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime over 30 days';
     var lines = '';
-    if (p && p.charge != null) lines += row('Charging, ' + w.kwh + ' kWh at ' + money(st[PPK]) + '/kWh' + (st[SRC] ? ' (' + srcNote(st, true) + ')' : ''), money(p.charge), ppkGrade(st[PPK]));
+    if (p && p.charge != null) lines += row('Charging, ' + p.kwh + ' kWh at ' + money(st[PPK]) + '/kWh' + (st[SRC] ? ' (' + srcNote(st, true) + ')' : ''), money(p.charge), ppkGrade(st[PPK]));
     else lines += row('Charging', 'Price not published', 'none');
     if (p && p.fee) lines += row('Connection fee, once for the session', money(p.fee), 'none');
     if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
@@ -860,9 +884,9 @@
         '<br><span class="ev-pay" data-card="' + (((st[FLAGS] || 0) & 16) ? 1 : 0) + '">' +
           (((st[FLAGS] || 0) & 16) ? 'Bank card accepted' : 'Charge card or app needed') + '</span>' +
       '</div>' +
-      '<div class="ev-card-rows">' + lines +
-        (p ? '<div class="ev-card-row is-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total</span><b>' + money(p.total) + '</b></div>' : '') +
-      '</div>' +
+      (p ? '<div class="ev-card-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total, ' + stopLabel(w) + ' from ' + hhmm(w.a) + '</span><b>' + money(p.total) + '</b>' +
+           (p.capped ? '<small>' + p.kwh + ' kWh, which is what ' + kwOf(st) + ' kW delivers in ' + stopLabel(w) + '. Stay longer for more.</small>' : '') + '</div>' : '') +
+      '<details class="ev-card-how"><summary>How this adds up</summary><div class="ev-card-rows">' + lines + '</div></details>' +
       (p && st[AREA] ? cheaperLater(st[AREA], w, p.park) : '') +
       (st[AREA] ? tariffSchedule(st[AREA]) : '') +
       '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) + '.' + (srcNote(st, true) ? ' Price: ' + srcNote(st, true) + '.' : '') + '</div>' +
@@ -1343,6 +1367,17 @@
     a.addEventListener('change', syncWindow);
     l.addEventListener('change', syncWindow);
     $('#evKwh').addEventListener('input', repriceAll);
+    /* One tap for the common stop lengths; the fields stay for odd ones. */
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-presets button'), function (btn) {
+      btn.onclick = function () {
+        var a2 = parseStamp($('#evArrive').dataset.stamp) || new Date();
+        var l2 = new Date(a2.getTime() + parseInt(btn.dataset.min, 10) * 60000);
+        $('#evLeave').value = toInput(l2); $('#evLeave').dataset.stamp = stamp(l2);
+        track('preset', { minutes: btn.dataset.min });
+        updateUrl();
+        repriceAll();
+      };
+    });
     updateSession();
     if (narrow()) { var d = $('#evWindow'); if (d) d.open = false; }
 
