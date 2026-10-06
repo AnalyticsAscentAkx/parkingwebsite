@@ -28,7 +28,23 @@
   var map, cities = [], tariffs = {}, meta = {};
   var tiles = {}, tileFailures = {}, layer, cityLayer, markers = {}, byId = {};
   var selected = null, mode = 'overview', sortKey = 'reliable';
-  var filters = { fast: false, faulty: false, free: false, cheap: false, pr: false, garage: false, open: false, card: false };
+  /* kw is a minimum (0, 22, 50 or 150), plug is '' or one DC plug type;
+     both single-select. The booleans toggle. All of it lives in the URL. */
+  var filters = { kw: 0, plug: '', faulty: false, free: false, cheap: false, pr: false, garage: false, open: false, card: false };
+  var TOGGLES = ['free', 'cheap', 'open', 'card', 'faulty', 'pr', 'garage'];
+  function hasPlug(st, p) {
+    var t = (st[PLUGS] || '').toLowerCase();
+    return p === 'ccs' ? /\bccs\b/.test(t) : p === 'chademo' ? t.indexOf('chademo') >= 0 : true;
+  }
+  function anyFilter() { return !!(filters.kw || filters.plug || TOGGLES.some(function (k) { return filters[k]; })); }
+  function paintChips() {
+    Array.prototype.forEach.call(document.querySelectorAll('.ev-chips button'), function (b) {
+      var on = b.dataset.kw != null ? filters.kw === +b.dataset.kw
+             : b.dataset.plug != null ? filters.plug === b.dataset.plug
+             : !!filters[b.dataset.f];
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
   var showMode = 'chargers', places = null, placeLayer = null;
   /* Fast-charging hubs (150 kW+) wear the operator's badge: initial on the
      brand colour. Names are the operators' own; no logo files are copied. */
@@ -529,7 +545,8 @@
     var totals = rows.filter(function (s) { return s._p; }).map(function (s) { return s._p.total; }).sort(function (a, b) { return a - b; });
     var median = totals.length ? totals[Math.floor(totals.length / 2)] : null;
     return rows.filter(function (st) {
-      if (filters.fast && !(st[KW] >= FAST_KW)) return false;
+      if (filters.kw && !(kwOf(st) >= filters.kw)) return false;
+      if (filters.plug && !hasPlug(st, filters.plug)) return false;
       if (filters.faulty && !(st[DOWN] > 0)) return false;
       if (filters.open && restricted(st)) return false;
       if (filters.card && !((st[FLAGS] || 0) & 16)) return false;
@@ -546,7 +563,7 @@
     var totals = priced.map(function (s) { return s._p.total; }).sort(function (a, b) { return a - b; });
     var kwhs = rows.filter(function (s) { return s[PPK] != null; }).map(function (s) { return s[PPK]; }).sort(function (a, b) { return a - b; });
     var parks = rows.filter(function (s) { return s._p && s._p.park != null; }).map(function (s) { return s._p.park; }).sort(function (a, b) { return a - b; });
-    var fast = rows.filter(function (s) { return s[KW] >= FAST_KW; }).length;
+    var fast = rows.filter(function (s) { return kwOf(s) >= FAST_KW; }).length;
     var freeShare = rows.length ? rows.filter(function (s) { return !s._p || s._p.park == null || s._p.park === 0; }).length / rows.length : 0;
     stat('mCheap', totals.length ? money(totals[0]) : '–');
     stat('mKwh', kwhs.length ? money(kwhs[Math.floor(kwhs.length / 2)]) : '–');
@@ -664,7 +681,7 @@
       if (sortKey === 'cheap') {
         return (a._p ? a._p.total : Infinity) - (b._p ? b._p.total : Infinity);
       }
-      if (sortKey === 'fast') return (b[KW] || 0) - (a[KW] || 0);
+      if (sortKey === 'fast') return (kwOf(b) || 0) - (kwOf(a) || 0);
       if ((a[DOWN] > 0) !== (b[DOWN] > 0)) return a[DOWN] > 0 ? 1 : -1;
       return (b[UP] == null ? -1 : b[UP]) - (a[UP] == null ? -1 : a[UP]);
     });
@@ -674,7 +691,8 @@
     var active = [];
     if (filters.free) active.push('free parking');
     if (filters.cheap) active.push('low cost');
-    if (filters.fast) active.push(FAST_KW + ' kW+');
+    if (filters.kw) active.push(filters.kw + ' kW+');
+    if (filters.plug) active.push(filters.plug === 'ccs' ? 'CCS' : 'CHAdeMO');
     if (filters.faulty) active.push('reported faulty');
     if (filters.open) active.push('no barrier');
     if (filters.card) active.push('pay by card');
@@ -711,7 +729,7 @@
            : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime') +
         '</span></div>' +
         '</div>' + price + '</div>';
-    }).join('') : empty('No chargers match', filters.fast || filters.faulty || filters.free || filters.cheap || filters.open || filters.card
+    }).join('') : empty('No chargers match', anyFilter()
         ? 'Clear a filter, or pan the map.' : 'Pan the map or zoom out.');
     bindRows();
   }
@@ -1198,9 +1216,12 @@
   function updateUrl() {
     if (!window.history.replaceState || !map || $('#evApp').classList.contains('is-embed')) return;
     var c = map.getCenter(), w = currentWindow();
+    var on = TOGGLES.filter(function (k) { return filters[k]; });
     window.history.replaceState({}, '', location.pathname +
       '?lat=' + c.lat.toFixed(5) + '&lng=' + c.lng.toFixed(5) + '&zoom=' + map.getZoom() +
-      '&arriving=' + stamp(w.a) + '&leaving=' + stamp(w.l) + '&kwh=' + w.kwh + (showMode === 'parking' ? '&mode=parking' : ''));
+      '&arriving=' + stamp(w.a) + '&leaving=' + stamp(w.l) + '&kwh=' + w.kwh + (showMode === 'parking' ? '&mode=parking' : '') +
+      (on.length ? '&f=' + on.join(',') : '') + (filters.kw ? '&kw=' + filters.kw : '') + (filters.plug ? '&plug=' + filters.plug : '') +
+      (sortKey !== 'reliable' && sortKey !== 'near' ? '&sort=' + sortKey : ''));
   }
 
   function repriceAll() {
@@ -1273,6 +1294,7 @@
         Array.prototype.forEach.call(sorts, function (b2) {
           b2.setAttribute('aria-pressed', b2 === btn ? 'true' : 'false');
         });
+        updateUrl();
         if (mode === 'detail') drawStations(map.getBounds());
       };
     });
@@ -1281,15 +1303,32 @@
     });
     var startMode = q.get('mode') || $('#evApp').dataset.startMode;
     if (startMode === 'parking') setShowMode('parking', true);
+    /* Filters and sort come back from the URL so a shared or bookmarked
+       link shows the same list, not just the same patch of map. */
+    var fq = (q.get('f') || '').split(',');
+    TOGGLES.forEach(function (k) { if (fq.indexOf(k) >= 0) filters[k] = true; });
+    var kwq = parseInt(q.get('kw'), 10);
+    if (kwq === 22 || kwq === 50 || kwq === 150) filters.kw = kwq;
+    var plq = q.get('plug');
+    if (plq === 'ccs' || plq === 'chademo') filters.plug = plq;
+    var sq = q.get('sort');
+    if (sq === 'cheap' || sq === 'fast' || sq === 'reliable') {
+      sortKey = sq;
+      Array.prototype.forEach.call(sorts, function (b2) {
+        b2.setAttribute('aria-pressed', b2.dataset.sort === sq ? 'true' : 'false');
+      });
+    }
+    paintChips();
+
     var chips = document.querySelectorAll('.ev-chips button');
     Array.prototype.forEach.call(chips, function (btn) {
       btn.onclick = function () {
-        var f = btn.dataset.f;
-        filters[f] = !filters[f];
-        track('filter', { filter: f, on: filters[f] });
-        Array.prototype.forEach.call(document.querySelectorAll('.ev-chips button[data-f="' + f + '"]'), function (b2) {
-          b2.setAttribute('aria-pressed', filters[f] ? 'true' : 'false');
-        });
+        var f = btn.dataset.f, k = btn.dataset.kw, pl = btn.dataset.plug;
+        if (k != null) { filters.kw = filters.kw === +k ? 0 : +k; track('filter', { filter: 'kw', on: filters.kw }); }
+        else if (pl != null) { filters.plug = filters.plug === pl ? '' : pl; track('filter', { filter: 'plug', on: filters.plug }); }
+        else { filters[f] = !filters[f]; track('filter', { filter: f, on: filters[f] }); }
+        paintChips();
+        updateUrl();
         if (showMode === 'parking') drawPlaces(map.getBounds());
         else if (mode === 'detail') drawStations(map.getBounds());
       };

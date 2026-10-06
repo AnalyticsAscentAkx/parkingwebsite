@@ -389,7 +389,9 @@
 .ev-tile span{display:block;font-size:10.5px;color:var(--mut);margin-top:3px;line-height:1.3}
 .ev-tile.is-lo{background:var(--ok-soft);border-color:#A7F3D0}.ev-tile.is-lo b{color:var(--ok)}
 .ev-tile.is-blue{background:var(--blue-soft);border-color:#C7D2FE}.ev-tile.is-blue b{color:var(--blue)}
-.ev-chips-map{position:absolute;top:14px;left:58px;right:200px;z-index:900;padding:0;flex-wrap:nowrap;overflow-x:auto}
+/* Ten chips now; the bar scrolls sideways rather than stacking over the map. Doubled class so the later .ev-chips wrap rule cannot undo it. */
+.ev-chips.ev-chips-map{position:absolute;top:14px;left:58px;right:200px;z-index:900;padding:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.ev-chips.ev-chips-map::-webkit-scrollbar{display:none}
 .ev-chips-map button{background:#fff;box-shadow:var(--sh-md);border-color:transparent;white-space:nowrap}
 .ev-chips-map button[aria-pressed="true"]{background:var(--blue);color:#fff}
 .ev-chips-map[hidden]{display:none}
