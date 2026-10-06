@@ -18,7 +18,8 @@
 
   var DATA = '/ev-data';
   var DETAIL_ZOOM = 12;
-  var MAX_MARKERS = 1200;     // beyond this the map reads as noise anyway
+  var MAX_MARKERS = 5000;     // clusters keep the map readable; the list stops earlier
+  var LIST_MAX = 300;         // rows rendered in the panel; the count still says how many are in view
   var TOWN_ROWS = 400;        // list cap in overview; the map draws every town
   var FAST_KW = 50;
   var PIN_ZOOM = 14;          // from here each priced charger shows its price on the pin
@@ -183,10 +184,15 @@
     return h;
   }
   /* Result counts, so the analytics can tell useful searches from dead ends. */
-  var lastResultsAt = 0;
+  var lastResultsAt = 0, lastZeroAt = 0;
   function noteResults(kind, n) {
-    if (n === 0) { track('zero_results', { kind: kind, mode: showMode }); return; }
     var now = Date.now();
+    if (n === 0) {
+      /* Once per ten seconds, same as results_shown. Every pan over an empty
+         patch used to fire this; one visitor produced 60 of them in a sitting. */
+      if (now - lastZeroAt > 10000) { lastZeroAt = now; track('zero_results', { kind: kind, mode: showMode }); }
+      return;
+    }
     if (now - lastResultsAt > 10000) { lastResultsAt = now; track('results_shown', { kind: kind, mode: showMode, count: n }); }
   }
   function srcNote(st, short) {
@@ -585,6 +591,40 @@
     return z >= 15 ? 7 : z >= 13 ? 6 : 4.5;
   }
 
+  /* Zoomed out past the point where pins can be read, points that land in
+     the same screen cell (84px far out, 64px closer) merge into one bubble with a count. Click fits
+     the map to the members. Cells with fewer than four points draw as dots,
+     so nothing is hidden, only grouped. */
+  var CLUSTER_MIN = 60, CLUSTER_FEW = 4;   // fewer than four in a cell stay as dots; a bubble saying "2" is noisier than two dots
+  function clusterCells(rows, latOf, lonOf) {
+    var z = map.getZoom(), cells = {}, keys = [], px = z <= 12 ? 84 : 64;
+    rows.forEach(function (r) {
+      var pt = map.project([latOf(r), lonOf(r)], z);
+      var k = Math.floor(pt.x / px) + ':' + Math.floor(pt.y / px);
+      if (!cells[k]) { cells[k] = []; keys.push(k); }
+      cells[k].push(r);
+    });
+    return keys.map(function (k) { return cells[k]; });
+  }
+  function addCluster(group, members, latOf, lonOf, kind, label) {
+    var lat = 0, lon = 0, n = members.length;
+    members.forEach(function (r) { lat += latOf(r); lon += lonOf(r); });
+    var size = n >= 100 ? 46 : n >= 20 ? 38 : 32;
+    var m = L.marker([lat / n, lon / n], { icon: L.divIcon({ className: 'ev-clusterwrap', iconSize: null, iconAnchor: [0, 0],
+      html: '<span class="ev-cluster is-' + kind + '" style="width:' + size + 'px;height:' + size + 'px" role="button" aria-label="' + esc(label) + ', zoom in">' + n.toLocaleString() + '</span>' }) });
+    m.bindTooltip(label, { direction: 'top', opacity: .95 });
+    m.on('click', function () {
+      var b = L.latLngBounds(members.map(function (r) { return [latOf(r), lonOf(r)]; }));
+      map.fitBounds(b.pad(0.25), { maxZoom: PIN_ZOOM + 1 });
+    });
+    group.addLayer(m);
+  }
+  function cheapest(members) {
+    var best = null;
+    members.forEach(function (r) { if (r._p && (best == null || r._p.total < best)) best = r._p.total; });
+    return best;
+  }
+
   function drawStations(b) {
     var rows = stationRows(b);
     if (layer) map.removeLayer(layer);
@@ -593,7 +633,17 @@
     var w = currentWindow(), r = markerRadius();
     /* Price pins only when they can be read: close in, or few in view. */
     var pills = map.getZoom() >= PIN_ZOOM + 1 || (map.getZoom() >= PIN_ZOOM && rows.length <= 150);
-    rows.forEach(function (st) {
+    var singles = rows;
+    if (!pills && rows.length > CLUSTER_MIN) {
+      singles = [];
+      clusterCells(rows, function (s) { return s[LAT]; }, function (s) { return s[LON]; }).forEach(function (cell) {
+        if (cell.length < CLUSTER_FEW) { singles.push.apply(singles, cell); return; }
+        var down = cell.filter(function (s) { return s[DOWN] > 0; }).length, low = cheapest(cell);
+        addCluster(layer, cell, function (s) { return s[LAT]; }, function (s) { return s[LON]; }, 'chargers',
+          cell.length + ' chargers' + (down ? ', ' + down + ' reported out of order' : '') + (low != null ? ' · from ' + money(low) : ''));
+      });
+    }
+    singles.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
       if (isHub(st)) {
         m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0,
@@ -700,14 +750,14 @@
     $('#evCount').textContent = rows.length.toLocaleString() +
       (rows.length === 1 ? ' charger' : ' chargers') +
       (active.length ? ' (' + active.join(', ') + ')' : '') +
-      (rows.length >= MAX_MARKERS ? ', zoom in for the rest' : '') +
+      (rows.length > LIST_MAX ? ', first ' + LIST_MAX + ' listed, zoom in for the rest' : '') +
       (neededTiles(map.getBounds()).some(function (k) { return tileFailures[k]; })
         ? ' · Some map areas could not load; move the map to retry.' : '');
     updateSession();
 
     var label = sessionLabel(w, true);
     noteResults('chargers', rows.length);
-    $('#evRows').innerHTML = rows.length ? rows.map(function (st, i) {
+    $('#evRows').innerHTML = rows.length ? rows.slice(0, LIST_MAX).map(function (st, i) {
       var g = grade(st[UP], st[DOWN]);
       var price = st._p
         ? '<span class="ev-price" data-g="' + ppkGrade(st[PPK]) + '">' + money(st._p.total) +
@@ -1030,7 +1080,17 @@
     placeLayer = L.layerGroup();
     markers = {};
     var pills = map.getZoom() >= 12;
-    rows.forEach(function (g) {
+    var singles = rows;
+    if (!pills && rows.length > 40) {
+      singles = [];
+      clusterCells(rows, function (g) { return g.lat; }, function (g) { return g.lon; }).forEach(function (cell) {
+        if (cell.length < CLUSTER_FEW) { singles.push.apply(singles, cell); return; }
+        var low = cheapest(cell);
+        addCluster(placeLayer, cell, function (g) { return g.lat; }, function (g) { return g.lon; }, 'parking',
+          cell.length + ' parking locations' + (low != null ? ' · from ' + money(low) : ''));
+      });
+    }
+    singles.forEach(function (g) {
       var m;
       if (pills && g._p) {
         m = L.marker([g.lat, g.lon], { icon: L.divIcon({ className: 'ev-pinwrap',
