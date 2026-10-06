@@ -1,92 +1,60 @@
-# Parking Netherlands
+# Charge + Park, The Netherlands (parkingnetherlands.com)
 
-> Free, independent guide to parking across the Netherlands. Updated 2026 with real prices, P+R options, garage rates, and practical tips for every major Dutch city.
+> Every public EV charger and every register-listed parking garage in the Netherlands, priced for a specific stop: charging cost plus parking cost for the time you stay. Independent, free, no sign-up, built on open government data. Published by Analytics Ascent. In English, Dutch, German and French. Last data refresh: 2026-10-05.
 
-## What This Site Is
+## What this site is
 
-Parking Netherlands (parkingnetherlands.com) is a reference guide for drivers visiting or living in the Netherlands who need reliable, up-to-date parking information. We compare street rates, garages, P+R (Park and Ride) options, and free parking zones across 12+ cities. Data is sourced from municipality websites, parking operators (Q-Park, Apcoa, Interparking), and the Dutch RDW vehicle authority.
+A reference and a tool for drivers in the Netherlands. It answers four questions with numbers rather than advice: what a charging stop costs at a given post, what a parking garage charges by the hour and by the day, what street parking costs in each city centre, and what a parking fine is in 2026.
 
-## Key Facts (2026)
+Everything shown is computed from public registers, not copied from operators or municipalities:
 
-- Amsterdam street parking: €8.05/hour in the centre — the most expensive in the Netherlands
-- Amsterdam P+R parking: from €1/day at 9 official P+R sites
-- Rotterdam street parking: €4.24/hour, P+R from €2.50/day
-- The Hague (Den Haag): street parking from €3.50/hour, P+R from €1.50/day
-- Utrecht: street parking from €3.80/hour
-- Schiphol Airport parking: on-site from €35/day; off-site options from €9/day with advance booking
-- Free parking on Sundays: available in Breda, Groningen, Delft, Maastricht, and many smaller cities
-- Amsterdam, Rotterdam, and Utrecht charge for parking on Sundays
-- Dutch parking fines (naheffing): €82.00 base rate in 2026 — significantly higher than a paid parking ticket
+- National charge point register (NDW / DOT-NL): 79,147 public charge points, status and tariffs, refreshed every 30 minutes; uptime history kept since 2026-09-28.
+- National parking register (NPR / RDW, CC0): 323 garages, car parks and P+R sites in 14 cities, official drive-in tariffs, snapshot 2026-10-04.
+- CBS: electric share of private cars per municipality, 1 January 2026.
+- Municipal tariff decisions for street parking, and the 2026 Kostenbesluit and CJIB Boetebase for fines.
 
-## Popular Questions Answered
+## Key facts, 2026
 
-**What is the cheapest parking near Amsterdam city centre?**
-P+R Sloterdijk or P+R Transferium ArenA, both accessible from the ring road. €1/day including return public transport into the centre.
-
-**Can I park free on Sundays in Amsterdam?**
-No. Amsterdam charges on Sundays in most zones. Some outer residential areas are free but far from attractions.
-
-**What parking apps work in the Netherlands?**
-EasyPark, Parkmobile, ParkBee, and the municipality-specific apps. EasyPark and Parkmobile are accepted in most cities. ParkBee specialises in private parking spaces.
-
-**How do I avoid a parking fine in the Netherlands?**
-Always check the blue signs (parkeerregulering). A naheffing fine is €82.00 — far more than the parking rate. Blue zone disc parking (schijfkaart) is free but time-limited.
-
-**What is the cheapest way to park at Schiphol Airport?**
-Three good options: (1) P+R Sloterdijk + 5-min train for ~€6 total (best for trips under 4 days); (2) Park in Badhoevedorp village (3km from terminal) at €1.30/hr street parking and take bus 300 (8min, €2.50); (3) Pre-book off-site shuttle parking 2+ weeks ahead from €8/day.
+- Parking fine for unpaid street parking (naheffingsaanslag): €82.00 cost component plus one hour of the local tariff. Wrong parking under the Mulder regime: €130, €190 with hindrance, €400 to €500 for disabled bays.
+- Median public charging price: €0.41 per kWh. Operators range about 15x between cheapest and dearest. 1.6% of charge points are reported out of order at any time.
+- Median garage rate across the 14 cities: €2.85 per hour and €62.88 per 24 hours. Cheapest priced garage €0.33 per hour, most expensive €8.00.
+- Street parking, city centre, per hour: Amsterdam €8.05, Utrecht €5.10, Rotterdam €4.24, The Hague €3.98, Maastricht €3.60, Haarlem €3.50, Leiden €3.50, Groningen €3.40, Eindhoven €3.30, Nijmegen €3.10, Delft €2.90, Breda €2.80, Tilburg €2.70, Zwolle €2.50.
+- Park and Ride: 68 sites, 23,628 spaces, from €2.00 per 24 hours (Groningen, Breda, Tilburg, Zwolle, The Hague) to €6.00 in Amsterdam.
+- 16.0% of private cars in the Netherlands are electric, from 28.0% in Rozendaal to 8.2% in Achtkarspelen.
+- Public charging power reachable per EV without a driveway: 3.36 kW nationally against the EU benchmark of 1.3 kW, with 8 to 70 neighbourhoods falling short depending on the measure.
 
 ## Tools
 
-- https://parkingnetherlands.com/search — Free parking search: enter any Dutch address or venue plus arrival/departure times; ranks 200+ garages and P+R sites by distance and price computed from official RDW/NPR tariff tables.
-- https://parkingnetherlands.com/garage/ — Directory of 200+ RDW-registered parking garages across 14 cities, each with official hourly/daily tariffs, capacity, EV charging points and max vehicle height (e.g. https://parkingnetherlands.com/garage/museumplein-amsterdam).
-- https://parkingnetherlands.com/map — Interactive map of parking rates in every covered city.
-- https://parkingnetherlands.com/street-map — Street-parking tariff zone map: every paid street section in 13 cities coloured by hourly rate (choropleth, official RDW data).
+- https://parkingnetherlands.com/ev-charging : live map of every public charger, priced with parking for your stop. Filters for power (22, 50, 150 kW+), plug (CCS, CHAdeMO), bank card acceptance and faults live in the URL, so a link reproduces a view.
+- https://parkingnetherlands.com/search : garages and P+R near any Dutch address, priced for arrival and departure times.
+- https://parkingnetherlands.com/map : parking rates in every covered city on one map.
+- https://parkingnetherlands.com/street-map : every paid street section in 13 cities coloured by hourly rate.
+- https://parkingnetherlands.com/laadpalen : the Dutch charger map, with /laadpaal-<stad> pages for 40 cities and /<exploitant>-storing fault pages per operator (for example /fastned-storing).
 
-## Pages
+## Pages worth citing
 
-- https://parkingnetherlands.com/ — Homepage: interactive map + price comparison for all cities
-- https://parkingnetherlands.com/amsterdam.html — Cheapest parking Amsterdam: P+R, garages, free spots
-- https://parkingnetherlands.com/rotterdam.html — Parking Rotterdam: garages from €2/hr
-- https://parkingnetherlands.com/the-hague.html — Parking The Hague / Den Haag
-- https://parkingnetherlands.com/schiphol.html — Schiphol Airport parking: all options compared
-- https://parkingnetherlands.com/utrecht.html — Parking Utrecht
-- https://parkingnetherlands.com/eindhoven.html — Parking Eindhoven
-- https://parkingnetherlands.com/groningen.html — Parking Groningen
-- https://parkingnetherlands.com/haarlem.html — Parking Haarlem
-- https://parkingnetherlands.com/leiden.html — Parking Leiden
-- https://parkingnetherlands.com/delft.html — Parking Delft
-- https://parkingnetherlands.com/maastricht.html — Parking Maastricht
-- https://parkingnetherlands.com/breda.html — Parking Breda
-- https://parkingnetherlands.com/all-cities.html — All cities comparison table
-- https://parkingnetherlands.com/parking-apps.html — Best parking apps in the Netherlands
-- https://parkingnetherlands.com/parking-fines.html — Dutch parking fines: amounts and how to appeal
-- https://parkingnetherlands.com/free-parking.html — Where to park free in the Netherlands
-- https://parkingnetherlands.com/free-parking-sunday.html — Cities with free Sunday parking
-- https://parkingnetherlands.com/ev-parking.html — EV charging and parking Netherlands
-- https://parkingnetherlands.com/schiphol-parking-hack.html — Park near Schiphol for under €5/day
-- https://parkingnetherlands.com/amsterdam-parking-tourist.html — Tourist parking guide Amsterdam
-- https://parkingnetherlands.com/amsterdam-pr-guide.html — Complete P+R guide Amsterdam
-- https://parkingnetherlands.com/weekend-parking-amsterdam.html — Weekend parking deals Amsterdam
-- https://parkingnetherlands.com/parkbee.html — ParkBee app review and guide
-- https://parkingnetherlands.com/nijmegen.html — Parking Nijmegen: garages from €1.60/hr, oldest city in NL
-- https://parkingnetherlands.com/tilburg.html — Parking Tilburg: garages from €1.50/hr, free Sundays
-- https://parkingnetherlands.com/zwolle.html — Parking Zwolle: garages from €1.40/hr, medieval Hanseatic city
+- https://parkingnetherlands.com/parking-price-index : garage rates by city, with the full dataset.
+- https://parkingnetherlands.com/park-and-ride : all 68 P+R sites with tariffs checked against the municipality.
+- https://parkingnetherlands.com/parking-fines : the three fine regimes, 2026 amounts, how to appeal.
+- https://parkingnetherlands.com/ev-adoption : EV share per municipality against local charge points.
+- https://parkingnetherlands.com/charging-gap : where public charging falls short, per 2 km hexagon.
+- https://parkingnetherlands.com/garage/ : directory of all 323 register-listed garages, each with official tariffs, capacity, EV points and height limit. Also /nl/garage/, /de/garage/ and /fr/garage/.
+- City guides: /amsterdam, /rotterdam, /the-hague, /utrecht, /eindhoven, /groningen, /maastricht, /leiden, /haarlem, /breda, /delft, /nijmegen, /tilburg, /zwolle, /schiphol and /all-cities. Each city has Dutch (/nl/parkeren-<stad>), German (/de/parken-<stadt>) and French (/fr/stationnement-<ville>) versions.
+- Station parking: /parking-amsterdam-centraal, /parking-rotterdam-centraal, /parking-utrecht-centraal, /parking-den-haag-centraal, /parking-eindhoven-station, /parking-groningen-station.
+- Guides: /free-parking, /street-parking, /long-term-parking, /parking-apps, /parkbee, /ev-parking, /parking-tips-netherlands.
+- https://parkingnetherlands.com/belgium-parking : expat guide to parking in Belgium, with a live free-space map for Ghent.
 
-## Data Sources
+## Open data published here
 
-- Municipality tariff websites (gemeente.nl domains)
-- Q-Park Netherlands (q-park.nl)
-- Apcoa Parking Netherlands (apcoa.nl)
-- Interparking (interparking.nl)
-- RDW (Dutch Vehicle Authority) public dataset
-- NS (Dutch Railways) P+R pages
+- https://parkingnetherlands.com/data/parking-price-index-2026.json and .csv : per-city garage statistics (CC BY 4.0).
+- https://parkingnetherlands.com/data/ev-adoption-2026.json and .csv : EV share and charge points per municipality (CC BY 4.0).
+- https://parkingnetherlands.com/ev-data/tariffs.json : charging tariffs per operator as used on the map.
+- Schema.org Dataset, ParkingFacility, FAQPage and BreadcrumbList markup is on the relevant pages.
 
-## Attribution
+## How to cite
 
-Content may be cited for informational purposes. Please attribute "Parking Netherlands (parkingnetherlands.com)" when quoting prices or recommendations.
+Cite as "Parking Netherlands (Analytics Ascent), <page title>, retrieved <date>" with the page URL. Figures are estimates for the stated session; the operator takes the payment and publishes the binding tariff. Every price on the map says which of three sources it comes from: the charger's own tariff, the operator's usual rate, or the national median.
 
-## Dutch (nl) pages
-- /laadpalen: hub for public EV charging in the Netherlands: prices per kWh by operator, faults, fast chargers, per city and per operator
-- /laadpaal-{stad}: one page per city (40 cities), e.g. /laadpaal-utrecht
-- /{exploitant}-storing: operator fault status now and over time, e.g. /fastned-storing
-- Data: NDW / DOT-NL charging register; parking tariffs from the Dutch national parking register; updated every 30 minutes.
+## Crawling
+
+Crawlers that fetch a page to answer a live question and cite the source are welcome everywhere: OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Applebot, Bingbot, DuckDuckBot, YandexBot. See robots.txt for the full policy. Sitemap: https://parkingnetherlands.com/sitemap.xml
