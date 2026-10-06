@@ -153,6 +153,54 @@ def post(lang, slug, t):
             t = re.sub(r"\b([dD])e " + re.escape(cname), lambda m: m.group(1) + "'" + cname, t)
     return t
 
+# The English city pages lead with a live charging strip and an interactive
+# map; the translations led with a 14-row register table and bounced at 67 to
+# 100%. Same tools, same data files (shared.js, rdw-data.js), local labels.
+MAPT = {
+ "nl": dict(eyebrow="Interactieve kaart", map_h="Alle parkeeropties in {city}", map_p="Klik op een markering voor prijzen en details. Zet lagen aan of uit om te filteren.",
+   b_pr="P+R-locaties", b_gar="Garages", b_free="Gratis parkeren", l_rdw="Geregistreerde garages (NPR)",
+   link_map="Open de laadkaart van {city}", link_nl="Prijzen en storingen per exploitant", link_adopt="Kaart elektrisch rijden",
+   s_pts="publieke laadpunten op {locs} locaties", s_kwh="mediaan per kWh, vóór parkeerkosten", s_down="van de locaties meldt nu een storing", s_fast="snellaadlocaties, 150 kW+", s_share="van de personenauto's elektrisch", s_per100="publieke laadpunten per 100 EV's",
+   note="Live status uit het nationaal laadpuntenregister (NDW / DOT-NL), elk half uur ververst; EV-aandeel volgens CBS, 1 januari 2026. Parkeren onder een laadpaal wordt op de kaart geprijsd voor uw verblijf."),
+ "de": dict(eyebrow="Interaktive Karte", map_h="Alle Parkmöglichkeiten in {city}", map_p="Marker anklicken für Preise und Details. Ebenen ein- und ausblenden zum Filtern.",
+   b_pr="P+R-Anlagen", b_gar="Parkhäuser", b_free="Kostenlos parken", l_rdw="Registrierte Parkhäuser (NPR)",
+   link_map="Ladekarte für {city} öffnen", link_nl="Preise und Störungen je Betreiber (NL)", link_adopt="Karte E-Autos",
+   s_pts="öffentliche Ladepunkte an {locs} Standorten", s_kwh="Median pro kWh, vor Parkgebühren", s_down="der Standorte melden derzeit eine Störung", s_fast="Schnellladestandorte, 150 kW+", s_share="der Privat-Pkw elektrisch", s_per100="öffentliche Ladepunkte je 100 E-Autos",
+   note="Live-Status aus dem nationalen Ladesäulenregister (NDW / DOT-NL), halbstündlich aktualisiert; E-Auto-Anteil laut CBS, 1. Januar 2026. Parken unter einer Ladesäule wird auf der Karte für Ihren Aufenthalt bepreist."),
+ "fr": dict(eyebrow="Carte interactive", map_h="Toutes les options de stationnement à {city}", map_p="Cliquez sur un marqueur pour les prix et les détails. Activez ou masquez les couches pour filtrer.",
+   b_pr="Sites P+R", b_gar="Parkings", b_free="Stationnement gratuit", l_rdw="Parkings enregistrés (NPR)",
+   link_map="Ouvrir la carte des bornes à {city}", link_nl="Prix et pannes par opérateur (NL)", link_adopt="Carte des voitures électriques",
+   s_pts="points de charge publics sur {locs} sites", s_kwh="médiane par kWh, hors stationnement", s_down="des sites signalent une panne en ce moment", s_fast="sites de recharge rapide, 150 kW+", s_share="des voitures particulières électriques", s_per100="points de charge publics pour 100 VE",
+   note="Statut en direct du registre national des bornes (NDW / DOT-NL), actualisé toutes les demi-heures ; part de VE selon CBS, 1er janvier 2026. Le stationnement sous une borne est tarifé sur la carte pour votre arrêt."),
+}
+
+def tools_html(lang, slug, cname, ctx, ev, a):
+    """The charging strip and the city map, as the English pages have them."""
+    Mt = MAPT[lang]; X = lambda k: Mt[k].format(city=cname, locs=ctx["locs"])
+    strip = ""
+    if ev:
+        tiles = (f'<div class="evs"><b>{ctx["pts"]}</b><span>{esc(X("s_pts"))}</span></div>'
+                 f'<div class="evs"><b>{ctx["kwh"]}</b><span>{esc(X("s_kwh"))}</span></div>'
+                 f'<div class="evs"><b>{ctx["down"]}</b><span>{esc(X("s_down"))}</span></div>'
+                 f'<div class="evs"><b>{ctx["fast"]}</b><span>{esc(X("s_fast"))}</span></div>')
+        if a.get("share"): tiles += f'<div class="evs is-ok"><b>{ctx["share"]}</b><span>{esc(X("s_share"))}</span></div>'
+        if a.get("points_per_100_ev"): tiles += f'<div class="evs"><b>{ctx["per100"]}</b><span>{esc(X("s_per100"))}</span></div>'
+        strip = (f'<section class="ev-strip" style="padding-top:8px"><div class="evs-head"><h2 style="margin:0">{esc(C[lang]["h_ev"].format(city=cname))}</h2>'
+                 f'<div class="evs-links"><a href="{ctx["maplink"]}">{esc(X("link_map"))}</a><a href="/laadpaal-{ctx["lp"]}" hreflang="nl">{esc(X("link_nl"))}</a><a href="/ev-adoption">{esc(X("link_adopt"))}</a></div></div>'
+                 f'<div class="evs-grid">{tiles}</div><p style="font-size:12.5px;color:var(--mut);margin:10px 0 0">{esc(Mt["note"])}</p></section>')
+    mapsec = (f'<section class="sec-wm" style="margin-top:28px"><div class="sl">{esc(Mt["eyebrow"])}</div><h2 class="st" style="margin-top:4px">{esc(X("map_h"))}</h2><p class="ss">{esc(X("map_p"))}</p>'
+              f'<div class="map-btns"><button class="map-btn" style="background:#0B1120" onclick="toggleL(\'pr\',this)">{esc(Mt["b_pr"])}</button>'
+              f'<button class="map-btn" style="background:var(--or)" onclick="toggleL(\'gar\',this)">{esc(Mt["b_gar"])}</button>'
+              f'<button class="map-btn" style="background:var(--tl)" onclick="toggleL(\'free\',this)">{esc(Mt["b_free"])}</button></div>'
+              f'<div class="mw"><div id="cityMap" class="mc"></div></div>'
+              f'<div class="ml"><div class="mli"><div class="mld" style="background:#0B1120"></div> P+R</div><div class="mli"><div class="mld" style="background:var(--or)"></div> {esc(Mt["b_gar"])}</div>'
+              f'<div class="mli"><div class="mld" style="background:var(--tl)"></div> {esc(Mt["b_free"])}</div><div class="mli"><div class="mld" style="background:#6366F1;opacity:.85"></div> {esc(Mt["l_rdw"])}</div></div></section>')
+    script = (f'<script src="/rdw-data.js"></script><script src="/shared.js"></script><script>var layers={{}},vis={{pr:true,gar:true,free:true,rdw:true}};'
+              f'function toggleL(k,btn){{vis[k]=!vis[k];btn.classList.toggle(\'off\');if(layers[k])layers[k].forEach(function(m){{if(m._icon)m._icon.style.display=vis[k]?\'\':\'none\'}})}}'
+              f'document.addEventListener(\'DOMContentLoaded\',function(){{if(typeof L===\'undefined\'||typeof CITIES===\'undefined\'||!CITIES[\'{slug}\'])return;var map=initMap(\'cityMap\',CITIES[\'{slug}\'].center,CITIES[\'{slug}\'].zoom);layers.pr=[];layers.gar=[];layers.free=[];var d=CITIES[\'{slug}\'];'
+              f'layers.rdw=addRDWMarkers(map,\'{slug}\');if(d.pr)d.pr.forEach(function(p){{layers.pr.push(addMarker(map,p,\'#0B1120\',\'R\'))}});if(d.garages)d.garages.forEach(function(p){{layers.gar.push(addMarker(map,p,\'#EA580C\',\'G\'))}});if(d.free)d.free.forEach(function(p){{layers.free.push(addMarker(map,p,\'#059669\',\'F\'))}});}});</script>')
+    return strip + mapsec, script
+
 def build(lang, slug):
     T = C[lang]; G = S[lang]; en = CITY_LABEL[slug]; cname = city_name(lang, en); M = lambda v: money(lang, v)
     qb, prs, zones = parse_en(slug)
@@ -180,6 +228,7 @@ def build(lang, slug):
                share=pct(lang, a["share"], 1) if a.get("share") else "n/a", per100=(f"{a['points_per_100_ev']:.1f}".replace(".", ",") if lang != "en" else f"{a['points_per_100_ev']:.1f}") if a.get("points_per_100_ev") else "n/a",
                maplink=f"/ev-charging?lat={cc['lat']}&lng={cc['lon']}&zoom=13" if cc else "/ev-charging")
     F = lambda key: T[key].format(**ctx)
+    tools, tools_script = tools_html(lang, slug, cname, ctx, ev, a)
     def gkey(g): return (0, g["rate_hr"], g["rate_day"]) if priced(g) and not is_free(g) else (1, 0, 0) if is_free(g) else (2, 0, 0)
     PR_BADGE = ' <em style="font-style:normal;font-size:10.5px;font-weight:700;color:var(--sig)">P+R</em>'
     def grow(g):
@@ -224,6 +273,8 @@ def build(lang, slug):
 <link rel="canonical" href="{url}">
 {alts}
 <link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <meta property="og:type" content="article"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(F("title"))}"><meta property="og:description" content="{esc(fit_desc(F("desc")))}"><meta property="og:image" content="{SITE}/og-image.png">
 <meta name="robots" content="index, follow"><meta name="author" content="Analytics Ascent">
@@ -248,6 +299,7 @@ def build(lang, slug):
   <p class="lead">{F("intro")}</p>
 </header>
 <div class="ea-stats">{tiles}</div>
+{tools}
 <h2>{F("h_garages")}</h2><p>{F("p_garages")}</p>
 <div class="tbl-wrap"><table><thead><tr><th>{T["th_garage"]}</th><th>{T["th_1h"]}</th><th>{T["th_3h"]}</th><th>{T["th_24h"]}</th><th>{T["th_cap"]}</th><th>{T["th_ev"]}</th></tr></thead><tbody>{grows}</tbody></table></div>
 {pr_html}
@@ -259,6 +311,7 @@ def build(lang, slug):
 <p class="clangs">{T["langs"]}: {other}</p>
 <p style="font-size:12.5px;color:var(--mut);margin:16px 0 60px">{F("src")}</p>
 </div>
+{tools_script}
 </body>
 </html>"""
 
