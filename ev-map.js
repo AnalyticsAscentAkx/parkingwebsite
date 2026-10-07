@@ -670,7 +670,7 @@
     singles.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
       if (isHub(st)) {
-        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0, p ? money(p.total) : null), riseOnHover: true });
+        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0, p ? (p.charge != null ? '\u26A1' + money(p.charge) : '') + (p.park != null ? ' P ' + (p.park === 0 ? 'free' : money(p.park)) : '') : null), riseOnHover: true });
       } else if (p) {
         m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0), riseOnHover: true });
       } else {
@@ -698,9 +698,12 @@
      the apps and asked why we split it; the split is one tap away in the card
      and in the tooltip. */
   function pinIcon(p, g, faulty) {
+    // Two numbers side by side: what the charge costs and what the parking under it costs.
+    var charge = p.charge != null ? '<i class="c" data-g="' + g + '">\u26A1' + money(p.charge) + '</i>' : '';
+    var park = p.park != null ? '<i class="p"' + (p.park === 0 ? ' data-free="1"' : '') + '>P ' + (p.park === 0 ? 'free' : money(p.park)) + '</i>' : '';
     return L.divIcon({
       className: 'ev-pinwrap',
-      html: '<span class="ev-pin" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b> ' : '') + money(p.total) + '</span>',
+      html: '<span class="ev-pin ev-pin-split" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + charge + park + '</span>',
       iconSize: null, iconAnchor: [0, 0]
     });
   }
