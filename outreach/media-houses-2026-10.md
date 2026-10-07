@@ -166,7 +166,13 @@ Best regards,
 
 | Date | Outlet | Sent to | Reply | Published link |
 |---|---|---|---|---|
-| | | | | |
+| 2026-10-07 13:06 | DutchNews.nl | editor@dutchnews.nl (sent from craakash@analytics-ascent.com) | | |
+| 2026-10-08 08:00 (scheduled) | NL Times | tips@nltimes.nl | | |
+| 2026-10-08 13:00 (scheduled) | Electrek | tips@electrek.co | | |
+| 2026-10-09 09:00 (scheduled) | Expat Republic | hello@expatrepublic.com | | |
+| 2026-10-12 08:00 (scheduled) | IamExpat | info@iamexpat.nl, for the editorial team | | |
+| 2026-10-13 09:00 (scheduled) | Expatica | info@expatica.com, for the NL editorial team | | |
+| | DutchReview, CleanTechnica, electrive, Holland Times, Northern Times | web forms, owner to submit | | |
 
 
 ---
