@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFIR Scorecard: What the Dutch Charge Point Register Actually Publishes</title>
+<meta name="description" content="EU law has required an ad hoc price and payment data at every public charge point since April 2026. The Dutch register names one on 27 of 99,230 tariffs and a card reader on 19% of points. Field by field, per operator, rebuilt daily.">
+<link rel="canonical" href="https://parkingnetherlands.com/afir-scorecard">
+<link rel="alternate" type="application/rss+xml" title="Charge + Park, The Netherlands" href="/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=20261007a">
+<script src="/analytics.js?v=20261007a" defer></script>
+<script src="/site.js?v=20261007a" defer></script>
+<script src="/affiliates.js?v=20261007a" defer></script>
+<link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://parkingnetherlands.com/afir-scorecard">
+<meta property="og:title" content="AFIR scorecard: what the Dutch charge point register publishes">
+<meta property="og:description" content="EU law has required an ad hoc price and payment data at every public charge point since April 2026. The Dutch register names one on 27 of 99,230 tariffs and a card reader on 19% of points. Field by field, per operator, rebuilt daily.">
+<meta property="og:image" content="https://parkingnetherlands.com/og/afir-scorecard.png">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Analytics Ascent">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Dataset", "name": "AFIR data scorecard for the Dutch charge point register", "description": "Share of active public charge points in the Dutch national register (NDW) that publish each data element required by EU regulation 2023/1804, nationally and per operator. Snapshot 2026-10-07.", "url": "https://parkingnetherlands.com/afir-scorecard", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Analytics Ascent", "url": "https://parkingnetherlands.com"}, "temporalCoverage": "2026-10-07", "spatialCoverage": "Netherlands", "isBasedOn": ["https://opendata.ndw.nu/charging_point_locations_ocpi.json.gz", "https://opendata.ndw.nu/charging_point_tariffs_ocpi.json.gz", "https://evroaming.org/wp-content/uploads/2026/09/OCPI-nap-extension-1.0.pdf"], "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://parkingnetherlands.com/data/afir-scorecard-2026.json"}, {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://parkingnetherlands.com/data/afir-scorecard-2026.csv"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is AFIR and what does it oblige charge point operators to publish?", "acceptedAnswer": {"@type": "Answer", "text": "Regulation (EU) 2023/1804, the Alternative Fuels Infrastructure Regulation, article 20, obliges operators of publicly accessible charge points to make static and dynamic data available free of charge through the national access point. Static data covers the operator, location, opening hours, payment options, connectors and power; dynamic data covers operational status, availability and the ad hoc price. The implementing regulation 2025/655 fixes the fields and makes the obligation apply from 14 April 2026, static data within 24 hours of a change and dynamic data within one minute."}}, {"@type": "Question", "name": "Does the Dutch register meet the AFIR data obligation?", "acceptedAnswer": {"@type": "Answer", "text": "Not on the data it publishes today. Of the ten obligations checked here, 1 are met for at least 90% of the 182,175 active public charge points in the NDW feed. The ad hoc price, the one figure a driver without a subscription needs, is typed as such on 27 of 99,230 tariffs. A bank card reader is declared on 19.2% of points and contactless payment on 0.2%."}}, {"@type": "Question", "name": "Where does the data come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the two OCPI files that NDW, the Dutch national access point, publishes as open data: charging_point_locations_ocpi.json.gz and charging_point_tariffs_ocpi.json.gz. Each field is read the way the OCPI NAP Data Extension 1.0 (EVRoaming Foundation and NDW, 24 September 2026) maps it to the AFIR annex. The snapshot date is printed on the page and the figures are rebuilt daily."}}, {"@type": "Question", "name": "Why does the card payment share look low when many chargers take cards?", "acceptedAnswer": {"@type": "Answer", "text": "The scorecard counts what the operator declares in the register, not what is on the post. If a charge point has a card terminal and the operator has not set the capability flag, the register says there is none. Under AFIR the register is the source other services are meant to read, so an undeclared terminal is a compliance gap even when the hardware exists."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://parkingnetherlands.com/"}, {"@type": "ListItem", "position": 2, "name": "Charging", "item": "https://parkingnetherlands.com/ev-charging"}, {"@type": "ListItem", "position": 3, "name": "AFIR scorecard", "item": "https://parkingnetherlands.com/afir-scorecard"}]}]</script>
+<style>
+.cg{max-width:1080px;margin:0 auto;padding:0 24px}
+.cg-hero{padding:44px 0 6px}
+.cg-hero h1{font-size:clamp(1.9rem,4vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--ink);margin:10px 0 12px}
+.cg-hero .lead{font-size:17px;color:var(--mut);max-width:780px;line-height:1.6}
+.crumb{font-size:13px;color:var(--mut)}.crumb a{color:var(--mut)}
+.cg-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0}
+.cg-stat{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh)}
+.cg-stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.cg-stat span{font-size:12.5px;color:var(--mut)}
+.cg h2{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 12px}
+.cg h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:26px 0 6px}
+.cg p{line-height:1.65;max-width:780px}
+.cg ul,.cg ol{line-height:1.7;padding-left:20px;max-width:780px}
+.cg li{margin-bottom:8px}
+.cg figure{margin:18px 0 26px}.cg figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:#fff}
+.cap{font-size:13px;color:var(--mut);line-height:1.6;margin:8px 0 0}
+.tbl-wrap{margin:14px 0 8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.ok{color:#168A68;font-weight:600}td.no{color:#B45309;font-weight:600}
+td.how{color:var(--mut);font-size:12.5px;min-width:260px}
+.ops td,.ops th{padding:6px 7px}.ops td:first-child{white-space:nowrap}
+.cite{font-size:13px;color:var(--mut);line-height:1.6}
+.warnbox{background:var(--sig-soft);border-radius:var(--r-lg);padding:18px 20px;margin:22px 0;max-width:780px}
+.warnbox p{font-size:14.5px;margin:0 0 8px}.warnbox p:last-child{margin:0}
+details.faq{border-bottom:1px solid var(--line-soft);padding:10px 0;max-width:780px}
+details.faq summary{font-weight:700;cursor:pointer;color:var(--ink)}details.faq p{margin:8px 0 0;color:var(--mut)}
+code{font-family:var(--f-mono);font-size:12.5px;background:var(--line-soft);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
+<ul class="nav-links" id="navLinks">
+  <li><a href="/ev-charging" class="nav-find"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Price my stop</a></li>
+  <li class="has-drop"><a href="/ev-charging">Charging</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Live</div><a href="/ev-charging">Charger map, priced with parking</a></div>
+      <div class="drop-col"><div class="drop-h">Data &amp; guides</div><a href="/ev-adoption">EV adoption by municipality</a><a href="/ev-parking">EV parking rules</a><a href="/ev-charging#prices">What charging costs</a><a href="/ev-charging#fast-charging">Fast charging</a></div>
+      <div class="drop-foot"><a href="/ev-charging">Open the map</a></div>
+    </div>
+  </li>
+  <li class="has-drop"><a href="/search">Parking</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Find a space</div><a href="/search">Garages &amp; P+R near an address</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a></div>
+      <div class="drop-col"><div class="drop-h">Save money</div><a href="/free-parking">Free parking</a><a href="/street-parking">Street parking &amp; blue zones</a><a href="/long-term-parking">Long-term parking</a><a href="/parking-tips-netherlands">Parking tips</a><a href="/schiphol">Schiphol parking</a></div>
+      <div class="drop-col"><div class="drop-h">Know the rules</div><a href="/parking-fines">Fines &amp; appeals</a><a href="/parking-apps">Parking apps</a><a href="/parkbee">ParkBee</a><a href="/belgium-parking">Belgium</a><a href="/blog">Blog</a></div>
+    </div>
+  </li>
+  <li class="has-drop"><a href="/all-cities">Cities</a>
+    <div class="drop drop-wide">
+      <div class="drop-col"><div class="drop-h">Major</div><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/schiphol">Schiphol Airport</a></div>
+      <div class="drop-col"><div class="drop-h">Other</div><a href="/groningen">Groningen</a><a href="/haarlem">Haarlem</a><a href="/leiden">Leiden</a><a href="/delft">Delft</a><a href="/maastricht">Maastricht</a><a href="/breda">Breda</a><a href="/nijmegen">Nijmegen</a><a href="/tilburg">Tilburg</a><a href="/zwolle">Zwolle</a></div>
+      <div class="drop-col"><div class="drop-h">Stations</div><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a></div>
+      <div class="drop-foot"><a href="/all-cities">All 14 cities compared</a></div>
+    </div>
+  </li>
+  <li><a href="/about">About</a></li>
+</ul>
+<div class="nav-mobile-pair"><a href="/ev-charging">Price my stop</a><a href="/search">Parking only</a></div>
+<button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks">&#9776;</button>
+</div>
+</nav>
+<main class="cg">
+<header class="cg-hero">
+<div class="crumb"><a href="/">Home</a> › <a href="/ev-charging">Charging</a> › AFIR scorecard</div>
+<h1>AFIR scorecard: what the Dutch charge point register actually publishes</h1>
+<p class="lead">Since 14 April 2026, EU law has required every public charge point operator to publish its prices, payment options, power and live status through the national access point. The Netherlands wrote the OCPI mapping for that obligation. This page reads the Dutch register against it, field by field and operator by operator, every day.</p>
+<p class="cite">Register snapshot 2026-10-07. 74,982 locations, 182,175 active public charge points, 99,230 tariffs. Rebuilt daily from the NDW open data feed.</p>
+</header>
+
+<div class="cg-stats">
+<div class="cg-stat"><b>27</b><span>of 99,230 tariffs typed as the ad hoc price AFIR requires</span></div>
+<div class="cg-stat"><b>19%</b><span>of charge points declare a bank card reader</span></div>
+<div class="cg-stat"><b>0.2%</b><span>declare contactless payment</span></div>
+<div class="cg-stat"><b>1 of 10</b><span>obligations met for at least 90% of points</span></div>
+</div>
+
+<p>Regulation (EU) 2023/1804, the Alternative Fuels Infrastructure Regulation, is mostly known for its hardware rules: a 1.3 kW of public charging power per electric car, fast chargers every 60 km on the core network. Article 20 is the part nobody reads. It obliges every operator of a publicly accessible charge point to make a fixed list of data available, free of charge, through the national access point, so that any app or map can show a driver the price, the payment options and whether the post is working before they get there. Implementing Regulation (EU) 2025/655 fixed the field list and the deadline: 14 April 2026, static data updated within 24 hours of a change, dynamic data within one minute.</p>
+
+<p>On 24 September 2026 the EVRoaming Foundation and NDW, the Dutch national access point, published the <a href="https://evroaming.org/wp-content/uploads/2026/09/OCPI-nap-extension-1.0.pdf">OCPI NAP Data Extension 1.0</a>. It maps each AFIR data element onto a field of the OCPI feed that NDW already publishes as open data, and makes a number of previously optional fields mandatory. That gives an outsider something rare: a published rulebook and the file it applies to, both open. This page compares the two.</p>
+
+<h2>Ten obligations, one register</h2>
+<p>Each row is one data element the regulation requires. The share is the proportion of active public charge points in the register (status not REMOVED or PLANNED) whose operator has filled in the corresponding OCPI field. Location-level elements are counted per charge point at that location, so a large site with no opening hours weighs more than a single post.</p>
+<figure>
+<img src="/img/articles/afir-coverage.png?d=2026-10-07" alt="Horizontal bar chart: share of Dutch public charge points publishing each AFIR data element, 2026-10-07" width="1600" height="896" loading="lazy">
+<p class="cap">Figure 1. Share of active public charge points in the Dutch register that carry each AFIR data element. Cobalt bars meet the 90% line, orange bars do not. Source: NDW OCPI feed, 2026-10-07.</p>
+</figure>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Obligation</th><th class="num">AFIR row</th><th>Level</th><th class="num">Share</th><th>How it is read</th></tr></thead>
+<tbody>
+<tr><td>Ad hoc price named</td><td class="num">F3</td><td>charge point</td><td class="num no">7.0%</td><td class="how">a tariff of type AD_HOC_PAYMENT attached to the connector</td></tr>
+<tr><td>Any tariff attached</td><td class="num">F3</td><td>charge point</td><td class="num no">86.9%</td><td class="how">connector tariff_ids resolves to a published tariff</td></tr>
+<tr><td>Bank card reader</td><td class="num">A20</td><td>charge point</td><td class="num no">19.2%</td><td class="how">capabilities include CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL or CHIP_CARD_SUPPORT</td></tr>
+<tr><td>Contactless payment</td><td class="num">A21</td><td>charge point</td><td class="num no">0.2%</td><td class="how">capabilities include CONTACTLESS_CARD_SUPPORT</td></tr>
+<tr><td>Point maximum power published</td><td class="num">B6</td><td>charge point</td><td class="num no">73.1%</td><td class="how">max_electric_power on at least one connector</td></tr>
+<tr><td>Operational status known</td><td class="num">F1</td><td>charge point</td><td class="num ok">95.5%</td><td class="how">status is not UNKNOWN</td></tr>
+<tr><td>Opening hours</td><td class="num">A14</td><td>location</td><td class="num no">86.8%</td><td class="how">opening_times present on the location</td></tr>
+<tr><td>Renewable share declared</td><td class="num">B10</td><td>location</td><td class="num no">61.4%</td><td class="how">energy_mix present on the location</td></tr>
+<tr><td>Helpdesk telephone</td><td class="num">A5</td><td>location</td><td class="num no">0.0%</td><td class="how">help_phone present on the location</td></tr>
+<tr><td>Parking spaces and vehicle limits</td><td class="num">A16 to A19</td><td>location</td><td class="num no">0.0%</td><td class="how">parking_places present on the location</td></tr>
+</tbody></table></div>
+<p class="cite">AFIR row numbers follow Annex tables A (static, station level), B (static, charge point level) and F (dynamic) of Implementing Regulation 2025/655, as used in the NAP extension.</p>
+
+<h2>The ad hoc price is the gap that matters</h2>
+<p>A driver without a subscription has one question at the post: what will this cost me? AFIR row F3 answers it with the ad hoc price, in national currency, including every component. OCPI carries that as a tariff of type AD_HOC_PAYMENT attached to the connector. The Dutch feed contains 99,230 tariffs. 27 of them are typed AD_HOC_PAYMENT. 96,882 have no type at all, which means the register cannot say whether the price it holds is the one a walk-up driver pays or a contract rate for one roaming partner.</p>
+<p>That is not a missing-data problem at the edges. The tariff is attached for 86.9% of points, so the operators do publish a price; they do not say which price it is. The NAP extension makes the type field mandatory and requires the AD_HOC_PAYMENT tariff to be resolvable from every connector. On the day NDW enforces that, this number moves, and this page will show it.</p>
+
+<h2>Payment: declared on paper, not in the register</h2>
+<p>AFIR requires every public charge point to accept ad hoc payment, and from 2024 every new point of 50 kW or more to take bank cards, by reader or contactless. The register has fields for both. Across the country a bank card reader is declared on 19.2% of points and contactless on 0.2%. Anyone who has tapped a card on a Dutch fast charger knows the hardware share is higher than that. The gap is in the declaration, and under AFIR the declaration is what every navigation app is supposed to read.</p>
+<figure>
+<img src="/img/articles/afir-operators.png?d=2026-10-07" alt="Grouped bar chart: share of charge points with a declared bank card reader and a typed ad hoc price, fifteen largest Dutch operators, 2026-10-07" width="1600" height="1024" loading="lazy">
+<p class="cap">Figure 2. Bank card reader (cobalt) and ad hoc price typed on the tariff (orange) as declared in the register, fifteen largest operators by active charge points. Contactless is below 1% for every operator and is not drawn. Source: NDW OCPI feed, 2026-10-07.</p>
+</figure>
+
+<h2>Operator scorecard</h2>
+<p>Operators with at least 500 active public charge points, ranked by size. Each cell is the share of the operator's points that carry the element; green is 90% or more. The last column counts the elements an operator meets at the 90% line. CCH leads with 6 of ten, Laadnet and ChargePoint follow with 6 and 5.</p>
+<div class="tbl-wrap"><table class="ops">
+<thead><tr><th>Operator</th><th class="num">Points</th><th title="Ad hoc price named">F3</th><th title="Any tariff attached">F3</th><th title="Bank card reader">A20</th><th title="Contactless payment">A21</th><th title="Point maximum power published">B6</th><th title="Operational status known">F1</th><th title="Opening hours">A14</th><th title="Renewable share declared">B10</th><th title="Helpdesk telephone">A5</th><th title="Parking spaces and vehicle limits">A16 to A19</th><th class="num">Met</th></tr></thead>
+<tbody>
+<tr><td>Vattenfall InCharge</td><td class="num">48,714</td><td class="num no">0</td><td class="num ok">98</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">95</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>EQUANS</td><td class="num">24,685</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">98</td><td class="num ok">100</td><td class="num no">56</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>TotalEnergies</td><td class="num">19,329</td><td class="num no">0</td><td class="num no">2</td><td class="num no">21</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">96</td><td class="num ok">100</td><td class="num no">75</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>Allego</td><td class="num">18,548</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">98</td><td class="num ok">100</td><td class="num ok">94</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>E-Flux by Road</td><td class="num">14,366</td><td class="num no">0</td><td class="num ok">97</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">94</td><td class="num no">5</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>Qwello Benelux BV</td><td class="num">12,695</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>Eneco</td><td class="num">8,323</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">2</td><td class="num no">0</td><td class="num no">75</td><td class="num no">76</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>2</b></td></tr>
+<tr><td>Laadnet</td><td class="num">5,863</td><td class="num no">0</td><td class="num ok">92</td><td class="num ok">92</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>6</b></td></tr>
+<tr><td>Ubitricity</td><td class="num">3,698</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>AGO</td><td class="num">2,580</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">93</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>2</b></td></tr>
+<tr><td>Opcharge</td><td class="num">2,034</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">98</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>4</b></td></tr>
+<tr><td>Pluq</td><td class="num">2,025</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">91</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>Q-Park Netherlands</td><td class="num">1,908</td><td class="num no">0</td><td class="num ok">99</td><td class="num ok">96</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">87</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>CCH</td><td class="num">1,732</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>6</b></td></tr>
+<tr><td>e-VOLTT</td><td class="num">1,581</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">14</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">90</td><td class="num no">11</td><td class="num no">11</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>2</b></td></tr>
+<tr><td>Fastned</td><td class="num">1,223</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">40</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>IP Charging</td><td class="num">1,042</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">82</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">94</td><td class="num no">51</td><td class="num no">51</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>2</b></td></tr>
+<tr><td>DAEN Mobility</td><td class="num">953</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+<tr><td>Tesla</td><td class="num">940</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>4</b></td></tr>
+<tr><td>Shell Recharge</td><td class="num">828</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">95</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>4</b></td></tr>
+<tr><td>Heijmans</td><td class="num">734</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">98</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>Valk Energy</td><td class="num">593</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">94</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>SGM</td><td class="num">530</td><td class="num no">0</td><td class="num no">89</td><td class="num no">0</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">99</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>3</b></td></tr>
+<tr><td>ChargePoint</td><td class="num">514</td><td class="num no">0</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num ok">100</td><td class="num no">87</td><td class="num ok">100</td><td class="num ok">100</td><td class="num no">0</td><td class="num no">0</td><td class="num"><b>5</b></td></tr>
+</tbody></table></div>
+<p class="cite">Column headers are AFIR rows: F3 ad hoc price typed, F3 any tariff attached, A20 bank card reader, A21 contactless, B6 point power, F1 status known, A14 opening hours, B10 renewable share, A5 helpdesk phone, A16 to A19 parking spaces. Hover a header for the name. The full table for every operator is in the CSV below.</p>
+
+<h2>Fields the extension adds, and whether they have arrived</h2>
+<p>The extension defines new fields and promotes existing optional ones to mandatory. None of the new ones is populated in the feed yet; the count below is checked daily and the page updates on the day the first operator fills one in.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Field</th><th class="num">AFIR row</th><th>Carries</th><th class="num">Populated today</th></tr></thead>
+<tbody>
+<tr><td><code>Location.operator.legal_name</code></td><td class="num">A1</td><td>legal name next to the trading name</td><td class="num">0</td></tr>
+<tr><td><code>Location.region</code></td><td class="num">A10</td><td>NUTS-1 region code</td><td class="num">0</td></tr>
+<tr><td><code>Location.services</code></td><td class="num">A4</td><td>on-site service support</td><td class="num">0</td></tr>
+<tr><td><code>EVSE.payment_brands</code></td><td class="num">A23</td><td>card brands accepted for ad hoc payment</td><td class="num">0</td></tr>
+<tr><td><code>Location.parking_places</code></td><td class="num">A16 to A19</td><td>spaces, vehicle limits, disabled bays</td><td class="num">0</td></tr>
+<tr><td><code>Location.help_phone</code></td><td class="num">A5</td><td>helpdesk telephone (existing field, now mandatory)</td><td class="num">0</td></tr>
+</tbody></table></div>
+
+<h2>Three things the register does say</h2>
+<ul>
+<li><b>Status.</b> 8,123 charge points report status UNKNOWN, which the extension maps to non-operational. For 95.5% of points the operator does say whether the post works, and this site's <a href="/ev-charging">map</a> and operator pages have tracked that status every 30 minutes since September 2026.</li>
+<li><b>Power.</b> Point maximum power is published for 73.1% of points. For the rest it has to be derived from voltage and current, which the extension explicitly allows (row B6) and which the map does.</li>
+<li><b>Idle fees.</b> 21.7% of points carry a PARKING_TIME price component, the operator's own fee for staying plugged in after charging. That is separate from the municipal parking tariff under the post, which <a href="/blog/charging-stop-costs">adds 38% to a city-centre stop</a> and which no register field carries at all.</li>
+</ul>
+
+<div class="warnbox">
+<p><b>What this scorecard is not.</b> It measures what operators declare in the national register, not what is installed on the street. A terminal that exists but is not flagged counts as absent, because under AFIR the register is the source every other service is meant to read. It also does not test update latency; a field can be present and stale.</p>
+</div>
+
+<h2>Method</h2>
+<ol>
+<li>Download the two OCPI files NDW publishes: <code>charging_point_locations_ocpi.json.gz</code> and <code>charging_point_tariffs_ocpi.json.gz</code>.</li>
+<li>Keep every EVSE whose status is not REMOVED or PLANNED. The register also carries non-public points; the NDW feed is the public set.</li>
+<li>Read each AFIR element from the OCPI field the NAP extension names for it (table above). A field counts as present when it is non-empty; a tariff counts as ad hoc when its <code>type</code> is AD_HOC_PAYMENT; a point counts as card payable when its capabilities include any of CREDIT_CARD_PAYABLE, DEBIT_CARD_PAYABLE, PED_TERMINAL or CHIP_CARD_SUPPORT.</li>
+<li>Attribute the operator from <code>operator.name</code>, falling back to the OCPI party id. Trading names are used as published; an operator that appears under two names is two rows.</li>
+<li>Rebuild daily. The snapshot date is in the page and the data files.</li>
+</ol>
+<p><b>Open data.</b> <a href="/data/afir-scorecard-2026.json">afir-scorecard-2026.json</a> and <a href="/data/afir-scorecard-2026.csv">afir-scorecard-2026.csv</a>, CC BY 4.0. Cite as "Parking Netherlands (Analytics Ascent), AFIR scorecard, 2026-10-07". The feed history behind the status figures is in the <a href="https://github.com/AnalyticsAscentAkx/parking-netherlands-open-data">open data repository</a>.</p>
+
+<h2>Questions</h2>
+<details class="faq"><summary>What is AFIR and what does it oblige charge point operators to publish?</summary><p>Regulation (EU) 2023/1804, the Alternative Fuels Infrastructure Regulation, article 20, obliges operators of publicly accessible charge points to make static and dynamic data available free of charge through the national access point. Static data covers the operator, location, opening hours, payment options, connectors and power; dynamic data covers operational status, availability and the ad hoc price. The implementing regulation 2025/655 fixes the fields and makes the obligation apply from 14 April 2026, static data within 24 hours of a change and dynamic data within one minute.</p></details>
+<details class="faq"><summary>Does the Dutch register meet the AFIR data obligation?</summary><p>Not on the data it publishes today. Of the ten obligations checked here, 1 are met for at least 90% of the 182,175 active public charge points in the NDW feed. The ad hoc price, the one figure a driver without a subscription needs, is typed as such on 27 of 99,230 tariffs. A bank card reader is declared on 19.2% of points and contactless payment on 0.2%.</p></details>
+<details class="faq"><summary>Where does the data come from?</summary><p>From the two OCPI files that NDW, the Dutch national access point, publishes as open data: charging_point_locations_ocpi.json.gz and charging_point_tariffs_ocpi.json.gz. Each field is read the way the OCPI NAP Data Extension 1.0 (EVRoaming Foundation and NDW, 24 September 2026) maps it to the AFIR annex. The snapshot date is printed on the page and the figures are rebuilt daily.</p></details>
+<details class="faq"><summary>Why does the card payment share look low when many chargers take cards?</summary><p>The scorecard counts what the operator declares in the register, not what is on the post. If a charge point has a card terminal and the operator has not set the capability flag, the register says there is none. Under AFIR the register is the source other services are meant to read, so an undeclared terminal is a compliance gap even when the hardware exists.</p></details>
+
+<h2>Related</h2>
+<ul>
+<li><a href="/charging-gap">Where Dutch charging still falls short</a>: the 1.3 kW per car test applied to every 2 km neighbourhood.</li>
+<li><a href="/blog/charging-stop-costs">Parking is 38% of an EV charging stop</a>: the two registers joined for 14 city centres.</li>
+<li><a href="/ev-charging">Price my stop</a>: every public charger with the parking tariff under it, live status, one total.</li>
+</ul>
+<p class="cite">Sources: Regulation (EU) 2023/1804; Commission Implementing Regulation (EU) 2025/655; EVRoaming Foundation and NDW, OCPI NAP Data Extension 1.0, 24 September 2026; NDW open data, charging point locations and tariffs (OCPI 2.2.1), snapshot 2026-10-07.</p>
+</main>
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="logo"><div class="logo-mark"></div><span class="logo-text">Charge + Park<small>The Netherlands</small></span></a>
+      <p>Every public charger and every register-listed garage in the Netherlands, priced for your exact stop. Independent, free, built on open data.</p>
+      <div class="credit">Built &amp; maintained by <a href="https://analyticascent.com" target="_blank" rel="noopener">Analytics Ascent</a></div>
+      <p class="foot-support">100% free, no sign-up. If it saved you money: <a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener">support the project</a>.</p>
+    </div>
+    <div class="foot-col"><h4>Charging</h4><a href="/ev-charging">Charger map</a><a href="/ev-adoption">EV adoption map</a><a href="/ev-parking">EV parking rules</a></div>
+    <div class="foot-col"><h4>Parking</h4><a href="/search">Parking search</a><a href="/map">Garage &amp; P+R map</a><a href="/street-map">Street tariff map</a><a href="/garage/">Garage directory</a><a href="/parking-price-index">Price index 2026</a><a href="/free-parking">Free parking</a><a href="/parking-fines">Fines guide</a><a href="/parking-apps">Parking apps</a><a href="/long-term-parking">Long-term parking</a></div>
+    <div class="foot-col"><h4>Cities</h4><a href="/amsterdam">Amsterdam</a><a href="/rotterdam">Rotterdam</a><a href="/the-hague">The Hague</a><a href="/utrecht">Utrecht</a><a href="/eindhoven">Eindhoven</a><a href="/groningen">Groningen</a><a href="/schiphol">Schiphol</a><a href="/all-cities">All 14 cities</a><a href="/belgium-parking">Belgium</a></div>
+    <div class="foot-col"><h4>Stations &amp; site</h4><a href="/parking-amsterdam-centraal">Amsterdam Centraal</a><a href="/parking-rotterdam-centraal">Rotterdam Centraal</a><a href="/parking-utrecht-centraal">Utrecht Centraal</a><a href="/parking-den-haag-centraal">Den Haag Centraal</a><a href="/parking-eindhoven-station">Eindhoven Station</a><a href="/parking-groningen-station">Groningen Station</a><a href="/blog">Blog</a><a href="/alerts">Price alerts</a><a href="/about">About</a><a href="/link-to-us">Link to us</a><a href="/privacy">Privacy &amp; cookies</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span class="foot-pill">100% FREE &middot; NO SIGN-UP</span>
+    <span>Some links are partner links: we may earn a commission at no extra cost to you · Not affiliated with any municipality · <a href="/privacy">Privacy</a> · <a href="#" onclick="if(window.googlefc&&googlefc.callbackQueue){googlefc.callbackQueue.push(googlefc.showRevocationMessage);return false}">Privacy choices</a></span>
+  </div>
+</div></footer>
+</body>
+</html>

@@ -583,7 +583,7 @@ def do_sitemap():
     have = set(re.findall(r"<loc>([^<]+)</loc>", sm2))
     skip = {"privacy", "garage/index", "404", "index"}
     add = []
-    pages = [p for p in ROOT.rglob("*.html") if not any(part in ("scripts", "node_modules", ".git") for part in p.parts)]
+    pages = [p for p in ROOT.rglob("*.html") if not any(part in ("scripts", "node_modules", ".git", "embed", "outreach") for part in p.parts)]  # embed = iframe widgets, outreach = import copies
     for p in sorted(pages):
         rel = p.relative_to(ROOT).as_posix()
         if p.stem in skip and "/" not in rel: continue

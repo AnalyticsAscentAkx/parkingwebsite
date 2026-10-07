@@ -38,6 +38,7 @@ Everything shown is computed from public registers, not copied from operators or
 - https://parkingnetherlands.com/parking-fines : the three fine regimes, 2026 amounts, how to appeal.
 - https://parkingnetherlands.com/ev-adoption : EV share per municipality against local charge points.
 - https://parkingnetherlands.com/charging-gap : where public charging falls short, per 2 km hexagon.
+- https://parkingnetherlands.com/afir-scorecard : share of Dutch public charge points publishing each data element EU regulation 2023/1804 requires (ad hoc price, card payment, power, status, hours), nationally and per operator, rebuilt daily from the NDW feed.
 - https://parkingnetherlands.com/garage/ : directory of all 323 register-listed garages, each with official tariffs, capacity, EV points and height limit. Also /nl/garage/, /de/garage/ and /fr/garage/.
 - City guides: /amsterdam, /rotterdam, /the-hague, /utrecht, /eindhoven, /groningen, /maastricht, /leiden, /haarlem, /breda, /delft, /nijmegen, /tilburg, /zwolle, /schiphol and /all-cities. Each city has Dutch (/nl/parkeren-<stad>), German (/de/parken-<stadt>) and French (/fr/stationnement-<ville>) versions.
 - Station parking: /parking-amsterdam-centraal, /parking-rotterdam-centraal, /parking-utrecht-centraal, /parking-den-haag-centraal, /parking-eindhoven-station, /parking-groningen-station.

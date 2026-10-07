@@ -97,7 +97,7 @@ def draw_card(title, desc, stats, lang, path):
 
 def wanted():
     pages = ["index.html", "ev-charging.html", "search.html", "parking-fines.html", "parking-price-index.html", "park-and-ride.html",
-             "ev-adoption.html", "charging-gap.html", "garage/index.html", "laadpalen.html", "belgium-parking.html", "free-parking.html",
+             "ev-adoption.html", "charging-gap.html", "afir-scorecard.html", "garage/index.html", "laadpalen.html", "belgium-parking.html", "free-parking.html",
              "parking-apps.html", "street-parking.html", "long-term-parking.html", "ev-parking.html", "schiphol.html", "all-cities.html",
              "nl/index.html", "de/index.html", "fr/index.html", "nl/garage/index.html", "de/garage/index.html", "fr/garage/index.html"]
     cities = ["amsterdam", "rotterdam", "the-hague", "utrecht", "eindhoven", "groningen", "maastricht", "leiden", "haarlem", "breda", "delft", "nijmegen", "tilburg", "zwolle"]
