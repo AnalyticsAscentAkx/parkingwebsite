@@ -23,6 +23,18 @@
   var queue = [];
   window.track = function (name, params) { queue.push([name, params || {}]); };
 
+  /* Our own visits. Open any page once with ?internal=1 on a device and that
+     browser is never counted again, in GA4 or Cloudflare; ?internal=0 undoes
+     it. In the first week of real data, 19 of 72 sessions were us. */
+  var internal = false;
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('internal') === '1') localStorage.setItem('pn_internal', '1');
+    if (q.get('internal') === '0') localStorage.removeItem('pn_internal');
+    internal = localStorage.getItem('pn_internal') === '1';
+  } catch (e) {}
+  if (internal) { window.track = function () {}; return; }
+
   if (CF_TOKEN) {
     var cf = document.createElement('script');
     cf.defer = true;
