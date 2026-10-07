@@ -325,7 +325,7 @@
 .ev-card-status[data-g="bad"]{color:var(--bad)}.ev-card-status[data-g="bad"] i{background:var(--bad)}
 .ev-card-status[data-g="none"]{color:var(--txt)}
 .ev-card-status small{flex-basis:100%;font-weight:400;color:var(--mut);font-size:11px;line-height:1.4}
-.ev-card-rows{border-top:1px solid var(--line-soft);margin-top:4px}
+.ev-card-rows{border-top:1px solid var(--line-soft);margin-top:8px}
 .ev-card-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:12.5px}
 .ev-card-row span{color:var(--mut)}
 .ev-card-row b{font-family:var(--f-mono);font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}

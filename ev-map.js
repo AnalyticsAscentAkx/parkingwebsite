@@ -886,7 +886,7 @@
       '</div>' +
       (p ? '<div class="ev-card-total" data-g="' + ppkGrade(st[PPK]) + '"><span>Estimated total, ' + stopLabel(w) + ' from ' + hhmm(w.a) + '</span><b>' + money(p.total) + '</b>' +
            (p.capped ? '<small>' + p.kwh + ' kWh, which is what ' + kwOf(st) + ' kW delivers in ' + stopLabel(w) + '. Stay longer for more.</small>' : '') + '</div>' : '') +
-      '<details class="ev-card-how"><summary>How this adds up</summary><div class="ev-card-rows">' + lines + '</div></details>' +
+      '<div class="ev-card-rows">' + lines + '</div>' +
       (p && st[AREA] ? cheaperLater(st[AREA], w, p.park) : '') +
       (st[AREA] ? tariffSchedule(st[AREA]) : '') +
       '<div class="ev-card-note">Estimate for ' + sessionLabel(w, false) + '.' + (srcNote(st, true) ? ' Price: ' + srcNote(st, true) + '.' : '') + '</div>' +
