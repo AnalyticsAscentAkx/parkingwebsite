@@ -167,3 +167,22 @@ Best regards,
 | Date | Outlet | Sent to | Reply | Published link |
 |---|---|---|---|---|
 | | | | | |
+
+
+---
+
+## English-only revision, 2026-10-07
+
+Owner wants English outlets only. Autoblog.nl and NederlandElektrisch.nl are dropped;
+replaced by Electrek (tips@electrek.co) and CleanTechnica (contact form, guest post
+offer). Five expat outlets added with one shared pitch:
+
+| Outlet | Route |
+|---|---|
+| IamExpat | info@iamexpat.nl, for the editorial team (executive editor Manja van Kesteren); same group as DutchNews |
+| Expatica | https://www.expatica.com/contact-us/ or info@expatica.com |
+| The Holland Times | https://www.hollandtimes.nl/contact/, editor-in-chief Mandie van der Meer |
+| Expat Republic | hello@expatrepublic.com |
+| The Northern Times | https://northerntimes.nl contact page; lead with Groningen figures |
+
+The copy-ready page with all eleven texts: https://claude.ai/artifact/S3W6PUKRQBkteiY55PrHR5
