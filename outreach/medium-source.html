@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Parking is 38% of an EV charging stop in the Netherlands</title>
+<meta name="description" content="Joining the Dutch charge point register to the national parking register shows that parking, not electricity, is up to 47% of what a public charging stop costs.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://parkingnetherlands.com/blog/charging-stop-costs">
+<meta property="og:image" content="https://parkingnetherlands.com/img/articles/fig1-parking-share.png">
+</head>
+<body>
+<article>
+<h1>Parking is 38% of an EV charging stop in the Netherlands</h1>
+<p><em>Two public registers, joined for the first time, show that the price on the charge point is only part of the bill. In Delft and Utrecht it is barely half.</em></p>
+
+
+<p><strong>
+Summary.</strong> Public charging in the Netherlands is billed twice: the electricity by the operator, per kWh, and the parking space under the post by the municipality, per hour. No app shows both. We joined the national charge point register (79,147 public charge points) to the national parking register (323 facilities, 14 cities) and the municipal street tariffs. For a typical stop of 20 kWh over two hours, parking is 27% to 47% of the total depending on the city, 38% on average. The electricity price varies more by operator than by place: the ten largest networks average between €0.32 and €0.51 per kWh. The joined data is published as a <a href="https://parkingnetherlands.com/ev-charging">live map</a> and as open datasets.
+</p>
+<h2>1. The problem</h2>
+<p>Charging an electric car at a public post in the Netherlands involves two separate payments, and most drivers only think about one of them. The electricity goes through a charge card or an app: the kWh are metered, and the bill comes from whoever issued the card. The parking is the other payment. A charging bay inside a paid parking zone is still a paid parking space. The street tariff runs for the whole time the car is plugged in, it is paid through a different app or meter, and nothing at the charge point mentions it.</p>
+<p>Two bills, two companies, no connection between them. When choosing where to charge, a driver can see one number and not the other. This study asks a narrow question: for an ordinary stop, how much of the bill is the part nobody shows?</p>
+
+<h2>2. Data and method</h2>
+<p>Three sources, all public.</p>
+<ol>
+<li><b>Charging prices.</b> The national charge point register, published through NDW and DOT-NL, lists every public charge point with its operator, power, status and, for 44% of points, the operator's own ad-hoc tariff. 93,002 published prices were used. Where an operator publishes no tariff for a post, the live map uses that operator's usual rate elsewhere or the national median, and labels which it used; this study uses only published prices.</li>
+<li><b>Garage tariffs.</b> The national parking register (NPR, maintained by RDW, CC0) holds the official drive-in tariffs of 323 register-listed garages, car parks and P+R sites in 14 cities. 175 publish a tariff. Medians exclude free facilities and obvious register errors, defined as an hourly rate above €15 or equal to the day rate. Snapshot 4 October 2026.</li>
+<li><b>Street tariffs.</b> The city-centre hourly rate from each municipality's current tariff decision, as used on the <a href="https://parkingnetherlands.com/all-cities">city pages</a>.</li>
+</ol>
+<p>The reference stop is 20 kWh delivered over two hours, which is a top-up while doing something else rather than a full charge, at the city-centre street tariff. Electricity is priced at the national median of €0.41 per kWh. All figures are medians, so any individual stop will differ.</p>
+
+<h2>3. Results</h2>
+<h3>3.1 Parking is the variable; electricity barely moves</h3>
+<p>At the median price the electricity for the reference stop costs €8.20 in every city. The parking ranges from €3.00 in Eindhoven to €7.28 in Delft.</p>
+<p><img src="https://parkingnetherlands.com/img/articles/fig1-parking-share.png" alt="Horizontal bar chart: parking's share of a two-hour, 20 kWh charging stop in 14 Dutch cities, from 47% in Delft and Utrecht to 27% in Eindhoven"></p>
+<p><em><b>Figure 1.</b> Parking's share of the reference stop by city. Delft and Utrecht highlighted. Electricity at €0.41/kWh throughout; parking at the city-centre street tariff for two hours.</em></p>
+<p><img src="https://parkingnetherlands.com/img/articles/table1-reference-stop.png" alt="Table 1: parking cost, total and parking share of a two-hour, 20 kWh charging stop in 14 Dutch cities"></p>
+<p><em>Table 1. Reference stop of 20 kWh over two hours. Electricity €8.20 in every row. City pages: <a href="https://parkingnetherlands.com/delft">Delft</a>, <a href="https://parkingnetherlands.com/utrecht">Utrecht</a>, <a href="https://parkingnetherlands.com/haarlem">Haarlem</a>, <a href="https://parkingnetherlands.com/the-hague">The Hague</a>, <a href="https://parkingnetherlands.com/amsterdam">Amsterdam</a>, <a href="https://parkingnetherlands.com/nijmegen">Nijmegen</a>, <a href="https://parkingnetherlands.com/zwolle">Zwolle</a>, <a href="https://parkingnetherlands.com/groningen">Groningen</a>, <a href="https://parkingnetherlands.com/maastricht">Maastricht</a>, <a href="https://parkingnetherlands.com/rotterdam">Rotterdam</a>, <a href="https://parkingnetherlands.com/breda">Breda</a>, <a href="https://parkingnetherlands.com/tilburg">Tilburg</a>, <a href="https://parkingnetherlands.com/leiden">Leiden</a>, <a href="https://parkingnetherlands.com/eindhoven">Eindhoven</a>.</em></p>
+<p>In Delft and Utrecht nearly half of what the stop costs is not electricity. Across the fourteen cities the mean share is 38%. At least 12,667 charge points in the register stand inside a paid parking area. Nothing underhand is happening: two systems were built separately and have no reason to talk to each other.</p>
+
+<h3>3.2 The operator matters more than the town</h3>
+<p>The electricity is not one price either. The median is €0.41 per kWh, but most posts land between €0.28 and €0.63 for the same grid and the same electricity. The variable is whose logo is on the post.</p>
+<p><img src="https://parkingnetherlands.com/img/articles/fig2-operator-price.png" alt="Horizontal bar chart: average price per kWh for the ten charging networks with more than 300 locations, from €0.319 at Vattenfall InCharge to €0.511 at E-Flux by Road, with the national median of €0.41 marked"></p>
+<p><em><b>Figure 2.</b> Average ad-hoc price per kWh by operator, networks with more than 300 locations, October 2026. A charge card may pay more or less than the ad-hoc rate; at one socket the gap between the best and worst card commonly runs 40 to 70 percent. Operator fault rates are tracked separately on the <a href="https://parkingnetherlands.com/laadpalen#storingen">operator status pages</a>.</em></p>
+<p>Charging on E-Flux costs about 60 percent more per kWh than on Vattenfall InCharge, often on the same street. Nothing on the post says so.</p>
+
+<h3>3.3 Garages: Utrecht, not Amsterdam, is the dearest city for a visit</h3>
+<p>The garage register adds a third result that runs against the common assumption. Amsterdam has the highest street tariff in the country, €8.05 an hour, and the highest 24-hour garage median, €92. For the three-hour stay that most visits are, Utrecht is dearer.</p>
+<p><img src="https://parkingnetherlands.com/img/articles/fig3-garage-3h.png" alt="Horizontal bar chart: median cost of a three-hour garage stay by city, Utrecht €10.74 at the top and Eindhoven €4.50 at the bottom"></p>
+<p><em><b>Figure 3.</b> Median cost of a three-hour stay in a priced, register-listed garage, by city. Utrecht €10.74, Haarlem €10.47, Delft €9.64, The Hague €9.60, Amsterdam €9.00, Rotterdam €5.50, Eindhoven €4.50. Full per-city statistics on the <a href="https://parkingnetherlands.com/parking-price-index">parking price index</a>.</em></p>
+<p>The spread inside a city is larger than the spread between cities. In Amsterdam the same three hours cost €1.40 at one register-listed facility and €24.00 at another on the same day. Every facility with its tariff is listed in the <a href="https://parkingnetherlands.com/garage/">garage directory</a>.</p>
+
+<h2>4. What was built from it</h2>
+<p>The joined data is published as a map that prices a stop the driver defines: arrival, departure and energy needed. Every public charge point in the country appears with the electricity price at that post and the parking tariff for the ground underneath it, added together. The map shows one total per pin and keeps the split one tap away.</p>
+<p><img src="https://parkingnetherlands.com/img/articles/fig4-charger-map.jpg" alt="Screenshot of the charger map in central Amsterdam: pins showing the total cost of a two-hour stop, and an open card for one post with the estimated total of €22.60 and the breakdown"></p>
+<p><em><b>Figure 4.</b> The <a href="https://parkingnetherlands.com/ev-charging">charger map</a> in central Amsterdam for a two-hour stop with up to 20 kWh. Pins carry the total; the card shows the breakdown, the post's reported uptime, and whether a bank card is accepted.</em></p>
+<p>Three modelling choices deserve stating, because they change the number on the pin.</p>
+<ul>
+<li><b>Energy is capped by power.</b> A post rated 11 kW cannot deliver 20 kWh in 30 minutes; the model bills only what the post can deliver in the stop, and says so.</li>
+<li><b>Unpublished tariffs are labelled.</b> For the 56% of posts with no published price, the pin uses the operator's usual rate elsewhere or the national median, and the card names which.</li>
+<li><b>Occupancy is not in the register.</b> The map shows reported faults and 30-day uptime, not whether a bay is free. Every card states this.</li>
+</ul>
+<p>The tool is free, has no sign-up, and takes no payment from any operator. The same registers feed the <a href="https://parkingnetherlands.com/park-and-ride">park and ride directory</a>, the <a href="https://parkingnetherlands.com/ev-adoption">EV adoption map</a> by municipality, and the <a href="https://parkingnetherlands.com/charging-gap">charging gap map</a>, which applies the EU's 1.3 kW per vehicle test to every two-kilometre hexagon in the country.</p>
+
+<p><img src="https://parkingnetherlands.com/img/articles/fig5-charging-gap.jpg" alt="Screenshot of the charging gap map of the Netherlands: two-kilometre hexagons coloured by public charging power reachable on foot per electric car without a driveway"></p>
+<p><em><b>Figure 5.</b> The <a href="https://parkingnetherlands.com/charging-gap">charging gap map</a>. Nationally the Netherlands provides 3.36 kW of public charging power per electric car against the EU's 1.3 kW requirement; per neighbourhood, between 33 and 70 fall below the line depending on how far people are assumed to walk.</em></p>
+
+<h2>5. Limitations</h2>
+<ul>
+<li>Street tariffs are the centre-zone rate; outer zones are cheaper, and the <a href="https://parkingnetherlands.com/street-map">street tariff map</a> shows the full zoning.</li>
+<li>Operator averages use the ad-hoc tariff. Roaming cards negotiate their own rates per operator, so a specific card's bill can differ in either direction.</li>
+<li>The parking register holds drive-in tariffs. Pre-booked and evening rates can be lower; 148 of the 323 facilities publish no tariff.</li>
+<li>Register errors exist. Some operators report power in watts; anything above 400 kW is dropped and watt values are scaled. Where a register tariff contradicts the municipality's own decision, as happened for P+R sites, the municipal figure is used and the override is recorded.</li>
+</ul>
+
+<h2>6. Practical conclusion</h2>
+<p>Driving to a cheaper city saves little. Checking whether the bay sits in a paid zone before plugging in, and which operator owns the post, is where the money is. The gap between two posts on the same street can be larger than the gap between Amsterdam and Eindhoven. For a fine when the parking is not paid, the amount is €82.00 plus one hour of the zone tariff, as a tax assessment; the <a href="https://parkingnetherlands.com/parking-fines">fines guide</a> sets out the three regimes.</p>
+
+
+<h3>Data availability</h3>
+<p>Per-city garage statistics: <a href="https://parkingnetherlands.com/data/parking-price-index-2026.json">parking-price-index-2026.json</a> and <a href="https://parkingnetherlands.com/data/parking-price-index-2026.csv">.csv</a>. Charging tariffs per operator: <a href="https://parkingnetherlands.com/ev-data/tariffs.json">tariffs.json</a>. EV share per municipality: <a href="https://parkingnetherlands.com/data/ev-adoption-2026.json">ev-adoption-2026.json</a>. All CC BY 4.0. Underlying registers: NPR / RDW (CC0), NDW / DOT-NL open data, CBS open data. Corrections to the arithmetic are welcome through the <a href="https://parkingnetherlands.com/about">contact page</a>.</p>
+
+
+<h2>References</h2>
+<ol>
+<li>NDW / DOT-NL, national charge point register, export of 5 October 2026.</li>
+<li>RDW, Nationaal Parkeer Register, open data, snapshot 4 October 2026.</li>
+<li>CBS, personenauto's naar brandstofsoort per gemeente, 1 January 2026.</li>
+<li>Regulation (EU) 2023/1804 on the deployment of alternative fuels infrastructure, Article 3.</li>
+<li>Kostenbesluit naheffingsaanslag parkeerbelastingen 2026, Staatscourant.</li>
+</ol>
+<p><em>Originally published at <a href="https://parkingnetherlands.com/blog/charging-stop-costs">parkingnetherlands.com</a>.</em></p>
+</article>
+</body>
+</html>
