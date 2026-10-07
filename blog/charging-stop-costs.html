@@ -32,7 +32,8 @@
 .art p{margin:0 0 16px}
 .art a{color:var(--blue);font-weight:600}
 .art figure{margin:26px 0}.art figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:var(--sh)}
-.art figcaption{font-size:13px;color:var(--mut);line-height:1.5;margin-top:8px}.art figcaption b{color:var(--ink)}
+.art .cap{font-size:13px;color:var(--mut);line-height:1.5;margin:8px 0 0}.art .cap b{color:var(--ink)}
+.art table.sr-table{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .art table{width:100%;border-collapse:collapse;font-size:14.5px;margin:12px 0 6px}.art th,.art td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}.art th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}.art td.n{text-align:right;font-variant-numeric:tabular-nums}.art th.n{text-align:right}
 .art .note{font-size:13.5px;color:var(--mut);line-height:1.6}
 .art .box{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:28px 0;background:#fff}
@@ -102,9 +103,10 @@
 <p>At the median price the electricity for the reference stop costs €8.20 in every city. The parking ranges from €3.00 in Eindhoven to €7.28 in Delft.</p>
 <figure>
 <img src="/img/articles/fig1-parking-share.png" alt="Horizontal bar chart: parking's share of a two-hour, 20 kWh charging stop in 14 Dutch cities, from 47% in Delft and Utrecht to 27% in Eindhoven" width="1600" height="1000" loading="lazy">
-<figcaption><b>Figure 1.</b> Parking's share of the reference stop by city. Delft and Utrecht highlighted. Electricity at €0.41/kWh throughout; parking at the city-centre street tariff for two hours.</figcaption>
+<p class="cap"><b>Figure 1.</b> Parking's share of the reference stop by city. Delft and Utrecht highlighted. Electricity at €0.41/kWh throughout; parking at the city-centre street tariff for two hours.</p>
 </figure>
-<table>
+<figure><img src="/img/articles/table1-reference-stop.png" alt="Table 1 as an image: parking cost, total and parking share of a two-hour, 20 kWh charging stop in 14 Dutch cities" width="1440" height="1024" loading="lazy"></figure>
+<table class="sr-table">
 <thead><tr><th>City</th><th class="n">Parking, 2 h</th><th class="n">Total</th><th class="n">Parking's share</th></tr></thead>
 <tbody>
 <tr><td>Delft</td><td class="n">€7.28</td><td class="n">€15.48</td><td class="n">47%</td></tr>
@@ -130,7 +132,7 @@
 <p>The electricity is not one price either. The median is €0.41 per kWh, but most posts land between €0.28 and €0.63 for the same grid and the same electricity. The variable is whose logo is on the post.</p>
 <figure>
 <img src="/img/articles/fig2-operator-price.png" alt="Horizontal bar chart: average price per kWh for the ten charging networks with more than 300 locations, from €0.319 at Vattenfall InCharge to €0.511 at E-Flux by Road, with the national median of €0.41 marked" width="1600" height="1000" loading="lazy">
-<figcaption><b>Figure 2.</b> Average ad-hoc price per kWh by operator, networks with more than 300 locations, October 2026. A charge card may pay more or less than the ad-hoc rate; at one socket the gap between the best and worst card commonly runs 40 to 70 percent. Operator fault rates are tracked separately on the <a href="/laadpalen#storingen">operator status pages</a>.</figcaption>
+<p class="cap"><b>Figure 2.</b> Average ad-hoc price per kWh by operator, networks with more than 300 locations, October 2026. A charge card may pay more or less than the ad-hoc rate; at one socket the gap between the best and worst card commonly runs 40 to 70 percent. Operator fault rates are tracked separately on the <a href="/laadpalen#storingen">operator status pages</a>.</p>
 </figure>
 <p>Charging on E-Flux costs about 60 percent more per kWh than on Vattenfall InCharge, often on the same street. Nothing on the post says so.</p>
 
@@ -138,7 +140,7 @@
 <p>The garage register adds a third result that runs against the common assumption. Amsterdam has the highest street tariff in the country, €8.05 an hour, and the highest 24-hour garage median, €92. For the three-hour stay that most visits are, Utrecht is dearer.</p>
 <figure>
 <img src="/img/articles/fig3-garage-3h.png" alt="Horizontal bar chart: median cost of a three-hour garage stay by city, Utrecht €10.74 at the top and Eindhoven €4.50 at the bottom" width="1600" height="1000" loading="lazy">
-<figcaption><b>Figure 3.</b> Median cost of a three-hour stay in a priced, register-listed garage, by city. Utrecht €10.74, Haarlem €10.47, Delft €9.64, The Hague €9.60, Amsterdam €9.00, Rotterdam €5.50, Eindhoven €4.50. Full per-city statistics on the <a href="/parking-price-index">parking price index</a>.</figcaption>
+<p class="cap"><b>Figure 3.</b> Median cost of a three-hour stay in a priced, register-listed garage, by city. Utrecht €10.74, Haarlem €10.47, Delft €9.64, The Hague €9.60, Amsterdam €9.00, Rotterdam €5.50, Eindhoven €4.50. Full per-city statistics on the <a href="/parking-price-index">parking price index</a>.</p>
 </figure>
 <p>The spread inside a city is larger than the spread between cities. In Amsterdam the same three hours cost €1.40 at one register-listed facility and €24.00 at another on the same day. Every facility with its tariff is listed in the <a href="/garage/">garage directory</a>.</p>
 
@@ -146,7 +148,7 @@
 <p>The joined data is published as a map that prices a stop the driver defines: arrival, departure and energy needed. Every public charge point in the country appears with the electricity price at that post and the parking tariff for the ground underneath it, added together. The map shows one total per pin and keeps the split one tap away.</p>
 <figure>
 <img src="/img/articles/fig4-charger-map.jpg" alt="Screenshot of the charger map in central Amsterdam: pins showing the total cost of a two-hour stop, and an open card for one post with the estimated total of €22.60 and the breakdown" width="1512" height="805" loading="lazy">
-<figcaption><b>Figure 4.</b> The <a href="/ev-charging">charger map</a> in central Amsterdam for a two-hour stop with up to 20 kWh. Pins carry the total; the card shows the breakdown, the post's reported uptime, and whether a bank card is accepted.</figcaption>
+<p class="cap"><b>Figure 4.</b> The <a href="/ev-charging">charger map</a> in central Amsterdam for a two-hour stop with up to 20 kWh. Pins carry the total; the card shows the breakdown, the post's reported uptime, and whether a bank card is accepted.</p>
 </figure>
 <p>Three modelling choices deserve stating, because they change the number on the pin.</p>
 <ul>
@@ -158,7 +160,7 @@
 
 <figure>
 <img src="/img/articles/fig5-charging-gap.jpg" alt="Screenshot of the charging gap map of the Netherlands: two-kilometre hexagons coloured by public charging power reachable on foot per electric car without a driveway" width="1512" height="737" loading="lazy">
-<figcaption><b>Figure 5.</b> The <a href="/charging-gap">charging gap map</a>. Nationally the Netherlands provides 3.36 kW of public charging power per electric car against the EU's 1.3 kW requirement; per neighbourhood, between 33 and 70 fall below the line depending on how far people are assumed to walk.</figcaption>
+<p class="cap"><b>Figure 5.</b> The <a href="/charging-gap">charging gap map</a>. Nationally the Netherlands provides 3.36 kW of public charging power per electric car against the EU's 1.3 kW requirement; per neighbourhood, between 33 and 70 fall below the line depending on how far people are assumed to walk.</p>
 </figure>
 
 <h2>5. Limitations</h2>
