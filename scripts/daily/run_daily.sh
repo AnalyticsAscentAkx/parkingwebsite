@@ -111,8 +111,11 @@ step "3e. Rebuild generated pages (4 languages)"
   && python3 "$REPO/scripts/i18n/build_home.py" >>"$LOG" 2>&1 \
   && python3 "$REPO/scripts/seo/enrich_site.py" garages cities_ev index >>"$LOG" 2>&1 ) \
   && log "generators rebuilt" || log "WARN generators failed (continuing)"
+python3 "$REPO/scripts/site/og_images.py" >>"$LOG" 2>&1 || true      # social cards, before chrome so og:image can point at them
 python3 "$REPO/scripts/site/apply_chrome.py" >>"$LOG" 2>&1 || true
 python3 "$REPO/scripts/seo/enrich_site.py" sitemap >>"$LOG" 2>&1 || true
+python3 "$REPO/scripts/site/feed.py" >>"$LOG" 2>&1 || true           # /feed.xml from the fresh sitemap
+python3 "$REPO/scripts/alerts/outage_watch.py" >>"$LOG" 2>&1 || true # logs operator fault shares, drafts a post on a spike
 git add -A >>"$LOG" 2>&1 || true
 
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------

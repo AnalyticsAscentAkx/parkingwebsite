@@ -16,7 +16,7 @@ rewrites files whose content actually changes.
     python3 scripts/site/apply_chrome.py            # apply
     python3 scripts/site/apply_chrome.py --check    # exit 1 if anything drifted
 """
-import re
+import json, re
 import sys
 from pathlib import Path
 
@@ -167,6 +167,26 @@ def nav_for(url: str) -> str:
 
 
 SITE_URL = "https://parkingnetherlands.com"
+OG_INDEX = json.loads((ROOT / "og/index.json").read_text("utf-8")) if (ROOT / "og/index.json").exists() else {}
+OG_RE = re.compile(r'<meta property="og:image" content="[^"]*">')
+FEED_LINK = '<link rel="alternate" type="application/rss+xml" title="Charge + Park, The Netherlands" href="/feed.xml">'
+
+
+def social_head(head: str, url: str) -> str:
+    """Point og:image at the page's own card when one exists, and announce the feed."""
+    card = OG_INDEX.get(url)
+    if card:
+        tag = f'<meta property="og:image" content="{SITE_URL}{card}">'
+        if OG_RE.search(head):
+            head = OG_RE.sub(tag, head, count=1)
+        else:
+            m = re.search(r'<link rel="canonical"[^>]*>', head)
+            extra = tag + '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
+            head = (head[: m.end()] + "\n" + extra + head[m.end():]) if m else head + "\n" + extra
+    if 'type="application/rss+xml"' not in head:
+        m = re.search(r'<link rel="canonical"[^>]*>', head)
+        head = (head[: m.end()] + "\n" + FEED_LINK + head[m.end():]) if m else head + "\n" + FEED_LINK
+    return head
 LANG_LABEL = {"en": "This page in", "nl": "Deze pagina in", "de": "Diese Seite auf", "fr": "Cette page en"}
 LANG_NAME = {"en": "English", "nl": "Nederlands", "de": "Deutsch", "fr": "Français"}
 ALT_RE = re.compile(r'<link rel="alternate" hreflang="([a-z]{2})" href="([^"]+)"')
@@ -217,6 +237,7 @@ def apply(html: str, url: str) -> str:
         m = re.search(r'<link rel="canonical"[^>]*>', head)
         ins = FONTS + "\n" + SITE_CSS
         head = (head[: m.end()] + "\n" + ins + head[m.end():]) if m else head + "\n" + ins + "\n"
+    head = social_head(head, url)
     html = head + body
 
     # 3. retire the old palette wherever it was hard-coded
@@ -234,7 +255,8 @@ def main() -> int:
     # articles that get printed to PDF and pasted into Google Docs. Injecting
     # the site nav and stylesheets into those puts a navigation bar in the
     # middle of a PDF going to an editor.
-    SKIP_DIRS = {".git", "scripts", "node_modules", "outreach"}
+    # embed/ holds iframe widgets for other sites: no nav, no footer, by design.
+    SKIP_DIRS = {".git", "scripts", "node_modules", "outreach", "embed"}
     pages = sorted(p for p in ROOT.rglob("*.html")
                    if not SKIP_DIRS & set(p.parts))
     changed = []

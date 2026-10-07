@@ -7,6 +7,7 @@
 <title>Link to Parking Netherlands - Embed Codes & Press Resources</title>
 <meta name="description" content="Bloggers, travel writers and tourism sites: copy-paste link snippets, embed badges and citation text for Parking Netherlands. Free to use under attribution.">
 <link rel="canonical" href="https://parkingnetherlands.com/link-to-us">
+<link rel="alternate" type="application/rss+xml" title="Charge + Park, The Netherlands" href="/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -128,6 +129,37 @@
   &lt;span style="font-size:13px;line-height:1.3"&gt;Parking Netherlands&lt;br&gt;&lt;small style="color:#64748B;font-size:11px;font-weight:400"&gt;Cheapest Dutch parking · 2026 guide&lt;/small&gt;&lt;/span&gt;
 &lt;/a&gt;</div>
 <button class="copy-btn" data-copy="s5">Copy badge code</button>
+
+<h2 style="margin-top:48px">Embeddable map: chargers and parking near your venue, priced</h2>
+<p>The live map as an iframe for hotel, venue, expat and city sites. Visitors see every public charger and garage around your address with the price of a stop, parking included. Keyless, free, no sign-up, and the data refreshes every half hour. Set the centre to your address and paste the code.</p>
+<div class="snippet-card" style="margin:14px 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px">
+    <label style="font-size:13px;font-weight:600">Latitude<br><input id="emLat" type="number" step="0.0001" value="52.3730" style="width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font:inherit"></label>
+    <label style="font-size:13px;font-weight:600">Longitude<br><input id="emLng" type="number" step="0.0001" value="4.8930" style="width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font:inherit"></label>
+    <label style="font-size:13px;font-weight:600">Zoom (13 to 17)<br><input id="emZoom" type="number" min="12" max="18" value="15" style="width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font:inherit"></label>
+    <label style="font-size:13px;font-weight:600">Height (px)<br><input id="emH" type="number" min="420" max="1000" step="10" value="620" style="width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font:inherit"></label>
+  </div>
+  <div class="embed-box" id="s7">&lt;iframe src="https://parkingnetherlands.com/embed/charging?lat=52.3730&amp;lng=4.8930&amp;zoom=15" width="100%" height="620" style="border:1px solid #E2E8F0;border-radius:12px" loading="lazy" title="EV chargers and parking nearby, priced for your stop, by Parking Netherlands"&gt;&lt;/iframe&gt;
+&lt;p style="font-size:12px"&gt;Map and prices by &lt;a href="https://parkingnetherlands.com/ev-charging"&gt;Parking Netherlands&lt;/a&gt;&lt;/p&gt;</div>
+  <button class="copy-btn" data-copy="s7">Copy embed code</button>
+  <div class="sd" style="margin-top:10px">Find your coordinates by right-clicking your address in Google Maps. The map starts in charger mode; add <code>&amp;mode=parking</code> to the address to start with garages and P+R instead. Please keep the credit line: it is the only thing we ask.</div>
+</div>
+<details style="margin:10px 0 0"><summary style="cursor:pointer;font-weight:600">Preview</summary>
+<iframe data-src="/embed/charging?lat=52.3730&amp;lng=4.8930&amp;zoom=15" width="100%" height="560" style="border:1px solid var(--line);border-radius:12px;margin-top:10px" title="Preview of the embeddable map"></iframe></details>
+<script>
+(function(){
+  var box=document.getElementById('s7'); if(!box) return;
+  var ids=['emLat','emLng','emZoom','emH'];
+  function render(){
+    var v=ids.map(function(i){return document.getElementById(i).value;});
+    var src='https://parkingnetherlands.com/embed/charging?lat='+v[0]+'&amp;lng='+v[1]+'&amp;zoom='+v[2];
+    box.innerHTML='&lt;iframe src="'+src+'" width="100%" height="'+v[3]+'" style="border:1px solid #E2E8F0;border-radius:12px" loading="lazy" title="EV chargers and parking nearby, priced for your stop, by Parking Netherlands"&gt;&lt;/iframe&gt;\n&lt;p style="font-size:12px"&gt;Map and prices by &lt;a href="https://parkingnetherlands.com/ev-charging"&gt;Parking Netherlands&lt;/a&gt;&lt;/p&gt;';
+  }
+  ids.forEach(function(i){document.getElementById(i).addEventListener('input',render);});
+  var d=box.closest('.prose, .ct, body').querySelector('details iframe[data-src]');
+  if(d) d.closest('details').addEventListener('toggle',function(){ if(this.open&&!d.src) d.src=d.getAttribute('data-src'); });
+})();
+</script>
 
 <h2 style="margin-top:48px">Citation (for journalists & researchers)</h2>
 <p>If you're quoting parking rates or fines, please cite us so readers can verify the figures stay current:</p>

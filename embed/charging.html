@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charging and parking near you, priced for your stop</title>
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/ev-map.css?v=20261006c">
+<style>
+html,body{margin:0;padding:0;background:#fff;height:100%}
+.embed-wrap{display:flex;flex-direction:column;height:100vh;min-height:420px}
+.embed-wrap .ev-app.is-embed{flex:1;min-height:0;border:0;border-radius:0;box-shadow:none}
+.embed-foot{flex:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 12px;font-family:var(--f-ui,system-ui);font-size:12px;color:#64748B;border-top:1px solid #E2E8F0;background:#F8FAFC}
+.embed-foot a{color:#2337C6;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="embed-wrap">
+<main class="ev-app is-embed" id="evApp" data-view="map" data-mode="chargers" data-start-mode="chargers" aria-label="Find parking or a charger">
+
+  <div class="ev-tabs" role="group" aria-label="Switch between map and list">
+    <button id="tabMap" aria-pressed="true">Map</button>
+    <button id="tabList" aria-pressed="false">List</button>
+  </div>
+
+  <div class="ev-mapwrap">
+    <div id="evmap" role="application" aria-label="Map of EV charging locations in the Netherlands"></div>
+    <div class="ev-zoomhint" id="evHint">Zoom in to see individual chargers</div>
+    <div class="ev-modes" role="group" aria-label="What to show">
+      <button type="button" data-mode="chargers" aria-pressed="true">Chargers</button>
+      <button type="button" data-mode="parking" aria-pressed="false">Parking</button>
+    </div>
+    <button type="button" class="ev-area" id="evArea" hidden>Search this area</button>
+    <div class="ev-chips ev-chips-map" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-kw="22" aria-pressed="false" data-only="chargers" title="Rated 22 kW or more">22 kW+</button>
+        <button type="button" data-kw="50" aria-pressed="false" data-only="chargers" title="DC fast charging, 50 kW or more">50 kW+</button>
+        <button type="button" data-kw="150" aria-pressed="false" data-only="chargers" title="Ultra-fast, 150 kW or more">150 kW+</button>
+        <button type="button" data-plug="ccs" aria-pressed="false" data-only="chargers" title="Has a CCS plug">CCS</button>
+        <button type="button" data-plug="chademo" aria-pressed="false" data-only="chargers" title="Has a CHAdeMO plug">CHAdeMO</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+    <div class="ev-card" id="evCard" role="region" aria-live="polite" aria-label="Selected charger" hidden></div>
+    <button type="button" class="ev-locate" id="evLocate" title="Use my location" aria-label="Use my location"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+    <div class="ev-legend" id="evLegend" hidden></div>
+  </div>
+
+  <div class="ev-resizer" id="evResizer" title="Drag to resize the panel" aria-hidden="true"></div>
+  <aside class="ev-panel" aria-label="Results">
+    <button type="button" class="ev-handle" id="evHandle" aria-label="Show or hide the results list"><i></i><span id="evHandleText">Results</span></button>
+    <div class="ev-phead">
+      <h2>Find parking or a charger</h2>
+      <p class="sub">Search a town, compare the chargers in view, open one for the price of
+         your stop with parking counted, then get directions.</p>
+
+      <label class="ev-search-label" for="evSearch">Where do you need to park or charge?</label>
+      <div class="ev-search">
+        <svg class="ev-search-ico" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="evSearch" placeholder="Town, address or postcode"
+               aria-label="Search for a town" autocomplete="off" spellcheck="false">
+        <button id="evNear" type="button" class="ev-near" title="Use my location" aria-label="Use my location"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+        <button id="evGo" type="button">Search</button>
+      </div>
+      <div class="ev-tiles" id="evMeta" aria-live="polite">
+        <div class="ev-tile is-lo"><b id="mCheap">-</b><span id="mCheapL">cheapest stop in view</span></div>
+        <div class="ev-tile"><b id="mKwh">-</b><span id="mKwhL">typical price per kWh</span></div>
+        <div class="ev-tile"><b id="mPark">-</b><span id="mParkL">parking for this stop</span></div>
+        <div class="ev-tile is-blue"><b id="mFast">-</b><span id="mFastL">fast chargers, 50 kW+</span></div>
+      </div>
+
+      <details class="ev-window" id="evWindow">
+        <summary>Price a stop <small id="evSessionSummary">arrival, departure, kWh</small></summary>
+        <div class="ev-fields">
+          <div class="ev-presets" role="group" aria-label="How long you stay">
+            <button type="button" data-min="30" aria-pressed="false">30 min</button>
+            <button type="button" data-min="60" aria-pressed="false">1 h</button>
+            <button type="button" data-min="120" aria-pressed="false">2 h</button>
+            <button type="button" data-min="240" aria-pressed="false">4 h</button>
+          </div>
+          <div class="ev-field"><label for="evArrive">Arriving</label>
+            <input type="datetime-local" id="evArrive" data-stamp=""></div>
+          <div class="ev-field"><label for="evLeave">Leaving</label>
+            <input type="datetime-local" id="evLeave" data-stamp=""></div>
+          <div class="ev-kwhrow">
+            <label for="evKwh">Energy needed</label>
+            <input type="number" id="evKwh" value="20" min="1" max="150" step="1">
+            <span class="hint">kWh at most; a post cannot deliver more than its power allows in your stop</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="ev-tbar">
+        <div class="ev-mode">
+          <b id="evMode">Towns in view</b>
+          <span id="evCount" aria-live="polite">Loading</span>
+        </div>
+        <div class="ev-sort" role="group" aria-label="Sort results">
+          <button data-sort="near" aria-pressed="false" hidden>Nearest</button>
+          <button data-sort="reliable" aria-pressed="true">Status</button>
+          <button data-sort="cheap" aria-pressed="false">Cost</button>
+          <button data-sort="fast" aria-pressed="false">Power</button>
+        </div>
+      </div>
+      <div class="ev-chips" role="group" aria-label="Filter chargers" hidden>
+        <button type="button" data-f="free" aria-pressed="false" title="No paid zone on record, or outside paid hours for this stop">Free parking</button>
+        <button type="button" data-f="cheap" aria-pressed="false" title="Total below the median of the chargers in view">Low cost</button>
+        <button type="button" data-kw="22" aria-pressed="false" data-only="chargers" title="Rated 22 kW or more">22 kW+</button>
+        <button type="button" data-kw="50" aria-pressed="false" data-only="chargers" title="DC fast charging, 50 kW or more">50 kW+</button>
+        <button type="button" data-kw="150" aria-pressed="false" data-only="chargers" title="Ultra-fast, 150 kW or more">150 kW+</button>
+        <button type="button" data-plug="ccs" aria-pressed="false" data-only="chargers" title="Has a CCS plug">CCS</button>
+        <button type="button" data-plug="chademo" aria-pressed="false" data-only="chargers" title="Has a CHAdeMO plug">CHAdeMO</button>
+        <button type="button" data-f="open" aria-pressed="false" data-only="chargers" title="Hides customers-only, gated and closed-at-night posts">Open access</button>
+        <button type="button" data-f="card" aria-pressed="false" data-only="chargers">Pay by card</button>
+        <button type="button" data-f="faulty" aria-pressed="false" data-only="chargers">Reported faulty</button>
+        <button type="button" data-f="pr" aria-pressed="false" data-only="parking">P+R only</button>
+        <button type="button" data-f="garage" aria-pressed="false" data-only="parking">Garages only</button>
+      </div>
+      <p class="ev-session" id="evSession">Estimates assume 20 kWh and a 2 h stop.</p>
+    </div>
+
+    <div class="ev-list" id="evRows" role="listbox" aria-label="Charging locations">
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+      <div class="ev-skel"><span></span><span></span></div>
+    </div>
+
+    <p class="ev-foot">
+      Laadpuntdata: NDW / DOT-NL. Parking tariffs from the Dutch national parking register. Address search: PDOK Locatieserver (Kadaster) and OpenStreetMap.
+      Prices are indicative and exclude fees your card issuer may add.
+      <a href="/ev-parking" style="color:var(--blue)">Read the EV parking guide</a>
+    </p>
+  </aside>
+</main>
+<p class="embed-foot"><span>Prices from the national charge point and parking registers, for the stop you set.</span><a href="https://parkingnetherlands.com/ev-charging" target="_blank" rel="noopener">Full map at parkingnetherlands.com</a></p>
+</div>
+<script src="/ev-map.js?v=20261006c" defer></script>
+</body>
+</html>
