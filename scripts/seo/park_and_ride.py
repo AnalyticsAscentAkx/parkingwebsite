@@ -299,8 +299,7 @@ checked.</p>
 {table}
 <p class="cite">The tariff column is only filled where we have read the figure on the
 municipality's own page, and the date we read it is in the source column. Where it is blank we
-have not checked yet and are not guessing. Sites and capacities throughout are from the RDW
-national parking register, which is reliable for those. The garage column is the median 24 hour
+have not checked yet and are not guessing. Sites and capacities throughout are from the national parking register (NPR), which is reliable for those. The garage column is the median 24 hour
 drive-in tariff of every register-listed garage in that city, the same figure published on the
 <a href="/parking-price-index">Netherlands Parking Price Index</a>.</p>
 
@@ -308,7 +307,7 @@ drive-in tariff of every register-listed garage in that city, the same figure pu
 {"".join(secs)}
 
 <h2>How this was put together, and what is wrong with it</h2>
-<p class="cite">Locations, names and capacities: the RDW national parking register, the source
+<p class="cite">Locations, names and capacities: the national parking register (NPR), the source
 behind every garage page here. Tariffs: read individually on each municipality's own page, with
 the date recorded. Median garage tariffs: {index.get('register_snapshot', 'register snapshot')},
 {sum(c.get('priced', 0) for c in index['cities'])} priced facilities.</p>
