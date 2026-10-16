@@ -66,7 +66,7 @@ def export() -> dict:
                   l.area_id,
                   COUNT(*) FILTER (WHERE e.status_current IN
                     ('OUTOFORDER','INOPERATIVE'))::int AS down_now,
-                  s.parking_type, s.open_247, s.charging_when_closed,
+                  s.parking_type, s.open_247, s.charging_when_closed, s.access_type,
                   BOOL_OR(e.restrictions ? 'CUSTOMERS') AS customers_only,
                   BOOL_OR(c.standard IN ('IEC_62196_T2_COMBO','CHADEMO','IEC_62196_T1_COMBO')) AS dc,
                   BOOL_OR(e.capabilities ? 'CREDIT_CARD_PAYABLE' OR e.capabilities ? 'DEBIT_CARD_PAYABLE'
@@ -81,7 +81,14 @@ def export() -> dict:
            LEFT JOIN station_parking_link l ON l.station_id = s.station_id
            WHERE s.lat BETWEEN %(lat0)s AND %(lat1)s
              AND s.lon BETWEEN %(lon0)s AND %(lon1)s
-             AND s.access_type = 'FreePublic'   -- OCPI publish=false: not for public display
+             -- OCPI publish=false hides a station from the operator's own
+             -- listing. 782 of those stand ON_STREET, nearly all Vattenfall
+             -- InCharge municipal posts, and 116 were charging a car at the
+             -- last poll: real public kerbside chargers the operator withholds.
+             -- Owner confirmed 2026-10-17 that known street posts were missing
+             -- from the map, so street posts are shown regardless and flagged
+             -- (bit 64) so the card can say the listing is the operator's gap.
+             AND (s.access_type = 'FreePublic' OR s.parking_type = 'ON_STREET')
            GROUP BY s.station_id, l.area_id""",
         NL_BBOX
     )
@@ -157,7 +164,8 @@ def export() -> dict:
             _ACCESS.get(r["parking_type"]),                                 # 12 where the post stands
             (1 if r["customers_only"] else 0) | (2 if r["open_247"] is False else 0) |
             (4 if r["charging_when_closed"] is False and r["open_247"] is False else 0) | (8 if r["dc"] else 0) |
-            (16 if r["card"] else 0) | (32 if r["cable"] else 0),           # 13 access + payment flags
+            (16 if r["card"] else 0) | (32 if r["cable"] else 0) |
+            (64 if r["access_type"] != "FreePublic" else 0),                # 13 access + payment flags; 64 = hidden from operator listing
             _connectors(r["standards"]),                                    # 14 plug types
             # 15 connection fee. The operator's own tariff charges one at only
             # 2,070 of 60,394 priced stations, so this is null almost

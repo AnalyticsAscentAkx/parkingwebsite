@@ -162,6 +162,8 @@
 /* states ------------------------------------------------------------- */
 .ev-empty{padding:40px 22px;text-align:center;color:var(--mut);font-size:13px;line-height:1.6}
 .ev-empty b{display:block;color:var(--ink);font-size:14.5px;font-weight:700;margin-bottom:4px}
+.ev-empty-act{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ev-empty-act .ev-card-btn{flex:0 1 auto;min-width:140px}
 
 /* Skeletons rather than a spinner: the shape of the answer appears first,
    so the panel does not jump when the data lands. */

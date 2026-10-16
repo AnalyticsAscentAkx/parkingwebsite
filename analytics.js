@@ -29,6 +29,11 @@
   var internal = false;
   try {
     var q = new URLSearchParams(location.search);
+    /* Arrivals from the agency's own site are us too: two weeks running, the
+       analyticascent.com referral was one person and a quarter of all
+       sessions. Mark that browser the same way the flag does. */
+    var ref = (document.referrer.match(/^https?:\/\/([^\/:]+)/) || [])[1] || '';
+    if (/(^|\.)analyticascent\.com$/i.test(ref)) localStorage.setItem('pn_internal', '1');
     if (q.get('internal') === '1') localStorage.setItem('pn_internal', '1');
     if (q.get('internal') === '0') localStorage.removeItem('pn_internal');
     internal = localStorage.getItem('pn_internal') === '1';

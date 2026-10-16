@@ -132,6 +132,8 @@
 /* --------------------------------------------------------------- states */
 .ev-empty{padding:46px 22px;text-align:center;color:var(--mut);font-size:14px;line-height:1.6}
 .ev-empty b{display:block;color:var(--ink);font-size:15.5px;font-weight:700;margin-bottom:5px}
+.ev-empty-act{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ev-empty-act .ev-card-btn{flex:0 1 auto;min-width:140px}
 
 /* A page whose data is too young to publish says so, rather than showing an
    empty chart. Honest beats padded, and it keeps the page out of the index. */

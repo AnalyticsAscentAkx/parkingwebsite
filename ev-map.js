@@ -33,6 +33,55 @@
      both single-select. The booleans toggle. All of it lives in the URL. */
   var filters = { kw: 0, plug: '', faulty: false, free: false, cheap: false, pr: false, garage: false, open: false, card: false };
   var TOGGLES = ['free', 'cheap', 'open', 'card', 'faulty', 'pr', 'garage'];
+  /* Everything on this map is Dutch. A quarter of visitors arrive from Germany
+     and Belgium, and "near me" from Cologne used to land on an empty map that
+     only said "pan or zoom out". Analytics counted 266 empty lists in four
+     weeks against 435 lists with results. The empty state now says why it is
+     empty and offers a way in, and reports the reason so it can be counted. */
+  var NL_BOX = [[50.7, 3.2], [53.6, 7.3]];
+  /* The bounding box alone is too loose: Cologne and Antwerp sit inside it.
+     A point is outside the coverage when no Dutch town in the data is within
+     25 km of it; the box only answers before the town list has arrived. */
+  function outsideNL(lat, lon) {
+    if (lat < 50.7 || lat > 53.6 || lon < 3.2 || lon > 7.3) return true;
+    if (!cities.length) return false;
+    for (var i = 0; i < cities.length; i++) {
+      /* Towns of one or two posts are skipped: a single mis-placed station
+         ("TZ Brouwershaven" sits 19 km from Cologne) would otherwise count. */
+      if (cities[i].n < 3) continue;
+      var dLat = (lat - cities[i].lat) * 111.32, dLon = (lon - cities[i].lon) * 68.0;
+      if (dLat * dLat + dLon * dLon < 625) return false;
+    }
+    return true;
+  }
+  function emptyReason() {
+    if (anyFilter()) return 'filters';
+    if (map) { var c = map.getCenter(); if (outsideNL(c.lat, c.lng)) return 'outside_nl'; }
+    return 'empty_area';
+  }
+  function emptyHtml(what, bodyIfEmpty) {
+    var r = emptyReason();
+    if (r === 'filters') {
+      return empty('No ' + what + ' match your filters', 'Everything in view is hidden by a filter.',
+        [{ act: 'clear', label: 'Clear filters', primary: true }, { act: 'zoomout', label: 'Zoom out' }]);
+    }
+    if (r === 'outside_nl') {
+      return empty('This map covers the Netherlands',
+        (origin && outsideNL(origin[0], origin[1]) ? 'Your location is outside it, so there is nothing to show here yet.' : 'You are looking at an area outside it.') +
+        ' The Dutch border is never far: jump to the map, or search a Dutch town.',
+        [{ act: 'nl', label: 'Show the Netherlands', primary: true }, { act: 'search', label: 'Search a town' }]);
+    }
+    return empty('No ' + what + ' in view', bodyIfEmpty,
+      [{ act: 'zoomout', label: 'Zoom out', primary: true }, { act: 'search', label: 'Search a town' }]);
+  }
+  function clearFilters() {
+    filters.kw = 0; filters.plug = '';
+    TOGGLES.forEach(function (k) { filters[k] = false; });
+    paintChips(); updateUrl();
+    track('filter', { filter: 'clear', on: false });
+    if (showMode === 'parking') drawPlaces(map.getBounds());
+    else if (mode === 'detail') drawStations(map.getBounds());
+  }
   function hasPlug(st, p) {
     var t = (st[PLUGS] || '').toLowerCase();
     return p === 'ccs' ? /\bccs\b/.test(t) : p === 'chademo' ? t.indexOf('chademo') >= 0 : true;
@@ -145,6 +194,7 @@
     if (f & 1) notes.push('customers only');
     if (f & 2) notes.push('not open 24/7');
     if (f & 4) notes.push('no charging when closed');
+    if (f & 64) notes.push('not in the operator\u2019s public listing; shown because the register places it on a public street');
     if (st[ACC] === 'G' || st[ACC] === 'U') notes.push('garage: expect a barrier, the register does not say whether entry needs a ticket');
     else if (st[ACC] === 'L' && (f & 1)) notes.push('private car park');
     return notes;
@@ -190,7 +240,7 @@
     if (n === 0) {
       /* Once per ten seconds, same as results_shown. Every pan over an empty
          patch used to fire this; one visitor produced 60 of them in a sitting. */
-      if (now - lastZeroAt > 10000) { lastZeroAt = now; track('zero_results', { kind: kind, mode: showMode }); }
+      if (now - lastZeroAt > 10000) { lastZeroAt = now; track('zero_results', { kind: kind, mode: showMode, reason: emptyReason() }); }
       return;
     }
     if (now - lastResultsAt > 10000) { lastResultsAt = now; track('results_shown', { kind: kind, mode: showMode, count: n }); }
@@ -458,6 +508,10 @@
       pending++;
       fetch(DATA + '/cells/' + k + '.json')
         .then(function (r) {
+          /* Cells are only written where stations exist, so a 404 is an empty
+             patch of map, not a failure. Treating it as one made every view
+             outside the Netherlands say "some areas could not load". */
+          if (r.status === 404) return [];
           if (!r.ok) throw new Error('Tile request failed');
           return r.json();
         })
@@ -745,7 +799,7 @@
         '<span>' + c.e.toLocaleString() + ' points</span>' +
         (c.kw ? '<span class="ev-kw">up to ' + c.kw + ' kW</span>' : '') +
         '</div></div><span class="ev-price is-unpriced">View chargers</span></div>';
-    }).join('') : empty('No towns in view', 'Pan the map or zoom out.');
+    }).join('') : emptyHtml('towns', 'Zoom out, or search a town by name.');
     bindRows();
   }
 
@@ -806,13 +860,15 @@
            : st[UP] == null ? 'No fault reported' : st[UP].toFixed(1) + '% uptime') +
         '</span></div>' +
         '</div>' + price + '</div>';
-    }).join('') : empty('No chargers match', anyFilter()
-        ? 'Clear a filter, or pan the map.' : 'Pan the map or zoom out.');
+    }).join('') : emptyHtml('chargers', 'Zoom out to see more of the area, or search a town.');
     bindRows();
   }
 
-  function empty(title, body) {
-    return '<div class="ev-empty"><b>' + title + '</b>' + body + '</div>';
+  function empty(title, body, acts) {
+    var btns = (acts || []).map(function (a) {
+      return '<button type="button" class="ev-card-btn' + (a.primary ? ' is-primary' : '') + '" data-act="' + a.act + '">' + a.label + '</button>';
+    }).join('');
+    return '<div class="ev-empty"><b>' + title + '</b>' + body + (btns ? '<div class="ev-empty-act">' + btns + '</div>' : '') + '</div>';
   }
 
   /* ---------------------------------------------------------- selection */
@@ -958,6 +1014,20 @@
   }
 
   function bindRows() {
+    var box = $('#evRows');
+    if (box && !box._acts) {
+      box._acts = true;
+      box.addEventListener('click', function (e) {
+        var b = e.target.closest('button[data-act]');
+        if (!b) return;
+        var act = b.dataset.act;
+        track('empty_action', { action: act, mode: showMode });
+        if (act === 'clear') clearFilters();
+        else if (act === 'zoomout') { zoomed = true; map.setZoom(Math.max(map.getZoom() - 2, 7)); }
+        else if (act === 'nl') { zoomed = true; map.invalidateSize({ animate: false }); map.fitBounds(NL_BOX, { animate: false }); }
+        else if (act === 'search') { var s = $('#evSearch'); if (s) { s.focus(); s.select && s.select(); } }
+      });
+    }
     var all = document.querySelectorAll('.ev-row');
     Array.prototype.forEach.call(all, function (el, i) {
       el.onclick = function () { activate(el); };
@@ -1176,7 +1246,7 @@
         (g.ev ? '<span class="ev-up" data-g="ok">' + g.ev + ' charge point' + (g.ev === 1 ? '' : 's') + '</span>' : '') +
         (g.h ? '<span>max ' + (g.h / 100).toFixed(2) + ' m</span>' : '') +
         '</div></div>' + price + '</div>';
-    }).join('') : empty('No parking in view', filters.pr || filters.garage || filters.free || filters.cheap ? 'Clear a filter, or move the map.' : 'Move the map, or search a city.');
+    }).join('') : emptyHtml('places', 'Parking prices cover 14 Dutch cities. Zoom out, or search a city.');
     bindRows();
   }
 
