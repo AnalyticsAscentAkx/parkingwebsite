@@ -37,6 +37,13 @@ Generated 2026-10-17 by scripts/compliance/audit.py
 1 file(s): ev-map.js
 > e.g. `ev-map.js`: …l.addEventListener('change', syncWindow); $('#evKwh').addEventListener('input', repriceAll); /* One tap for the common stop lengths; the fields sta…
 
+## Terms pages
+
+- ocm: TERMS CHANGED since 2026-09-28 (re-read and update sources.py) (https://openchargemap.org/site/about/terms)
+- pdok: fetch failed: HTTP Error 404: Not Found (https://www.pdok.nl/voorwaarden)
+- affiliate_disclosure: TERMS CHANGED since 2026-09-28 (re-read and update sources.py) (https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
+- ga4: first snapshot stored (https://support.google.com/analytics/answer/9976101)
+
 ## What each source allows
 
 - **rdw**: 2026-09-28. Bijsluiter: 'Als onderdeel van Creative Commons Zero is het bij hergebruik niet toegestaan te vermelden dat de gegevens afkomstig zijn van de RDW en is het niet toegestaan het logo of de huisstijl van de RDW te gebruiken in de ontwikkelde toepassingen.' Naming RDW as the source is FORBIDDEN, as is any RDW logo or house style. Describing the data as 'the national parking register (NPR)' without naming RDW is fine.
