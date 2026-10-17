@@ -1,5 +1,5 @@
 city,slug,facilities,priced,free,park_and_ride,capacity_listed,ev_points,median_1h_eur,median_3h_eur,median_24h_eur,cheapest_garage,cheapest_1h_eur,cheapest_3h_eur,most_expensive_garage,most_expensive_1h_eur,most_expensive_3h_eur,cheapest_day_garage,cheapest_day_eur
-Amsterdam,amsterdam,80,39,1,11,35503,216,3.0,9.0,92.0,Garage P2 Bomengarage,1.4,1.4,Terrein Oostenburgereiland Touringcar parking,8.0,24.0,Garage Geuzenpoort,24.0
+Amsterdam,amsterdam,80,38,1,11,35503,216,3.0,9.0,94.0,Garage P2 Bomengarage,1.4,1.4,Terrein Oostenburgereiland Touringcar parking,8.0,24.0,Garage Geuzenpoort,24.0
 Rotterdam,rotterdam,48,29,12,16,19077,98,2.0,5.5,42.5,Garage Zoomstraat,1.5,4.0,Garage De Boompjes,5.0,13.0,Garage Zoomstraat,31.5
 The Hague,the-hague,25,17,1,5,9065,20,3.2,9.6,76.8,Terrein Station Leidschenveen Haven,0.9,2.7,Garage Helicon,4.4,13.2,Terrein Station Leidschenveen Haven,21.6
 Utrecht,utrecht,14,8,0,4,8376,12,3.58,10.74,85.92,Garage Grifthoek,2.85,8.55,Garage P5 Vredenburg,6.0,16.0,Garage Grifthoek,68.4

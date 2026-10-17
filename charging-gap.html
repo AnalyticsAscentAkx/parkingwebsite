@@ -227,7 +227,7 @@ literature on charging access and charging deserts. Generated 2026-10-05.</p>
   var map = L.map('cgmap', { preferCanvas: true, scrollWheelZoom: false })
     .setView([52.15, 5.4], 8);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    maxZoom: 17, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   map.once('focus', function () { map.scrollWheelZoom.enable(); });
 

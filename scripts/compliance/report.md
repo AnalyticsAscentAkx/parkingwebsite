@@ -39,10 +39,18 @@ Generated 2026-10-17 by scripts/compliance/audit.py
 
 ## Terms pages
 
-- ocm: TERMS CHANGED since 2026-09-28 (re-read and update sources.py) (https://openchargemap.org/site/about/terms)
-- pdok: fetch failed: HTTP Error 404: Not Found (https://www.pdok.nl/voorwaarden)
-- affiliate_disclosure: TERMS CHANGED since 2026-09-28 (re-read and update sources.py) (https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
-- ga4: first snapshot stored (https://support.google.com/analytics/answer/9976101)
+- rdw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter)
+- ndw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.ndw.nu/copyright)
+- osm_tiles: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://operations.osmfoundation.org/policies/tiles/)
+- photon: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://photon.komoot.io/)
+- ocm: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://openchargemap.org/site/about/terms)
+- cbs: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)> (https://www.cbs.nl/en-gb/about-us/website/copyright)
+- gent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://data.stad.gent/)
+- pdok: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.pdok.nl/voorwaarden)
+- adsense_consent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.google.com/about/company/user-consent-policy/)
+- affiliate_disclosure: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
+- ga4: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://support.google.com/analytics/answer/9976101)
+- google_fonts: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/fonts/faq/privacy)
 
 ## What each source allows
 
