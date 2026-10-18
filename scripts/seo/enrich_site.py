@@ -579,7 +579,12 @@ def do_sitemap():
         new = f"<loc>{loc}</loc>{m.group(2)}<lastmod>{d}</lastmod>"
         if new != m.group(0): changed += 1
         return new
-    sm2 = re.sub(r"<loc>([^<]+)</loc>(\s*)<lastmod>[^<]+</lastmod>", fix, sm)
+    # The <lastmod> is optional in this pattern on purpose. It used to be
+    # required, so an entry written without a date could never be given one.
+    # /ev-charging was exactly that: the only one of 1,467 URLs with no
+    # lastmod, claiming changefreq=daily and priority 0.9 with no date to
+    # back either. Both Google and Bing report that URL as unknown.
+    sm2 = re.sub(r"<loc>([^<]+)</loc>(\s*)(?:<lastmod>[^<]+</lastmod>)?", fix, sm)
     have = set(re.findall(r"<loc>([^<]+)</loc>", sm2))
     skip = {"privacy", "garage/index", "404", "index"}
     add = []

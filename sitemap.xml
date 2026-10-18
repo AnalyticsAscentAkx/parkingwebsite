@@ -371,7 +371,7 @@
   <url><loc>https://parkingnetherlands.com/parking-den-haag-centraal</loc><lastmod>2026-10-18</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://parkingnetherlands.com/parking-eindhoven-station</loc><lastmod>2026-10-18</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://parkingnetherlands.com/parking-groningen-station</loc><lastmod>2026-10-18</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://parkingnetherlands.com/ev-charging</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://parkingnetherlands.com/ev-charging</loc><lastmod>2026-10-18</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://parkingnetherlands.com/laadpaal-alkmaar</loc><lastmod>2026-10-18</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/laadpaal-almere</loc><lastmod>2026-10-18</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/laadpaal-alphen-aan-den-rijn</loc><lastmod>2026-10-18</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
