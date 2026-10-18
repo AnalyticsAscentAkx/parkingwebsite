@@ -69,7 +69,15 @@ log "$GEN_OUT"
 # --- 3. GSC pull (best-effort, needs GSC_SA_KEY) ----------------------------
 step "3. GSC pull + report"
 if [ -n "${GSC_SA_KEY:-}" ] && [ -f "$REPO/scripts/gsc_agent/gsc_weekly.py" ]; then
-  ( cd "$REPO/scripts/gsc_agent" && python3 gsc_weekly.py >>"$LOG" 2>&1 ) \
+  # gsc_weekly.py requires GSC_PROPERTY and has no default, but the launchd
+  # plist supplies GSC_SITE, so this step exited on its first line every day
+  # and the log only said "WARN GSC agent failed". Accept either name. Its
+  # dependencies live in the agent's own venv, not in the system python.
+  GSC_PY="$REPO/scripts/gsc_agent/.venv/bin/python"
+  [ -x "$GSC_PY" ] || GSC_PY=python3
+  ( cd "$REPO/scripts/gsc_agent" \
+    && GSC_PROPERTY="${GSC_PROPERTY:-${GSC_SITE:-sc-domain:parkingnetherlands.com}}" \
+       "$GSC_PY" gsc_weekly.py >>"$LOG" 2>&1 ) \
     && log "GSC agent ran" || log "WARN GSC agent failed (continuing)"
 else
   log "GSC_SA_KEY unset or agent missing, skipping"
