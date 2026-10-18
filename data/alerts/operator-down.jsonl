@@ -51,3 +51,30 @@
 {"day": "2026-10-17", "slug": "ubitricity-storing", "operator": "Ubitricity", "down": 57, "total": 4147, "pct": 1.4, "national": 1.8}
 {"day": "2026-10-17", "slug": "vattenfall-incharge-storing", "operator": "Vattenfall InCharge", "down": 475, "total": 49550, "pct": 1.0, "national": 1.8}
 {"day": "2026-10-17", "slug": "we-drive-solar-storing", "operator": "We Drive Solar", "down": 10, "total": 425, "pct": 2.4, "national": 1.8}
+{"day": "2026-10-18", "slug": "50five-storing", "operator": "50five", "down": 135, "total": 14029, "pct": 1.0, "national": 1.9}
+{"day": "2026-10-18", "slug": "allego-storing", "operator": "Allego", "down": 198, "total": 18595, "pct": 1.1, "national": 1.9}
+{"day": "2026-10-18", "slug": "bp-pulse-storing", "operator": "bp pulse", "down": 340, "total": 424, "pct": 80.2, "national": 1.9}
+{"day": "2026-10-18", "slug": "chargepoint-storing", "operator": "ChargePoint", "down": 2, "total": 538, "pct": 0.4, "national": 1.9}
+{"day": "2026-10-18", "slug": "daen-mobility-storing", "operator": "DAEN Mobility", "down": 153, "total": 978, "pct": 15.6, "national": 1.9}
+{"day": "2026-10-18", "slug": "den-hartog-charging-b-v-storing", "operator": "Den Hartog Charging B.V.", "down": 4, "total": 568, "pct": 0.7, "national": 1.9}
+{"day": "2026-10-18", "slug": "e-flux-by-road-storing", "operator": "E-Flux by Road", "down": 414, "total": 15028, "pct": 2.8, "national": 1.9}
+{"day": "2026-10-18", "slug": "e-voltt-storing", "operator": "e-VOLTT", "down": 0, "total": 625, "pct": 0.0, "national": 1.9}
+{"day": "2026-10-18", "slug": "eneco-storing", "operator": "Eneco", "down": 88, "total": 8509, "pct": 1.0, "national": 1.9}
+{"day": "2026-10-18", "slug": "equans-storing", "operator": "EQUANS ", "down": 132, "total": 25166, "pct": 0.5, "national": 1.9}
+{"day": "2026-10-18", "slug": "equans-velian-storing", "operator": "EQUANS (Velian)", "down": 5, "total": 836, "pct": 0.6, "national": 1.6}
+{"day": "2026-10-18", "slug": "fastned-storing", "operator": "Fastned", "down": 26, "total": 1221, "pct": 2.1, "national": 1.9}
+{"day": "2026-10-18", "slug": "heijmans-storing", "operator": "Heijmans", "down": 9, "total": 759, "pct": 1.2, "national": 1.9}
+{"day": "2026-10-18", "slug": "ip-charging-storing", "operator": "IP Charging", "down": 0, "total": 986, "pct": 0.0, "national": 1.9}
+{"day": "2026-10-18", "slug": "laadnet-storing", "operator": "Laadnet", "down": 513, "total": 5891, "pct": 8.7, "national": 1.9}
+{"day": "2026-10-18", "slug": "opcharge-storing", "operator": "Opcharge", "down": 48, "total": 2072, "pct": 2.3, "national": 1.9}
+{"day": "2026-10-18", "slug": "pluq-storing", "operator": "Pluq", "down": 12, "total": 2109, "pct": 0.6, "national": 1.9}
+{"day": "2026-10-18", "slug": "q-park-netherlands-storing", "operator": "Q-Park Netherlands", "down": 21, "total": 1948, "pct": 1.1, "national": 1.9}
+{"day": "2026-10-18", "slug": "qwello-benelux-bv-storing", "operator": "Qwello Benelux BV", "down": 267, "total": 12791, "pct": 2.1, "national": 1.9}
+{"day": "2026-10-18", "slug": "shell-recharge-storing", "operator": "Shell Recharge", "down": 11, "total": 509, "pct": 2.2, "national": 1.9}
+{"day": "2026-10-18", "slug": "spirii-storing", "operator": "Spirii", "down": 13, "total": 396, "pct": 3.3, "national": 1.6}
+{"day": "2026-10-18", "slug": "stellapower-storing", "operator": "StellaPower®", "down": 1, "total": 423, "pct": 0.2, "national": 1.9}
+{"day": "2026-10-18", "slug": "tesla-storing", "operator": "Tesla", "down": 20, "total": 940, "pct": 2.1, "national": 1.9}
+{"day": "2026-10-18", "slug": "totalenergies-storing", "operator": "TotalEnergies", "down": 309, "total": 19766, "pct": 1.6, "national": 1.9}
+{"day": "2026-10-18", "slug": "ubitricity-storing", "operator": "Ubitricity", "down": 59, "total": 4083, "pct": 1.4, "national": 1.9}
+{"day": "2026-10-18", "slug": "vattenfall-incharge-storing", "operator": "Vattenfall InCharge", "down": 468, "total": 49550, "pct": 0.9, "national": 1.9}
+{"day": "2026-10-18", "slug": "we-drive-solar-storing", "operator": "We Drive Solar", "down": 10, "total": 425, "pct": 2.4, "national": 1.8}
