@@ -44,19 +44,16 @@ say "   audit exit $AUDIT_RC"
 #     the page still returns 200 with a perfect head while the list stays
 #     empty and no card opens. That was live for part of 2026-10-18.
 say "1b. live render check"
+# $PY is the agent venv and carries playwright. Do NOT fall back to a bare
+# "python3": under launchd the PATH is minimal and that resolves to
+# /usr/bin/python3, which has no playwright, so this step skipped itself
+# silently the first night it was scheduled. A missing browser is now loud.
 if "$PY" -c "import playwright" >/dev/null 2>&1; then
-  SMOKE_PY="$PY"
-elif python3 -c "import playwright" >/dev/null 2>&1; then
-  SMOKE_PY=python3
-else
-  SMOKE_PY=""
-fi
-if [ -n "$SMOKE_PY" ]; then
-  "$SMOKE_PY" "$REPO/scripts/qa/smoke_map.py" >>"$LOG" 2>&1
+  "$PY" "$REPO/scripts/qa/smoke_map.py" >>"$LOG" 2>&1
   SMOKE_RC=$?
   if [ "$SMOKE_RC" = "0" ]; then say "   render OK"; else say "   RENDER BROKEN on the live site (exit $SMOKE_RC), see log"; fi
 else
-  say "   SKIPPED, playwright not installed"
+  say "   PROBLEM: playwright missing from $PY, the render check cannot run"
 fi
 
 # 2. Indexing progress. Needs the service-account key; skip quietly without it.

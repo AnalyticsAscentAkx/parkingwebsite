@@ -164,11 +164,15 @@ fi
 # trouble is not a reason to stop publishing fresh data.
 step "4b. Render gate (headless browser)"
 SMOKE_PORT=8791
-if python3 -c "import playwright" >/dev/null 2>&1; then
+# An explicit interpreter, never a bare "python3": under launchd that is
+# /usr/bin/python3, which carries no playwright, and the check would skip
+# itself every night without saying anything useful.
+SMOKE_PY="${SMOKE_PY:-$REPO/scripts/gsc_agent/.venv/bin/python}"
+if [ -x "$SMOKE_PY" ] && "$SMOKE_PY" -c "import playwright" >/dev/null 2>&1; then
   python3 -m http.server "$SMOKE_PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
   SMOKE_PID=$!
   sleep 2
-  if python3 "$REPO/scripts/qa/smoke_map.py" --base "http://127.0.0.1:$SMOKE_PORT" >>"$LOG" 2>&1; then
+  if "$SMOKE_PY" "$REPO/scripts/qa/smoke_map.py" --base "http://127.0.0.1:$SMOKE_PORT" >>"$LOG" 2>&1; then
     log "render gate passed"
   else
     log "ERROR render gate FAILED - the map does not draw. NOT publishing. See $LOG"
@@ -176,7 +180,7 @@ if python3 -c "import playwright" >/dev/null 2>&1; then
   fi
   kill "$SMOKE_PID" >/dev/null 2>&1 || true
 else
-  log "WARN playwright not installed, render gate skipped"
+  log "WARN playwright missing from $SMOKE_PY, render gate skipped"
 fi
 
 # --- 5. commit + push -------------------------------------------------------
