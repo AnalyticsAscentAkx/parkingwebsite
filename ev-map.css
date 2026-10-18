@@ -757,3 +757,7 @@
 .ev-pin[data-g="lo"]{background:#168A68;border-top-color:#168A68}
 .ev-pin[data-g="mid"]{background:#17243A;border-top-color:#17243A}
 .ev-pin[data-g="hi"]{background:#B45309;border-top-color:#B45309}
+
+/* The disclosure chip reads as an action, not as one more filter. */
+.ev-chips .ev-more{font-weight:700}
+.ev-chips .ev-more[aria-expanded="true"]{background:var(--sig);border-color:var(--sig);color:#fff}

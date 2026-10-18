@@ -235,8 +235,27 @@
   }
   /* Result counts, so the analytics can tell useful searches from dead ends. */
   var lastResultsAt = 0, lastZeroAt = 0;
+  /* After "near me" the map used to sit at whatever zoom the GPS accuracy
+     implied, which on a good fix is a single street. Three of nine sampled
+     Dutch residential spots have no charger at all in that box, and the
+     analytics showed 14 Dutch mobile visitors producing 187 empty-result
+     events while 6 of them tapped Near me 62 times between them. So widen
+     until the list is worth reading. Armed only by goHere(), which is why
+     ordinary panning is unaffected. */
+  var SEEK_MIN_ROWS = 5, SEEK_MIN_ZOOM = 13, seekSteps = 0;
   function noteResults(kind, n) {
     var now = Date.now();
+    /* Still hunting for something to show after a locate: widening is not a
+       dead end, so it must not be reported as one. */
+    if (seekSteps > 0 && (kind === 'chargers' || kind === 'parking')) {
+      if (n < SEEK_MIN_ROWS && map && map.getZoom() > SEEK_MIN_ZOOM) {
+        seekSteps--;
+        zoomed = true;
+        map.setZoom(map.getZoom() - 1);
+        return;
+      }
+      seekSteps = 0;
+    }
     if (n === 0) {
       /* Once per ten seconds, same as results_shown. Every pan over an empty
          patch used to fire this; one visitor produced 60 of them in a sitting. */
@@ -396,7 +415,17 @@
   function parkCost(areaId, arrive, leave) {
     var t = tariffs[areaId];
     if (!t || !t.w || !t.w.length) return null;
-    var paid = {}, cursor = new Date(arrive.getTime());
+    /* A window says a product is on sale, not that paying is compulsory.
+       Amsterdam sells a Sunday day ticket valid 09:00-19:00 while the meter
+       only starts at 12:00, so treating the ticket's validity as a paid
+       window billed a two hour Sunday stop the entire EUR 48.30 ticket.
+       Price the stay on metered products alone, then let a pass that covers
+       the whole stay cap the bill when it actually beats the meter. */
+    function isMeter(code) {
+      var l = t.f[code];
+      return !!l && l.length && l[0][2] < 60;          /* step under an hour */
+    }
+    var total = 0, cursor = new Date(arrive.getTime());
     var guard = 0;
     while (cursor < leave && guard++ < 40) {
       var day0 = new Date(cursor.getTime()); day0.setHours(0, 0, 0, 0);
@@ -405,28 +434,46 @@
       var dow = cursor.getDay() === 0 ? 7 : cursor.getDay();
       /* Windows can overlap (an hourly tariff and an avondkaart both cover
          19:00-24:00). Walk the day in 15-minute slots and charge each slot
-         to the cheapest product that covers it, never to two at once. */
+         to the cheapest meter that covers it, never to two at once. */
+      var paid = {};
       var slot = new Date(cursor.getTime());
       while (slot < segEnd) {
         var slotEnd = new Date(Math.min(slot.getTime() + 900000, segEnd.getTime()));
-        var minute = (slot - day0) / 60000, best = null, bestRate = Infinity;
+        /* Read the minute off the clock rather than from elapsed
+           milliseconds: on the two clock-change Sundays a day is 23 or 25
+           hours long, which shifted every window boundary by an hour. */
+        var minute = slot.getHours() * 60 + slot.getMinutes();
+        var best = null, bestRate = Infinity;
         for (var i = 0; i < t.w.length; i++) {
           if (t.w[i][0] !== dow || minute < t.w[i][1] || minute >= t.w[i][2]) continue;
-          var code = t.w[i][3], rate = t.f[code] ? ladderCost(t.f[code], 60) : Infinity;
+          var code = t.w[i][3];
+          if (!isMeter(code)) continue;          /* a pass never forces a charge */
+          var rate = ladderCost(t.f[code], 60);
           if (rate < bestRate) { bestRate = rate; best = code; }
         }
         if (best) paid[best] = (paid[best] || 0) + (slotEnd - slot) / 60000;
         slot = slotEnd;
       }
+      var metered = 0;
+      for (var code2 in paid) {
+        if (t.f[code2]) metered += ladderCost(t.f[code2], paid[code2]);
+      }
+      /* Buying a pass is only rational if it covers this whole segment and
+         undercuts the meter. Then it is what the driver would really pay. */
+      var segStart = cursor.getHours() * 60 + cursor.getMinutes();
+      var segStop = segEnd.getHours() * 60 + segEnd.getMinutes();
+      if (segStop === 0) segStop = 1440;                /* midnight ends the day */
+      for (var j = 0; j < t.w.length; j++) {
+        var p = t.w[j];
+        if (p[0] !== dow || isMeter(p[3]) || !t.f[p[3]]) continue;
+        if (p[1] > segStart || p[2] < segStop) continue;   /* must cover the stay */
+        var pass = ladderCost(t.f[p[3]], segStop - segStart);
+        if (pass < metered) metered = pass;
+      }
+      total += metered;
       cursor = segEnd;
     }
-    var total = 0, any = false;
-    for (var code in paid) {
-      any = true;
-      var ladder = t.f[code];
-      if (ladder) total += ladderCost(ladder, paid[code]);
-    }
-    return any ? total : 0;
+    return total;
   }
 
   function priceOf(st, w) {
@@ -1047,13 +1094,53 @@
      sites the rest of the site already knows (rdw-data.js: 323 facilities
      with published 1 h / 3 h / 24 h drive-in tariffs and their own pages),
      priced for the same session with the same card and tiles. */
+  /* Four chips earn their place and the rest sit behind one disclosure step.
+     Over 60 days only 4 of 134 visitors touched a filter at all, while twelve
+     chips rendered twice over, once on the map and once in the panel head,
+     so a desktop visitor met 24 filter buttons. Which four show depends on
+     the mode, because P+R and Garages only exist in parking mode. */
+  var CHIP_PRIMARY = {
+    chargers: ['f:free', 'f:cheap', 'kw:50', 'f:open'],
+    parking: ['f:free', 'f:cheap', 'f:pr', 'f:garage']
+  };
+  var chipsOpen = false;
+
+  function chipKey(b) {
+    if (b.dataset.kw != null) return 'kw:' + b.dataset.kw;
+    if (b.dataset.plug != null) return 'plug:' + b.dataset.plug;
+    return 'f:' + b.dataset.f;
+  }
+
   function syncChips(show) {
+    var primary = CHIP_PRIMARY[showMode] || CHIP_PRIMARY.chargers;
     Array.prototype.forEach.call(document.querySelectorAll('.ev-chips'), function (c) {
       c.hidden = !show;
+      var extras = 0;
       Array.prototype.forEach.call(c.querySelectorAll('button'), function (b) {
+        if (b.classList.contains('ev-more')) return;
         var only = b.dataset.only;
-        b.hidden = !!only && only !== showMode;
+        var wrongMode = !!only && only !== showMode;
+        /* An active filter always shows, or it could never be switched off. */
+        var keep = primary.indexOf(chipKey(b)) !== -1 ||
+                   b.getAttribute('aria-pressed') === 'true';
+        if (!wrongMode && !keep) extras++;
+        b.hidden = wrongMode || (!keep && !chipsOpen);
       });
+      var more = c.querySelector('.ev-more');
+      if (!more) {
+        more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'ev-more';
+        more.onclick = function () {
+          chipsOpen = !chipsOpen;
+          track('filter', { filter: 'more', on: chipsOpen });
+          syncChips(true);
+        };
+        c.appendChild(more);
+      }
+      more.hidden = !show || (!extras && !chipsOpen);
+      more.setAttribute('aria-expanded', chipsOpen ? 'true' : 'false');
+      more.textContent = chipsOpen ? 'Fewer filters' : 'More filters (' + extras + ')';
     });
   }
 
@@ -1415,6 +1502,7 @@
   function searchGo(q) {
     q = (q || '').trim();
     if (!q) return;
+    seekSteps = 0;                      /* a deliberate move outranks the widening */
     track('search', { term: q, mode: showMode });
     var hit = matches(q)[0];
     if (hit) {
@@ -1761,6 +1849,7 @@
 
   function goHere() {
     track('near_me', { mode: showMode });
+    seekSteps = 4;                      /* zoom 17 down to 13 at worst */
     var btn = document.querySelector('.nav-near') || document.getElementById('evNear'), label = btn ? btn.innerHTML : '';
     if (!navigator.geolocation) { searchGo(''); return; }
     if (btn) { btn.disabled = true; btn.setAttribute('aria-busy', 'true'); }
@@ -1779,6 +1868,7 @@
     var watchId = null, best = Infinity, hardStop = null;
 
     function stopLocating() {
+      seekSteps = 0;
       if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
       if (hardStop) { clearTimeout(hardStop); hardStop = null; }
       if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
@@ -1837,6 +1927,8 @@
          the edge. */
       map.invalidateSize({ animate: false });
       map.fitBounds(hereCircle.getBounds(), { animate: false, padding: [40, 40], maxZoom: 17 });
+      /* A tight fix is good news for the pin and bad news for the list. */
+      if (map.getZoom() > 16) map.setZoom(16);
       if (narrow()) sheet('peek');
 
       if (acc <= 50) stopLocating();   // good enough, stop draining the battery

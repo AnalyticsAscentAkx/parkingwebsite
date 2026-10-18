@@ -85,6 +85,50 @@ def audit_files():
     return findings, usage
 
 
+# A terms page is only worth blocking a publish over if the fetched text
+# actually states terms. These words appear in every real licence or policy
+# page monitored here; a page carrying none of them is a navigation shell.
+_LICENCE_WORDS = ("licen", "attribut", "creative commons", "cc0", "odbl",
+                  "copyright", "you may", "permission", "terms", "consent",
+                  "privacy", "policy")
+# At or above this share of unchanged wording, an edit is cosmetic.
+_COSMETIC_RATIO = 0.97
+
+
+def _trigrams(text):
+    w = text.split()
+    return {tuple(w[i:i + 3]) for i in range(len(w) - 2)}
+
+
+def _similarity(a, b):
+    """Jaccard overlap of word trigrams: 1.0 identical, 0.0 nothing shared."""
+    ta, tb = _trigrams(a), _trigrams(b)
+    union = ta | tb
+    return len(ta & tb) / len(union) if union else 1.0
+
+
+def _change_status(text, before, since):
+    """Describe a changed terms page, and decide whether it should block.
+
+    The whole visible page is hashed, navigation included, so an upstream
+    redesign used to read as a terms change. On 16 October 2026 that stopped
+    the daily publish for ten days with zero hard findings: OpenChargeMap
+    added a dark-mode switcher to a page that renders no terms text at all,
+    and Google added two words to a sidebar. A blocked publish also skips the
+    IndexNow ping, so nothing was told to any search engine for eleven days.
+    A genuine rewrite still blocks.
+    """
+    if not any(w in text.lower() for w in _LICENCE_WORDS):
+        return ("page carries no terms text (JS-rendered shell); "
+                "re-verify this source by hand, not blocking")
+    ratio = _similarity(before, text) if before else 0.0
+    if ratio >= _COSMETIC_RATIO:
+        return (f"cosmetic edit, {ratio:.1%} of wording unchanged since "
+                f"{since}; snapshot updated, not blocking")
+    return (f"TERMS CHANGED since {since} ({ratio:.1%} of wording unchanged; "
+            f"re-read and update sources.py)")
+
+
 def fetch_terms():
     """Re-fetch each terms page, hash the visible text, and report changes."""
     SNAP.mkdir(exist_ok=True)
@@ -103,9 +147,12 @@ def fetch_terms():
         text = re.sub(r"\s+", " ", text).strip()
         digest = hashlib.sha256(text.encode()).hexdigest()[:16]
         prev = state.get(s["key"], {})
-        (SNAP / f"{s['key']}.txt").write_text(text, "utf-8")
+        snap = SNAP / f"{s['key']}.txt"
+        before = snap.read_text("utf-8") if snap.exists() else ""
+        snap.write_text(text, "utf-8")
         if prev.get("hash") and prev["hash"] != digest:
-            changes.append({"key": s["key"], "url": url, "status": f"TERMS CHANGED since {prev.get('date')} (re-read and update sources.py)"})
+            changes.append({"key": s["key"], "url": url,
+                            "status": _change_status(text, before, prev.get("date"))})
         elif not prev.get("hash"):
             changes.append({"key": s["key"], "url": url, "status": "first snapshot stored"})
         state[s["key"]] = {"hash": digest, "date": date.today().isoformat(), "url": url}
@@ -154,7 +201,9 @@ def main():
     findings, usage = audit_files()
     changes = fetch_terms() if a.fetch else []
     hard, warn = write_report(findings, usage, changes)
-    changed_terms = [c for c in changes if "CHANGED" in c["status"]]
+    # "TERMS CHANGED" is reserved for substantive rewrites; the cosmetic and
+    # no-terms-text statuses are reported but must not block the publish.
+    changed_terms = [c for c in changes if c["status"].startswith("TERMS CHANGED")]
     if a.json:
         print(json.dumps({"hard": hard, "warn": warn, "terms": changes}, indent=1))
     else:
