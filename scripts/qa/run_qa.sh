@@ -39,6 +39,26 @@ say "1. site audit"
 AUDIT_RC=$?
 say "   audit exit $AUDIT_RC"
 
+# 1b. Render check against the LIVE site, in a real browser.
+#     The audit above reads HTML, which cannot see a map that fails to draw:
+#     the page still returns 200 with a perfect head while the list stays
+#     empty and no card opens. That was live for part of 2026-10-18.
+say "1b. live render check"
+if "$PY" -c "import playwright" >/dev/null 2>&1; then
+  SMOKE_PY="$PY"
+elif python3 -c "import playwright" >/dev/null 2>&1; then
+  SMOKE_PY=python3
+else
+  SMOKE_PY=""
+fi
+if [ -n "$SMOKE_PY" ]; then
+  "$SMOKE_PY" "$REPO/scripts/qa/smoke_map.py" >>"$LOG" 2>&1
+  SMOKE_RC=$?
+  if [ "$SMOKE_RC" = "0" ]; then say "   render OK"; else say "   RENDER BROKEN on the live site (exit $SMOKE_RC), see log"; fi
+else
+  say "   SKIPPED, playwright not installed"
+fi
+
 # 2. Indexing progress. Needs the service-account key; skip quietly without it.
 if [ -f "$GSC_SA_KEY" ]; then
   say "2. indexing watch"
@@ -74,6 +94,13 @@ say "5. digest"
 say "6. scorecard"
 GA4_PROPERTY_ID="$GA4_PROPERTY_ID" "$PY" "$REPO/scripts/qa/scorecard.py" --quiet \
   >>"$LOG" 2>&1 || say "   scorecard failed, see log"
+
+# 7. What to improve next. Reads the analytics, the index watch and the
+#    sitemap together, because none of them is a finding on its own, and
+#    writes a ranked list. It changes nothing; a person decides.
+say "7. improvement scan"
+"$PY" "$REPO/scripts/qa/improve.py" --days 60 --skip-render >>"$LOG" 2>&1 \
+  && say "   wrote $OUT/improvements.md" || say "   improvement scan failed, see log"
 
 say "=== QA run $DAY done. Report: $OUT/daily.md"
 exit 0

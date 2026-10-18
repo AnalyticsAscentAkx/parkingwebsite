@@ -150,6 +150,35 @@ else
   log "no page changes staged"
 fi
 
+# --- 4b. render gate: a map that does not draw must never be published -------
+#
+# Added 2026-10-18. Two map changes shipped that day after being prototyped by
+# injecting JavaScript into the live page; nothing checked the built file, and
+# the owner found the map blank with no cards opening. Every other check here
+# reads HTML over HTTP and all of them stayed green throughout, because the
+# map is drawn by JavaScript and a page whose script throws still returns 200.
+#
+# This serves the working tree on a local port and opens it in a real browser.
+# Only a genuine render failure blocks the publish; a missing browser or a port
+# that will not bind logs a warning and lets the day proceed, because tooling
+# trouble is not a reason to stop publishing fresh data.
+step "4b. Render gate (headless browser)"
+SMOKE_PORT=8791
+if python3 -c "import playwright" >/dev/null 2>&1; then
+  python3 -m http.server "$SMOKE_PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
+  SMOKE_PID=$!
+  sleep 2
+  if python3 "$REPO/scripts/qa/smoke_map.py" --base "http://127.0.0.1:$SMOKE_PORT" >>"$LOG" 2>&1; then
+    log "render gate passed"
+  else
+    log "ERROR render gate FAILED - the map does not draw. NOT publishing. See $LOG"
+    BLOCK_PUSH=1
+  fi
+  kill "$SMOKE_PID" >/dev/null 2>&1 || true
+else
+  log "WARN playwright not installed, render gate skipped"
+fi
+
 # --- 5. commit + push -------------------------------------------------------
 step "5. Commit + push"
 if [ "${BLOCK_PUSH:-0}" = "1" ]; then

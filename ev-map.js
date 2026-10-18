@@ -1114,6 +1114,9 @@
     if (!silent && map) { updateUrl(); refresh(); }
   }
 
+  /* Callbacks waiting on a /rdw-data.js request that is already in flight. */
+  var placesWaiting = null;
+
   function loadPlaces(done) {
     if (places) { done(); return; }
     /* rdw-data.js declares a top-level const, which is a global binding but
@@ -1131,13 +1134,26 @@
           places.push(rec); byId[rec.id] = rec;
         });
       }
-      done();
     }
-    if (data()) { flatten(); return; }
+    if (data()) { flatten(); done(); return; }
+    /* Two callers arriving before the first script lands used to append two
+       <script src="/rdw-data.js"> tags, and that file declares a top-level
+       const, so the second one threw "Identifier 'RDW_DATA' has already been
+       declared" into the console. Queue behind the request in flight. */
+    if (placesWaiting) { placesWaiting.push(done); return; }
+    placesWaiting = [done];
     var js = document.createElement('script');
     js.src = '/rdw-data.js';
-    js.onload = flatten;
-    js.onerror = function () { $('#evRows').innerHTML = empty('Parking data did not load', 'Reload the page to try again.'); };
+    js.onload = function () {
+      flatten();
+      var queued = placesWaiting || [];
+      placesWaiting = null;
+      queued.forEach(function (fn) { fn(); });
+    };
+    js.onerror = function () {
+      placesWaiting = null;
+      $('#evRows').innerHTML = empty('Parking data did not load', 'Reload the page to try again.');
+    };
     document.head.appendChild(js);
   }
 
