@@ -37,6 +37,21 @@ Generated 2026-10-19 by scripts/compliance/audit.py
 1 file(s): ev-map.js
 > e.g. `ev-map.js`: …l.addEventListener('change', syncWindow); $('#evKwh').addEventListener('input', repriceAll); /* One tap for the common stop lengths; the fields sta…
 
+## Terms pages
+
+- rdw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.rdw.nl/over-rdw/dienstverlening/open-data/bijsluiter)
+- ndw: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.ndw.nu/copyright)
+- osm_tiles: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://operations.osmfoundation.org/policies/tiles/)
+- photon: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://photon.komoot.io/)
+- ocm: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://openchargemap.org/site/about/terms)
+- cbs: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)> (https://www.cbs.nl/en-gb/about-us/website/copyright)
+- gent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://data.stad.gent/)
+- pdok: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.pdok.nl/voorwaarden)
+- adsense_consent: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://www.google.com/about/company/user-consent-policy/)
+- affiliate_disclosure: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
+- ga4: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://support.google.com/analytics/answer/9976101)
+- google_fonts: fetch failed: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)> (https://developers.google.com/fonts/faq/privacy)
+
 ## What each source allows
 
 - **rdw**: 2026-09-28. Bijsluiter: 'Als onderdeel van Creative Commons Zero is het bij hergebruik niet toegestaan te vermelden dat de gegevens afkomstig zijn van de RDW en is het niet toegestaan het logo of de huisstijl van de RDW te gebruiken in de ontwikkelde toepassingen.' Naming RDW as the source is FORBIDDEN, as is any RDW logo or house style. Describing the data as 'the national parking register (NPR)' without naming RDW is fine.
