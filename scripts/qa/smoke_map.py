@@ -38,6 +38,7 @@ product being down while every HTTP check stays green.
 import argparse
 import json
 import sys
+import time
 from datetime import date, timedelta
 
 LIVE = "https://parkingnetherlands.com"
@@ -167,6 +168,88 @@ def check_price(ctx, base, suffix, failures, notes):
         page.close()
 
 
+def check_speed(ctx, base, paths, local, failures, notes):
+    """How long until the page is usable, desktop and phone.
+
+    Asked for on 2026-10-19: "see how fast things are". Budgets are generous
+    on purpose; this is a regression alarm, not a performance audit. The map
+    pages fetch cell data before they can draw, so they are judged on when a
+    row appears, not on first paint.
+    """
+    for vp, label, budget in ((DESKTOP, "desktop", 6000), (PHONE, "phone", 9000)):
+        page = ctx.new_page()
+        page.set_viewport_size(vp)
+        try:
+            for path in paths:
+                target = ("/index.html" if path == "/" else path + ".html") if local else path
+                t0 = time.time()
+                page.goto(base + target, wait_until="domcontentloaded", timeout=45000)
+                try:
+                    page.wait_for_selector(".ev-row, .pk, h1", timeout=budget)
+                except Exception:
+                    failures.append(f"speed {label} {path}: nothing usable within {budget}ms")
+                    continue
+                ms = int((time.time() - t0) * 1000)
+                nav = page.evaluate(
+                    "() => {const n=performance.getEntriesByType('navigation')[0];"
+                    "return n ? Math.round(n.responseEnd - n.requestStart) : null;}")
+                notes.append(f"speed {label} {path}: usable in {ms}ms"
+                             + (f", server {nav}ms" if nav is not None else ""))
+                if ms > budget:
+                    failures.append(f"speed {label} {path}: {ms}ms to usable, budget {budget}ms")
+        finally:
+            page.close()
+
+
+def check_faq(ctx, base, suffix, failures, notes):
+    """A FAQ question must open its answer.
+
+    Added after 2026-10-19, when I counted markup instead of behaviour,
+    concluded 142 accordions were dead, added a second click handler and
+    cancelled out the one that already worked. The accordions were fine. Only
+    a click proves a control works.
+    """
+    page = ctx.new_page()
+    page.set_viewport_size(DESKTOP)
+    try:
+        page.goto(base + "/amsterdam" + suffix, wait_until="load", timeout=45000)
+        page.wait_for_selector(".fqq", timeout=15000)
+        page.locator(".fqq").first.click()
+        page.wait_for_timeout(600)
+        h = page.evaluate("() => {const a=document.querySelector('.fqi .fqa');"
+                          "return a ? Math.round(a.getBoundingClientRect().height) : 0;}")
+        if h < 10:
+            failures.append(f"faq: clicking a question revealed nothing (answer height {h}px)")
+        else:
+            notes.append(f"faq: question opens, answer {h}px tall")
+    except Exception as e:
+        notes.append(f"faq check skipped: {str(e)[:80]}")
+    finally:
+        page.close()
+
+
+def check_maps_links(ctx, base, suffix, failures, notes):
+    """Park-and-ride cards must offer directions, and to the right place."""
+    page = ctx.new_page()
+    page.set_viewport_size(DESKTOP)
+    try:
+        page.goto(base + "/amsterdam" + suffix, wait_until="load", timeout=45000)
+        page.wait_for_selector(".pk", timeout=15000)
+        cards = page.locator(".pk").count()
+        rows = page.locator(".pk-go").count()
+        if rows == 0:
+            failures.append(f"maps: {cards} park-and-ride cards and no directions links")
+            return
+        href = page.locator(".pk-go a").first.get_attribute("href") or ""
+        if "google.com/maps" not in href:
+            failures.append(f"maps: first link is not a Google Maps url: {href[:60]}")
+        notes.append(f"maps: {rows} of {cards} cards link out")
+    except Exception as e:
+        notes.append(f"maps check skipped: {str(e)[:80]}")
+    finally:
+        page.close()
+
+
 def check_touch(play, base, suffix, failures, notes):
     """Open a charger on a real phone profile and prove you can close it again.
 
@@ -247,8 +330,12 @@ def main():
                     target = "/index.html" if path == "/" else path + ".html"
                 for vp in (DESKTOP, PHONE):
                     check_page(ctx, base, target, vp, failures, notes)
-            check_price(ctx, base, ".html" if local else "", failures, notes)
-            check_touch(p, base, ".html" if local else "", failures, notes)
+            sfx = ".html" if local else ""
+            check_price(ctx, base, sfx, failures, notes)
+            check_faq(ctx, base, sfx, failures, notes)
+            check_maps_links(ctx, base, sfx, failures, notes)
+            check_speed(ctx, base, a.pages, local, failures, notes)
+            check_touch(p, base, sfx, failures, notes)
         finally:
             browser.close()
 
