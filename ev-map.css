@@ -757,3 +757,42 @@
 .ev-pin[data-g="lo"]{background:#168A68;border-top-color:#168A68}
 .ev-pin[data-g="mid"]{background:#17243A;border-top-color:#17243A}
 .ev-pin[data-g="hi"]{background:#B45309;border-top-color:#B45309}
+
+/* ---------------------------------------------------------------------------
+   The ev-card is a bottom sheet on a phone, not a floating panel.
+
+   Reported 2026-10-19: "mobile the full map and pop up is not working".
+   Measured on an iPhone 13 viewport, 390x664: the card rendered 729px tall,
+   anchored with position:absolute and bottom:12px inside a 540px map box, so
+   its top sat at -304px. The close button was at -293px, off the screen and
+   impossible to tap, and main.ev-app has overflow:hidden so nothing could be
+   scrolled into reach. Opening a charger on a phone trapped you.
+
+   Fixed to the viewport instead of the map, capped in height, and scrollable
+   inside. No ancestor carries a transform, so position:fixed resolves against
+   the viewport as intended. The close button sticks to the top of the card's
+   own scroll area so it is reachable however far down you have read.
+--------------------------------------------------------------------------- */
+@media(max-width:900px){
+  .ev-card{
+    position:fixed;
+    left:8px; right:8px; bottom:8px; top:auto;
+    width:auto;
+    max-height:calc(100vh - var(--ev-nav) - 20px);
+    max-height:calc(100dvh - var(--ev-nav) - 20px);  /* dvh excludes the URL bar */
+    overflow-y:auto;
+    overscroll-behavior:contain;                      /* scrolling the card never pans the map */
+    -webkit-overflow-scrolling:touch;
+    /* Leaflet puts its control corners at z-index 1000, so at 960 the map
+       attribution printed straight through the card. Sit above the controls
+       but below the sticky header, which owns 1200. The attribution stays
+       on screen whenever the card is shut, which the licence requires. */
+    z-index:1100;
+  }
+  .ev-card-x{
+    position:sticky; top:0; float:right;
+    margin:-4px -4px 0 8px;
+    z-index:2;
+    background:var(--paper);
+  }
+}

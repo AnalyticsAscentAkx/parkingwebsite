@@ -167,6 +167,64 @@ def check_price(ctx, base, suffix, failures, notes):
         page.close()
 
 
+def check_touch(play, base, suffix, failures, notes):
+    """Open a charger on a real phone profile and prove you can close it again.
+
+    The desktop checks above dispatch click events, which bypass hit testing,
+    so they pass on a card that a finger could never reach. On 2026-10-19 the
+    card rendered 729px tall on a 390x664 iPhone viewport, anchored to the map
+    rather than the viewport, which put its top at -304px and its close button
+    off the screen entirely. Opening a charger trapped the visitor, on the 61%
+    of traffic that is mobile, while every other check stayed green.
+    """
+    dev = play.devices["iPhone 13"]
+    ctx = play.chromium.launch(headless=True).new_context(**dev)
+    page = ctx.new_page()
+    try:
+        page.goto(base + "/ev-charging" + suffix, wait_until="load", timeout=45000)
+        page.wait_for_selector(".ev-pin", timeout=25000)
+        page.wait_for_timeout(2500)
+        try:                                   # consent would sit over the map
+            page.get_by_role("button", name="No thanks").tap(timeout=4000)
+            page.wait_for_timeout(500)
+        except Exception:
+            pass
+        page.locator(".ev-pin").first.tap(timeout=8000)
+        page.wait_for_timeout(1500)
+        if not page.locator(".ev-card").first.is_visible():
+            failures.append("touch: tapping a charger opened no card")
+            return
+        box = page.evaluate("""() => {
+            const c = document.querySelector('.ev-card');
+            const r = c.getBoundingClientRect();
+            const x = c.querySelector('.ev-card-x, [data-close]');
+            const xr = x ? x.getBoundingClientRect() : null;
+            return {top: r.top, bottom: r.bottom, vh: innerHeight,
+                    closeTop: xr ? xr.top : null, closeBottom: xr ? xr.bottom : null};
+        }""")
+        if box["top"] < 0:
+            failures.append(f"touch: the card starts {abs(round(box['top']))}px above the screen")
+        if box["closeTop"] is None:
+            failures.append("touch: the card has no close control")
+        elif box["closeTop"] < 0 or box["closeBottom"] > box["vh"]:
+            failures.append("touch: the card's close button is off the screen")
+        else:
+            try:                               # and it must actually respond to a finger
+                page.locator(".ev-card-x, .ev-card [data-close]").first.tap(timeout=6000)
+                page.wait_for_timeout(900)
+                # closing sets [hidden]; the node stays in the DOM
+                if page.locator(".ev-card").first.is_visible():
+                    failures.append("touch: tapping close left the card open")
+                else:
+                    notes.append("touch: card opens and closes on a phone")
+            except Exception as e:
+                failures.append(f"touch: close button not tappable ({str(e)[:60]})")
+    except Exception as e:
+        notes.append(f"touch check skipped: {str(e)[:90]}")
+    finally:
+        ctx.close()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default=LIVE)
@@ -190,6 +248,7 @@ def main():
                 for vp in (DESKTOP, PHONE):
                     check_page(ctx, base, target, vp, failures, notes)
             check_price(ctx, base, ".html" if local else "", failures, notes)
+            check_touch(p, base, ".html" if local else "", failures, notes)
         finally:
             browser.close()
 
