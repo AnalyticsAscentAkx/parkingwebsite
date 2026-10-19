@@ -24,3 +24,6 @@ data/fines/raw/
 
 # Experiment log: keep it, it is the record of what we tried
 !data/qa/changes.jsonl
+
+# Geography cache for the coverage study: 1.9 MB, regenerable from PDOK
+scripts/seo/.cache/

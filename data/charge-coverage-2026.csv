@@ -1,0 +1,21 @@
+measure,median_km,p90_km,p95_km,max_km
+any_charge_point,1.0,2.3,2.8,16.8
+fast_charger,3.5,7.4,8.8,28.4
+working_fast_charger,3.6,7.5,8.9,28.8
+
+municipality,km_to_working_fast_charger,type
+Ooststellingwerf,14.7,mainland
+Baarle-Nassau,12.1,mainland
+Westerwolde,11.3,mainland
+Doesburg,9.1,mainland
+Gulpen-Wittem,8.4,mainland
+Bergen (L.),7.9,mainland
+Heusden,7.5,mainland
+De Fryske Marren,7.3,mainland
+Pekela,7.2,mainland
+Zundert,7.1,mainland
+Schiermonnikoog,24.8,wadden island
+Vlieland,24.4,wadden island
+Terschelling,23.9,wadden island
+Ameland,13.2,wadden island
+Texel,3.0,wadden island
