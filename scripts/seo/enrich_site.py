@@ -441,7 +441,13 @@ def do_index():
          "temporalCoverage": YEAR, "dateModified": TODAY, "datePublished": TODAY,
          "spatialCoverage": {"@type": "Place", "name": "Netherlands", "address": {"@type": "PostalAddress", "addressCountry": "NL"}},
          "variableMeasured": ["median_1h_eur", "median_3h_eur", "median_24h_eur", "facilities", "priced", "park_and_ride", "ev_points"],
-         "isBasedOn": {"@type": "Dataset", "name": "Nationaal Parkeer Register (NPR) open data", "license": "https://creativecommons.org/publicdomain/zero/1.0/"},
+         # Google reads this nested source as a Dataset of its own, so a name and
+         # a licence are not enough: without a description it is an invalid item,
+         # which is what Search Console flagged from 8 October 2026.
+         "isBasedOn": {"@type": "Dataset", "name": "Nationaal Parkeer Register (NPR) open data",
+                       "description": "Open tariff and facility records for Dutch public car parks and paid street zones, published nationally and released into the public domain.",
+                       "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+                       "creator": {"@type": "Organization", "name": "Nationaal Parkeer Register"}},
          "distribution": [
              {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{SITE}/data/parking-price-index-2026.csv"},
              {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/data/parking-price-index-2026.json"}]},

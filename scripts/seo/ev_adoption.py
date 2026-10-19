@@ -21,6 +21,17 @@ CACHE = Path(sys.argv[sys.argv.index("--cache") + 1]) if "--cache" in sys.argv e
 CACHE.mkdir(parents=True, exist_ok=True)
 UA = {"User-Agent": "Mozilla/5.0 parkingnetherlands.com research", "Accept": "application/json"}
 
+# Every CBS table this page is built on, as schema.org wants a source stated:
+# a type, a licence and a creator, not just a title. CBS StatLine is CC BY 4.0,
+# which is the licence already recorded for CBS in scripts/compliance/sources.py.
+CBS_SOURCE = {
+    "@type": "Dataset",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": {"@type": "Organization", "name": "Centraal Bureau voor de Statistiek",
+                "url": "https://www.cbs.nl/"},
+}
+
+
 def fetch(url, name, binary=False):
     p = CACHE / name
     if p.exists(): return p.read_bytes() if binary else p.read_text("utf-8")
@@ -47,14 +58,50 @@ def national_fleet():
     return [{"year": int(r["Perioden"][:4]), "cars": r["Totaal_14"], "electric": r["Elektriciteit_18"], "petrol": r["Benzine_15"],
              "diesel": r["Diesel_16"], "company": r["OpNaamBedrijf_22"], "private": r["ParticulierenTotaal_23"]} for r in rows]
 
+# CBS keys carry a position number that CBS renumbers without notice. On
+# 2026-10-19 this build died on "Could not find a property named
+# 'PersonenautoS_171'": the table had moved to PersonenautoS_170, and the old
+# 171 slot now holds "Personenauto's, relatief". Hard-coding the number would
+# have pulled a density figure into a car count and looked plausible. Resolve
+# each key from the table's own field titles instead.
+KERN_WANTED = {
+    "pop": "Totale bevolking",
+    "cars": "Personenauto's",
+    "private_cars": "Personenauto's particulieren",
+}
+
+
+def kern_keys():
+    """Field key for each figure, matched on the exact CBS title."""
+    props = json.loads(fetch(
+        "https://opendata.cbs.nl/ODataApi/odata/70072ned/DataProperties?$format=json",
+        "kern_props.json"))["value"]
+    by_title = {}
+    for pr in props:
+        title = (pr.get("Title") or "").strip()
+        key = pr.get("Key")
+        if key and title and title not in by_title:
+            by_title[title] = key
+    keys = {}
+    for name, title in KERN_WANTED.items():
+        if title not in by_title:
+            raise SystemExit(
+                f"CBS 70072ned no longer publishes a field titled {title!r}. "
+                f"Check the table and update KERN_WANTED.")
+        keys[name] = by_title[title]
+    return keys
+
+
 def kerncijfers():
     out = {}
+    keys = kern_keys()
+    select = ",".join(["RegioS", "Perioden"] + list(keys.values()))
     for p in ("2026JJ00", "2025JJ00"):
-        url = ("https://opendata.cbs.nl/ODataApi/odata/70072ned/TypedDataSet?$format=json&$select=RegioS,Perioden,TotaleBevolking_1,PersonenautoS_171,PersonenautoSParticulieren_173"
+        url = ("https://opendata.cbs.nl/ODataApi/odata/70072ned/TypedDataSet?$format=json&$select=" + select +
                "&$filter=startswith(RegioS,%27GM%27)%20and%20Perioden%20eq%20%27" + p + "%27")
         for r in json.loads(fetch(url, f"kern_{p}.json"))["value"]:
             d = out.setdefault(r["RegioS"].strip(), {})
-            for f, n in (("TotaleBevolking_1", "pop"), ("PersonenautoS_171", "cars"), ("PersonenautoSParticulieren_173", "private_cars")):
+            for n, f in keys.items():
                 if r.get(f) is not None and n not in d: d[n] = r[f]
     return out
 
@@ -226,9 +273,19 @@ def page(lang, rows, fleet, nat, total_share):
          "creator": {"@type": "Organization", "name": "Analytics Ascent", "url": "https://analyticascent.com"}, "publisher": {"@type": "Organization", "name": "Parking Netherlands", "url": SITE},
          "temporalCoverage": str(yr["year"]), "dateModified": TODAY, "datePublished": TODAY, "spatialCoverage": {"@type": "Place", "name": "Netherlands"},
          "variableMeasured": ["share", "ev_estimate", "charge_points", "points_per_100_ev", "points_per_1000_res"],
-         "isBasedOn": [{"@type": "Dataset", "name": "CBS: Aandeel elektrische personenauto's per gemeente, 1 januari 2026", "url": "https://www.cbs.nl/nl-nl/maatwerk/2026/16/aandeel-elektrische-personenauto-s-per-gemeente-1-1-2026"},
-                       {"@type": "Dataset", "name": "CBS 85237NED Personenauto's actief; voertuigkenmerken", "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85237NED"},
-                       {"@type": "Dataset", "name": "CBS 70072ned Regionale kerncijfers Nederland", "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned"}],
+         # Each entry here is parsed by Google as a Dataset in its own right, so a
+         # name alone makes it an invalid item: 6 of them sat in Search Console
+         # from 8 October 2026 as Missing field "description". They are real CBS
+         # tables, so describe them properly rather than half-declaring them.
+         "isBasedOn": [dict(CBS_SOURCE, name="CBS: Aandeel elektrische personenauto's per gemeente, 1 januari 2026",
+                            url="https://www.cbs.nl/nl-nl/maatwerk/2026/aandeel-elektrische-personenauto-s-per-gemeente",
+                            description="Share of battery-electric cars among privately owned passenger cars, per Dutch municipality, measured on 1 January."),
+                       dict(CBS_SOURCE, name="CBS 85237NED Personenauto's actief; voertuigkenmerken",
+                            url="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85237NED",
+                            description="Active passenger cars in the Netherlands by vehicle characteristics, including fuel type, from the national vehicle register."),
+                       dict(CBS_SOURCE, name="CBS 70072ned Regionale kerncijfers Nederland",
+                            url="https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned",
+                            description="Regional key figures for the Netherlands, used here for the resident count behind charge points per 1,000 residents.")],
          "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": SITE + "/data/ev-adoption-2026.csv"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": SITE + "/data/ev-adoption-2026.json"}]},
         {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"}, {"@type": "ListItem", "position": 2, "name": h1, "item": url}]},
         {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]},
