@@ -80,10 +80,19 @@ def stepped(g, hours):
     m = hours*60
     if m <= 1440: return u(m)
     d, r = divmod(m, 1440); return d*d1 + min(u(r), d1)
+UNIT_HOUR = {"en": "/h", "nl": "/uur", "de": "/Std.", "fr": "/h"}
+
+
+def dec_str(lang, v, nd=2):
+    """A decimal point is English. 2.10 m and 2,10 m appeared on the same page."""
+    s = f"{v:.{nd}f}"
+    return s if lang == "en" else s.replace(".", ",")
+
+
 def ordinal(lang, n):
     if lang == "en": return f"{n}{'th' if 10 <= n % 100 <= 20 else {1:'st',2:'nd',3:'rd'}.get(n % 10, 'th')}"
     if lang == "fr": return "1er" if n == 1 else f"{n}e"
-    return f"{n}."  if lang == "de" else str(n)
+    return str(n)   # de: the template says "Platz {n} von {m}"; "24." would double the ordinal
 def hhmm(v): v = min(v, 2400); return f"{v//100:02d}:{v%100:02d}" if v < 2400 else "24:00"
 
 # ------------------------------------------------------------- city stats
@@ -168,7 +177,14 @@ def compare(lang, g):
         parts.append(f'<p class="g-warn"><strong>{esc(T["b_locked"])}.</strong> '
                      f'{esc(T["access_note"])}</p>')
 
-    return "\n".join(parts), faq
+    # Wrapped in the same markers scripts/seo/enrich_site.py uses. Without
+    # them the enrichment pass could not see this section, inserted a second
+    # richer one before the map, and every English garage page shipped the
+    # heading, paragraph and comparison table twice: 323 of 324 pages and
+    # 57,932 duplicated words. With the markers, the enricher replaces this
+    # block in place instead of adding to it. On nl/de/fr, which the enricher
+    # does not process, they are inert comments.
+    return "<!-- compare:start -->\n" + "\n".join(parts) + "\n<!-- compare:end -->", faq
 
 def hours_block(lang, g):
     w = g.get("windows")
@@ -320,7 +336,7 @@ def page(lang, g):
     facts = ""
     if g.get("capacity"): facts += f'<tr><td>{T["f_capacity"]}</td><td class="num">{T["f_spaces"].format(n=num(lang, g["capacity"]))}</td></tr>'
     if g.get("ev_points") is not None: facts += f'<tr><td>{T["f_ev"]}</td><td class="num">{g["ev_points"] or T["f_none"]}</td></tr>'
-    if g.get("max_height_cm"): facts += f'<tr><td>{T["f_height"]}</td><td class="num">{g["max_height_cm"]/100:.2f} m</td></tr>'
+    if g.get("max_height_cm"): facts += f'<tr><td>{T["f_height"]}</td><td class="num">{dec_str(lang, g["max_height_cm"]/100)} m</td></tr>'
     # Opening behaviour, from PARKING OPEN and PARKING TOEGANG in the register.
     # Only stated where the register actually says so: an unmatched garage gets
     # no row, because "we do not know" and "you can leave whenever" must not
@@ -336,7 +352,7 @@ def page(lang, g):
         facts += f'<tr><td>{T["f_entry"]}</td><td class="num">{esc(eh)}</td></tr>'
     facts += f'<tr><td>{T["f_type"]}</td><td>{T["f_type_pr"] if g.get("is_pr") else T["f_type_garage"]}</td></tr><tr><td>{T["f_coords"]}</td><td class="num">{g["lat"]:.5f}, {g["lng"]:.5f}</td></tr><tr><td>{T["f_code"]}</td><td class="num">{esc(g["areaid"])}</td></tr>'
     nearby = sorted([o for o in STATS[city]["all"] if o["slug"] != g["slug"]], key=lambda o: hav(g, o))[:5]
-    near_html = "".join(f'<tr><td><a href="{garage_url(lang, n["slug"])}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short(n))}</a></td><td class="num">{hav(g, n)*1000:.0f} m</td><td class="price">{(M(n["rate_hr"]) + "/h") if n.get("rate_hr") else "-"}</td></tr>' for n in nearby)
+    near_html = "".join(f'<tr><td><a href="{garage_url(lang, n["slug"])}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short(n))}</a></td><td class="num">{hav(g, n)*1000:.0f} m</td><td class="price">{(M(n["rate_hr"]) + UNIT_HOUR[lang]) if n.get("rate_hr") else "-"}</td></tr>' for n in nearby)
     calc = ""
     if has and not free:
         dec = "." if lang == "en" else ","

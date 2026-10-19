@@ -35,11 +35,15 @@ def city_url(lang, slug, country=HOME_COUNTRY):
 def garage_url(lang, slug): return f"{PREFIX[lang]}/garage/{slug}"
 
 def money(lang, v):
+    """German and French put the symbol after the amount (DIN 5008 / French
+    convention). Writing "€8,05" on a German page next to hand-written
+    "82,00 €" in the same paragraph is the clearest machine-translation tell
+    there is, and both appeared on every city page."""
     if v is None: return "n/a"
     s = f"{v:,.2f}"
     if lang == "en": return "€" + s
     s = s.replace(",", "X").replace(".", ",").replace("X", ".")
-    return ("€" + s) if lang != "fr" else (s + " €")
+    return s + "\u00a0€" if lang in ("de", "fr") else "€" + s
 
 def num(lang, v):
     if v is None: return "n/a"
@@ -47,9 +51,19 @@ def num(lang, v):
     if lang == "en": return s
     return s.replace(",", ".") if lang != "fr" else s.replace(",", " ")
 
+def date_local(lang, iso):
+    """ISO dates read as a machine stamp in German, Dutch and French prose."""
+    try: y, m, d = iso.split("-")
+    except Exception: return iso
+    if lang == "en": return iso
+    return f"{int(d):02d}.{int(m):02d}.{y}" if lang in ("de", "nl") else f"{int(d):02d}/{int(m):02d}/{y}"
+
+
 def pct(lang, v, d=0):
     s = f"{v:.{d}f}%"
-    return s if lang == "en" else s.replace(".", ",")
+    if lang == "en": return s
+    s = s.replace(".", ",")
+    return s.replace("%", "\u00a0%") if lang in ("de", "fr") else s
 
 S = {
 "en": dict(
@@ -151,14 +165,14 @@ S = {
   home="Start", parking_in="Parken {city}", garage_dir="Parkhaus-Verzeichnis",
   g_title="{name}, {city}: Parkgebühren und Infos {year}",
   g_suffix=", {city}: Parkgebühren {year}",
-  g_desc_paid="Parken im {name} in {city} kostet {h1} für 1 Stunde, {h3} für 3 Stunden und {day} für 24 Stunden (offizieller Tarif {year}). Rang in der Stadt, Alternativen und Laden in der Nähe.",
+  g_desc_paid="Parken bei {name} in {city} kostet {h1} für 1 Stunde, {h3} für 3 Stunden und {day} für 24 Stunden (offizieller Tarif {year}). Rang in der Stadt, Alternativen und Laden in der Nähe.",
   g_desc_free="{name} in {city} ist laut nationalem Parkregister kostenlos. Details, Alternativen und Laden in der Nähe.",
   g_desc_none="{name} ist eine registrierte Parkeinrichtung in {city}; der Betreiber veröffentlicht keinen Tarif im nationalen Parkregister. Bezahlte Alternativen und Laden in der Nähe.",
   g_sub_pr="P+R-Platz in {city} · im nationalen Parkregister geführt", g_sub_garage="Parkeinrichtung in {city} · im nationalen Parkregister geführt",
   btn_directions="Route", btn_compare="In der Nähe vergleichen", btn_guide="Parkführer {city}", btn_operator="Website des Betreibers", btn_charge="Hier laden: {n} Ladepunkt(e)", btn_phone="Aufs Handy schicken",
   qr_hint="Mit der Handykamera scannen, um dieses Parkhaus mit Route zu öffnen.",
   h_rates="Parkgebühren", h_facts="Angaben zur Einrichtung", h_hours="Gebührenpflichtige Zeiten", h_compare="So steht {name} in {city} da", h_nearby="Alternativen in der Nähe", h_faq="Fragen",
-  price_paid="Parken im {name} in {city} kostet {h1} für 1 Stunde, {h3} für 3 Stunden und {day} für 24 Stunden (offizieller Tarif {year} aus dem nationalen Parkregister).",
+  price_paid="Parken bei {name} in {city} kostet {h1} für 1 Stunde, {h3} für 3 Stunden und {day} für 24 Stunden (offizieller Tarif {year} aus dem nationalen Parkregister).",
   price_free="{name} in {city} ist laut nationalem Parkregister kostenlos.",
   price_none="{name} ist eine registrierte Parkeinrichtung in {city}; der Betreiber veröffentlicht keine Tarife im nationalen Parkregister. Beschilderung vor Ort beachten.",
   th_stay="Parkdauer", th_tariff="Offizieller Tarif", th_eff="Effektiv pro Stunde", r_1h="1 Stunde", r_3h="3 Stunden", r_24h="24 Stunden",
@@ -185,10 +199,10 @@ S = {
   see_index='Siehe <a href="/parking-price-index#{slug}">{city} im Netherlands Parking Price Index</a>.',
   hours_lead="Gebührenpflichtige Zeiten je Wochentag, wie im Register für diese Einrichtung hinterlegt. Außerhalb dieser Fenster gilt laut Register kein Tarif; Öffnungs- und Schrankenzeiten des Betreibers können trotzdem gelten.",
   th_day="Tag", th_window="Gebührenpflichtig", th_first="Erste Stunde", th_dayrate="24 Stunden", d_mon="Montag", d_tue="Dienstag", d_wed="Mittwoch", d_thu="Donnerstag", d_fri="Freitag", d_sat="Samstag", d_sun="Sonntag", allday="ganztägig", notpaid="gebührenfrei",
-  faq_q_cost="Was kostet Parken im {name} in {city}?", faq_q_where="Wo liegt {name}?", faq_a_where="{name} liegt in {city}, Niederlande, bei den Koordinaten {lat}, {lng}.", faq_a_cap=" Die Einrichtung hat etwa {n} Stellplätze.",
+  faq_q_cost="Was kostet Parken bei {name} in {city}?", faq_q_where="Wo liegt {name}?", faq_a_where="{name} liegt in {city}, Niederlande, bei den Koordinaten {lat}, {lng}.", faq_a_cap=" Die Einrichtung hat etwa {n} Stellplätze.",
   faq_q_cheap="Ist {name} im Vergleich zu anderen Parkhäusern in {city} günstig?", faq_a_cheap="{name} verlangt {h1} für die erste Stunde, Platz {rank} von {n} bezahlten Parkhäusern in {city}. Der Stadtmedian beträgt {medh} pro Stunde und {medd} pro 24 Stunden; dieses Parkhaus liegt {relh}.",
   faq_q_free="Ist {name} wirklich kostenlos?", faq_a_free="Das nationale Parkregister führt für {name} in {city} einen Tarif von 0,00 €. Bedingungen wie eine Höchstparkdauer oder ein Nahverkehrsticket stehen nicht im Register; Beschilderung beachten.",
-  faq_q_flat="Was kostet ein ganzer Tag im {name}?", faq_a_flat="{name} in {city} verlangt laut nationalem Parkregister pauschal {fee} für jede Parkdauer bis 24 Stunden.",
+  faq_q_flat="Was kostet ein ganzer Tag bei {name}?", faq_a_flat="{name} in {city} verlangt laut nationalem Parkregister pauschal {fee} für jede Parkdauer bis 24 Stunden.",
   faq_q_near="Was verlangen Parkhäuser in der Nähe von {name}?",
   source="Quelle: das nationale Parkregister (NPR), CC0 Open Data · Registerstand {snap} · Seite aktualisiert {today} · Fehler gefunden? <a href=\"/about#contact\">Sagen Sie es uns</a>.",
   other_langs="Diese Seite in anderen Sprachen",

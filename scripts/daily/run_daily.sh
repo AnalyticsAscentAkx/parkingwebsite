@@ -130,7 +130,13 @@ git add -A >>"$LOG" 2>&1 || true
 
 # --- 4. freshen sitemap lastmod for changed root pages ----------------------
 step "4. Freshen sitemap for changed pages"
-CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^[a-z0-9-]+\.html$' | sed 's/\.html$//')"
+# This pattern used to be '^[a-z0-9-]+\.html$', which matches root-level
+# English pages and nothing else. Every German, Dutch and French page, and
+# every garage page, failed it, so for those URLs the three steps below never
+# ran: no sitemap lastmod, no live check, and no IndexNow submission. Across
+# 15 logged runs, 89 English URLs had been submitted and not one localized
+# page, ever. Match the locale and garage directories too.
+CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^((de|nl|fr)/)?(garage/)?[a-z0-9-]+\.html$' | sed 's/\.html$//')"
 if [ -n "$CHANGED_SLUGS" ]; then
   TODAY="$(date +%F)" python3 - "$CHANGED_SLUGS" <<'PY' >>"$LOG" 2>&1
 import os, re, sys, pathlib
@@ -138,7 +144,13 @@ today = os.environ["TODAY"]
 slugs = sys.argv[1].split()
 p = pathlib.Path("sitemap.xml"); s = p.read_text("utf-8")
 for slug in slugs:
-    loc = "/" + ("" if slug == "index" else slug)
+    # "de/index" is the url /de/, the same way "index" is /
+    if slug == "index":
+        loc = "/"
+    elif slug.endswith("/index"):
+        loc = "/" + slug[:-len("index")]
+    else:
+        loc = "/" + slug
     s = re.sub(r'(<loc>https://parkingnetherlands\.com'+re.escape(loc)+r'</loc><lastmod>)[0-9-]+',
                r'\g<1>'+today, s)
 p.write_text(s, "utf-8")
