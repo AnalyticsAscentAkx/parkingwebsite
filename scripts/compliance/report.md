@@ -1,6 +1,6 @@
 # Data-licence compliance report
 
-Generated 2026-10-20 by scripts/compliance/audit.py
+Generated 2026-10-21 by scripts/compliance/audit.py
 
 **0 hard findings** across 0 files, **4234 warnings** across 1472 files.
 
