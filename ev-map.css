@@ -796,3 +796,28 @@
     background:var(--paper);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Phones, the full-page map (not the homepage embed): "Price my stop" should
+   open a map, not a strip of one. The header's real height varies (language
+   row, wrapping), so ev-map.js measures it into --ev-nav instead of the
+   guesses above; dvh keeps the bottom out from under Safari's toolbar. The
+   sheet peeks with only the search box; heading and price tiles sit just
+   under it and come up with the sheet. The header's two shortcut buttons
+   are hidden here because the map's own Chargers/Parking switch does that.
+--------------------------------------------------------------------------- */
+@media(max-width:900px){
+  body:has(.ev-app:not(.is-embed)) .nav-mobile-pair{display:none}
+  .ev-app:not(.is-embed){height:calc(100vh - var(--ev-nav));height:calc(100dvh - var(--ev-nav))}
+  .ev-app:not(.is-embed) .ev-phead{display:flex;flex-direction:column}
+  .ev-app:not(.is-embed) .ev-search{order:-1;margin:2px 0 10px}
+  .ev-app:not(.is-embed) .ev-search-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .ev-app:not(.is-embed) .ev-panel{transform:translateY(calc(100% - 112px))}
+  .ev-app:not(.is-embed)[data-sheet="full"] .ev-panel{transform:translateY(0)}
+  .ev-app:not(.is-embed)[data-sheet="hidden"] .ev-panel{transform:translateY(110%)}
+  .ev-app:not(.is-embed) .leaflet-bottom{bottom:112px}
+  /* the taller sheet always covered the legend; keep it covered, not half-shown */
+  .ev-app:not(.is-embed)[data-sheet="peek"] .ev-legend{display:none}
+  .ev-app:not(.is-embed)[data-sheet="hidden"] .leaflet-bottom,
+  .ev-app:not(.is-embed)[data-sheet="full"] .leaflet-bottom{bottom:0}
+}
