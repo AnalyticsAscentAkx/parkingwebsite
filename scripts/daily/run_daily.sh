@@ -79,6 +79,8 @@ if [ -n "${GSC_SA_KEY:-}" ] && [ -f "$REPO/scripts/gsc_agent/gsc_weekly.py" ]; t
     && GSC_PROPERTY="${GSC_PROPERTY:-${GSC_SITE:-sc-domain:parkingnetherlands.com}}" \
        "$GSC_PY" gsc_weekly.py >>"$LOG" 2>&1 ) \
     && log "GSC agent ran" || log "WARN GSC agent failed (continuing)"
+  # the "stops priced" line on the map pages; leaves data/usage.json alone on failure
+  "$GSC_PY" "$REPO/scripts/qa/usage_stat.py" >>"$LOG" 2>&1 || log "WARN usage stat failed (continuing)"
 else
   log "GSC_SA_KEY unset or agent missing, skipping"
 fi

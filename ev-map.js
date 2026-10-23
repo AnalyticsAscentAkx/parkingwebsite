@@ -1952,6 +1952,23 @@
     new MutationObserver(function () { dst.textContent = src.textContent.split('.')[0].split(' ·')[0]; }).observe(src, { childList: true, characterData: true, subtree: true });
   })();
 
+  /* Real use, shown only when there is enough of it to mean something:
+     stops opened and priced in the last four weeks, from GA4 (a floor, since
+     analytics only sees consenting visitors; see scripts/qa/usage_stat.py).
+     Never on the embed, which sits on other people's sites. */
+  var PROOF_MIN = 30;
+  function showProof() {
+    var tiles = document.getElementById('evMeta');
+    if (!tiles || /^\/embed\//.test(location.pathname)) return;
+    fetch('/data/usage.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (u) {
+      if (!u || !(u.stops_priced >= PROOF_MIN)) return;
+      var p = document.createElement('p');
+      p.className = 'ev-proof';
+      p.textContent = 'At least ' + u.stops_priced.toLocaleString('en-GB') + ' stops priced by drivers here in the last ' + u.days + ' days';
+      tiles.parentNode.insertBefore(p, tiles.nextSibling);
+    }).catch(function () {});
+  }
+
   function json(path) {
     return fetch(DATA + path).then(function (r) {
       if (!r.ok) throw new Error(path);
@@ -1960,6 +1977,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    showProof();
     Promise.all([json('/cities.json'), json('/tariffs.json'), json('/meta.json')])
       .then(function (res) {
         cities = res[0]; tariffs = res[1]; meta = res[2];
