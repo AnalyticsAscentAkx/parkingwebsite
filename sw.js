@@ -9,9 +9,11 @@
 
    To retire it, bump VERSION and delete the fetch handler: old caches go on
    activate and the browser picks up the new file within a day. */
-var VERSION = 'v1-20261022';
+var VERSION = 'v2-20261023';
 var CACHE = 'cp-' + VERSION;
-var SHELL = ['/offline.html', '/ev-charging', '/search', '/site.css', '/favicon.svg', '/icons/icon-192.png'];
+/* the extensionless URL: Cloudflare redirects the .html one, and a cached
+   redirect cannot answer a navigation */
+var SHELL = ['/offline', '/ev-charging', '/search', '/site.css', '/favicon.svg', '/icons/icon-192.png'];
 var MAX_ENTRIES = 120;   // pages and data files kept for offline use
 
 self.addEventListener('install', function (e) {
@@ -51,7 +53,7 @@ self.addEventListener('fetch', function (e) {
   }).catch(function () {
     return caches.match(req, { ignoreSearch: req.mode === 'navigate' }).then(function (hit) {
       if (hit) return hit;
-      if (req.mode === 'navigate') return caches.match('/offline.html');
+      if (req.mode === 'navigate') return caches.match('/offline');
       return Response.error();
     });
   }));
