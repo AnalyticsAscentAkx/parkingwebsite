@@ -1,0 +1,24 @@
+{
+  "name": "Charge + Park Netherlands",
+  "short_name": "Charge+Park",
+  "description": "Every public charger and register-listed garage in the Netherlands, priced for your exact stop: charging and parking together.",
+  "id": "/ev-charging",
+  "start_url": "/ev-charging?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0B1120",
+  "lang": "en",
+  "categories": ["navigation", "travel", "utilities"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Price my stop", "url": "/ev-charging?source=app", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Near me", "url": "/ev-charging?q=Near%20me&source=app", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Parking only", "url": "/search?source=app", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
