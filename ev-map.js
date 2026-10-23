@@ -1733,7 +1733,13 @@
        Leaflet CSS) after the map is created, so the first bounds are wrong
        and nothing is drawn until the user zooms. Re-measure once the layout
        has settled, and again whenever the viewport changes. */
-    function settle() { if (!map) return; map.invalidateSize({ animate: false }); refresh(); }
+    /* the map's height is the viewport minus the header, so measure the header */
+    function navH() {
+      var n = document.querySelector('nav');
+      if (n && n.offsetHeight) document.documentElement.style.setProperty('--ev-nav', n.offsetHeight + 'px');
+    }
+    function settle() { if (!map) return; navH(); map.invalidateSize({ animate: false }); refresh(); }
+    navH();
     map.whenReady(function () { setTimeout(settle, 60); setTimeout(settle, 400); });
     window.addEventListener('load', function () { setTimeout(settle, 50); });
     var rsT; window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(settle, 150); });
