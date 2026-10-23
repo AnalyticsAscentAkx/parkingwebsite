@@ -389,3 +389,14 @@
     if (e.matches) shut();
   });
 })();
+
+/* The installable app: register the service worker that keeps the pages
+   you opened working without a connection. Network first, so online
+   visitors always get the live site; see sw.js. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  if (location.hostname !== 'parkingnetherlands.com' && location.hostname !== 'localhost') return;
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+})();

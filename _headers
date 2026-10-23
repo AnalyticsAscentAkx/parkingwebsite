@@ -17,3 +17,13 @@
 # Article figures are reused by Medium, Substack and anyone embedding them
 /img/articles/*
   Access-Control-Allow-Origin: *
+
+# The installable app. The worker must never be served stale, or a fix to it
+# takes a day to reach anyone; the manifest changes rarely.
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=86400
+/icons/*
+  Cache-Control: public, max-age=604800

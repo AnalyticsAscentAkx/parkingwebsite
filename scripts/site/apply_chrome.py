@@ -30,7 +30,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
-CSS_VERSION = "20261022a"
+CSS_VERSION = "20261022b"
 SITE_CSS = (f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">\n<script src="/analytics.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/site.js?v={CSS_VERSION}" defer></script>'
             f'\n<script src="/affiliates.js?v={CSS_VERSION}" defer></script>')
@@ -192,6 +192,19 @@ LANG_NAME = {"en": "English", "nl": "Nederlands", "de": "Deutsch", "fr": "Franç
 ALT_RE = re.compile(r'<link rel="alternate" hreflang="([a-z]{2})" href="([^"]+)"')
 
 
+APP_HEAD = ('<link rel="manifest" href="/manifest.webmanifest">'
+            '<meta name="theme-color" content="#0B1120">'
+            '<meta name="apple-mobile-web-app-title" content="Charge+Park">')
+
+
+def app_head(head: str) -> str:
+    """Make every page installable as the app: manifest plus the browser bar colour."""
+    if 'rel="manifest"' in head:
+        return head
+    m = re.search(r'<link rel="apple-touch-icon"[^>]*>', head) or re.search(r'<link rel="canonical"[^>]*>', head)
+    return (head[: m.end()] + "\n" + APP_HEAD + head[m.end():]) if m else head + "\n" + APP_HEAD
+
+
 def add_lang_line(html: str, url: str) -> str:
     """A crawlable line to this page's other languages, at the foot of the footer.
     hreflang in the head tells Google the pages are twins but is not a link: a
@@ -238,6 +251,7 @@ def apply(html: str, url: str) -> str:
         ins = FONTS + "\n" + SITE_CSS
         head = (head[: m.end()] + "\n" + ins + head[m.end():]) if m else head + "\n" + ins + "\n"
     head = social_head(head, url)
+    head = app_head(head)
     html = head + body
 
     # 3. retire the old palette wherever it was hard-coded
