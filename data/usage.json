@@ -1,8 +1,8 @@
 {
- "stops_priced": 73,
+ "stops_priced": 74,
  "days": 28,
- "from": "2026-09-27",
- "to": "2026-10-24",
- "generated": "2026-10-25",
+ "from": "2026-09-28",
+ "to": "2026-10-25",
+ "generated": "2026-10-26",
  "source": "GA4 select events (a charger or car park opened and priced); consented visitors only; owner traffic excluded"
 }
