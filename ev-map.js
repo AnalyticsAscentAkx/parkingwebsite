@@ -386,6 +386,43 @@
          + 'the sign at the bay is what counts.</div></details>';
   }
 
+  /* The zone's rate the way the parking apps show it: price per hour and the
+     hours it is charged, before any total. A driver reported "you said 10
+     euros, EasyPark said 5.70" for a one hour stop: our 2 hour default total
+     was right but read as the price. The rate is the metered product in force
+     at arrival, else the cheapest metered product the zone sells. */
+  function zoneRate(areaId, at) {
+    var t = tariffs[areaId];
+    if (!t || !t.w || !t.w.length || !t.f) return null;
+    function isMeter(code) { var l = t.f[code]; return !!l && l.length && l[0][2] < 60; }
+    var dow = at.getDay() === 0 ? 7 : at.getDay(), minute = at.getHours() * 60 + at.getMinutes();
+    var now = null, any = null, byDay = {};
+    for (var i = 0; i < t.w.length; i++) {
+      var w = t.w[i];
+      if (!isMeter(w[3])) continue;
+      var rate = ladderCost(t.f[w[3]], 60);
+      if (rate === 0) continue;
+      (byDay[w[0]] = byDay[w[0]] || []).push(min2hhmm(w[1]) + '-' + min2hhmm(w[2]));
+      if (any === null || rate < any) any = rate;
+      if (w[0] === dow && minute >= w[1] && minute < w[2] && (now === null || rate < now)) now = rate;
+    }
+    if (any === null) return null;
+    var runs = [], run = null;
+    for (var d = 1; d <= 7; d++) {
+      var l = (byDay[d] || []).sort().join(', ');
+      if (run && run.l === l) { run.to = d; continue; }
+      if (run && run.l) runs.push(run);
+      run = { from: d, to: d, l: l };
+    }
+    if (run && run.l) runs.push(run);
+    return {
+      rate: now !== null ? now : any,
+      hours: runs.map(function (r) {
+        return (r.from === r.to ? DOW_SHORT[r.from] : DOW_SHORT[r.from] + ' to ' + DOW_SHORT[r.to]) + ' ' + r.l;
+      }).join(' · ')
+    };
+  }
+
   function min2hhmm(m) {
     m = Math.max(0, Math.min(1440, m));
     if (m === 1440) return '24:00';
@@ -954,8 +991,12 @@
     if (p && p.charge != null) lines += row('Charging, ' + p.kwh + ' kWh at ' + money(st[PPK]) + '/kWh' + (st[SRC] ? ' (' + srcNote(st, true) + ')' : ''), money(p.charge), ppkGrade(st[PPK]));
     else lines += row('Charging', 'Price not published', 'none');
     if (p && p.fee) lines += row('Connection fee, once for the session', money(p.fee), 'none');
-    if (p && p.park != null) lines += row('Parking, ' + hhmm(w.a) + ' to ' + hhmm(w.l), p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
-    else lines += row('Parking', 'No paid zone at this spot', 'none');
+    var zr = st[AREA] ? zoneRate(st[AREA], w.a) : null;
+    if (zr) lines += row('Street parking rate, paid ' + zr.hours,money(zr.rate) + ' per hour', 'none');
+    if (p && p.park != null) lines += row('Parking for your stay, ' + hhmm(w.a) + ' to ' + hhmm(w.l) +
+      (zr && p.park > 0 ? ' (' + stopLabel(w) + ' at ' + money(zr.rate) + '/h)' : ''),
+      p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
+    else if (!zr) lines += row('Parking', 'No paid zone at this spot', 'none');
     card.innerHTML =
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(st[NAME]) + '</div>' +
