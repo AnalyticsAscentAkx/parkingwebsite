@@ -46,6 +46,9 @@ Full 28-day judgement for all four: 2026-11-02.
 - Expected: position 20 -> 12-15. At ~500 impressions/28d, a click change
   under ~10 will be noise.
 - Judge on: 2026-11-19.
+- 2026-10-28: ParkBee added mid-test (table row, pick card, FAQ + schema;
+  title and meta unchanged), on the owner's request for its affiliate value.
+  Treat a position move after this date as the combined effect.
 
 ### Held for a later cycle (ranked)
 1. FCP ~4 s on every top landing page in Lighthouse mobile (home LCP 9.3 s,
