@@ -377,3 +377,31 @@
 {"day": "2026-10-29", "slug": "ubitricity-storing", "operator": "Ubitricity", "down": 56, "total": 4128, "pct": 1.4, "national": 1.8}
 {"day": "2026-10-29", "slug": "vattenfall-incharge-storing", "operator": "Vattenfall InCharge", "down": 461, "total": 50153, "pct": 0.9, "national": 1.8}
 {"day": "2026-10-29", "slug": "we-drive-solar-storing", "operator": "We Drive Solar", "down": 9, "total": 427, "pct": 2.1, "national": 2.0}
+{"day": "2026-10-31", "slug": "50five-storing", "operator": "50five", "down": 150, "total": 14093, "pct": 1.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "allego-storing", "operator": "Allego", "down": 170, "total": 18622, "pct": 0.9, "national": 1.8}
+{"day": "2026-10-31", "slug": "bp-pulse-storing", "operator": "bp pulse", "down": 340, "total": 424, "pct": 80.2, "national": 2.0}
+{"day": "2026-10-31", "slug": "chargepoint-storing", "operator": "ChargePoint", "down": 2, "total": 538, "pct": 0.4, "national": 1.8}
+{"day": "2026-10-31", "slug": "daen-mobility-storing", "operator": "DAEN Mobility", "down": 164, "total": 987, "pct": 16.6, "national": 1.8}
+{"day": "2026-10-31", "slug": "den-hartog-charging-b-v-storing", "operator": "Den Hartog Charging B.V.", "down": 6, "total": 570, "pct": 1.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "e-flux-by-road-storing", "operator": "E-Flux by Road", "down": 407, "total": 15301, "pct": 2.7, "national": 1.8}
+{"day": "2026-10-31", "slug": "e-voltt-storing", "operator": "e-VOLTT", "down": 0, "total": 625, "pct": 0.0, "national": 1.8}
+{"day": "2026-10-31", "slug": "eneco-storing", "operator": "Eneco", "down": 93, "total": 8606, "pct": 1.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "enviem-storing", "operator": "Enviem", "down": 1, "total": 537, "pct": 0.2, "national": 1.8}
+{"day": "2026-10-31", "slug": "equans-storing", "operator": "EQUANS ", "down": 114, "total": 25438, "pct": 0.4, "national": 1.8}
+{"day": "2026-10-31", "slug": "equans-velian-storing", "operator": "EQUANS (Velian)", "down": 5, "total": 836, "pct": 0.6, "national": 1.6}
+{"day": "2026-10-31", "slug": "fastned-storing", "operator": "Fastned", "down": 14, "total": 1227, "pct": 1.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "heijmans-storing", "operator": "Heijmans", "down": 1, "total": 771, "pct": 0.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "ip-charging-storing", "operator": "IP Charging", "down": 0, "total": 1003, "pct": 0.0, "national": 1.8}
+{"day": "2026-10-31", "slug": "laadnet-storing", "operator": "Laadnet", "down": 488, "total": 5905, "pct": 8.3, "national": 1.8}
+{"day": "2026-10-31", "slug": "opcharge-storing", "operator": "Opcharge", "down": 45, "total": 2086, "pct": 2.2, "national": 1.8}
+{"day": "2026-10-31", "slug": "pluq-storing", "operator": "Pluq", "down": 66, "total": 2123, "pct": 3.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "q-park-netherlands-storing", "operator": "Q-Park Netherlands", "down": 9, "total": 1986, "pct": 0.5, "national": 1.8}
+{"day": "2026-10-31", "slug": "qwello-benelux-bv-storing", "operator": "Qwello Benelux BV", "down": 213, "total": 12867, "pct": 1.7, "national": 1.8}
+{"day": "2026-10-31", "slug": "shell-recharge-storing", "operator": "Shell Recharge", "down": 9, "total": 520, "pct": 1.7, "national": 1.8}
+{"day": "2026-10-31", "slug": "spirii-storing", "operator": "Spirii", "down": 13, "total": 396, "pct": 3.3, "national": 1.6}
+{"day": "2026-10-31", "slug": "stellapower-storing", "operator": "StellaPower®", "down": 5, "total": 460, "pct": 1.1, "national": 1.8}
+{"day": "2026-10-31", "slug": "tesla-storing", "operator": "Tesla", "down": 26, "total": 940, "pct": 2.8, "national": 1.8}
+{"day": "2026-10-31", "slug": "totalenergies-storing", "operator": "TotalEnergies", "down": 287, "total": 19887, "pct": 1.4, "national": 1.8}
+{"day": "2026-10-31", "slug": "ubitricity-storing", "operator": "Ubitricity", "down": 55, "total": 4045, "pct": 1.4, "national": 1.8}
+{"day": "2026-10-31", "slug": "vattenfall-incharge-storing", "operator": "Vattenfall InCharge", "down": 452, "total": 50211, "pct": 0.9, "national": 1.8}
+{"day": "2026-10-31", "slug": "we-drive-solar-storing", "operator": "We Drive Solar", "down": 9, "total": 427, "pct": 2.1, "national": 2.0}
