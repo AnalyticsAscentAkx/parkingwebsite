@@ -263,6 +263,11 @@ PY
   else
     log "no IndexNow key file, skipping ping"
   fi
+  # Google ignores IndexNow; a sitemap resubmission is its supported signal.
+  GSC_PY="$REPO/scripts/gsc_agent/.venv/bin/python"
+  [ -x "$GSC_PY" ] || GSC_PY=python3
+  "$GSC_PY" "$REPO/scripts/gsc_agent/submit_sitemap.py" >>"$LOG" 2>&1 \
+    || log "WARN Google sitemap resubmission failed (continuing)"
 fi
 
 log "###### DONE $(date) ######"
