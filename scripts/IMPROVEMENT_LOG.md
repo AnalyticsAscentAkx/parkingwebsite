@@ -88,7 +88,7 @@ parking netherlands" (6.2), "free parking (near|in) amsterdam" (9-16).
 
 ### Shipped
 **/free-parking Amsterdam section corrected** (fix/free-parking-amsterdam-2026-11-09)
-- It called P+R (EUR 6/day) a free option and missed that 22 of 39 metered
+- It called P+R (EUR 6/day) a free option and missed that 16 of 45 paid
   Amsterdam zones are free on Sunday (register). Now says both, links the
   street tariff map and /amsterdam-cheap-parking.
 - Metric: position for "free parking amsterdam" (16.2) and "free parking in
