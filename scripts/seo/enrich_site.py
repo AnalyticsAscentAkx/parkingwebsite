@@ -601,6 +601,12 @@ def do_sitemap():
         if rel.endswith("/index.html"): u = f"{SITE}/{rel[:-len('index.html')]}"
         elif rel == "index.html": continue
         else: u = f"{SITE}/{rel[:-5]}"
+        # A noindex page in the sitemap is a submitted URL Google must exclude:
+        # /offline (the app's fallback) got in this way and Search Console
+        # flagged it. Keep such pages out, and take them out if already in.
+        if re.search(r'<meta[^>]+name="robots"[^>]+noindex', p.read_text("utf-8", "ignore")[:4000], re.I):
+            sm2 = re.sub(r"\s*<url>\s*<loc>" + re.escape(u) + r"/?</loc>.*?</url>", "", sm2, flags=re.S)
+            continue
         if u not in have and (u.rstrip("/") + "/") not in have and u.rstrip("/") not in have: add.append(u)
     for u in add:
         sm2 = sm2.replace("</urlset>", f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>")
