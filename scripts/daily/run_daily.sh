@@ -270,4 +270,11 @@ PY
     || log "WARN Google sitemap resubmission failed (continuing)"
 fi
 
+# --- 7. index agent: every page changed in the last 2 days, however it changed
+# Added 2026-11-09. Step 6 only covers pages this run rebuilt, so pages that
+# arrived by pull request (translations, new guides) were never submitted.
+step "7. Index submit (IndexNow + Google sitemap)"
+python3 "$REPO/scripts/seo/submit_index.py" --days 2 >>"$LOG" 2>&1 \
+  || log "WARN index submit failed (continuing)"
+
 log "###### DONE $(date) ######"
