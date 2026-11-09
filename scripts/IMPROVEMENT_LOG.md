@@ -115,3 +115,24 @@ parking netherlands" (6.2), "free parking (near|in) amsterdam" (9-16).
   (0.32% CTR). EN control 198 pages, 4,142 impressions, 35 clicks (0.85%).
 - Expected: NL CTR 0.32% -> 0.6%+, i.e. ~20 extra clicks per 28 days.
 - Judge on: 2026-11-30 (21 days, titles need a recrawl first).
+
+## Cycle 2026-11-09 (second batch)
+
+### Shipped
+**Cheap parking Amsterdam pair** (PR #18, live 2026-11-09)
+- /de/guenstig-parken-amsterdam (new) + /amsterdam-cheap-parking (was a 301
+  Google never processed; now a real page), hreflang pair.
+- Baseline (90d to 2026-11-06): German "günstig parken amsterdam" cluster
+  2,192 impressions, 1 click, position ~73; English cheap cluster 402
+  impressions, 2 clicks, position ~46-52.
+- Metric: position and clicks for both clusters. Judge on 2026-12-07.
+
+**German and French versions of /free-parking and /parking-apps**
+(feat/translations-de-fr-2026-11-09)
+- 4 new pages, hreflang en/de/fr, German and French nav now link them.
+- Why: in 90 days French clicks went 2 -> 48 and German 7 -> 74, all from
+  localized pages; both pages had no twin. "parking gratuit" already shows.
+- Metric: clicks and impressions on the 4 URLs (baseline 0) plus DE/FR
+  country clicks to the English originals. Judge on 2026-12-07.
+- Also fixed in the English source: P+R minimum stated as EUR 1 (FAQ) and
+  EUR 6 (meta) while the table says EUR 2.

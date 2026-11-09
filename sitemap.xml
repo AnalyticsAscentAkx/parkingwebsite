@@ -42,8 +42,8 @@
   <url><loc>https://parkingnetherlands.com/search</loc><lastmod>2026-11-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://parkingnetherlands.com/garage/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 <url><loc>https://parkingnetherlands.com/nl/garage/</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-<url><loc>https://parkingnetherlands.com/de/garage/</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-<url><loc>https://parkingnetherlands.com/fr/garage/</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://parkingnetherlands.com/de/garage/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://parkingnetherlands.com/fr/garage/</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/garage/dome-garage-amsterdam</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://parkingnetherlands.com/garage/albert-cuyp-amsterdam</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://parkingnetherlands.com/garage/boven-t-y-amsterdam</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -6523,13 +6523,13 @@
   </url>
   <url>
     <loc>https://parkingnetherlands.com/de/parkstrafe-niederlande</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://parkingnetherlands.com/fr/amende-stationnement-pays-bas</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6593,6 +6593,30 @@
   </url>
   <url>
     <loc>https://parkingnetherlands.com/de/guenstig-parken-amsterdam</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://parkingnetherlands.com/de/kostenlos-parken-niederlande</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://parkingnetherlands.com/de/park-apps-niederlande</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://parkingnetherlands.com/fr/applications-stationnement-pays-bas</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://parkingnetherlands.com/fr/stationnement-gratuit-pays-bas</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
