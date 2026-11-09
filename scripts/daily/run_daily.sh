@@ -198,6 +198,19 @@ else
   log "WARN playwright missing from $SMOKE_PY, render gate skipped"
 fi
 
+# --- 4c. site checks: one check per fault that has reached the live site ------
+#
+# Added 2026-11-09 after a noindex page went into the sitemap and Search
+# Console flagged it. scripts/qa/site_check.py grows by one check every time a
+# fault is found; a HARD finding blocks the publish like the gates above.
+step "4c. Site checks"
+if python3 "$REPO/scripts/qa/site_check.py" >>"$LOG" 2>&1; then
+  log "site checks passed"
+else
+  log "ERROR site checks found hard faults. NOT publishing. See $LOG"
+  BLOCK_PUSH=1
+fi
+
 # --- 5. commit + push -------------------------------------------------------
 step "5. Commit + push"
 if [ "${BLOCK_PUSH:-0}" = "1" ]; then
@@ -205,8 +218,7 @@ if [ "${BLOCK_PUSH:-0}" = "1" ]; then
   PUSHED=0
 elif ! git diff --cached --quiet; then
   MSG="Daily auto-update $(date +%F): $(echo $CHANGED_SLUGS | tr '\n' ' ')"
-  git commit -q -m "$MSG" -m "Automated by scripts/daily/run_daily.sh" \
-    -m "Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>" >>"$LOG" 2>&1
+  git commit -q -m "$MSG" -m "Automated by scripts/daily/run_daily.sh" >>"$LOG" 2>&1
   if git push origin "$BRANCH" >>"$LOG" 2>&1; then
     log "pushed: $MSG"
     PUSHED=1

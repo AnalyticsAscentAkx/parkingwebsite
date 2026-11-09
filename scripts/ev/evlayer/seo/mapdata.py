@@ -284,5 +284,16 @@ def export() -> dict:
         "days_measured": db.one(
             "SELECT COUNT(DISTINCT day) AS d FROM reliability_daily")["d"] or 0,
     }
+    # Freshness, read by scripts/qa/site_check.py. The charging tariffs went
+    # unrefreshed for six weeks (2026-09-28 to 2026-11-09) with nothing saying so.
+    for key, url in (("tariffs_fetched", config.OCPI_TARIFFS_URL),
+                     ("locations_fetched", config.OCPI_LOCATIONS_URL)):
+        r = db.one("SELECT fetched_at FROM fetch_state WHERE url = %s", (url,))
+        meta[key] = r["fetched_at"].isoformat(timespec="minutes") if r and r["fetched_at"] else None
+    # Per operator: stations in the feed in the last 2 days vs ever. TotalEnergies
+    # dropped from 8,926 to 14 in the NDW feed on 2026-11-08.
+    meta["operators"] = {r["cpo"]: [r["live"], r["total"]] for r in db.query(
+        "SELECT COALESCE(cpo, '') AS cpo, COUNT(*) FILTER (WHERE last_seen > now() - interval '2 days') AS live,"
+        " COUNT(*) AS total FROM station GROUP BY 1 HAVING COUNT(*) >= 500")}
     (root / "meta.json").write_text(json.dumps(meta, separators=(",", ":")))
     return meta

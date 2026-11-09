@@ -72,7 +72,7 @@ FOOTER = f"""<footer class="footer"><div class="wrap">
     <div class="foot-col"><h4>Guides</h4><a href="/free-parking">Free parking</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/ev-parking">EV parking</a><a href="/about">About</a></div>
   </div>
   <div class="foot-bottom">
-    <span>© {YEAR} Parking Netherlands — an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span>© {YEAR} Parking Netherlands, an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
     <span class="foot-pill">DATA: NATIONAL PARKING REGISTER · CC0</span>
     <span>Not affiliated with any municipality</span>
   </div>
@@ -114,7 +114,7 @@ def garage_page(g, nearby):
                       f"(official {YEAR} drive-in tariff).")
     else:
         price_line = (f"{name} is a registered parking facility in {city}; its operator does not "
-                      f"publish tariffs in the national parking register — check signage on arrival.")
+                      f"publish tariffs in the national parking register. Check signage on arrival.")
 
     desc = price_line[:158]
 
@@ -178,9 +178,9 @@ def garage_page(g, nearby):
 </tbody></table></div>
 <p style="font-size:12.5px;color:var(--mut);margin-top:10px">Drive-in rates computed from the national parking register (NPR) tariff table for a weekday stay. Operators may offer cheaper pre-booked online rates or apply day caps not encoded in the register.</p>"""
     elif is_free:
-        rows = '<p><span class="badge badge-ok">Free parking</span> — the national register lists a €0.00 tariff for this facility.</p>'
+        rows = '<p><span class="badge badge-ok">Free parking</span>: the national register lists a €0.00 tariff for this facility.</p>'
     else:
-        rows = '<p><span class="badge badge-line">Tariff not published</span> — this operator does not publish rates in the national register. Check signage on arrival, or compare nearby garages below.</p>'
+        rows = '<p><span class="badge badge-line">Tariff not published</span>. This operator does not publish rates in the national register. Check signage on arrival, or compare nearby garages below.</p>'
 
     facts = ""
     if g.get("capacity"):
@@ -196,7 +196,7 @@ def garage_page(g, nearby):
     nearby_html = "".join(
         f'<tr><td><a href="/garage/{n["slug"]}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short_name(n))}</a></td>'
         f'<td class="num">{n["_dist"]*1000:.0f} m</td>'
-        f'<td class="price">{eur(n["rate_hr"]) + "/h" if n.get("rate_hr") else "—"}</td></tr>'
+        f'<td class="price">{eur(n["rate_hr"]) + "/h" if n.get("rate_hr") else "n/a"}</td></tr>'
         for n in nearby)
 
     calc = ""
@@ -224,13 +224,13 @@ def garage_page(g, nearby):
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(name)} Parking — Rates, Capacity &amp; Info ({city} {YEAR})</title>
+<title>{esc(name)} Parking: Rates, Capacity &amp; Info ({city} {YEAR})</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{SITE}/garage/{g['slug']}">
 {HEAD_FONTS}
 <meta property="og:type" content="place">
 <meta property="og:url" content="{SITE}/garage/{g['slug']}">
-<meta property="og:title" content="{esc(name)} — Parking Rates &amp; Info ({city})">
+<meta property="og:title" content="{esc(name)}, Parking Rates &amp; Info ({city})">
 <meta property="og:description" content="{esc(desc)}">
 <meta name="robots" content="index, follow">
 <meta property="og:image" content="https://parkingnetherlands.com/og-image.png">
@@ -315,9 +315,9 @@ def index_page(garages):
         rows = "".join(
             f'<tr><td><a href="/garage/{g["slug"]}" style="font-weight:600;color:var(--ink);text-decoration:none">{esc(short_name(g))}</a>'
             f'{pr_badge if g.get("is_pr") else ""}</td>'
-            f'<td class="price">{eur(g["rate_hr"]) + "/h" if g.get("rate_hr") else "—"}</td>'
-            f'<td class="price">{eur(g["rate_day"]) if g.get("rate_day") is not None else "—"}</td>'
-            f'<td class="num">{g.get("capacity") or "—"}</td></tr>'
+            f'<td class="price">{eur(g["rate_hr"]) + "/h" if g.get("rate_hr") else "n/a"}</td>'
+            f'<td class="price">{eur(g["rate_day"]) if g.get("rate_day") is not None else "n/a"}</td>'
+            f'<td class="num">{g.get("capacity") or "n/a"}</td></tr>'
             for g in gs)
         sections += f"""<h2 id="{city}" style="font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin:40px 0 14px">
 <a href="/{city}" style="color:inherit;text-decoration:none">{CITY_LABEL[city]}</a> <span style="color:var(--mut-2);font-weight:500;font-size:.85em">· {len(gs)} locations</span></h2>
@@ -338,7 +338,7 @@ def index_page(garages):
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parking Garage Directory Netherlands — {len(garages)} Garages, Official {YEAR} Rates</title>
+<title>Parking Garage Directory Netherlands: {len(garages)} Garages, Official {YEAR} Rates</title>
 <meta name="description" content="Every register-listed parking garage and P+R site in {len(by_city)} Dutch cities: official hourly and daily tariffs, capacity and EV charging points. Free and independent.">
 <link rel="canonical" href="{SITE}/garage/">
 <link rel="alternate" hreflang="en" href="{SITE}/garage/"><link rel="alternate" hreflang="nl" href="{SITE}/nl/garage/"><link rel="alternate" hreflang="de" href="{SITE}/de/garage/"><link rel="alternate" hreflang="fr" href="{SITE}/fr/garage/"><link rel="alternate" hreflang="x-default" href="{SITE}/garage/">
@@ -353,7 +353,7 @@ def index_page(garages):
   <header style="padding:44px 0 6px">
     <div class="eyebrow">Garage directory</div>
     <h1 style="font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1.12">Every registered parking garage in the Netherlands</h1>
-    <p style="color:var(--mut);font-size:15.5px;max-width:620px;margin-top:12px">{len(garages)} garages, lots and P+R sites across {len(by_city)} cities, straight from the national parking register — with official drive-in tariffs where published. Prefer searching by address? Use the <a href="/search" style="color:var(--sig);font-weight:600">parking search</a>.</p>
+    <p style="color:var(--mut);font-size:15.5px;max-width:620px;margin-top:12px">{len(garages)} garages, lots and P+R sites across {len(by_city)} cities, straight from the national parking register, with official drive-in tariffs where published. Prefer searching by address? Use the <a href="/search" style="color:var(--sig);font-weight:600">parking search</a>.</p>
   </header>
   {sections}
 </div>

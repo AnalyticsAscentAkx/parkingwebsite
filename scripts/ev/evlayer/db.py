@@ -62,13 +62,17 @@ def copy_rows(table: str, columns: list[str], rows) -> int:
     return n
 
 
-def upsert(table: str, columns: list[str], key: list[str], rows: list[tuple]) -> int:
-    """INSERT .. ON CONFLICT DO UPDATE for the registry/reference tables."""
+def upsert(table: str, columns: list[str], key: list[str], rows: list[tuple],
+           keep: tuple = ()) -> int:
+    """INSERT .. ON CONFLICT DO UPDATE for the registry/reference tables.
+
+    Columns in `keep` are written on insert only (first_seen: overwriting it
+    every run made every station look a day old)."""
     if not rows:
         return 0
     cols = ", ".join(columns)
     ph = ", ".join(["%s"] * len(columns))
-    updates = ", ".join(f"{c} = EXCLUDED.{c}" for c in columns if c not in key)
+    updates = ", ".join(f"{c} = EXCLUDED.{c}" for c in columns if c not in key and c not in keep)
     sql = (
         f"INSERT INTO {table} ({cols}) VALUES ({ph}) "
         f"ON CONFLICT ({', '.join(key)}) DO UPDATE SET {updates}"
