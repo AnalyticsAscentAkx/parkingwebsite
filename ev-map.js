@@ -1008,6 +1008,7 @@
       (zr && p.park > 0 ? ' (' + stopLabel(w) + ' at ' + money(zr.rate) + '/h)' : ''),
       p.park > 0 ? money(p.park) : 'Free in this window', parkGrade(p));
     else if (!zr) lines += row('Parking', 'No paid zone at this spot', 'none');
+    if (amsNightGap(st[AREA], w)) lines += row('Central Amsterdam charges parking 24 hours a day; the national register gives no rate before 09:00, so those hours are not in this estimate', 'Check the sign', 'none');
     card.innerHTML =
       '<button type="button" class="ev-card-x" aria-label="Close">&times;</button>' +
       '<div class="ev-card-name">' + esc(st[NAME]) + '</div>' +
@@ -1080,6 +1081,18 @@
          + '<small>Same ' + Math.round(dur / 360000) / 10 + ' hour stop, later start.</small></div>';
   }
 
+  /* Amsterdam's tariff decision (gmb-2024-175048) levies parking tax 24 hours
+     a day in deeltariefgebieden 1a, 2a and 3a, but the RDW register carries
+     only daytime windows for those zones and no night rate. Rather than
+     invent one, say so when a stay in tariff groups 1 to 3 touches 00:00 to
+     09:00. */
+  function amsNightGap(areaId, w) {
+    if (!areaId || !/^363_T1[123]/.test(areaId)) return false;
+    for (var t = w.a.getTime(), n = 0; t < w.l.getTime() && n < 700; t += 900000, n++) {
+      if (new Date(t).getHours() < 9) return true;
+    }
+    return false;
+  }
   function row(label, value, g) {
     return '<div class="ev-card-row" data-g="' + (g || 'none') + '"><span>' + esc(label) + '</span><b>' + esc(value) + '</b></div>';
   }
