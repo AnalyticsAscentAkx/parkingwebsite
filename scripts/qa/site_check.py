@@ -139,6 +139,83 @@ def descriptions_complete():
     return out
 
 
+def _visible(p):
+    import html as _h
+    s = p.read_text("utf-8", "ignore")
+    body = re.sub(r"<script.*?</script>|<style.*?</style>|<nav\b.*?</nav>|<footer\b.*?</footer>", "", s, flags=re.S)
+    return s, _h.unescape(re.sub(r"<[^>]+>", " ", body))
+
+
+@check("2026-11-09", "old guides used ' - ' as a dash (208 on 11 pages), the same "
+       "machine-written tell as an em dash")
+def no_spaced_hyphen_dashes():
+    hits = []
+    for p in pages():
+        if p.name == "404.html" or "embed" in p.parts:
+            continue
+        n = len(re.findall(r"[A-Za-zÀ-ÿ\)] - [A-Za-zÀ-ÿ\(€]", _visible(p)[1]))
+        if n:
+            hits.append((n, p.relative_to(ROOT).as_posix()))
+    hits.sort(reverse=True)
+    return [("WARN", f"{len(hits)} pages", "spaced hyphen used as a dash, most on: " +
+             ", ".join(f"{f} ({n})" for n, f in hits[:5]))] if hits else []
+
+
+@check("2026-11-09", "meta descriptions shouted ('most cities FREE on Sundays'), a "
+       "low-quality signal next to an AdSense 'low value content' rejection")
+def no_shouting_in_meta():
+    loud_words = {"FREE", "NOT", "NO", "ONLY", "BEST", "NEVER", "ALWAYS", "SAVE", "CHEAP", "NEW", "MUST",
+                  "HUGE", "WARNING", "STOP", "AVOID", "GRATIS", "KOSTENLOS", "GRATUIT"}
+    out = []
+    for p in pages():
+        s = p.read_text("utf-8", "ignore")[:6000]
+        for tag in re.findall(r'<title>([^<]*)</title>|name="description" content="([^"]*)"', s):
+            loud = [w for w in re.findall(r"\b[A-Z]{2,}\b", " ".join(tag)) if w in loud_words]
+            if loud:
+                out.append(("HARD", p.relative_to(ROOT).as_posix(), f"capitals used for emphasis in title/meta: {loud[:3]}"))
+                break
+    return out
+
+
+@check("2026-11-09", "a donation box ('Did we save you money?' + PayPal QR) read as a hobby "
+       "blog; removed from 35 pages")
+def no_donation_box():
+    return [("HARD", p.relative_to(ROOT).as_posix(), "donation box is back")
+            for p in pages() if "Did we save you money" in p.read_text("utf-8", "ignore")]
+
+
+@check("2026-11-09", "pages said 'Last reviewed 9 September 2026' while JSON-LD "
+       "dateModified said 2026-06-19")
+def review_dates_agree():
+    from datetime import datetime
+    out = []
+    for p in pages():
+        s, t = _visible(p)
+        dm = re.search(r'"dateModified":\s*"(\d{4}-\d{2}-\d{2})', s)
+        vis = re.search(r"[Ll]ast (?:reviewed|checked|updated)[^0-9]{0,20}(\d{1,2} [A-Z][a-z]+ 20\d\d)", t)
+        if not (dm and vis):
+            continue
+        try:
+            v = datetime.strptime(vis.group(1), "%d %B %Y").date().isoformat()
+        except ValueError:
+            continue
+        if v != dm.group(1):
+            out.append(("WARN", p.relative_to(ROOT).as_posix(), f"visible {v} vs dateModified {dm.group(1)}"))
+    return out
+
+
+@check("2026-11-09", "removing the donation box left an unclosed <div> on 34 pages; the "
+       "layout below it nested wrongly")
+def divs_balanced():
+    out = []
+    for p in pages():
+        s = re.sub(r"<script.*?</script>|<!--.*?-->", "", p.read_text("utf-8", "ignore"), flags=re.S)
+        d = len(re.findall(r"<div\b", s)) - len(re.findall(r"</div>", s))
+        if d:
+            out.append(("HARD", p.relative_to(ROOT).as_posix(), f"{d:+d} unclosed <div>" if d > 0 else f"{-d} extra </div>"))
+    return out
+
+
 def _age_days(stamp):
     from datetime import datetime, timezone
     return (datetime.now(timezone.utc) - datetime.fromisoformat(stamp)).total_seconds() / 86400

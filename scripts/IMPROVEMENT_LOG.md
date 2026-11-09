@@ -136,3 +136,19 @@ parking netherlands" (6.2), "free parking (near|in) amsterdam" (9-16).
   country clicks to the English originals. Judge on 2026-12-07.
 - Also fixed in the English source: P+R minimum stated as EUR 1 (FAQ) and
   EUR 6 (meta) while the table says EUR 2.
+
+### Consistency pass (fix/consistency-pass-2026-11-09)
+- 11 oldest English guides + 5 city metas + DE/FR free-parking twins edited
+  against one fact sheet (verified figures only). Resolved: Amsterdam P+R
+  count (8/10 -> 11), P+R price (EUR 1 register figure -> EUR 6 after 10:00 /
+  EUR 13 before, fare extra), unverified P+R prices for other cities removed
+  (link /park-and-ride), parking disc "free"/"EUR 2" (price dropped), blue
+  zone duration, "all free on Sunday" claims, Zwolle/Tilburg/Nijmegen street
+  rates, Schiphol P+R maths (96 h cap), fines and foreign-plate wording.
+- Removed the donation box from 35 pages; share heading made plain; footer
+  dash removed; ALL-CAPS and hype words out of titles and metas; review dates
+  and dateModified aligned to 2026-11-09.
+- New site_check rules: spaced-hyphen dashes (warn), capitals in title/meta
+  (hard), donation box (hard), review dates agree (warn), div balance (hard).
+- Expected: no ranking change by itself; reduces quality-rater and AdSense
+  "low value" signals. Judge with the 2026-11-30 cycle (site-wide CTR).

@@ -293,7 +293,12 @@ def do_cities():
         def key(g): return (0, g["rate_hr"], g["rate_day"]) if priced(g) and not is_free(g) else (1, 0, 0) if is_free(g) else (2, 0, 0)
         items = []
         for g in sorted(s["all"], key=key):
-            if priced(g) and not is_free(g): tag = f"{eur(g['rate_hr'])}/h · {eur(g['rate_day'])}/day"
+            # Amsterdam P+R: the register's figures are years old (data/tariff-overrides.json,
+            # amsterdam.nl 2026-10-05); state the real rule instead of a per-hour price.
+            if g.get("is_pr") and city == "amsterdam": tag = "€6.00/24h after 10:00 · €13.00 before"
+            elif priced(g) and not is_free(g) and g["rate_hr"] == 0 and g["rate_day"]:
+                tag = f"not published · {eur(g['rate_day'])}/day"   # a €0.00/h next to a day price misleads
+            elif priced(g) and not is_free(g): tag = f"{eur(g['rate_hr'])}/h · {eur(g['rate_day'])}/day"
             elif is_free(g): tag = "free"
             else: tag = "no published tariff"
             pr = ' <em>P+R</em>' if g.get("is_pr") else ""

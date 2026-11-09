@@ -67,7 +67,7 @@ FOOTER = """<footer class="footer"><div class="wrap">
     <div class="foot-col"><h4>Guides</h4><a href="/free-parking">Free parking</a><a href="/parking-apps">Parking apps</a><a href="/parking-fines">Fines guide</a><a href="/ev-parking">EV parking</a><a href="/about">About</a></div>
   </div>
   <div class="foot-bottom">
-    <span>&copy; 2026 Parking Netherlands - an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
+    <span>&copy; 2026 Parking Netherlands, an <a href="https://analyticascent.com" target="_blank" rel="noopener" style="color:var(--sig)">Analytics Ascent</a> project</span>
     <span class="foot-pill">LAADPUNTDATA: NDW / DOT-NL</span>
     <span>Not affiliated with any operator</span>
   </div>
