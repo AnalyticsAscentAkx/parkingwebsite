@@ -240,7 +240,10 @@
     if (n === 0) {
       /* Once per ten seconds, same as results_shown. Every pan over an empty
          patch used to fire this; one visitor produced 60 of them in a sitting. */
-      if (now - lastZeroAt > 10000) { lastZeroAt = now; track('zero_results', { kind: kind, mode: showMode, reason: emptyReason() }); }
+      /* The reason rides in "kind" (chargers/filters, chargers/empty_area, ...):
+         kind is a registered GA4 dimension and reason is not, so a separate
+         reason parameter was collected and never reportable. */
+      if (now - lastZeroAt > 10000) { lastZeroAt = now; var why = emptyReason(); track('zero_results', { kind: kind + '/' + why, mode: showMode, reason: why }); }
       return;
     }
     if (now - lastResultsAt > 10000) { lastResultsAt = now; track('results_shown', { kind: kind, mode: showMode, count: n }); }
@@ -1102,6 +1105,7 @@
         if (act === 'clear') clearFilters();
         else if (act === 'zoomout') { zoomed = true; map.setZoom(Math.max(map.getZoom() - 2, 7)); }
         else if (act === 'nl') { zoomed = true; map.invalidateSize({ animate: false }); map.fitBounds(NL_BOX, { animate: false }); }
+        else if (act === 'lookup') { var sb = $('#evSearch'); if (sb) searchGo(sb.value); }
         else if (act === 'search') { var s = $('#evSearch'); if (s) { s.focus(); s.select && s.select(); } }
       });
     }
@@ -1441,7 +1445,7 @@
     var first = (isPostcode || hasNumber) ? pdok : photon, second = first === pdok ? photon : pdok;
     first().then(function (hit) { return hit || second(); })
       .then(function (hit) {
-        if (!hit) { searchType(q); return; }
+        if (!hit) { searchType(q, true); return; }
         var ll = hit.ll, f = { properties: { name: hit.name } };
         setOrigin(ll);
         searchPin(ll, f.properties.name || q);
@@ -1449,7 +1453,7 @@
         centreOn(ll, hit.zoom);
         if (narrow()) sheet('peek');
       })
-      .catch(function () { searchType(q); });
+      .catch(function () { searchType(q, true); });
   }
 
   /* --------------------------------------------------------------- init */
@@ -1495,14 +1499,25 @@
     return exact.concat(partial);
   }
 
-  function searchType(q) {
+  /* Typing filters town names; an address or postcode matches no town until
+     Enter sends it to the geocoder. Calling that "no town found" on every
+     keystroke told people typing "Damrak 1" they had failed, and logged 97
+     zero results from 11 visitors in 28 days. Only a lookup that also fails
+     (final) is a real dead end. */
+  function searchType(q, final) {
     q = (q || '').trim();
     if (q.length < 2) { if (map) refresh(); return; }
     var hits = matches(q);
+    if (!hits.length && !final) {
+      listCities(hits, 'Town search', 'Press Enter to look up “' + q + '” as an address, postcode or place.');
+      $('#evRows').innerHTML = empty('Not a town name', 'Addresses, postcodes and places are looked up when you press Enter.',
+        [{ act: 'lookup', label: 'Look up “' + esc(q) + '”', primary: true }]);
+      return;
+    }
     listCities(hits, 'Town search', hits.length
       ? hits.length.toLocaleString() + ' of ' + cities.length.toLocaleString() + ' towns match “' + q + '”'
-      : 'No town found for “' + q + '”. Try another spelling.');
-    if (!hits.length) { track('zero_results', { kind: 'town_search', term: q }); $('#evRows').innerHTML = empty('No matching town', 'Try a broader part of the town name.'); }
+      : 'Nothing found for “' + q + '”. Try another spelling, a postcode or a town.');
+    if (!hits.length) { track('zero_results', { kind: 'town_search/not_found', term: q }); $('#evRows').innerHTML = empty('Nothing found', 'Try a postcode, a street with house number, or a town name.'); }
   }
 
   function searchGo(q) {
