@@ -63,3 +63,22 @@ Full 28-day judgement for all four: 2026-11-02.
    wait for that verdict.
 4. GA4: 6 of 9 users who saw results since the 2026-10-18 fix still hit zero
    results. Too few to act on; recheck at 50+ users.
+
+## Cycle 2026-11-09
+
+### Shipped
+**NL garage titles lead with the price** (feat/nl-garage-titles-2026-11-09)
+- Change: 324 /nl/garage/ pages. Title "{naam} {stad}: €X per uur, kosten
+  2026" (P+R and flat tariffs "per dag"); unpriced or anomalous register rows
+  get "{naam}: parkeren {stad}" so long names are no longer clipped mid-word.
+  Description drops "officieel dagtarief" (the 24 h figure is the register
+  ladder, often hourly x 24); Amsterdam P+R states the 6 / 13 EUR rule and
+  the OV-chipkaart condition.
+- Hypothesis: searches say "kosten" and the result showed no price; at
+  position ~10 the title is what decides the click.
+- Metric: CTR of /nl/garage/. Control: /garage/ and /de/garage/ (titles
+  unchanged).
+- Baseline (28d to 2026-11-06): NL 117 pages, 7,167 impressions, 23 clicks
+  (0.32% CTR). EN control 198 pages, 4,142 impressions, 35 clicks (0.85%).
+- Expected: NL CTR 0.32% -> 0.6%+, i.e. ~20 extra clicks per 28 days.
+- Judge on: 2026-11-30 (21 days, titles need a recrawl first).
