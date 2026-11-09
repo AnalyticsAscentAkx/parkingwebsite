@@ -52,6 +52,9 @@ Full 28-day judgement for all four: 2026-11-02.
    /map 7.6 s). Site-wide cause, not per page.
 2. Charge-card block on /parking-apps, /ev-parking, /ev-charging says the
    national median is EUR 0.37; the site's own figure is EUR 0.41.
+   SHIPPED 2026-10-28 (fix/charge-card-median-2026-10-28): all three now
+   say EUR 0.41 (median per published tariff). 0.37 is the per-station
+   median; the homepage still quotes it per charge point, open.
 3. /de/parkstrafe-niederlande: 237 impressions, pos 8.4, 1.3% CTR (expected
    ~2.5%); title shares the pattern still under test on /parking-fines, so
    wait for that verdict.
