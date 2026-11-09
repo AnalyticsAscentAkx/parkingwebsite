@@ -42,6 +42,7 @@ Everything shown is computed from public registers, not copied from operators or
 - https://parkingnetherlands.com/garage/ : directory of all 323 register-listed garages, each with official tariffs, capacity, EV points and height limit. Also /nl/garage/, /de/garage/ and /fr/garage/.
 - City guides: /amsterdam, /rotterdam, /the-hague, /utrecht, /eindhoven, /groningen, /maastricht, /leiden, /haarlem, /breda, /delft, /nijmegen, /tilburg, /zwolle, /schiphol and /all-cities. Each city has Dutch (/nl/parkeren-<stad>), German (/de/parken-<stadt>) and French (/fr/stationnement-<ville>) versions.
 - Station parking: /parking-amsterdam-centraal, /parking-rotterdam-centraal, /parking-utrecht-centraal, /parking-den-haag-centraal, /parking-eindhoven-station, /parking-groningen-station.
+- https://parkingnetherlands.com/amsterdam-cheap-parking : the cheapest way to park in Amsterdam for a day trip, five options priced with the arithmetic (P+R €6, outer garages from €1.40 per hour, day tickets, street €8.05 per hour). German version: /de/guenstig-parken-amsterdam.
 - Guides: /free-parking, /street-parking, /long-term-parking, /parking-apps, /parkbee, /ev-parking, /parking-tips-netherlands.
 - https://parkingnetherlands.com/belgium-parking : expat guide to parking in Belgium, with a live free-space map for Ghent.
 
