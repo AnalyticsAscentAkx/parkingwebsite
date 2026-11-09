@@ -129,12 +129,15 @@ def export() -> dict:
            FROM parking_tariff WHERE fare_code IS NOT NULL"""):
         windows[w["area_id"]]["w"].append(
             [w["day_of_week"], w["start_min"], w["end_min"], w["fare_code"]])
+    # Amounts keep their decimals: Amsterdam bills per minute at EUR 0.0895 or
+    # 0.13416667, and rounding to cents turned EUR 5.37/h into 5.40 and the
+    # EUR 8.05 centre rate into 7.80. Totals are rounded at display.
     for fp in db.query(
         """SELECT area_id, fare_code, start_min, end_min, step_min, amount
            FROM parking_fare_part ORDER BY area_id, fare_code, start_min"""):
         if fp["area_id"] in windows:
             windows[fp["area_id"]]["f"].setdefault(fp["fare_code"], []).append(
-                [fp["start_min"], fp["end_min"], fp["step_min"], round(float(fp["amount"]), 2)])
+                [fp["start_min"], fp["end_min"], fp["step_min"], round(float(fp["amount"]), 6)])
 
     cells = defaultdict(list)
     cities = defaultdict(lambda: {"n": 0, "e": 0, "lat": 0.0, "lon": 0.0, "up": [], "kw": 0})
