@@ -311,13 +311,10 @@ def render(target):
 </div></section>
 
 <section class="sec sec-wm2"><div class="ct">
-<div class="sc"><div><h2>Did we save you money?</h2><p>This site is 100% free. No paywalls. If our tips helped, a small tip keeps the rates updated.</p><img src="/paypal-qr.png" alt="Scan to support via PayPal" style="width:110px;height:110px;display:block;margin:12px 0;border-radius:8px"></div>
-<a href="https://www.paypal.com/qrcodes/managed/f2e1981d-0f0e-43ca-862f-4393ef678450?utm_source=consweb_more" target="_blank" rel="noopener" class="bc">\U0001f499 Support via PayPal</a></div>
-</div></section>
+</section>
 
 <section class="share-section">
-  <h3>Found this useful? Share it</h3>
-  <p>Help other drivers find cheap parking near {station}.</p>
+  <h3>Share this page</h3>
   <div class="share-row">
     <a href="https://www.facebook.com/sharer/sharer.php?u={url}" target="_blank" rel="noopener" aria-label="Share on Facebook">Facebook</a>
     <a href="https://twitter.com/intent/tweet?url={url}&text=Parking%20near%20{station.replace(' ','%20')}%202026" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">X · Twitter</a>
