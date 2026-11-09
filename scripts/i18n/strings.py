@@ -118,9 +118,17 @@ S = {
   home="Home", parking_in="Parkeren {city}", garage_dir="Garage-overzicht",
   g_title="{name}, {city}: parkeertarieven en info {year}",
   g_suffix=", {city}: parkeertarieven {year}",
-  g_desc_paid="Parkeren bij {name} in {city} kost {h1} voor 1 uur, {h3} voor 3 uur en {day} per 24 uur (officieel dagtarief {year}). Positie in de stad, alternatieven en laden in de buurt.",
+  # 2026-11-09: 7,167 impressions and 23 clicks in 28 days at position ~10.
+  # The searches say "kosten"; the price goes in the title. The other
+  # languages keep the old suffix as the control.
+  g_suffix_paid=" {city}: {h1} per uur, kosten {year}",
+  g_suffix_flat=" {city}: {day} per dag, kosten {year}",
+  g_suffix_none=": parkeren {city}",   # short, so long names are not clipped mid-word
+  g_desc_paid="Parkeren bij {name} in {city} kost {h1} per uur, {h3} voor 3 uur en {day} voor 24 uur volgens het nationaal parkeerregister ({year}). Ligging, alternatieven en laden in de buurt.",
+  # amsterdam.nl, checked 2026-10-05 (data/tariff-overrides.json)
+  g_desc_pr_ams="{name} kost {day} per 24 uur als u na 10:00 inrijdt, €13,00 ervoor. Alleen met in- en uitchecken in het OV op een OV-chipkaart of GVB-kaart. Ligging en laden in de buurt.",
   g_desc_free="{name} in {city} is volgens het nationaal parkeerregister gratis. Details, alternatieven en laden in de buurt.",
-  g_desc_none="{name} is een geregistreerde parkeervoorziening in {city}; de exploitant publiceert geen tarief in het nationaal parkeerregister. Betaalde alternatieven en laden in de buurt.",
+  g_desc_none="{name} in {city} staat in het nationaal parkeerregister, zonder gepubliceerd tarief. Betaalde alternatieven en laden in de buurt.",
   g_sub_pr="P+R-terrein in {city} · opgenomen in het nationaal parkeerregister", g_sub_garage="Parkeervoorziening in {city} · opgenomen in het nationaal parkeerregister",
   btn_directions="Routebeschrijving", btn_compare="Vergelijk in de buurt", btn_guide="Parkeergids {city}", btn_operator="Website exploitant", btn_charge="Hier laden: {n} laadpunt(en)", btn_phone="Naar mijn telefoon",
   qr_hint="Scan met de camera van je telefoon om deze garage met routebeschrijving te openen.",

@@ -128,6 +128,17 @@ def no_model_attribution():
     return out
 
 
+@check("2026-11-09", "NL garage descriptions were cut mid-phrase ('... in het nationaal.') "
+       "by the length fitter")
+def descriptions_complete():
+    out = []
+    for p in pages():
+        m = re.search(r'<meta name="description" content="([^"]*)"', p.read_text("utf-8", "ignore")[:6000])
+        if m and m.group(1) and not re.search(r'[.!?)\d€%]$', m.group(1).strip()):
+            out.append(("WARN", p.relative_to(ROOT).as_posix(), f"description ends mid-phrase: ...{m.group(1)[-40:]}"))
+    return out
+
+
 def _age_days(stamp):
     from datetime import datetime, timezone
     return (datetime.now(timezone.utc) - datetime.fromisoformat(stamp)).total_seconds() / 86400

@@ -97,3 +97,21 @@ parking netherlands" (6.2), "free parking (near|in) amsterdam" (9-16).
   09:00-24:00 windows (plus 00:00-04:00 on some streets) but news reports say
   stadsdeel Centrum is paid around the clock; amsterdam.nl returns 403 to
   scripts. Needs a manual check on amsterdam.nl before touching 8 pages.
+## Cycle 2026-11-09
+
+### Shipped
+**NL garage titles lead with the price** (feat/nl-garage-titles-2026-11-09)
+- Change: 324 /nl/garage/ pages. Title "{naam} {stad}: €X per uur, kosten
+  2026" (P+R and flat tariffs "per dag"); unpriced or anomalous register rows
+  get "{naam}: parkeren {stad}" so long names are no longer clipped mid-word.
+  Description drops "officieel dagtarief" (the 24 h figure is the register
+  ladder, often hourly x 24); Amsterdam P+R states the 6 / 13 EUR rule and
+  the OV-chipkaart condition.
+- Hypothesis: searches say "kosten" and the result showed no price; at
+  position ~10 the title is what decides the click.
+- Metric: CTR of /nl/garage/. Control: /garage/ and /de/garage/ (titles
+  unchanged).
+- Baseline (28d to 2026-11-06): NL 117 pages, 7,167 impressions, 23 clicks
+  (0.32% CTR). EN control 198 pages, 4,142 impressions, 35 clicks (0.85%).
+- Expected: NL CTR 0.32% -> 0.6%+, i.e. ~20 extra clicks per 28 days.
+- Judge on: 2026-11-30 (21 days, titles need a recrawl first).
