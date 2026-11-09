@@ -273,6 +273,6 @@ CHROME = {
 # localized page paths that replace the English href when the file exists
 HREF = {
 "nl": {"/garage/": "/nl/garage/", "/parking-fines": "/nl/parkeerboete", "/laadpalen#storingen": "/laadpalen#storingen"},
-"de": {"/garage/": "/de/garage/", "/parking-fines": "/de/parkstrafe-niederlande"},
-"fr": {"/garage/": "/fr/garage/", "/parking-fines": "/fr/amende-stationnement-pays-bas"},
+"de": {"/garage/": "/de/garage/", "/parking-fines": "/de/parkstrafe-niederlande", "/free-parking": "/de/kostenlos-parken-niederlande", "/parking-apps": "/de/park-apps-niederlande"},
+"fr": {"/garage/": "/fr/garage/", "/parking-fines": "/fr/amende-stationnement-pays-bas", "/free-parking": "/fr/stationnement-gratuit-pays-bas", "/parking-apps": "/fr/applications-stationnement-pays-bas"},
 }
