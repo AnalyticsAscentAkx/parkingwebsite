@@ -528,7 +528,7 @@
 
   function currentWindow() {
     var a = parseStamp($('#evArrive').dataset.stamp) || new Date();
-    var l = parseStamp($('#evLeave').dataset.stamp) || new Date(a.getTime() + 7200000);
+    var l = parseStamp($('#evLeave').dataset.stamp) || new Date(a.getTime() + 3600000);
     return { a: a, l: l, kwh: parseFloat($('#evKwh').value) || 20 };
   }
 
@@ -789,9 +789,9 @@
     singles.forEach(function (st) {
       var p = pills ? priceOf(st, w) : null, m;
       if (isHub(st)) {
-        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0, p ? (p.charge != null ? '\u26A1' + money(p.charge) : '') + (p.park != null ? ' P ' + (p.park === 0 ? 'free' : money(p.park)) : '') : null), riseOnHover: true });
+        m = L.marker([st[LAT], st[LON]], { icon: hubIcon(st[CPO], Math.round(st[KW]), st[DOWN] > 0, p ? (p.charge != null ? '\u26A1' + money(p.charge) : '') + (p.park != null ? ' P ' + parkPin(st, p, w) : '') : null), riseOnHover: true });
       } else if (p) {
-        m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0), riseOnHover: true });
+        m = L.marker([st[LAT], st[LON]], { icon: pinIcon(p, ppkGrade(st[PPK]), st[DOWN] > 0, parkPin(st, p, w)), riseOnHover: true });
       } else {
         m = L.circleMarker([st[LAT], st[LON]], {
           radius: r, weight: 1.5, color: '#fff',
@@ -816,10 +816,18 @@
   /* One number on the pin: what the stop costs. A reader compared us with
      the apps and asked why we split it; the split is one tap away in the card
      and in the tooltip. */
-  function pinIcon(p, g, faulty) {
-    // Two numbers side by side: what the charge costs and what the parking under it costs.
+  /* The parking half of a pin as the apps show it: the zone's hourly rate,
+     not the stay total (the total is in the list and the card). */
+  function parkPin(st, p, w) {
+    if (p.park == null) return '';
+    if (p.park === 0) return 'free';
+    var zr = st[AREA] ? zoneRate(st[AREA], w.a) : null;
+    return zr ? money(zr.rate) + '/h' : money(p.park);
+  }
+  function pinIcon(p, g, faulty, parkText) {
+    // Two numbers side by side: what the charge costs and the hourly parking rate under it.
     var charge = p.charge != null ? '<i class="c" data-g="' + g + '">\u26A1' + money(p.charge) + '</i>' : '';
-    var park = p.park != null ? '<i class="p"' + (p.park === 0 ? ' data-free="1"' : '') + '>P ' + (p.park === 0 ? 'free' : money(p.park)) + '</i>' : '';
+    var park = p.park != null ? '<i class="p"' + (p.park === 0 ? ' data-free="1"' : '') + '>P ' + parkText + '</i>' : '';
     return L.divIcon({
       className: 'ev-pinwrap',
       html: '<span class="ev-pin ev-pin-split" data-g="' + g + (faulty ? '" data-faulty="1' : '') + '">' + (faulty ? '<b>!</b>' : '') + charge + park + '</span>',
@@ -1517,7 +1525,7 @@
     var now = new Date();
     now.setMinutes(Math.floor(now.getMinutes() / 15) * 15, 0, 0);
     var arrive = parseStamp(q.get('arriving')) || now;
-    var leave = parseStamp(q.get('leaving')) || new Date(arrive.getTime() + 7200000);
+    var leave = parseStamp(q.get('leaving')) || new Date(arrive.getTime() + 3600000);
 
     var a = $('#evArrive'), l = $('#evLeave');
     a.value = toInput(arrive); a.dataset.stamp = stamp(arrive);

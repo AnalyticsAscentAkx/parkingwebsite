@@ -85,7 +85,7 @@
 
   function render() {
     var arrive = parseStamp($('#evArrive').dataset.stamp) || new Date();
-    var leave = parseStamp($('#evLeave').dataset.stamp) || new Date(+arrive + 7200000);
+    var leave = parseStamp($('#evLeave').dataset.stamp) || new Date(+arrive + 3600000);
     var kwh = parseFloat($('#evKwh').value) || 20;
 
     var list = rows.slice();
@@ -201,7 +201,7 @@
     var q = new URLSearchParams(location.search);
     var now = new Date(); now.setMinutes(Math.floor(now.getMinutes() / 15) * 15, 0, 0);
     var arrive = parseStamp(q.get('arriving')) || now;
-    var leave = parseStamp(q.get('leaving')) || new Date(+arrive + 7200000);
+    var leave = parseStamp(q.get('leaving')) || new Date(+arrive + 3600000);
 
     var a = $('#evArrive'), l = $('#evLeave');
     a.value = toLocalInput(arrive); a.dataset.stamp = stamp(arrive);

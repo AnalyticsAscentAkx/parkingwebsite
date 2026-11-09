@@ -72,7 +72,7 @@ def session_cost(
             raise HTTPException(400, f"bad timestamp {v!r}, expected YYYYMMDDHHMM")
 
     arrive = parse(arriving, datetime.now())
-    leave = parse(leaving, arrive + timedelta(hours=2))
+    leave = parse(leaving, arrive + timedelta(hours=1))
     if leave <= arrive:
         raise HTTPException(400, "leaving must be after arriving")
     return cost.total_session_cost(evse_id, kwh=kwh, arrive=arrive,
