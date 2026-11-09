@@ -26,8 +26,12 @@ FOOTER = (ROOT / "scripts/site/footer.html").read_text("utf-8").strip()
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+         # media=print + onload: the font CSS no longer blocks the first paint.
+         # Lighthouse mobile 2026-11-09: FCP 4.0 s with this stylesheet first in
+         # the critical chain (a second origin on slow 4G). Text paints in the
+         # fallback font and swaps (display=swap already set).
          '<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800'
-         '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">')
+         '&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'">')
 # Bump the version whenever site.css changes in a way older pages depend on;
 # Cloudflare and browsers cache the old file otherwise.
 CSS_VERSION = "20261022b"
