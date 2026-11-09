@@ -27,3 +27,6 @@ data/fines/raw/
 
 # Geography cache for the coverage study: 1.9 MB, regenerable from PDOK
 scripts/seo/.cache/
+
+# ParkBee landing pages, regenerable by scripts/parkbee/collect.py
+scripts/parkbee/cache/

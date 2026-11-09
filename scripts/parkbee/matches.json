@@ -1,0 +1,154 @@
+[
+ {
+  "slug": "molukkenstraat-amsterdam",
+  "our_name": "Terrein Molukkenstraat (Amsterdam)",
+  "parkbee_id": "abedb95e-76cd-424d-9614-f045cd3bb7e6",
+  "parkbee_name": "Ooster Ringdijk",
+  "metres": 1,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/molukkenstraat"
+ },
+ {
+  "slug": "oranjekwartier-amsterdam",
+  "our_name": "Garage Oranjekwartier (Amsterdam)",
+  "parkbee_id": "2c4496ad-bae7-470e-a2a0-1114c4e1f488",
+  "parkbee_name": "Oranjekwartier",
+  "metres": 1,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/westcord-art-hotel-amsterdam"
+ },
+ {
+  "slug": "station-haarlem",
+  "our_name": "Garage Station (Haarlem)",
+  "parkbee_id": "97e95665-a82d-4103-a04f-f88b4edbe495",
+  "parkbee_name": "Haarlem Station",
+  "metres": 1,
+  "url": "https://parkbee.com/en/city/haarlem/poi/station-haarlem"
+ },
+ {
+  "slug": "osdorpplein-amsterdam",
+  "our_name": "Garage Osdorpplein (Amsterdam)",
+  "parkbee_id": "4c369cf3-6da6-4641-ae28-75d1d967255f",
+  "parkbee_name": "Osdorpplein",
+  "metres": 2,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/osdorpplein"
+ },
+ {
+  "slug": "de-hoofdstad-amsterdam",
+  "our_name": "Parking de Hoofdstad (Amsterdam)",
+  "parkbee_id": "94bf9f42-7608-4cc5-9369-671afc2e115a",
+  "parkbee_name": "Parking de Hoofdstad",
+  "metres": 4,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/paradiso"
+ },
+ {
+  "slug": "artis-amsterdam",
+  "our_name": "Parkeerterrein Artis (Amsterdam)",
+  "parkbee_id": "a4a01371-a3cd-484c-b4d9-27ba2f201a15",
+  "parkbee_name": "Parking Plantage",
+  "metres": 5,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/oosterdok"
+ },
+ {
+  "slug": "p-r-rai-amsterdam",
+  "our_name": "P+R RAI (Amsterdam)",
+  "parkbee_id": "47b0d0c7-ee16-4e24-94f3-aeebf8c00867",
+  "parkbee_name": "RAI Amsterdam",
+  "metres": 12,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/rai-amsterdam"
+ },
+ {
+  "slug": "kruiskade-rotterdam",
+  "our_name": "Garage Kruiskade (Rotterdam)",
+  "parkbee_id": "5129b9aa-d9e2-4f46-acd7-f5c97cc0ef36",
+  "parkbee_name": "Hilton Rotterdam",
+  "metres": 13,
+  "url": "https://parkbee.com/en/city/rotterdam/poi/bijenkorf-rotterdam"
+ },
+ {
+  "slug": "oranjekwartier-amsterdam",
+  "our_name": "Garage Oranjekwartier (Amsterdam)",
+  "parkbee_id": "91dda312-72f4-4843-8be2-0933ef43fc09",
+  "parkbee_name": "Fregelaan Gobel",
+  "metres": 51,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/oranjekwartier"
+ },
+ {
+  "slug": "td-gebouw-eindhoven",
+  "our_name": "Terrein TD gebouw (Eindhoven)",
+  "parkbee_id": "b0c94e6a-d30d-44b3-89c2-64f8e34fcadc",
+  "parkbee_name": "Parking TD - Gebouw",
+  "metres": 54,
+  "url": "https://parkbee.com/en/city/eindhoven/poi/parktheater-eindhoven"
+ },
+ {
+  "slug": "p5-villa-arena-amsterdam",
+  "our_name": "Garage P5 Villa ArenA (Amsterdam)",
+  "parkbee_id": "d7f0888c-da2b-4dd4-808a-fa98baabe4eb",
+  "parkbee_name": "Margriet Toren",
+  "metres": 55,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/afas-live"
+ },
+ {
+  "slug": "parkstraat-the-hague",
+  "our_name": "Garage Parkstraat (Den Haag)",
+  "parkbee_id": "fa9c168d-ac3d-4b55-be06-7b5af4e561ee",
+  "parkbee_name": "Haagsche Hof",
+  "metres": 60,
+  "url": "https://parkbee.com/en/city/den-haag/poi/noordeinde-den-haag"
+ },
+ {
+  "slug": "oranjekwartier-amsterdam",
+  "our_name": "Garage Oranjekwartier (Amsterdam)",
+  "parkbee_id": "ee131413-5d5e-4c1c-aa11-7a64f75e49ca",
+  "parkbee_name": "Fregelaan Rosser",
+  "metres": 93,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/oranjekwartier"
+ },
+ {
+  "slug": "wijnhaven-centrum-the-hague",
+  "our_name": "Garage Wijnhaven Centrum (Den Haag)",
+  "parkbee_id": "3195f530-e54e-44eb-93a8-fc873700372b",
+  "parkbee_name": "Wijnhaven",
+  "metres": 100,
+  "url": "https://parkbee.com/en/city/den-haag/poi/amare"
+ },
+ {
+  "slug": "p10-plaza-arena-amsterdam",
+  "our_name": "Garage P10 Plaza ArenA (Amsterdam)",
+  "parkbee_id": "a4d25303-349d-42f4-aba9-319e6154aa55",
+  "parkbee_name": "Hettenheuvelweg",
+  "metres": 103,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/hoogoorddreef"
+ },
+ {
+  "slug": "molukkenstraat-amsterdam",
+  "our_name": "Terrein Molukkenstraat (Amsterdam)",
+  "parkbee_id": "f079dd88-df7a-4a3b-91be-c1f71bdd05fe",
+  "parkbee_name": "Molukkenstraat 308",
+  "metres": 108,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/molukkenstraat"
+ },
+ {
+  "slug": "westblaak-rotterdam",
+  "our_name": "Garage Westblaak (Rotterdam)",
+  "parkbee_id": "c3d2901c-d379-4132-920c-2058f4923368",
+  "parkbee_name": "Witte de With",
+  "metres": 108,
+  "url": "https://parkbee.com/en/city/rotterdam/poi/witte-de-withstraat"
+ },
+ {
+  "slug": "geelvinck-amsterdam",
+  "our_name": "Garage Geelvinck (Amsterdam)",
+  "parkbee_id": "8cddbc1f-3d29-4384-9942-9673c1186bd2",
+  "parkbee_name": "Kalverstraat",
+  "metres": 119,
+  "url": "https://parkbee.com/en/city/amsterdam/area/amsterdam-centrum"
+ },
+ {
+  "slug": "p6-pathe-arena-uitgaansdriehoek-amsterdam",
+  "our_name": "Garage P6 Pathé ArenA/Uitgaansdriehoek (Amsterdam)",
+  "parkbee_id": "86990c2d-2345-4348-ad31-f791a606d6e7",
+  "parkbee_name": "Centerpoint 1",
+  "metres": 119,
+  "url": "https://parkbee.com/en/city/amsterdam/poi/europlaza"
+ }
+]

@@ -119,7 +119,8 @@ step "3e. Rebuild generated pages (4 languages)"
 ( python3 "$REPO/scripts/i18n/build_garages.py" >>"$LOG" 2>&1 \
   && python3 "$REPO/scripts/i18n/build_cities.py" >>"$LOG" 2>&1 \
   && python3 "$REPO/scripts/i18n/build_home.py" >>"$LOG" 2>&1 \
-  && python3 "$REPO/scripts/seo/enrich_site.py" garages cities_ev index >>"$LOG" 2>&1 ) \
+  && python3 "$REPO/scripts/seo/enrich_site.py" garages cities_ev index >>"$LOG" 2>&1 \
+  && python3 "$REPO/scripts/seo/parkbee_links.py" >>"$LOG" 2>&1 ) \
   && log "generators rebuilt" || log "WARN generators failed (continuing)"
 python3 "$REPO/scripts/seo/afir_scorecard.py" >>"$LOG" 2>&1 || true   # /afir-scorecard from today's NDW feed (charts, data files)
 python3 "$REPO/scripts/alerts/feed_fields_watch.py" >>"$LOG" 2>&1 || true  # drafts a note the day a new AFIR field appears in the feed
