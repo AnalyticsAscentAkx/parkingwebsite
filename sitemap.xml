@@ -20,7 +20,7 @@
   <url><loc>https://parkingnetherlands.com/parking-amsterdam-centraal</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://parkingnetherlands.com/parking-rotterdam-centraal</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://parkingnetherlands.com/parking-utrecht-centraal</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://parkingnetherlands.com/free-parking</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://parkingnetherlands.com/free-parking</loc><lastmod>2026-11-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/ev-parking</loc><lastmod>2026-10-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/about</loc><lastmod>2026-10-22</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://parkingnetherlands.com/schiphol-parking-hack</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -445,13 +445,13 @@
   </url>
   <url>
     <loc>https://parkingnetherlands.com/elektrische-autos-per-gemeente</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://parkingnetherlands.com/ev-adoption</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6585,4 +6585,16 @@
   </url>
   <url><loc>https://parkingnetherlands.com/enviem-storing</loc><lastmod>2026-11-09</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
   <url><loc>https://parkingnetherlands.com/velian-storing</loc><lastmod>2026-11-09</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://parkingnetherlands.com/amsterdam-cheap-parking</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://parkingnetherlands.com/de/guenstig-parken-amsterdam</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

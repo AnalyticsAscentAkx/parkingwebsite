@@ -9,7 +9,6 @@
 /parking-utrecht-centraal.html  /parking-utrecht-centraal  301
 /free-parking.html     /free-parking     301
 /street-parking.html   /street-parking   301
-/amsterdam-cheap-parking.html  /amsterdam  301
 /amsterdam.html        /amsterdam        301
 /rotterdam.html        /rotterdam        301
 /the-hague.html        /the-hague        301
@@ -128,7 +127,6 @@
 # same topic were splitting the signal and Google was ranking the weaker one:
 # 2 inbound links and no hreflang cluster, at position 74-83 on the queries
 # that carry most of this site's demand.
-/amsterdam-cheap-parking  /amsterdam  301
 /laadpaal-hilversum.html      /laadpaal-hilversum      301
 /den-hartog-charging-b-v-storing.html      /den-hartog-charging-b-v-storing      301
 /enviem-storing.html      /enviem-storing      301
