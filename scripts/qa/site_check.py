@@ -128,6 +128,36 @@ def no_model_attribution():
     return out
 
 
+def _age_days(stamp):
+    from datetime import datetime, timezone
+    return (datetime.now(timezone.utc) - datetime.fromisoformat(stamp)).total_seconds() / 86400
+
+
+@check("2026-11-09", "charging tariffs were never refreshed after 2026-09-28: every map "
+       "price was six weeks old (no job called 'evlayer.cli tariffs')")
+def ev_data_fresh():
+    import json
+    meta = json.loads((ROOT / "ev-data" / "meta.json").read_text("utf-8"))
+    out = []
+    for key, limit in (("generated", 2), ("locations_fetched", 2), ("tariffs_fetched", 3)):
+        if key not in meta:
+            continue   # older exports carry only "generated"
+        if not meta[key]:
+            out.append(("WARN", f"ev-data {key}", "never fetched"))
+        elif _age_days(meta[key]) > limit:
+            out.append(("WARN", f"ev-data {key}", f"{_age_days(meta[key]):.0f} days old (limit {limit})"))
+    return out
+
+
+@check("2026-11-09", "TotalEnergies dropped from 8,926 to 14 stations in the NDW feed "
+       "on 2026-11-08; nothing noticed")
+def operator_vanished():
+    import json
+    ops = json.loads((ROOT / "ev-data" / "meta.json").read_text("utf-8")).get("operators") or {}
+    return [("WARN", name or "(no operator)", f"only {live:,} of {total:,} stations in the feed in the last 2 days")
+            for name, (live, total) in ops.items() if live < total * 0.5]
+
+
 @check("2026-09-28", "em dashes read as machine-written; removed site-wide, must not return")
 def no_em_dashes():
     hits = [p.relative_to(ROOT).as_posix() for p in pages() if "—" in p.read_text("utf-8", "ignore")]

@@ -126,7 +126,7 @@ def registry(force: bool = False) -> dict:
               ["station_id", "cpo", "name", "lat", "lon", "address", "postal_code",
                "city", "access_type", "parking_type", "facilities", "last_seen", "first_seen",
                "open_247", "charging_when_closed", "directions"],
-              ["station_id"], stations)
+              ["station_id"], stations, keep=("first_seen",))
 
     # EVSE status diffs become history before the registry row is overwritten.
     prior = {r["evse_id"]: r["status_current"]
