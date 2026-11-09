@@ -63,3 +63,55 @@ Full 28-day judgement for all four: 2026-11-02.
    wait for that verdict.
 4. GA4: 6 of 9 users who saw results since the 2026-10-18 fix still hit zero
    results. Too few to act on; recheck at 50+ users.
+
+## Cycle 2026-11-09 (verdicts)
+
+### Judged, full 28 days (changes of 2026-10-05; before = 09-07..10-04, after = 10-06..11-02)
+
+| Page | Before | After | z | Verdict |
+|---|---|---|---|---|
+| /parking-fines | 16/957, 1.67%, pos 7.3 | 23/2008, 1.15%, pos 8.1 | -1.18 | NEUTRAL (clicks +7, CTR drop not significant) |
+| /free-parking | 14/401, 3.49%, pos 9.8 | 12/1146, 1.05%, pos 11.2 | -3.28 | NEUTRAL (drop tracks /map) |
+| /street-parking | 7/365, 1.92%, pos 15.4 | 9/1313, 0.69%, pos 14.7 | -2.14 | NEUTRAL (drop tracks /map) |
+| /free-parking-sunday | 5/329, 1.52%, pos 7.0 | 6/419, 1.43%, pos 6.4 | -0.10 | NEUTRAL |
+
+Controls: /map 23/200 11.5% -> 36/711 5.06% (z -3.27, pos 11.2 -> 13.0);
+/ 3.30% -> 1.92%; /parking-apps 1.35% -> 2.22% (changed 10-22, not a clean
+control). Impressions grew ~3x at the same or worse positions. No reverts.
+
+Finding: the visible queries behind /street-parking and /free-parking are
+mostly pasted keyword-planner CSV rows ("aangezet, parkeerzones de panne,
+woordgroep, ...", Belgian towns), fired at Google by an outside tool. Not in
+our collector DB. They inflate impressions at position 40-90 and are not
+demand; real queries are "free parking netherlands" (pos 5.6), "blue zone
+parking netherlands" (6.2), "free parking (near|in) amsterdam" (9-16).
+
+### Shipped
+**/free-parking Amsterdam section corrected** (fix/free-parking-amsterdam-2026-11-09)
+- It called P+R (EUR 6/day) a free option and missed that 16 of 45 paid
+  Amsterdam zones are free on Sunday (register). Now says both, links the
+  street tariff map and /amsterdam-cheap-parking.
+- Metric: position for "free parking amsterdam" (16.2) and "free parking in
+  amsterdam" (10.5). Judge on 2026-11-30.
+- Not changed: the site-wide "Amsterdam paid 24/7" claim. The register shows
+  09:00-24:00 windows (plus 00:00-04:00 on some streets) but news reports say
+  stadsdeel Centrum is paid around the clock; amsterdam.nl returns 403 to
+  scripts. Needs a manual check on amsterdam.nl before touching 8 pages.
+## Cycle 2026-11-09
+
+### Shipped
+**NL garage titles lead with the price** (feat/nl-garage-titles-2026-11-09)
+- Change: 324 /nl/garage/ pages. Title "{naam} {stad}: €X per uur, kosten
+  2026" (P+R and flat tariffs "per dag"); unpriced or anomalous register rows
+  get "{naam}: parkeren {stad}" so long names are no longer clipped mid-word.
+  Description drops "officieel dagtarief" (the 24 h figure is the register
+  ladder, often hourly x 24); Amsterdam P+R states the 6 / 13 EUR rule and
+  the OV-chipkaart condition.
+- Hypothesis: searches say "kosten" and the result showed no price; at
+  position ~10 the title is what decides the click.
+- Metric: CTR of /nl/garage/. Control: /garage/ and /de/garage/ (titles
+  unchanged).
+- Baseline (28d to 2026-11-06): NL 117 pages, 7,167 impressions, 23 clicks
+  (0.32% CTR). EN control 198 pages, 4,142 impressions, 35 clicks (0.85%).
+- Expected: NL CTR 0.32% -> 0.6%+, i.e. ~20 extra clicks per 28 days.
+- Judge on: 2026-11-30 (21 days, titles need a recrawl first).

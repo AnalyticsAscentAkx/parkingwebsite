@@ -249,7 +249,9 @@ def page(lang, rows, fleet, nat, total_share):
 
     title = T(f"Electric Cars per Municipality, Netherlands {yr['year']}: EV Share Map", f"Elektrische auto's per gemeente {yr['year']}: kaart, aandeel en laadpunten")
     desc = T(f"{pc(total_share)} of private cars in the Netherlands are electric on 1 January {yr['year']}, from {pc(t1['share'])} in {t1['name']} to {pc(tl['share'])} in {tl['name']}. Map of all 342 municipalities with public charge points per 100 EVs. CBS data, free CSV.",
-             f"Op 1 januari {yr['year']} is {pc(total_share)} van de particuliere personenauto's elektrisch, van {pc(t1['share'])} in {t1['name']} tot {pc(tl['share'])} in {tl['name']}. Kaart van alle 342 gemeenten met laadpunten per 100 EV's. CBS-cijfers, gratis CSV.")[:158]
+             f"Op 1 januari {yr['year']} is {pc(total_share)} van de particuliere personenauto's elektrisch, van {pc(t1['share'])} in {t1['name']} tot {pc(tl['share'])} in {tl['name']}. Kaart van alle 342 gemeenten met laadpunten per 100 EV's. CBS-cijfers, gratis CSV.")
+    if len(desc) > 158:   # cut at a sentence, never mid-word (was a blunt [:158])
+        desc = desc[:desc.rfind(". ", 0, 158) + 1]
     h1 = T(f"Electric cars per municipality, {yr['year']}", f"Elektrische auto's per gemeente, {yr['year']}")
 
     faq = [

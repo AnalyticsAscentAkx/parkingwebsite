@@ -306,7 +306,16 @@ def page(lang, g):
     if free: price_line = T["price_free"].format(name=name, city=cname); desc = T["g_desc_free"].format(name=name, city=cname)
     elif has: price_line = T["price_paid"].format(name=name, city=cname, h1=M(g["rate_hr"]), h3=M(g["rate_3h"]), day=M(g["rate_day"]), year=YEAR); desc = T["g_desc_paid"].format(name=name, city=cname, h1=M(g["rate_hr"]), h3=M(g["rate_3h"]), day=M(g["rate_day"]), year=YEAR)
     else: price_line = T["price_none"].format(name=name, city=cname); desc = T["g_desc_none"].format(name=name, city=cname)
+    if has and not free and g.get("is_pr") and city == "amsterdam" and "g_desc_pr_ams" in T:
+        desc = T["g_desc_pr_ams"].format(name=name, day=M(g["rate_day"]))
     desc = fit_desc(desc)
+    suffix = T["g_suffix"].format(city=cname, year=YEAR)
+    flat = has and (is_flat(g) or (g.get("is_pr") and g["rate_hr"] == g["rate_day"]))
+    if has and not free and "g_suffix_paid" in T and (flat or not is_anom(g)):
+        suffix = T["g_suffix_flat" if flat else "g_suffix_paid"].format(city=cname, year=YEAR, h1=M(g["rate_hr"]), day=M(g["rate_day"]))
+    elif (not has or is_anom(g)) and "g_suffix_none" in T:   # never headline a register price that looks wrong
+        suffix = T["g_suffix_none"].format(city=cname)
+    title = fit_title(g, name, suffix)
     cmp_html, cmp_faq = compare(lang, g)
     facility = {"@context": "https://schema.org", "@type": "ParkingFacility", "name": name, "url": url, "geo": {"@type": "GeoCoordinates", "latitude": g["lat"], "longitude": g["lng"]},
                 "address": {"@type": "PostalAddress", "addressLocality": CITY_LABEL[city], "addressCountry": "NL"}, "publicAccess": True, "isAccessibleForFree": bool(free)}
@@ -373,13 +382,13 @@ var s=document.getElementById('dur');s.addEventListener('input',function(){{docu
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2889604222343187" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(fit_title(g, name, T["g_suffix"].format(city=cname, year=YEAR)))}</title>
+<title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{url}">
 {alts}
 <link rel="stylesheet" href="/site.css">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-<meta property="og:type" content="place"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(fit_title(g, name, T["g_suffix"].format(city=cname, year=YEAR)))}"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:type" content="place"><meta property="og:url" content="{url}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{SITE}/og-image.png">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">{ld}</script>
 <style>
