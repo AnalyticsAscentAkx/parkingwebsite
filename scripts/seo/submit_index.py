@@ -21,12 +21,21 @@ closed). Rerunnable: a URL is sent again only when its lastmod moves.
 import argparse
 import json
 import re
+import ssl
 import subprocess
 import sys
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 from pathlib import Path
+
+# launchd's python3 (/usr/local/bin) has no CA bundle: every HTTPS call failed
+# with CERTIFICATE_VERIFY_FAILED and was logged as "not live (0)" (2026-11-10..12).
+try:
+    import certifi
+    CTX = ssl.create_default_context(cafile=certifi.where())
+except ImportError:
+    CTX = ssl.create_default_context()
 
 ROOT = Path(__file__).resolve().parents[2]
 SITE = "https://parkingnetherlands.com"
@@ -47,7 +56,7 @@ def changed_urls(days):
 def status(url):
     try:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "parkingnetherlands-index-check"})
-        with urllib.request.urlopen(req, timeout=20) as r:
+        with urllib.request.urlopen(req, timeout=20, context=CTX) as r:
             return r.status
     except Exception as e:
         return getattr(e, "code", 0)
@@ -60,7 +69,7 @@ def indexnow(urls):
     req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body, method="POST",
                                  headers={"Content-Type": "application/json; charset=utf-8"})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=30, context=CTX) as r:
             return r.status
     except Exception as e:
         return getattr(e, "code", 0)
@@ -84,6 +93,9 @@ def main():
         if codes[u] != 200:
             print(f"  WARN not live ({codes[u]}): {u}")
     print(f"  {len(live)} live, e.g. {live[:3]}")
+    if not live and all(c == 0 for c in codes.values()):
+        print(f"  ERROR all {len(codes)} checks failed before reaching the site (network or SSL), nothing submitted")
+        return 1
     if a.dry_run or not live:
         return 0
 
