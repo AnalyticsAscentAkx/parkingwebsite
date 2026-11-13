@@ -274,7 +274,9 @@ fi
 # Added 2026-11-09. Step 6 only covers pages this run rebuilt, so pages that
 # arrived by pull request (translations, new guides) were never submitted.
 step "7. Index submit (IndexNow + Google sitemap)"
-python3 "$REPO/scripts/seo/submit_index.py" --days 2 >>"$LOG" 2>&1 \
+IDX_PY="$REPO/scripts/gsc_agent/.venv/bin/python"   # carries certifi
+[ -x "$IDX_PY" ] || IDX_PY=python3
+"$IDX_PY" "$REPO/scripts/seo/submit_index.py" --days 2 >>"$LOG" 2>&1 \
   || log "WARN index submit failed (continuing)"
 
 log "###### DONE $(date) ######"
