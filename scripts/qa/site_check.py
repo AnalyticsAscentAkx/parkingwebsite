@@ -246,6 +246,21 @@ def operator_vanished():
             for name, (live, total) in ops.items() if live < total * 0.5]
 
 
+@check("2026-11-23", "a chrome rebuild re-dated 1,434 of 1,476 sitemap URLs to 2026-11-09; "
+       "/ev-charging and /about stayed uncrawled for eight weeks")
+def lastmod_pileup():
+    from collections import Counter
+    dates = Counter(re.findall(r"<lastmod>([0-9-]{10})", (ROOT / "sitemap.xml").read_text("utf-8")))
+    if not dates:
+        return []
+    day, n = dates.most_common(1)[0]
+    total = sum(dates.values())
+    # WARN, not HARD: a real site-wide content change can do this once.
+    # 0.9 because real content dates already pile up (992 of 1,476 on 2026-10-19)
+    return [("WARN", day, f"{n:,} of {total:,} sitemap URLs share this lastmod; "
+             "check scripts/seo/content_dates.py is dating content, not files")] if n > total * 0.9 else []
+
+
 @check("2026-09-28", "em dashes read as machine-written; removed site-wide, must not return")
 def no_em_dashes():
     hits = [p.relative_to(ROOT).as_posix() for p in pages() if "—" in p.read_text("utf-8", "ignore")]

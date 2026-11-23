@@ -569,7 +569,8 @@ pre.cite{{white-space:pre-wrap;background:#fff;border:1px solid var(--line);bord
     print(f"index: {len(ranked)} cities ranked; top {top['city']} {eur(top['median_1h_eur'])}, low {low['city']} {eur(low['median_1h_eur'])}, spread {spread:.1f}x")
 
 # ---------------------------------------------------------------- sitemap
-def do_sitemap():
+def do_sitemap(reseed=False):
+    import content_dates
     sm_path = ROOT / "sitemap.xml"
     sm = sm_path.read_text("utf-8")
     urls = re.findall(r"<loc>([^<]+)</loc>", sm)
@@ -578,15 +579,17 @@ def do_sitemap():
         if rel == "": return ROOT / "index.html"
         if rel.endswith("/"): return ROOT / (rel + "index.html")
         return ROOT / (rel + ".html")
+    # lastmod is the date the page's own content last changed (content_dates.py),
+    # so a chrome-only rebuild of every page no longer re-dates all of them
+    state = content_dates.load()
+    if reseed or not state:
+        state = content_dates.seed({u: path_for(u) for u in urls if path_for(u).exists()}, TODAY)
     changed = 0
     def fix(m):
         nonlocal changed
         loc = m.group(1); p = path_for(loc)
-        d = git_date(p) if p.exists() else None
-        if not d: return m.group(0)
-        # a file with uncommitted changes gets today's date
-        st = subprocess.run(["git", "status", "--porcelain", "--", str(p)], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-        if st: d = TODAY
+        if not p.exists(): return m.group(0)
+        d = content_dates.lastmod(state, loc, p, TODAY)
         new = f"<loc>{loc}</loc>{m.group(2)}<lastmod>{d}</lastmod>"
         if new != m.group(0): changed += 1
         return new
@@ -616,8 +619,12 @@ def do_sitemap():
     for u in add:
         sm2 = sm2.replace("</urlset>", f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>")
     if add: print("sitemap: added", len(add), "urls, e.g.", add[:3])
+    for u in add:
+        p = path_for(u)
+        if p.exists(): content_dates.lastmod(state, u, p, TODAY)
+    content_dates.save(state)
     sm_path.write_text(sm2, "utf-8")
-    print(f"sitemap: {changed} lastmod values rewritten from git history")
+    print(f"sitemap: {changed} lastmod values changed (content dates)")
 
 if __name__ == "__main__":
     what = sys.argv[1:] or ["garages", "cities", "cities_ev", "index", "sitemap"]
