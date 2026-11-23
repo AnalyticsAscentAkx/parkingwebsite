@@ -59,10 +59,26 @@
     });
     gtag('js', new Date());
     gtag('config', GA4_ID, { anonymize_ip: true, send_page_view: true });
-    var g = document.createElement('script');
-    g.async = true;
-    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + (TAG_LOADER_ID || GA4_ID);
-    document.head.appendChild(g);
+    /* The 196 KB tag waits until the page has loaded, or the first touch,
+       whichever comes first. Fetched at once it competed with the map and
+       cost 3 s of the map's load time on a throttled phone (Lighthouse,
+       2026-11-23). The calls above queue in dataLayer meanwhile, so no
+       page view or event is lost; only a visit that leaves untouched within
+       the first seconds goes uncounted. */
+    var tagLoaded = false;
+    function loadTag() {
+      if (tagLoaded) return;
+      tagLoaded = true;
+      var g = document.createElement('script');
+      g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=' + (TAG_LOADER_ID || GA4_ID);
+      document.head.appendChild(g);
+    }
+    ['pointerdown', 'keydown', 'scroll'].forEach(function (ev) {
+      window.addEventListener(ev, loadTag, { once: true, passive: true });
+    });
+    if (document.readyState === 'complete') setTimeout(loadTag, 1500);
+    else window.addEventListener('load', function () { setTimeout(loadTag, 1500); });
     window.track = function (name, params) { gtag('event', name, params || {}); };
     queue.forEach(function (q) { window.track(q[0], q[1]); });
     queue = [];
