@@ -242,7 +242,8 @@ if [ "${PUSHED:-0}" = "1" ] && [ -n "${CONTENT_SLUGS:-}" ]; then
     url="https://parkingnetherlands.com/$slug"
     ok=0
     for i in $(seq 1 12); do
-      code=$(curl -s -o /dev/null -w "%{http_code}" -L "$url")
+      # --max-time: on 2026-11-23 one request hung for 35 minutes and stalled the run
+      code=$(curl -s --max-time 20 -o /dev/null -w "%{http_code}" -L "$url")
       [ "$code" = "200" ] && { ok=1; break; }
       sleep 15
     done
@@ -260,7 +261,7 @@ print(json.dumps({"host":"parkingnetherlands.com","key":key,
   "keyLocation":f"https://parkingnetherlands.com/{key}.txt","urlList":urls}))
 PY
 )
-    rc=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+    rc=$(curl -s --max-time 60 -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
          -H "Content-Type: application/json" -d "$BODY")
     log "IndexNow ping HTTP $rc for:$URLS"
   else
