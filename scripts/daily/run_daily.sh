@@ -148,6 +148,22 @@ if [ -n "$CHANGED_SLUGS" ]; then
   python3 "$REPO/scripts/seo/enrich_site.py" sitemap >>"$LOG" 2>&1 || true
   git add sitemap.xml scripts/seo/content_dates.json
   log "changed pages: $(echo $CHANGED_SLUGS | tr '\n' ' ')"
+  # Only pages whose content moved go to the live check and IndexNow (step 6).
+  # On 2026-11-23 the file list was 1,984 pages, nearly all of them touched only
+  # by the "Page updated" stamp; 450 had changed content.
+  CONTENT_SLUGS="$(TODAY="$(date +%F)" python3 - $CHANGED_SLUGS <<'PY'
+import os, re
+s = open("sitemap.xml", encoding="utf-8").read()
+fresh = {loc for loc, d in re.findall(r"<loc>https://parkingnetherlands\.com([^<]*)</loc>\s*<lastmod>([^<]{10})", s)
+         if d == os.environ["TODAY"]}
+for slug in __import__("sys").argv[1:]:
+    # "de/index" is the url /de/, the same way "index" is /
+    loc = "/" if slug == "index" else "/" + slug[:-len("index")] if slug.endswith("/index") else "/" + slug
+    if loc in fresh:
+        print(slug)
+PY
+)"
+  log "content changed: $(echo "$CONTENT_SLUGS" | grep -c .) of $(echo "$CHANGED_SLUGS" | grep -c .) changed files"
 else
   log "no page changes staged"
 fi
@@ -219,10 +235,10 @@ else
 fi
 
 # --- 6. verify live + ping IndexNow -----------------------------------------
-if [ "${PUSHED:-0}" = "1" ] && [ -n "$CHANGED_SLUGS" ]; then
+if [ "${PUSHED:-0}" = "1" ] && [ -n "${CONTENT_SLUGS:-}" ]; then
   step "6. Verify live (Cloudflare deploy) + IndexNow"
   URLS=""
-  for slug in $CHANGED_SLUGS; do
+  for slug in $CONTENT_SLUGS; do
     url="https://parkingnetherlands.com/$slug"
     ok=0
     for i in $(seq 1 12); do
