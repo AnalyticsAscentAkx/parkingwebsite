@@ -139,27 +139,14 @@ step "4. Freshen sitemap for changed pages"
 # ran: no sitemap lastmod, no live check, and no IndexNow submission. Across
 # 15 logged runs, 89 English URLs had been submitted and not one localized
 # page, ever. Match the locale and garage directories too.
+#
+# 2026-11-23: this step used to stamp today on every staged page, so a
+# chrome-only rebuild re-dated all 1,476 URLs. lastmod now moves only when a
+# page's own content changes (scripts/seo/content_dates.py).
 CHANGED_SLUGS="$(git diff --cached --name-only 2>/dev/null | grep -E '^((de|nl|fr)/)?(garage/)?[a-z0-9-]+\.html$' | sed 's/\.html$//')"
 if [ -n "$CHANGED_SLUGS" ]; then
-  TODAY="$(date +%F)" python3 - "$CHANGED_SLUGS" <<'PY' >>"$LOG" 2>&1
-import os, re, sys, pathlib
-today = os.environ["TODAY"]
-slugs = sys.argv[1].split()
-p = pathlib.Path("sitemap.xml"); s = p.read_text("utf-8")
-for slug in slugs:
-    # "de/index" is the url /de/, the same way "index" is /
-    if slug == "index":
-        loc = "/"
-    elif slug.endswith("/index"):
-        loc = "/" + slug[:-len("index")]
-    else:
-        loc = "/" + slug
-    s = re.sub(r'(<loc>https://parkingnetherlands\.com'+re.escape(loc)+r'</loc><lastmod>)[0-9-]+',
-               r'\g<1>'+today, s)
-p.write_text(s, "utf-8")
-print("freshened sitemap lastmod for:", ", ".join(slugs))
-PY
-  git add sitemap.xml
+  python3 "$REPO/scripts/seo/enrich_site.py" sitemap >>"$LOG" 2>&1 || true
+  git add sitemap.xml scripts/seo/content_dates.json
   log "changed pages: $(echo $CHANGED_SLUGS | tr '\n' ' ')"
 else
   log "no page changes staged"
