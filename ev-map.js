@@ -1794,14 +1794,9 @@
     box.addEventListener('focus', function () { if (narrow()) sheet('full'); });
     $('#evArea').onclick = function () { $('#evArea').hidden = true; refresh(); };
 
-    var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng')), zoom = parseInt(q.get('zoom'), 10);
-    var start = (isNaN(lat) || isNaN(lng)) ? [52.3731, 4.8926] : [lat, lng];   // Amsterdam unless the link says otherwise
-    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView(start, isNaN(zoom) ? 15 : zoom);
+    var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng'));
+    if (!map) mapFirst();                       // normally already drawn while the data loaded
     if (q.get('kwh')) $('#evKwh').value = q.get('kwh');
-    window.__evMap = map;                       // the mobile tabs resize it
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19
-    }).addTo(map);
     map.on('zoomstart', function () { zoomed = true; });
     map.on('moveend', onMoveEnd);
     updateUrl();
@@ -2046,6 +2041,22 @@
     }).catch(function () {});
   }
 
+  /* The map and its tiles go up as soon as Leaflet is in, before the charger
+     data. The tiles are the largest thing on the page, and they used to wait
+     for all three JSON files: 9.5 s to the map on a throttled phone
+     (Lighthouse, 2026-11-23). boot() adds the pins and handlers later. */
+  function mapFirst() {
+    if (map || !document.getElementById('evmap')) return;
+    var q = new URLSearchParams(location.search);
+    var lat = parseFloat(q.get('lat')), lng = parseFloat(q.get('lng')), zoom = parseInt(q.get('zoom'), 10);
+    var start = (isNaN(lat) || isNaN(lng)) ? [52.3731, 4.8926] : [lat, lng];   // Amsterdam unless the link says otherwise
+    map = L.map('evmap', { scrollWheelZoom: true, preferCanvas: true }).setView(start, isNaN(zoom) ? 15 : zoom);
+    window.__evMap = map;                       // the mobile tabs resize it
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19
+    }).addTo(map);
+  }
+
   function json(path) {
     return fetch(DATA + path).then(function (r) {
       if (!r.ok) throw new Error(path);
@@ -2055,24 +2066,30 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     showProof();
+    // Leaflet loads alongside the data, not after it. Waiting for the three
+    // JSON files first put the map tiles at 6.8 s on a throttled phone
+    // (2026-11-23), and 74% of sessions are on phones.
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    css.onload = function () { if (window.__evMap) setTimeout(function () { window.__evMap.invalidateSize({ animate: false }); }, 30); };
+    document.head.appendChild(css);
+    var leaflet = new Promise(function (resolve, reject) {
+      var js = document.createElement('script');
+      js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      js.onload = resolve;
+      js.onerror = reject;
+      document.head.appendChild(js);
+    });
+    leaflet.then(mapFirst, function () {});  // a failure is reported below, once the data is in
     Promise.all([json('/cities.json'), json('/tariffs.json'), json('/meta.json')])
       .then(function (res) {
         cities = res[0]; tariffs = res[1]; meta = res[2];
         updateMetaNational();
-
-        var css = document.createElement('link');
-        css.rel = 'stylesheet';
-        css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        css.onload = function () { if (window.__evMap) setTimeout(function () { window.__evMap.invalidateSize({ animate: false }); }, 30); };
-        document.head.appendChild(css);
-        var js = document.createElement('script');
-        js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        js.onload = boot;
-        js.onerror = function () {
+        leaflet.then(boot, function () {
           $('#evRows').innerHTML = empty('The map could not load',
             'Check your connection and reload the page.');
-        };
-        document.head.appendChild(js);
+        });
       })
       .catch(function () {
         $('#evRows').innerHTML = empty('Charger data did not load',
