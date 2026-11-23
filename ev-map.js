@@ -1082,7 +1082,7 @@
   }
 
   /* Amsterdam's tariff decision (gmb-2024-175048) levies parking tax 24 hours
-     a day in deeltariefgebieden 1a, 2a and 3a, but the RDW register carries
+     a day in deeltariefgebieden 1a, 2a and 3a, but the national register carries
      only daytime windows for those zones and no night rate. Rather than
      invent one, say so when a stay in tariff groups 1 to 3 touches 00:00 to
      09:00. */
