@@ -15,6 +15,13 @@
 <description>National charge point register snapshot 2026-11-26 11:11 UTC. 85,016 public charge points, 1.6% reported out of order, median price EUR 0.41 per kWh before parking. Live map with parking priced for your stop at https://parkingnetherlands.com/ev-charging.</description>
 </item>
 <item>
+<title>Netherlands Parking Price Index 2026: Garage Rates by City</title>
+<link>https://parkingnetherlands.com/parking-price-index</link>
+<guid isPermaLink="false">https://parkingnetherlands.com/parking-price-index</guid>
+<pubDate>Fri, 27 Nov 2026 06:00:00 +0000</pubDate>
+<description>Median garage parking rates in 14 Dutch cities from 174 register-listed tariffs. Utrecht tops the index at €3.58 an hour, Eindhoven is cheapest at €1.50.</description>
+</item>
+<item>
 <title>Parking Zwolle 2026 - Garages from €1.40/hr, Free Sundays [Map]</title>
 <link>https://parkingnetherlands.com/zwolle</link>
 <guid isPermaLink="false">https://parkingnetherlands.com/zwolle</guid>
@@ -104,13 +111,6 @@
 <guid isPermaLink="false">https://parkingnetherlands.com/pluq-storing</guid>
 <pubDate>Thu, 26 Nov 2026 06:00:00 +0000</pubDate>
 <description>58 van de 2123 openbare Pluq-laadpunten staan nu als buiten gebruik gemeld, 2,7% tegen 2,1% landelijk. Per stad, elk half uur bijgewerkt.</description>
-</item>
-<item>
-<title>Netherlands Parking Price Index 2026: Garage Rates by City</title>
-<link>https://parkingnetherlands.com/parking-price-index</link>
-<guid isPermaLink="false">https://parkingnetherlands.com/parking-price-index</guid>
-<pubDate>Thu, 26 Nov 2026 06:00:00 +0000</pubDate>
-<description>Median garage parking rates in 14 Dutch cities from 174 register-listed tariffs. Utrecht tops the index at €3.58 an hour, Eindhoven is cheapest at €1.50.</description>
 </item>
 <item>
 <title>Opcharge storing: 1,7% buiten gebruik 2026</title>
